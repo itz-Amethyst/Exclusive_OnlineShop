@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SH.Domain", "SH.Domain", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopManagement.Domain", "ShopManagement.Domain\ShopManagement.Domain.csproj", "{AEBDBAA3-F60F-46E5-8D6D-DBF868B53BFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0_Framework", "0_Framework\0_Framework.csproj", "{CAA565BF-2549-4E67-ADFD-E3CE88797608}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{AEBDBAA3-F60F-46E5-8D6D-DBF868B53BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEBDBAA3-F60F-46E5-8D6D-DBF868B53BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEBDBAA3-F60F-46E5-8D6D-DBF868B53BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAA565BF-2549-4E67-ADFD-E3CE88797608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAA565BF-2549-4E67-ADFD-E3CE88797608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAA565BF-2549-4E67-ADFD-E3CE88797608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAA565BF-2549-4E67-ADFD-E3CE88797608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
