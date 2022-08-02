@@ -55,14 +55,14 @@ namespace ShopManagement.Application
             return operation.Succeeded();
         }
 
-        public ProductCategory GetDetails(int id)
+        public EditProductCategory GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _productCategoryRepository.GetDetails(id);
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _productCategoryRepository.Search(searchModel);
         }
     }
 }

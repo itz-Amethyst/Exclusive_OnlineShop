@@ -8,7 +8,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
 
         OperationResult Edit(EditProductCategory command);
 
-        Domain.ProductCategoryAgg.ProductCategory GetDetails(int id);
+        EditProductCategory GetDetails(int id);
 
         List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel);
     }
