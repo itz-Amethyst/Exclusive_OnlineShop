@@ -1,4 +1,6 @@
-﻿namespace ShopManagement.Domain.ProductCategoryAgg
+﻿using System.Linq.Expressions;
+
+namespace ShopManagement.Domain.ProductCategoryAgg
 {
     public interface IProductCategoryRepository
     {
@@ -8,7 +10,7 @@
 
         List<ProductCategory> GetAll();
 
-        bool Exists(string name);
+        bool Exists(Expression<Func<ProductCategory , bool>> expression);
 
         void SaveChanges();
     }

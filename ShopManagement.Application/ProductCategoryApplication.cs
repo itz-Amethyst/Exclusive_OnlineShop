@@ -16,7 +16,7 @@ namespace ShopManagement.Application
         public OperationResult Create(CreateProductCategory command)
         {
             var operation = new OperationResult();
-            if (_productCategoryRepository.Exists(command.Name))
+            if (_productCategoryRepository.Exists(x=>x.Name == command.Name))
             {
                 return operation.Failed("امکان ثبت رکورد تکراری وجود ندارد , لطفا دوباره تلاش کنید");
             }
