@@ -41,9 +41,18 @@ namespace ShopManagement.Application
             {
                 return operation.Failed("رکورد با اطلاعات درخواست شده یافت نشد, لطفا دوباره تلاش کنید");
             }
+            if (_productCategoryRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
+            {
+                return operation.Failed("امکان ثبت رکورد تکراری وجود ندارد , لطفا دوباره تلاش کنید");
+            }
 
+            var slug = command.Slug.Slugify();
+            productCategory.Edit(command.Name, command.Description, command.Picture,
+                command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug);
 
-            productCategory.Edit();
+            _productCategoryRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public ProductCategory GetDetails(int id)
