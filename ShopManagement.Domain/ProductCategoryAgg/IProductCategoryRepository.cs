@@ -9,5 +9,7 @@
         List<ProductCategory> GetAll();
 
         bool Exists(string name);
+
+        void SaveChanges();
     }
 }

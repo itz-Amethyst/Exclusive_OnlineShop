@@ -21,8 +21,14 @@ namespace ShopManagement.Application
                 return operation.Failed("امکان ثبت رکورد تکراری وجود ندارد , لطفا دوباره تلاش کنید");
             }
 
+            var slug = command.Slug.Slugify();
+
             var productCategory = new ProductCategory(command.Name, command.Description, command.Picture,
                 command.PictureAlt, command.PictureTitle, command.Keywords, command.Slug, command.MetaDescription);
+
+            _productCategoryRepository.Create(productCategory);
+            _productCategoryRepository.SaveChanges();
+            return operation.Succeeded();
 
         }
 
