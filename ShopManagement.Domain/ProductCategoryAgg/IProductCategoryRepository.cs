@@ -7,5 +7,7 @@
         ProductCategory GetById(int id);
 
         List<ProductCategory> GetAll();
+
+        bool Exists(string name);
     }
 }
