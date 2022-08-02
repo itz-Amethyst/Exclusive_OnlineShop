@@ -1,4 +1,5 @@
-﻿using ShopManagement.Application.Contracts.ProductCategory;
+﻿using _0_Framework.Application;
+using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Domain.ProductCategoryAgg;
 
 namespace ShopManagement.Application
@@ -12,12 +13,12 @@ namespace ShopManagement.Application
             _productCategoryRepository = productCategoryRepository;
         }
 
-        public void Create(CreateProductCategory command)
+        public OperationResult Create(CreateProductCategory command)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(EditProductCategory command)
+        public OperationResult Edit(EditProductCategory command)
         {
             throw new NotImplementedException();
         }

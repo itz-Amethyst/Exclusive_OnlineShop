@@ -1,10 +1,12 @@
-﻿namespace ShopManagement.Application.Contracts.ProductCategory
+﻿using _0_Framework.Application;
+
+namespace ShopManagement.Application.Contracts.ProductCategory
 {
     public interface IProductCategoryApplication
     {
-        void Create(CreateProductCategory command);
+        OperationResult Create(CreateProductCategory command);
 
-        void Edit(EditProductCategory command);
+        OperationResult Edit(EditProductCategory command);
 
         Domain.ProductCategoryAgg.ProductCategory GetDetails(int id);
 
