@@ -21,7 +21,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public ProductCategory GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.ProductCategories.Find(id);
         }
 
         public List<ProductCategory> GetAll()
