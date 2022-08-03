@@ -31,7 +31,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public bool Exists(Expression<Func<ProductCategory, bool>> expression)
         {
-            throw new NotImplementedException();
+            return _context.ProductCategories.Any(expression);
         }
 
         public void SaveChanges()
