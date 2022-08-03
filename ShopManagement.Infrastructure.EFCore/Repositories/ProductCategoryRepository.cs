@@ -41,7 +41,18 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public EditProductCategory GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.ProductCategories.Select(x => new EditProductCategory()
+            {
+                Id=x.Id,
+                Description = x.Description,
+                Name = x.Name,
+                Keywords = x.Keywords,
+                MetaDescription = x.MetaDescription,
+                Picture = x.Picture,
+                PictureAlt = x.PictureAlt,
+                PictureTitle = x.PictureTitle,
+                Slug = x.Slug
+            }).First(x => x.Id == id);
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
