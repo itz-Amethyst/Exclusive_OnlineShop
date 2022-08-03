@@ -26,7 +26,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public List<ProductCategory> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.ProductCategories.ToList();
         }
 
         public bool Exists(Expression<Func<ProductCategory, bool>> expression)
