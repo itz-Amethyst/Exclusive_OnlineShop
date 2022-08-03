@@ -7,9 +7,16 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 {
     public class ProductCategoryRepository:IProductCategoryRepository
     {
-        public void Create(ProductCategory entity)
+        private readonly ShopContext _context;
+
+        public ProductCategoryRepository(ShopContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public void Create(ProductCategory entity)
+        { 
+            _context.ProductCategories.Add(entity);
         }
 
         public ProductCategory GetById(int id)
