@@ -57,7 +57,20 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var query = _context.ProductCategories.Select(x => new ProductCategoryViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Picture = x.Picture,
+                CreationDate = x.CreationDate.ToString()
+            });
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Name))
+            {
+                query = query.Where(x => x.Name.Contains(searchModel.Name));
+            }
+
+            return query.OrderByDescending(x => x.Id).ToList();
         }
     }
 }
