@@ -36,7 +36,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public EditProductCategory GetDetails(int id)
