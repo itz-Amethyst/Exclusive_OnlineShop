@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ShopManagement.Configuration\ShopManagement.Configuration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\AdminTheme\assets\plugins\jstree\themes\default\" />
+  </ItemGroup>
+
 </Project>
