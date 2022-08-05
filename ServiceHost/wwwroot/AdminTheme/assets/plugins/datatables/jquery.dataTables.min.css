@@ -328,3 +328,10 @@ div.DTFC_LeftFootWrapper table {
 div.FixedHeader_Cloned table {
 	margin: 0 !important
 }
+
+
+/* Custom css */
+
+.btn_left {
+    float: left;
+}
