@@ -9,10 +9,9 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
 
         public List<ProductCategoryViewModel> ProductCategories;
 
-        public IndexModel(IProductCategoryApplication productCategoryApplication, List<ProductCategoryViewModel> productCategories)
+        public IndexModel(IProductCategoryApplication productCategoryApplication)
         {
             _productCategoryApplication = productCategoryApplication;
-            ProductCategories = productCategories;
         }
 
         public void OnGet(ProductCategorySearchModel searchModel)
