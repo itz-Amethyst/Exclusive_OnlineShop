@@ -14,19 +14,19 @@
             <div class="row m-t-40">
                 <div class="col-sm-12">
 
-                    <form class="form-inline" role="form">
+                    <form class="form-inline" role="form" method="get">
                         <div class="form-group col-xs-3">
-                            <label class="sr-only"></label>
-                            <input type="email" class="form-control" id="exampleInputEmail21" placeholder="نام گروه محصولی">
+                            <label class="sr-only" asp-for="SearchModel.Name"></label>
+                            <input asp-for="SearchModel.Name" class="form-control" id="exampleInputEmail21" placeholder="نام گروه محصولی">
                         </div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md">
                             <span>جستجو</span>
                             <i class="fa fa-search m-l-15"></i>
                         </button>
-                        <button type="submit" class="btn btn-danger waves-effect waves-light m-l-15 w-md">
+                        <a class="btn btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index">
                             <span>پاک کردن فیلتر</span>
                             <i class="fa fa-remove m-l-15"></i>
-                        </button>
+                        </a>
                         <button type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left">
                             <span>ایجاد گروه محصول جدید</span>
                             <i class="fa fa-plus m-l-15"></i>
