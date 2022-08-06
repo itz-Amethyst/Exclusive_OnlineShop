@@ -84,16 +84,22 @@ table.dataTable thead .sorting_desc:after {
 	font-family: 'Glyphicons Halflings';
 	opacity: 0.5;
 }
-table.dataTable thead .sorting:after {
-	opacity: 0.2;
-	content: "\e150"; /* sort */
-}
-table.dataTable thead .sorting_asc:after {
-	content: "\e155"; /* sort-by-attributes */
-}
-table.dataTable thead .sorting_desc:after {
-	content: "\e156"; /* sort-by-attributes-alt */
-}
+	table.dataTable thead .sorting:after {
+		opacity: 0.2;
+		font-family: 'FontAwesome';
+		font-weight: 900;
+		content: "\f0dc"; /* sort */
+	}
+	table.dataTable thead .sorting_asc:after {
+		font-family: 'FontAwesome';
+		font-weight: 900;
+		content: "\f0de"; /* sort-by-attributes */
+	}
+	table.dataTable thead .sorting_desc:after {
+		font-family: 'FontAwesome';
+		font-weight: 900;
+		content: "\f0dd"; /* sort-by-attributes-alt */
+	}
 
 table.dataTable thead .sorting_asc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:after {
