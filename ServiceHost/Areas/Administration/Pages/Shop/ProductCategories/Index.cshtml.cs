@@ -25,5 +25,11 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
         {
             return Partial("./Create", new CreateProductCategory());
         }
+
+        public JsonResult OnPostCreate(CreateProductCategory command)
+        {
+            var result = _productCategoryApplication.Create(command);
+            return new JsonResult(result);
+        }
     }
 }
