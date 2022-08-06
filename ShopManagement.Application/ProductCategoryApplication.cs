@@ -24,7 +24,7 @@ namespace ShopManagement.Application
             var slug = command.Slug.Slugify();
 
             var productCategory = new ProductCategory(command.Name, command.Description, command.Picture,
-                command.PictureAlt, command.PictureTitle, command.Keywords, command.Slug, command.MetaDescription);
+                command.PictureAlt, command.PictureTitle, command.Keywords, slug, command.MetaDescription);
 
             _productCategoryRepository.Create(productCategory);
             _productCategoryRepository.SaveChanges();
