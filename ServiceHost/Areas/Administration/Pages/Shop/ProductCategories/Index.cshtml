@@ -4,8 +4,8 @@
     ViewData["Title"] = "مدیریت گروه محصولات";
 }
 
-
 <link href="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
 
 <div class="row">
     <div class="col-md-12">
@@ -89,6 +89,6 @@
         });
         
         // Removing Pagination and SearchBox
-        $('#datatable').DataTable({searching: false, paging: false, info: false});
+        $('#datatable').DataTable({searching: false, paging: true, info: false});
     </script>
 }
