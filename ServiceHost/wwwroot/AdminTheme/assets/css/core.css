@@ -50,7 +50,6 @@ h4,
 h5,
 h6 {
   color: #505458;
-  font-family: 'Karla', sans-serif;
   margin: 10px 0;
 }
 h1 {
@@ -811,7 +810,6 @@ textarea.form-control {
   color: #435966;
   font-size: 15px;
   font-weight: 600;
-  font-family: 'Karla', sans-serif;
 }
 .nav > li > a:focus,
 .nav > li > a:hover {
@@ -997,7 +995,6 @@ textarea.form-control {
 }
 /* Popover */
 .popover {
-  font-family: inherit;
   border: none;
   direction: rtl;
   left: 0;
