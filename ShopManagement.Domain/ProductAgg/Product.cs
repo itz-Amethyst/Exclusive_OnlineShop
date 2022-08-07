@@ -33,5 +33,36 @@ namespace ShopManagement.Domain.ProductAgg
 
         public ProductCategory Category { get; private set; }
 
+        public Product(string name, string code, double unitPrice, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, int categoryId, string slug, string keywords, string metaDescription)
+        {
+            Name = name;
+            Code = code;
+            UnitPrice = unitPrice;
+            ShortDescription = shortDescription;
+            Description = description;
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+            CategoryId = categoryId;
+            Slug = slug;
+            Keywords = keywords;
+            MetaDescription = metaDescription;
+        }
+
+        public void Edit(string name, string code, double unitPrice, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, int categoryId, string slug, string keywords, string metaDescription)
+        {
+            Name = name;
+            Code = code;
+            UnitPrice = unitPrice;
+            ShortDescription = shortDescription;
+            Description = description;
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+            CategoryId = categoryId;
+            Slug = slug;
+            Keywords = keywords;
+            MetaDescription = metaDescription;
+        }
     }
 }
