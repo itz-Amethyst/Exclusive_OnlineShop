@@ -63,7 +63,7 @@ namespace ShopManagement.Application
 
         public EditProduct GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetDetails(id);
         }
 
         public List<ProductViewModel> Search(ProductSearchModel searchModel)
