@@ -40,9 +40,5 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public ProductRepository(DbContext context) : base(context)
-        {
-        }
     }
 }
