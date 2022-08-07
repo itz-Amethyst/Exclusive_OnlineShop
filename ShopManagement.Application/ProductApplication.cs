@@ -68,7 +68,7 @@ namespace ShopManagement.Application
 
         public List<ProductViewModel> Search(ProductSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _productRepository.Search(searchModel);
         }
 
         public void InStock(int id)
