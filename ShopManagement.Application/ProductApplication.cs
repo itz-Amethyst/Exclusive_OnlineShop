@@ -73,12 +73,38 @@ namespace ShopManagement.Application
 
         public OperationResult InStock(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var product = _productRepository.GetById(id);
+
+            if (product == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            product.InStock();
+
+            _productRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public OperationResult EmptyStock(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var product = _productRepository.GetById(id);
+
+            if (product == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            product.EmptyStock();
+
+            _productRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
     }
 }
