@@ -13,5 +13,7 @@
         public double UnitPrice { get; set; }
 
         public string CategoryName { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }
