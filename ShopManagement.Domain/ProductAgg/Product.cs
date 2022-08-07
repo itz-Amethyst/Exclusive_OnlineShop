@@ -64,5 +64,15 @@ namespace ShopManagement.Domain.ProductAgg
             Keywords = keywords;
             MetaDescription = metaDescription;
         }
+
+        public void InStock()
+        {
+            IsInStock = true;
+        }
+
+        public void EmptyStock()
+        {
+            IsInStock = false;
+        }
     }
 }
