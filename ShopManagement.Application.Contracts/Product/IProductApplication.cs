@@ -12,8 +12,8 @@ namespace ShopManagement.Application.Contracts.Product
 
         List<ProductViewModel> Search(ProductSearchModel searchModel);
 
-        void InStock(int id);
+        OperationResult InStock(int id);
 
-        void EmptyStock(int id);
+        OperationResult EmptyStock(int id);
     }
 }

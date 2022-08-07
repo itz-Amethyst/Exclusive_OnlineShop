@@ -71,12 +71,12 @@ namespace ShopManagement.Application
             return _productRepository.Search(searchModel);
         }
 
-        public void InStock(int id)
+        public OperationResult InStock(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void EmptyStock(int id)
+        public OperationResult EmptyStock(int id)
         {
             throw new NotImplementedException();
         }
