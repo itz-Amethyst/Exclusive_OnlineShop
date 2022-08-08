@@ -119,6 +119,7 @@
 </div>
 <!-- end row -->
 @section Scripts{
+    <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
@@ -129,4 +130,57 @@
         // Removing Pagination and SearchBox
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
     </script>
+    
+     
+    @if (ViewBag.EmptyStock == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'اتمام موجودی محصول با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Reload();
+                }
+            });
+
+            var url = window.location.href;
+            const MainUrl =url.split('?')[0];
+          
+
+            function Reload() {
+                window.location.href = MainUrl;
+            }
+            setTimeout(Reload, 2500);
+        </script>
+    }
+    @if (ViewBag.InStock == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'افزایش موجودی محصول با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Reload();
+                }
+            });
+
+            var url = window.location.href;
+            const MainUrl =url.split('?')[0];
+
+            function Reload() {
+                window.location.href = MainUrl;
+            }
+            setTimeout(Reload, 2500);
+        </script>
+    }
 }
