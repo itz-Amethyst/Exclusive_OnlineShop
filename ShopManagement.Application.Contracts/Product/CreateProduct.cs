@@ -1,4 +1,6 @@
-﻿namespace ShopManagement.Application.Contracts.Product
+﻿using ShopManagement.Application.Contracts.ProductCategory;
+
+namespace ShopManagement.Application.Contracts.Product
 {
     public class CreateProduct
     {
@@ -26,5 +28,6 @@
 
         public string MetaDescription { get; set; }
 
+        public List<ProductCategoryViewModel> Categories { get; set; }
     }
 }

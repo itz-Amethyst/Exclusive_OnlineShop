@@ -29,7 +29,11 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 
         public IActionResult OnGetCreate()
         {
-            return Partial("./Create", new CreateProduct());
+            var command = new CreateProduct
+            {
+                Categories = _productCategoryApplication.GetProductsCategories()
+            };
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(CreateProduct command)
