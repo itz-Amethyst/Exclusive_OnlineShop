@@ -1,47 +1,48 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 {
     public class IndexModel : PageModel
     {
-        private readonly IProductCategoryApplication _productCategoryApplication;
+        private readonly IProductApplication _productApplication;
 
-        public ProductCategorySearchModel SearchModel;
-        public List<ProductCategoryViewModel> ProductCategories;
+        public ProductSearchModel SearchModel;
+        public List<ProductViewModel> Products;
 
-        public IndexModel(IProductCategoryApplication productCategoryApplication)
+        public IndexModel(IProductApplication productApplication)
         {
-            _productCategoryApplication = productCategoryApplication;
+            _productApplication = productApplication;
         }
 
-        public void OnGet(ProductCategorySearchModel searchModel)
+        public void OnGet(ProductSearchModel searchModel)
         {
-            ProductCategories = _productCategoryApplication.Search(searchModel);
+            Products = _productApplication.Search(searchModel);
         }
 
         public IActionResult OnGetCreate()
         {
-            return Partial("./Create", new CreateProductCategory());
+            return Partial("./Create", new CreateProduct());
         }
 
-        public JsonResult OnPostCreate(CreateProductCategory command)
+        public JsonResult OnPostCreate(CreateProduct command)
         {
-            var result = _productCategoryApplication.Create(command);
+            var result = _productApplication.Create(command);
             return new JsonResult(result);
         }
 
         public IActionResult OnGetEdit(int id)
         {
-            var productCategory = _productCategoryApplication.GetDetails(id);
+            var product = _productApplication.GetDetails(id);
 
-            return Partial("Edit", productCategory);
+            return Partial("Edit", product);
         }
 
-        public JsonResult OnPostEdit(EditProductCategory command)
+        public JsonResult OnPostEdit(EditProduct command)
         {
-            var result = _productCategoryApplication.Edit(command);
+            var result = _productApplication.Edit(command);
 
             return new JsonResult(result);
         }
