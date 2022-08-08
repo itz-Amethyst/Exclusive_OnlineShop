@@ -68,6 +68,7 @@
                         <th>کد</th>
                         <th>گروه</th>
                         <th>قیمت</th>
+                        <th>موجودی</th>
                         <th>تاریخ تولید</th>
                         <th style="width: 70px">عملیات</th>
                     </tr>
@@ -85,9 +86,29 @@
                             <td>@item.Code</td>
                             <td>@item.CategoryName</td>
                             <td>@item.UnitPrice</td>
+                            <td class="text-center">
+                                @if (item.IsInStock)
+                                {
+                                    <i class="fa fa-check text-success fa-3x"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-remove text-danger fa-3x"></i>
+                                }
+                            </td>
                             <td>@item.CreationDate</td>
                             <td>
                                 <a class="btn btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
+                                @if (item.IsInStock)
+                                {
+                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="EmptyStock" asp-route-id="@item.Id">اتمام موجودی</a>
+
+                                }
+                                else
+                                {
+                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="IsInStock" asp-route-id="@item.Id">افزایش موجودی</a>
+
+                                }
                             </td>
                         </tr>
                     }
@@ -104,8 +125,8 @@
         $(document).ready(function() {
             $('#datatable').DataTable();
         });
-        
+
         // Removing Pagination and SearchBox
-        $('#datatable').DataTable({searching: false, paging: true, info: true});
+        $('#datatable').DataTable({ searching: false, paging: true, info: true });
     </script>
 }
