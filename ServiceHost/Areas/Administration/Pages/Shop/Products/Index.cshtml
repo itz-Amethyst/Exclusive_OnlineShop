@@ -16,15 +16,20 @@
                 <div class="col-sm-12">
 
                     <form class="form-inline" role="form" method="get">
-                        <div class="form-group col-xs-3">
+                        <div class="form-group col-xs-2">
                             <label class="sr-only" asp-for="SearchModel.Name"></label>
                             <input asp-for="SearchModel.Name" class="form-control" placeholder="نام محصول">
                         </div>
-                        <div class="form-group col-xs-3">
+                        <div class="form-group col-xs-2">
                             <label class="sr-only" asp-for="SearchModel.Code"></label>
                             <input asp-for="SearchModel.Code" class="form-control" placeholder="کد محصول">
                         </div>
-                        
+                        <div class="form-group col-xs-2">
+                            <label class="sr-only" asp-for="SearchModel.CategoryId"></label>
+                            <select asp-for="SearchModel.CategoryId" class="form-control w-25" asp-items="Model.ProductCategories">
+                                <option value="0">گروه محصولی انتخاب کنید</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md">
                             <span>جستجو</span>
                             <i class="fa fa-search m-l-15"></i>
