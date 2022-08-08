@@ -47,6 +47,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 UnitPrice = x.UnitPrice,
                 CategoryName = x.Category.Name,
                 CategoryId = x.CategoryId,
+                IsInStock = x.IsInStock,
                 CreationDate = x.CreationDate.ToString()
             });
 
