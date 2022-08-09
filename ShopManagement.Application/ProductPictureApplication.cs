@@ -34,7 +34,25 @@ namespace ShopManagement.Application
 
         public OperationResult Edit(EditProductPicture command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var productPicture = _productPictureRepository.GetById(command.Id);
+
+            if (productPicture == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (_productPictureRepository.Exists(x =>
+                    x.Picture == command.Picture && x.ProductId == command.ProductId && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            productPicture.Edit(command.ProductId , command.Picture , command.PictureAlt , command.PictureTitle);
+            _productPictureRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public OperationResult Remove(int id)
