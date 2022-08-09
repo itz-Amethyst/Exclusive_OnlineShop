@@ -22,5 +22,14 @@ namespace ShopManagement.Domain.ProductPictureAgg
             PictureTitle = pictureTitle;
             IsRemoved = false;
         }
+
+        public void Edit(int productId, string picture, string pictureAlt, string pictureTitle)
+        {
+            ProductId = productId;
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+        }
+
     }
 }
