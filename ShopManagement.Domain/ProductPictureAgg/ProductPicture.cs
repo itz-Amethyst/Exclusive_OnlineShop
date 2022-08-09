@@ -11,5 +11,16 @@ namespace ShopManagement.Domain.ProductPictureAgg
         public string PictureAlt { get; private set; }
 
         public string PictureTitle { get; private set; }
+
+        public bool IsRemoved { get; set; }
+
+        public ProductPicture(int productId, string picture, string pictureAlt, string pictureTitle)
+        {
+            ProductId = productId;
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+            IsRemoved = false;
+        }
     }
 }
