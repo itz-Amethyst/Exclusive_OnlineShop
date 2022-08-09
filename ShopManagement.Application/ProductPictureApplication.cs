@@ -67,12 +67,12 @@ namespace ShopManagement.Application
 
         public EditProductPicture GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _productPictureRepository.GetDetails(id);
         }
 
         public List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _productPictureRepository.Search(searchModel);
         }
     }
 }
