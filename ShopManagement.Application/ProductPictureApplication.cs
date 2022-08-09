@@ -57,7 +57,18 @@ namespace ShopManagement.Application
 
         public OperationResult Remove(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var productPicture = _productPictureRepository.GetById(id);
+
+            if (productPicture == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            productPicture.Remove();
+            _productPictureRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Restore(int id)
