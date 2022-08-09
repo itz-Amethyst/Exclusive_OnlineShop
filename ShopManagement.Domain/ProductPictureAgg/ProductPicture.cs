@@ -31,5 +31,15 @@ namespace ShopManagement.Domain.ProductPictureAgg
             PictureTitle = pictureTitle;
         }
 
+
+        public void Remove()
+        {
+            IsRemoved = true;
+        }
+
+        public void Restore()
+        {
+            IsRemoved = false;
+        }
     }
 }
