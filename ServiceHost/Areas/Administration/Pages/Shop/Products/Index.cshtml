@@ -30,7 +30,7 @@
                                 <option value="0">گروه محصول</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md" formnovalidate >
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md" formnovalidate>
                             <span>جستجو</span>
                             <i class="fa fa-search m-l-15"></i>
                         </button>
@@ -80,7 +80,7 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>
-                                <img src="@item.Picture" style="width: 80px; height: 80px"/>
+                                <img src="@item.Picture" style="width: 80px; height: 80px" />
                             </td>
                             <td>@item.Name</td>
                             <td>@item.Code</td>
@@ -129,9 +129,23 @@
 
         // Removing Pagination and SearchBox
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
+
+        //? Sweet Alert 
+        var url = window.location.href;
+        const MainUrl = url.split('?')[0];
+
+        function Location() {
+            window.location.href = MainUrl;
+           
+        }
+
+        function Clear() {
+            setTimeout(Location, 2500);
+        }
+
     </script>
-    
-     
+
+
     @if (ViewBag.EmptyStock == true)
     {
         <script>
@@ -144,18 +158,11 @@
                 timer: 2500
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Reload();
+                    Location();
                 }
             });
 
-            var url = window.location.href;
-            const MainUrl =url.split('?')[0];
-          
-
-            function Reload() {
-                window.location.href = MainUrl;
-            }
-            setTimeout(Reload, 2500);
+            Clear();
         </script>
     }
     @if (ViewBag.InStock == true)
@@ -170,17 +177,11 @@
                 timer: 2500
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Reload();
+                    Location();
                 }
             });
+            Clear();
 
-            var url = window.location.href;
-            const MainUrl =url.split('?')[0];
-
-            function Reload() {
-                window.location.href = MainUrl;
-            }
-            setTimeout(Reload, 2500);
         </script>
     }
 }
