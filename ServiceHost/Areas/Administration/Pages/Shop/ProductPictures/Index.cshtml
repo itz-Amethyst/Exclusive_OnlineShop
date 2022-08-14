@@ -1,7 +1,7 @@
 ﻿@page
 @model ServiceHost.Areas.Administration.Pages.Shop.ProductPictures.IndexModel
 @{
-    ViewData["Title"] = "مدیریت محصولات";
+    ViewData["Title"] = "مدیریت عکس محصولات";
 }
 
 
@@ -17,17 +17,9 @@
 
                     <form class="form-inline" role="form" method="get">
                         <div class="form-group col-xs-2">
-                            <label class="sr-only" asp-for="SearchModel.Name"></label>
-                            <input asp-for="SearchModel.Name" class="form-control" placeholder="نام محصول">
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label class="sr-only" asp-for="SearchModel.Code"></label>
-                            <input asp-for="SearchModel.Code" class="form-control" placeholder="کد محصول">
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label class="sr-only" asp-for="SearchModel.CategoryId"></label>
-                            <select asp-for="SearchModel.CategoryId" class="form-control w-25" asp-items="Model.ProductCategories">
-                                <option value="0">گروه محصول</option>
+                            <label class="sr-only" asp-for="SearchModel.ProductId"></label>
+                            <select asp-for="SearchModel.ProductId" class="form-control w-25" asp-items="Model.Products">
+                                <option value="0">... محصول</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md" formnovalidate>
@@ -39,7 +31,7 @@
                             <i class="fa fa-remove m-l-15"></i>
                         </a>
                         <a type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
-                            <span>ایجاد محصول جدید</span>
+                            <span>ایجاد عکس محصول جدید</span>
                             <i class="fa fa-plus m-l-15"></i>
                         </a>
 
@@ -64,30 +56,24 @@
                     <tr>
                         <th>#</th>
                         <th>عکس</th>
-                        <th>نام</th>
+                        <th>نام محصول</th>
                         <th>کد</th>
-                        <th>گروه</th>
-                        <th>قیمت</th>
-                        <th>موجودی</th>
                         <th>تاریخ تولید</th>
                         <th style="width: 260px">عملیات</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var item in Model.Products)
+                    @foreach (var item in Model.ProductPictures)
                     {
                         <tr>
                             <td>@item.Id</td>
                             <td>
                                 <img src="@item.Picture" style="width: 80px; height: 80px" />
                             </td>
-                            <td>@item.Name</td>
-                            <td>@item.Code</td>
-                            <td>@item.CategoryName</td>
-                            <td>@item.UnitPrice</td>
+                            <td>@item.Product</td>
                             <td class="text-center">
-                                @if (item.IsInStock)
+                                @if (item.IsRemoved)
                                 {
                                     <i class="fa fa-check text-success fa-3x"></i>
                                 }
@@ -99,15 +85,13 @@
                             <td>@item.CreationDate</td>
                             <td>
                                 <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
-                                @if (item.IsInStock)
+                                @if (!item.IsRemoved)
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="EmptyStock" asp-route-id="@item.Id">اتمام موجودی</a>
-
+                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id">حذف</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="IsInStock" asp-route-id="@item.Id">افزایش موجودی</a>
-
+                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id">فعال سازی</a>
                                 }
                             </td>
                         </tr>
@@ -146,12 +130,12 @@
     </script>
 
 
-    @if (ViewBag.EmptyStock == true)
+    @if (ViewBag.Removed == true)
     {
         <script>
             Swal.fire({
                 position: 'top-end',
-                title: 'اتمام موجودی محصول با موفقیت انجام شد',
+                title: 'حذف با موفقیت انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
@@ -165,12 +149,12 @@
             Clear();
         </script>
     }
-    @if (ViewBag.InStock == true)
+    @if (ViewBag.Restored == true)
     {
         <script>
             Swal.fire({
                 position: 'top-end',
-                title: 'افزایش موجودی محصول با موفقیت انجام شد',
+                title: 'فعال سازی با موفقیت انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
