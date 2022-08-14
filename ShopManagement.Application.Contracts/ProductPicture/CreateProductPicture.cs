@@ -1,4 +1,6 @@
-﻿namespace ShopManagement.Application.Contracts.ProductPicture
+﻿using ShopManagement.Application.Contracts.Product;
+
+namespace ShopManagement.Application.Contracts.ProductPicture
 {
     public class CreateProductPicture
     {
@@ -9,5 +11,7 @@
         public string PictureAlt { get; set; }
 
         public string PictureTitle { get; set; }
+
+        public List<ProductViewModel> Products { get; set; }
     }
 }
