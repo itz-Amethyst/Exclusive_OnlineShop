@@ -48,14 +48,14 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 
         public IActionResult OnGetEdit(int id)
         {
-            var product = _productApplication.GetDetails(id);
-            product.Categories = _productCategoryApplication.GetProductsCategories();
-            return Partial("Edit", product);
+            var ProductPicture = _productPictureApplication.GetDetails(id);
+            ProductPicture.Products = _productApplication.GetProducts();
+            return Partial("Edit", ProductPicture);
         }
 
-        public JsonResult OnPostEdit(EditProduct command)
+        public JsonResult OnPostEdit(EditProductPicture command)
         {
-            var result = _productApplication.Edit(command);
+            var result = _productPictureApplication.Edit(command);
 
             return new JsonResult(result);
         }
