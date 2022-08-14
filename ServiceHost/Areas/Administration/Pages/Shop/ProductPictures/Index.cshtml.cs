@@ -23,9 +23,9 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             _productPictureApplication = productPictureApplication;
         }
 
-        public void OnGet(ProductPictureSearchModel searchModel , bool inStock = false , bool removed = false)
+        public void OnGet(ProductPictureSearchModel searchModel , bool restored = false , bool removed = false)
         {
-            ViewData["InStock"] = inStock;
+            ViewData["Restored"] = restored;
             ViewData["Removed"] = removed;
             Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
             ProductPictures = _productPictureApplication.Search(searchModel);
@@ -68,11 +68,11 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             
         }
 
-        public IActionResult OnGetIsInStock(int id)
+        public IActionResult OnGetRestore(int id)
         {
-            var result = _productApplication.InStock(id);
+            var result = _productPictureApplication.Restore(id);
 
-            return RedirectToPage("./Index", new { InStock = "True" });
+            return RedirectToPage("./Index", new { Restored = "True" });
         }
     }
 }
