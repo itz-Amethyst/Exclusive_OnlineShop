@@ -1,6 +1,4 @@
-﻿using ShopManagement.Application.Contracts.ProductPicture;
-
-namespace ShopManagement.Domain.ProductAgg
+﻿namespace ShopManagement.Application.Contracts.ProductPicture
 {
     public class EditProductPicture : CreateProductPicture
     {
