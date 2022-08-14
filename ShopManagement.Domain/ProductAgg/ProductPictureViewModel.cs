@@ -11,5 +11,7 @@
         public string CreationDate { get; set; }
 
         public int ProductId { get; set; }
+
+        public bool IsRemoved { get; set; }
     }
 }
