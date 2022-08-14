@@ -23,10 +23,10 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             _productPictureApplication = productPictureApplication;
         }
 
-        public void OnGet(ProductPictureSearchModel searchModel , bool inStock = false , bool emptyStock = false)
+        public void OnGet(ProductPictureSearchModel searchModel , bool inStock = false , bool removed = false)
         {
             ViewData["InStock"] = inStock;
-            ViewData["EmptyStock"] = emptyStock;
+            ViewData["Removed"] = removed;
             Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
             ProductPictures = _productPictureApplication.Search(searchModel);
         }
@@ -60,15 +60,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetEmptyStock(int id)
+        public IActionResult OnGetRemove(int id)
         {
-            var result = _productApplication.EmptyStock(id);
+            var result = _productPictureApplication.Remove(id);
            
-            return RedirectToPage("./Index" , new {EmptyStock="True"});
+            return RedirectToPage("./Index" , new {Removed="True"});
             
-
-            //Message = result.Message;
-            //return RedirectToPage("./Index");
         }
 
         public IActionResult OnGetIsInStock(int id)
