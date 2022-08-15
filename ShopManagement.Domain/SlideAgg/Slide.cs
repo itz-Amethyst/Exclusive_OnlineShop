@@ -31,5 +31,17 @@ namespace ShopManagement.Domain.SlideAgg
             BtnText = btnText;
             IsRemoved = false;
         }
+
+
+        public void Edit(string picture, string pictureAlt, string pictureTitle, string heading, string title, string text, string btnText)
+        {
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+            Heading = heading;
+            Title = title;
+            Text = text;
+            BtnText = btnText;
+        }
     }
 }
