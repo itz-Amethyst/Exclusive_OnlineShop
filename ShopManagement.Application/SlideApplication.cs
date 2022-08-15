@@ -27,7 +27,21 @@ namespace ShopManagement.Application
 
         public OperationResult Edit(EditSlide command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var slide = _slideRepository.GetById(command.Id);
+
+            if (slide == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            slide.Edit(command.Picture, command.PictureAlt, command.PictureTitle, command.Title,
+            command.Heading, command.BtnText , command.Text);
+
+            _slideRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public OperationResult Remove(int id)
