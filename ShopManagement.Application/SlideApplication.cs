@@ -46,12 +46,36 @@ namespace ShopManagement.Application
 
         public OperationResult Remove(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var slide = _slideRepository.GetById(id);
+
+            if (slide == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            slide.Remove();
+            _slideRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public OperationResult Restore(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var slide = _slideRepository.GetById(id);
+
+            if (slide == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            slide.Restore();
+            _slideRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public EditSlide GetDetails(int id)
