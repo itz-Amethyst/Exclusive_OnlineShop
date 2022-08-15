@@ -15,7 +15,14 @@ namespace ShopManagement.Application
 
         public OperationResult Create(CreateSlide command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var slide = new Slide(command.Picture, command.PictureAlt, command.PictureTitle, command.Title,
+                command.Heading, command.BtnText , command.Text);
+
+            _slideRepository.Create(slide);
+            _slideRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Edit(EditSlide command)
