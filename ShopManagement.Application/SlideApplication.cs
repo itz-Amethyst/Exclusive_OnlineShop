@@ -61,7 +61,7 @@ namespace ShopManagement.Application
 
         public List<SlideViewModel> GetList()
         {
-            throw new NotImplementedException();
+            return _slideRepository.GetList();
         }
     }
 }
