@@ -43,5 +43,15 @@ namespace ShopManagement.Domain.SlideAgg
             Text = text;
             BtnText = btnText;
         }
+
+        public void Remove()
+        {
+            IsRemoved = true;
+        }
+
+        public void Restore()
+        {
+            IsRemoved = false;
+        }
     }
 }
