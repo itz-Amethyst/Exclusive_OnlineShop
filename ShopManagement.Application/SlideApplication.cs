@@ -56,7 +56,7 @@ namespace ShopManagement.Application
 
         public EditSlide GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _slideRepository.GetDetails(id);
         }
 
         public List<SlideViewModel> GetList()
