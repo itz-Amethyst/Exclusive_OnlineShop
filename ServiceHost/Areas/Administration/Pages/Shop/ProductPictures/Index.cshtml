@@ -19,7 +19,7 @@
                         <div class="form-group col-xs-2">
                             <label class="sr-only" asp-for="SearchModel.ProductId"></label>
                             <select asp-for="SearchModel.ProductId" class="form-control w-25" asp-items="Model.Products">
-                                <option value="0">... محصول</option>
+                                <option value="0">محصول ...</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md" formnovalidate>
@@ -73,7 +73,7 @@
                             </td>
                             <td>@item.Product</td>
                             <td class="text-center">
-                                @if (item.IsRemoved)
+                                @if (!item.IsRemoved)
                                 {
                                     <i class="fa fa-check text-success fa-3x"></i>
                                 }
