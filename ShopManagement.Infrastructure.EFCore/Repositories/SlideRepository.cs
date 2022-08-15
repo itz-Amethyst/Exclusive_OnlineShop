@@ -31,7 +31,13 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public List<SlideViewModel> GetList()
         {
-            throw new NotImplementedException();
+            return _context.Slides.Select(x => new SlideViewModel
+            {
+                Id=x.Id,
+                Heading = x.Heading,
+                Picture = x.Picture,
+                Title = x.Title,
+            }).OrderByDescending(x => x.Id).ToList();
         }
     }
 }
