@@ -3,45 +3,41 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductPicture;
+using ShopManagement.Application.Contracts.Slide;
 using ShopManagement.Domain.ProductAgg;
+using ShopManagement.Domain.SlideAgg;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 {
     public class IndexModel : PageModel
     {
-        private readonly IProductApplication _productApplication;
-        private readonly IProductPictureApplication _productPictureApplication;
+        private readonly ISlideApplication _slideApplication;
+      
 
-        public ProductPictureSearchModel SearchModel;
-        public List<ProductPictureViewModel> ProductPictures;
-        public SelectList Products;
+        public List<SlideViewModel> Slides;
 
-        public IndexModel(IProductApplication productApplication, IProductPictureApplication productPictureApplication)
+        public IndexModel(ISlideApplication slideApplication)
         {
-            _productApplication = productApplication;
-            _productPictureApplication = productPictureApplication;
+            _slideApplication = slideApplication;
         }
 
-        public void OnGet(ProductPictureSearchModel searchModel , bool restored = false , bool removed = false)
+        public void OnGet(bool restored = false , bool removed = false)
         {
             ViewData["Restored"] = restored;
             ViewData["Removed"] = removed;
-            Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
-            ProductPictures = _productPictureApplication.Search(searchModel);
+            Slides = _slideApplication.GetList();
         }
 
         public IActionResult OnGetCreate()
         {
-            var command = new CreateProductPicture
-            {
-                Products = _productApplication.GetProducts()
-            };
+            var command = new CreateSlide();
+
             return Partial("./Create", command);
         }
 
-        public JsonResult OnPostCreate(CreateProductPicture command)
+        public JsonResult OnPostCreate(CreateSlide command)
         {
-            var result = _productPictureApplication.Create(command);
+            var result = _slideApplication.Create(command);
             return new JsonResult(result);
         }
 
