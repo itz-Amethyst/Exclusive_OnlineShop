@@ -1,10 +1,10 @@
-﻿@model ShopManagement.Application.Contracts.ProductPicture.CreateProductPicture
+﻿@model ShopManagement.Application.Contracts.Slide.CreateSlide
 @{
 }
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">ایجاد عکس محصول جدید</h4>
+    <h4 class="modal-title">ایجاد اسلاید جدید</h4>
 </div>
 
 <form asp-page="./Index" asp-page-handler="Create"
@@ -14,17 +14,6 @@
       data-action="Refresh"
       enctype="multipart/form-data">
     <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="ProductId" class="control-label">گروه محصول</label>
-                    <select class="form-control" asp-for="ProductId" asp-items='new SelectList(Model.Products , "Id" , "Name")'>
-                        <option value="0">محصول</option>
-                    </select>
-                    <span asp-validation-for="ProductId" class="error"></span>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -45,6 +34,34 @@
                 <div class="form-group">
                     <label asp-for="PictureTitle" class="control-label"> عنوان عکس</label>
                     <input type="text" class="form-control" asp-for="PictureTitle">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Heading" class="control-label">سر تیتر</label>
+                    <input type="text" class="form-control" asp-for="Heading">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"> عنوان</label>
+                    <input type="text" class="form-control" asp-for="Title">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Text" class="control-label">متن</label>
+                    <input type="text" class="form-control" asp-for="Text">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="BtnText" class="control-label"> متن دکمه</label>
+                    <input type="text" class="form-control" asp-for="BtnText">
                 </div>
             </div>
         </div>
