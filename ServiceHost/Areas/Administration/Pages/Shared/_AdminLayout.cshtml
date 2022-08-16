@@ -61,58 +61,11 @@
         </div>
         <!-- Top Bar End -->
         <!-- ========== Left Sidebar Start ========== -->
-        <div class="left side-menu">
-            <div class="sidebar-inner slimscrollleft">
+        
 
-                <!-- User -->
-                <div class="user-box">
-                    <div class="user-img">
-                        <img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
-                    </div>
-                    <h5><a href="#">Mat Helme</a> </h5>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-cog"></i>
-                            </a>
-                        </li>
+        <partial name="_Menu"/>
+        
 
-                        <li>
-                            <a href="#" class="text-custom">
-                                <i class="fa fa-power-off"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- End User -->
-                <!--- Sidemenu -->
-                <div id="sidebar-menu">
-                    <ul>
-                        <li class="text-muted menu-title">Navigation</li>
-
-                        <li>
-                            <a asp-page="/Index" class="waves-effect"><i class="fa fa-th"></i> <span> داشبورد </span> </a>
-                        </li>
-
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shopping-cart"></i> <span> فروشگاه </span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled">
-                                <li><a href=""><i class="fa fa-image"></i>اسلایدر</a></li>
-                                <li><a asp-page="/Shop/ProductCategories/Index"><i class="fa fa-inbox"></i>گروه محصولات</a></li>
-                                <li><a asp-page="/Shop/Products/Index"><i class="fa fa-shopping-basket"></i> محصولات</a></li>
-                                <li><a asp-page="/Shop/ProductPictures/Index"><i class="fa fa-camera-retro"></i>عکس محصولات</a></li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- Sidebar -->
-                <div class="clearfix"></div>
-
-            </div>
-
-        </div>
         <!-- Left Sidebar End -->
         <!-- ============================================================== -->
         <!-- Start right Content here -->
