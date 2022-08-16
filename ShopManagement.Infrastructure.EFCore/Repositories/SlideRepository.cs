@@ -37,6 +37,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 Heading = x.Heading,
                 Picture = x.Picture,
                 Title = x.Title,
+                IsRemoved = x.IsRemoved
             }).OrderByDescending(x => x.Id).ToList();
         }
     }
