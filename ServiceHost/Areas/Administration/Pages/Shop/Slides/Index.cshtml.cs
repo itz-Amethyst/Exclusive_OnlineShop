@@ -56,7 +56,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 
         public IActionResult OnGetRemove(int id)
         {
-            var result = _productPictureApplication.Remove(id);
+            var result = _slideApplication.Remove(id);
            
             return RedirectToPage("./Index" , new {Removed="True"});
             
@@ -64,7 +64,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 
         public IActionResult OnGetRestore(int id)
         {
-            var result = _productPictureApplication.Restore(id);
+            var result = _slideApplication.Restore(id);
 
             return RedirectToPage("./Index", new { Restored = "True" });
         }
