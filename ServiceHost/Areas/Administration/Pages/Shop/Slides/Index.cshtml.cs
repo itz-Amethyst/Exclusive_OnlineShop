@@ -43,14 +43,13 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 
         public IActionResult OnGetEdit(int id)
         {
-            var ProductPicture = _productPictureApplication.GetDetails(id);
-            ProductPicture.Products = _productApplication.GetProducts();
-            return Partial("Edit", ProductPicture);
+            var slide = _slideApplication.GetDetails(id);
+            return Partial("Edit", slide);
         }
 
-        public JsonResult OnPostEdit(EditProductPicture command)
+        public JsonResult OnPostEdit(EditSlide command)
         {
-            var result = _productPictureApplication.Edit(command);
+            var result = _slideApplication.Edit(command);
 
             return new JsonResult(result);
         }
