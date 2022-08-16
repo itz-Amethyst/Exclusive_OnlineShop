@@ -37,7 +37,8 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 Heading = x.Heading,
                 Picture = x.Picture,
                 Title = x.Title,
-                IsRemoved = x.IsRemoved
+                IsRemoved = x.IsRemoved,
+                CreationDate = x.CreationDate.ToString()
             }).OrderByDescending(x => x.Id).ToList();
         }
     }
