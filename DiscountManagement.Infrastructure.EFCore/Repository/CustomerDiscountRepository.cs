@@ -18,7 +18,15 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
 
         public EditCustomerDiscount GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.CustomerDiscounts.Select(x => new EditCustomerDiscount
+            {
+                Id = x.Id,
+                ProductId = x.ProductId,
+                DiscountRate = x.DiscountRate,
+                StartDate = x.StartDate.ToString(),
+                EndDate = x.EndDate.ToString(),
+                Reason = x.Reason
+            }).First(x=>x.Id == id);
         }
 
         public List<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel searchModel)
