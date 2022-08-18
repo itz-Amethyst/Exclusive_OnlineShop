@@ -4,9 +4,9 @@
     {
         public int ProductId { get; private set; }
 
-        public DateTime StartDate { get; private set; }
+        public string StartDate { get; private set; }
 
-        public DateTime EndDate { get; private set; }
+        public string EndDate { get; private set; }
 
     }
 }
