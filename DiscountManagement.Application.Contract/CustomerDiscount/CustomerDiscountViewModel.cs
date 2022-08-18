@@ -2,6 +2,8 @@
 {
     public class CustomerDiscountViewModel
     {
+        public int Id { get; set; }
+
         public int ProductId { get; private set; }
 
         public string ProductName { get; set; }
