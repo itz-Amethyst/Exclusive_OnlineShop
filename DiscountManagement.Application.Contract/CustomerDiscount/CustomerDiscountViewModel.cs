@@ -4,16 +4,16 @@
     {
         public int Id { get; set; }
 
-        public int ProductId { get; private set; }
+        public int ProductId { get; set; }
 
         public string ProductName { get; set; }
 
-        public int DiscountRate { get; private set; }
+        public int DiscountRate { get; set; }
 
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; private set; }
+        public DateTime EndDate { get; set; }
 
-        public string Reason { get; private set; }
+        public string Reason { get; set; }
     }
 }
