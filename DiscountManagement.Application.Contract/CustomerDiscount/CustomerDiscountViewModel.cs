@@ -15,5 +15,11 @@
         public string EndDate { get; set; }
 
         public string Reason { get; set; }
+
+        public DateTime StartDateEn { get; set; }
+
+        public DateTime EndDateEn { get; set; }
+
+
     }
 }
