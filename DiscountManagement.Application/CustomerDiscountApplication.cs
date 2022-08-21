@@ -58,7 +58,7 @@ namespace DiscountManagement.Application
 
         public EditCustomerDiscount GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _customerDiscountRepository.GetDetails(id);
         }
 
         public List<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel searchModel)
