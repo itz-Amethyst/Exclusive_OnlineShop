@@ -1,4 +1,5 @@
-﻿using _0_Framework.Domain;
+﻿using _0_Framework.Application;
+using _0_Framework.Domain;
 using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contract.CustomerDiscount;
 using DiscountManagement.Domain.CustomerDiscountAgg;
@@ -41,9 +42,9 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 DiscountRate = x.DiscountRate,
-                StartDate = x.StartDate.ToString(),
+                StartDate = x.StartDate.ToFarsi(),
                 StartDateEn = x.StartDate,
-                EndDate = x.EndDate.ToString(),
+                EndDate = x.EndDate.ToFarsi(),
                 EndDateEn = x.EndDate,
                 ProductId = x.ProductId,
                 Reason = x.Reason
@@ -56,14 +57,12 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
 
             if (!string.IsNullOrWhiteSpace(searchModel.StartDate))
             {
-                var startDate = DateTime.Now;
-                query = query.Where(x => x.StartDateEn > startDate);
+                query = query.Where(x => x.StartDateEn > searchModel.StartDate.ToGeorgianDateTime());
             }
 
             if (!string.IsNullOrWhiteSpace(searchModel.EndDate))
             {
-                var endDate = DateTime.Now;
-                query = query.Where(x => x.EndDateEn < endDate);
+                query = query.Where(x => x.EndDateEn < searchModel.EndDate.ToGeorgianDateTime());
             }
 
             var discount = query.OrderByDescending(x => x.Id).ToList();
