@@ -1,4 +1,5 @@
 using ShopManagement.Configuration;
+using DiscountManagement.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 //!WiredUp ShopManagementBootstrapper Dependencies
-ShopManagementBootstrapper.Configure(builder.Services, builder.Configuration.GetConnectionString("Exclusive_OnlineShopDb"));
+var connectionString = builder.Configuration.GetConnectionString("Exclusive_OnlineShopDb");
+ShopManagementBootstrapper.Configure(builder.Services, connectionString);
+DiscountManagementBootstrapper.Configure(builder.Services , connectionString);
 
 var app = builder.Build();
 
