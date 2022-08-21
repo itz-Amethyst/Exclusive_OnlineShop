@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.Product;
@@ -57,7 +58,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 CategoryName = x.Category.Name,
                 CategoryId = x.CategoryId,
                 IsInStock = x.IsInStock,
-                CreationDate = x.CreationDate.ToString()
+                CreationDate = x.CreationDate.ToFarsi()
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
