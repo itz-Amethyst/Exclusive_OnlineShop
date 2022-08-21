@@ -34,7 +34,26 @@ namespace DiscountManagement.Application
 
         public OperationResult Edit(EditCustomerDiscount command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var customerDiscount = _customerDiscountRepository.GetById(command.Id);
+
+            if (customerDiscount == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+            if (_customerDiscountRepository.Exists(x => x.ProductId == command.ProductId && x.DiscountRate == command.DiscountRate && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var startDate = command.StartDate.ToGeorgianDateTime();
+            var endDate = command.EndDate.ToGeorgianDateTime();
+
+            customerDiscount.Edit(command.ProductId, command.DiscountRate, startDate, endDate, command.Reason);
+
+            _customerDiscountRepository.SaveChanges();
+            return operation.Succeeded();
+
         }
 
         public EditCustomerDiscount GetDetails(int id)
