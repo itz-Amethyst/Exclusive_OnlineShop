@@ -59,22 +59,5 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetEmptyStock(int id)
-        {
-            var result = _productApplication.EmptyStock(id);
-           
-            return RedirectToPage("./Index" , new {EmptyStock="True"});
-            
-
-            //Message = result.Message;
-            //return RedirectToPage("./Index");
-        }
-
-        public IActionResult OnGetIsInStock(int id)
-        {
-            var result = _productApplication.InStock(id);
-
-            return RedirectToPage("./Index", new { InStock = "True" });
-        }
     }
 }
