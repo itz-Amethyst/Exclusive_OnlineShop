@@ -22,6 +22,9 @@
     <link href="~/AdminTheme/assets/css/pages.css" rel="stylesheet" type="text/css" />
     <link href="~/AdminTheme/assets/css/menu.css" rel="stylesheet" type="text/css" />
     <link href="~/AdminTheme/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    
+    <!--Persian DatePicker-->
+    <link href="~/AdminTheme/assets/DatePicker/persian-datepicker.min.css" rel="stylesheet" type="text/css"/>
 
     <script src="~/AdminTheme/assets/js/modernizr.min.js"></script>
 
@@ -147,7 +150,18 @@
     <!--Modal_Js-->
     <script src="~/AdminTheme/assets/Modal_Js/site.js"></script>
 
+    <!--Date Picker-->
+    <script src="~/AdminTheme/assets/DatePicker/persian-date.min.js"></script>
+    <script src="~/AdminTheme/assets/DatePicker/persian-datepicker.min.js"></script>
+
 
     @RenderSection("Scripts",false)
+
+    <script>
+        $('.persianDateInput').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true
+        });
+    </script>
 </body>
 </html>
