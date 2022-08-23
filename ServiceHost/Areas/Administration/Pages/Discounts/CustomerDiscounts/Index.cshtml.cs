@@ -47,14 +47,14 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
 
         public IActionResult OnGetEdit(int id)
         {
-            var product = _productApplication.GetDetails(id);
-            product.Categories = _productCategoryApplication.GetProductsCategories();
-            return Partial("Edit", product);
+            var customerDiscount  = _customerDiscountApplication.GetDetails(id);
+            customerDiscount.Products = new SelectList(_productApplication.GetProducts() , "Id" , "Name");
+            return Partial("Edit", customerDiscount);
         }
 
-        public JsonResult OnPostEdit(EditProduct command)
+        public JsonResult OnPostEdit(EditCustomerDiscount command)
         {
-            var result = _productApplication.Edit(command);
+            var result = _customerDiscountApplication.Edit(command);
 
             return new JsonResult(result);
         }
