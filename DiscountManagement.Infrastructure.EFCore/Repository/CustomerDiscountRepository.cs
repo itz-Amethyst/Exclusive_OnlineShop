@@ -47,7 +47,8 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
                 EndDate = x.EndDate.ToFarsi(),
                 EndDateEn = x.EndDate,
                 ProductId = x.ProductId,
-                Reason = x.Reason
+                Reason = x.Reason,
+                CreationDate = x.CreationDate.ToFarsi()
             });
 
             if (searchModel.ProductId > 0)

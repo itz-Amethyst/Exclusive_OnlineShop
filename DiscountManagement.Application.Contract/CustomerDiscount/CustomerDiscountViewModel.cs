@@ -20,6 +20,6 @@
 
         public DateTime EndDateEn { get; set; }
 
-
+        public string CreationDate { get; set; }
     }
 }
