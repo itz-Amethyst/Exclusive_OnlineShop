@@ -17,7 +17,12 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
 
         public EditColleagueDiscount GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.ColleagueDiscounts.Select(x => new EditColleagueDiscount
+            {
+                Id = x.Id,
+                DiscountRate = x.DiscountRate,
+                ProductId = x.ProductId,
+            }).First(x => x.Id == id);
         }
 
         public List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel searchModel)
