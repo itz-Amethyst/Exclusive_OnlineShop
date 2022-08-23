@@ -34,7 +34,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
         {
             var command = new DefineCustomerDiscount
             {
-                Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name")
+                Products = _productApplication.GetProducts()
             };
             return Partial("./Create", command);
         }
@@ -48,7 +48,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
         public IActionResult OnGetEdit(int id)
         {
             var customerDiscount  = _customerDiscountApplication.GetDetails(id);
-            customerDiscount.Products = new SelectList(_productApplication.GetProducts() , "Id" , "Name");
+            customerDiscount.Products = _productApplication.GetProducts();
             return Partial("Edit", customerDiscount);
         }
 

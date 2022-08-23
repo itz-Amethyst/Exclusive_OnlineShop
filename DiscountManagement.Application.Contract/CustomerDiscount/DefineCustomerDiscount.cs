@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using ShopManagement.Application.Contracts.Product;
 
 namespace DiscountManagement.Application.Contract.CustomerDiscount
 {
@@ -14,6 +14,6 @@ namespace DiscountManagement.Application.Contract.CustomerDiscount
 
         public string Reason { get; set; }
 
-        public SelectList Products { get; set; }
+        public List<ProductViewModel> Products { get; set; }
     }
 }
