@@ -19,7 +19,7 @@ namespace InventoryManagement.Domain.InventoryAgg
             InStock = false;
         }
 
-        public int CalculateInventoryStock()
+        private int CalculateCurrentCount()
         {
             //! Operation 1 == true
             var plus = Operations.Where(x => x.Operation).Sum(x => x.Count);
@@ -30,5 +30,16 @@ namespace InventoryManagement.Domain.InventoryAgg
             return plus - minus;
 
         }
+
+        public void Increase(int count , int operatorId , string description)
+        {
+            var currentCount =CalculateCurrentCount() + count;
+
+            var operation = new InventoryOperation(true, count, operatorId, currentCount, description, 0 , Id);
+            Operations.Add(operation);
+
+            InStock = currentCount > 0;
+        }
+
     }
 }

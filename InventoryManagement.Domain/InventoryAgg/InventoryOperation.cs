@@ -21,5 +21,16 @@
         public int InventoryId { get; private set; }
 
         public Inventory Inventory { get; private set; }
+
+        public InventoryOperation(bool operation, int count, int operationId, int currentCount, string description, int orderId, int inventoryId)
+        {
+            Operation = operation;
+            Count = count;
+            OperationId = operationId;
+            CurrentCount = currentCount;
+            Description = description;
+            OrderId = orderId;
+            InventoryId = inventoryId;
+        }
     }
 }
