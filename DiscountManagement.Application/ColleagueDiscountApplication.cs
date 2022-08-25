@@ -30,7 +30,21 @@ namespace DiscountManagement.Application
 
         public OperationResult Edit(EditColleagueDiscount command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var colleagueDiscount = _colleagueDiscountRepository.GetById(command.Id);
+            if (colleagueDiscount == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+            if (_colleagueDiscountRepository.Exists(x =>
+                    x.ProductId == command.ProductId && x.DiscountRate == command.DiscountRate && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            colleagueDiscount.Edit(command.ProductId,command.DiscountRate);
+            _colleagueDiscountRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Remove(int id)
