@@ -24,7 +24,15 @@ namespace DiscountManagement.Application
             var startDate = command.StartDate.ToGeorgianDateTime();
             var endDate = command.EndDate.ToGeorgianDateTime();
 
+            if (endDate < startDate)
+            {
+                return operation.Failed(ApplicationMessages.InputDateNotValid);
+            }
 
+            if (startDate == endDate)
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedDate);
+            }
             var customerDiscount = new CustomerDiscount(command.ProductId , command.DiscountRate , startDate , endDate , command.Reason);
 
             _customerDiscountRepository.Create(customerDiscount);
