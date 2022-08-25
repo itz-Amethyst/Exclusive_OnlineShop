@@ -23,10 +23,10 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             _colleagueDiscountApplication = colleagueDiscountApplication;
         }
 
-        public void OnGet(ColleagueDiscountSearchModel searchModel , bool inStock = false , bool emptyStock = false)
+        public void OnGet(ColleagueDiscountSearchModel searchModel , bool restored = false , bool removed = false)
         {
-            ViewData["InStock"] = inStock;
-            ViewData["EmptyStock"] = emptyStock;
+            ViewData["Restored"] = restored;
+            ViewData["Removed"] = removed;
             Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
             ColleagueDiscounts = _colleagueDiscountApplication.Search(searchModel);
         }
@@ -58,6 +58,20 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             var result = _colleagueDiscountApplication.Edit(command);
 
             return new JsonResult(result);
+        }
+
+        public IActionResult OnGetRemove(int id)
+        {
+            var result = _colleagueDiscountApplication.Remove(id);
+
+            return RedirectToPage("./Index", new { Removed = "True" });
+        }
+
+        public IActionResult OnGetRestore(int id)
+        {
+            var result = _colleagueDiscountApplication.Restore(id);
+
+            return RedirectToPage("./Index", new { Restored = "True" });
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿@page
 @model ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts.IndexModel
+@{
     ViewData["Title"] = "مدیریت تخفیفات همکاران";
 }
 
@@ -66,18 +67,18 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.ProductName</td>
-                            <td>@item.DiscountRate</td>
+                            <td>@item.DiscountRate%</td>
                             <td>@item.CreationDate</td>
                             <td>
                                 <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
                                 @if (item.IsRemoved)
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id">فعال سازی</a>
+                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"><i class="fa fa-check">فعال سازی</i></a>
 
                                 }
                                 else
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id">غیر فعال</a>
+                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"><i class="fa fa-trash">غیر فعال</i></a>
 
                                 }
                             </td>
@@ -90,7 +91,7 @@
 </div>
 <!-- end row -->
 @section Scripts{
-   @* <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>*@
+    <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
@@ -102,27 +103,27 @@
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
 
         //? Sweet Alert 
-        //var url = window.location.href;
-        //const MainUrl = url.split('?')[0];
+        var url = window.location.href;
+        const MainUrl = url.split('?')[0];
 
-        //function Location() {
-        //    window.location.href = MainUrl;
+        function Location() {
+            window.location.href = MainUrl;
            
-        //}
+        }
 
-        //function Clear() {
-        //    setTimeout(Location, 2500);
-        //}
+        function Clear() {
+            setTimeout(Location, 2500);
+        }
 
     </script>
 
 
-   @* @if (ViewBag.EmptyStock == true)
+    @if (ViewBag.Removed == true)
     {
         <script>
             Swal.fire({
                 position: 'top-end',
-                title: 'اتمام موجودی محصول با موفقیت انجام شد',
+                title: 'غیر فعال سازی با موفقیت انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
@@ -136,12 +137,12 @@
             Clear();
         </script>
     }
-    @if (ViewBag.InStock == true)
+    @if (ViewBag.Restored == true)
     {
         <script>
             Swal.fire({
                 position: 'top-end',
-                title: 'افزایش موجودی محصول با موفقیت انجام شد',
+                title: 'فعال سازی با موفقیت انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
@@ -154,5 +155,5 @@
             Clear();
 
         </script>
-    }*@
+    }
 }
