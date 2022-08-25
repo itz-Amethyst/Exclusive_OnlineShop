@@ -11,5 +11,12 @@ namespace InventoryManagement.Domain.InventoryAgg
         public bool InStock { get; private set; }
 
         public List<InventoryOperation> Operations { get; private set; }
+
+        public Inventory(int productId, double unitPrice)
+        {
+            ProductId = productId;
+            UnitPrice = unitPrice;
+            InStock = false;
+        }
     }
 }
