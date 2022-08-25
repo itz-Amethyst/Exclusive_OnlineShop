@@ -95,7 +95,6 @@
 </div>
 <!-- end row -->
 @section Scripts{
-   @* <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>*@
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
@@ -107,57 +106,6 @@
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
 
         //? Sweet Alert 
-        //var url = window.location.href;
-        //const MainUrl = url.split('?')[0];
-
-        //function Location() {
-        //    window.location.href = MainUrl;
-           
-        //}
-
-        //function Clear() {
-        //    setTimeout(Location, 2500);
-        //}
 
     </script>
-
-
-   @* @if (ViewBag.EmptyStock == true)
-    {
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                title: 'اتمام موجودی محصول با موفقیت انجام شد',
-                icon: 'success',
-                confirmButtonText: 'خواندم',
-                showCloseButton: false,
-                timer: 2500
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Location();
-                }
-            });
-
-            Clear();
-        </script>
-    }
-    @if (ViewBag.InStock == true)
-    {
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                title: 'افزایش موجودی محصول با موفقیت انجام شد',
-                icon: 'success',
-                confirmButtonText: 'خواندم',
-                showCloseButton: false,
-                timer: 2500
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Location();
-                }
-            });
-            Clear();
-
-        </script>
-    }*@
 }

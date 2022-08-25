@@ -22,10 +22,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             _customerDiscountApplication = customerDiscountApplication;
         }
 
-        public void OnGet(CustomerDiscountSearchModel searchModel , bool inStock = false , bool emptyStock = false)
+        public void OnGet(CustomerDiscountSearchModel searchModel)
         {
-            ViewData["InStock"] = inStock;
-            ViewData["EmptyStock"] = emptyStock;
             Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
             CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
         }
