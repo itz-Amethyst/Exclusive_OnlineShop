@@ -63,7 +63,16 @@ namespace DiscountManagement.Application
 
         public OperationResult Restore(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var colleagueDiscount = _colleagueDiscountRepository.GetById(id);
+            if (colleagueDiscount == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            colleagueDiscount.Restore();
+            _colleagueDiscountRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public EditColleagueDiscount GetDetails(int id)
