@@ -18,5 +18,17 @@ namespace InventoryManagement.Domain.InventoryAgg
             UnitPrice = unitPrice;
             InStock = false;
         }
+
+        public int CalculateInventoryStock()
+        {
+            //! Operation 1 == true
+            var plus = Operations.Where(x => x.Operation).Sum(x => x.Count);
+
+            //? Operation 0 == false
+            var minus = Operations.Where(x => !x.Operation).Sum(x => x.Count);
+
+            return plus - minus;
+
+        }
     }
 }
