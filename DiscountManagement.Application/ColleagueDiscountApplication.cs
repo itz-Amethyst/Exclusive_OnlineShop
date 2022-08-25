@@ -77,12 +77,12 @@ namespace DiscountManagement.Application
 
         public EditColleagueDiscount GetDetails(int id)
         {
-            throw new NotImplementedException();
+           return _colleagueDiscountRepository.GetDetails(id);
         }
 
         public List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel searchModel)
         {
-            throw new NotImplementedException();
+           return _colleagueDiscountRepository.Search(searchModel);
         }
     }
 }
