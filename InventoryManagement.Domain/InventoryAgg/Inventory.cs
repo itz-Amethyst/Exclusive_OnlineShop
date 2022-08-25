@@ -6,10 +6,10 @@ namespace InventoryManagement.Domain.InventoryAgg
     {
         public int ProductId { get; private set; }
 
-        public int Count { get; private set; }
-
         public double UnitPrice { get; private set; }
 
         public bool InStock { get; private set; }
+
+        public List<InventoryOperation> Operations { get; private set; }
     }
 }
