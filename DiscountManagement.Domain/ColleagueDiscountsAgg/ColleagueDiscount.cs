@@ -20,6 +20,7 @@ namespace DiscountManagement.Domain.ColleagueDiscountsAgg
         public void Edit(int productId, int discountRate)
         {
             ProductId = productId;
+            DiscountRate = discountRate;
         }
 
         public void Remove()
