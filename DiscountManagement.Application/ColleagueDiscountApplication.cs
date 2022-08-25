@@ -49,7 +49,16 @@ namespace DiscountManagement.Application
 
         public OperationResult Remove(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var colleagueDiscount = _colleagueDiscountRepository.GetById(id);
+            if (colleagueDiscount == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            colleagueDiscount.Remove();
+            _colleagueDiscountRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Restore(int id)
