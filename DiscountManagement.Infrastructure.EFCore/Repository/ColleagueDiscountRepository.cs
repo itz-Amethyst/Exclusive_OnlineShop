@@ -1,18 +1,22 @@
-﻿using _0_Framework.Infrastructure;
+﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contract.ColleagueDiscount;
 using DiscountManagement.Domain.ColleagueDiscountsAgg;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace DiscountManagement.Infrastructure.EFCore.Repository
 {
     public class ColleagueDiscountRepository : RepositoryBase<int , ColleagueDiscount> , IColleagueDiscountRepository
     {
-        public readonly DiscountContext _context;
+        private readonly DiscountContext _context;
+        private readonly ShopContext _shopContext;
 
-        public ColleagueDiscountRepository(DiscountContext context) : base(context)
+        public ColleagueDiscountRepository(DiscountContext context, ShopContext shopContext) : base(context)
         {
             _context = context;
+            _shopContext = shopContext;
         }
 
         public EditColleagueDiscount GetDetails(int id)
@@ -27,7 +31,25 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
 
         public List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var products = _shopContext.Products.Select(x => new { x.Id, x.Name }).ToList();
+
+            var query = _context.ColleagueDiscounts.Select(x => new ColleagueDiscountViewModel
+            {
+                Id = x.Id,
+                CreationDate = x.CreationDate.ToFarsi(),
+                DiscountRate = x.DiscountRate,
+                ProductId = x.ProductId
+            });
+
+            if (searchModel.ProductId > 0)
+            {
+                query = query.Where(x => x.ProductId == searchModel.ProductId);
+            }
+
+            var discounts = query.OrderByDescending(x => x.Id).ToList();
+            discounts.ForEach(discounts => discounts.ProductName = products.First(x=> x.Id == discounts.ProductId)?.Name);
+
+            return discounts;
         }
     }
 }
