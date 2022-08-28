@@ -8,12 +8,12 @@ namespace InventoryManagement.Infrastructure.EFCore.Mappings
     {
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
-            builder.ToTable("Inventories");
+            builder.ToTable("Inventory");
             builder.HasKey(x => x.Id);
 
             builder.OwnsMany(x => x.Operations, modelBuilder =>
             {
-                modelBuilder.ToTable("Operations");
+                modelBuilder.ToTable("InventoryOperations");
                 modelBuilder.HasKey(x => x.Id);
                 modelBuilder.Property(x => x.Description).HasMaxLength(1000);
                 modelBuilder.WithOwner(x => x.Inventory).HasForeignKey(x => x.InventoryId);
