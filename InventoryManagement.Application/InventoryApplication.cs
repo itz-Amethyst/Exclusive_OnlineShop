@@ -15,7 +15,18 @@ namespace InventoryManagement.Application
 
         public OperationResult Create(CreateInventory command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            if (_inventoryRepository.Exists(x => x.ProductId == command.ProductId))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var inventory = new Inventory(command.ProductId, command.UnitPrice);
+
+            _inventoryRepository.Create(inventory);
+            _inventoryRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Edit(EditInventory command)
