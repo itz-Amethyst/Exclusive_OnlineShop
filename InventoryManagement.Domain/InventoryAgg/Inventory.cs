@@ -19,7 +19,7 @@ namespace InventoryManagement.Domain.InventoryAgg
             InStock = false;
         }
 
-        private int CalculateCurrentCount()
+        public int CalculateCurrentCount()
         {
             //! Operation 1 == true
             var plus = Operations.Where(x => x.Operation).Sum(x => x.Count);
