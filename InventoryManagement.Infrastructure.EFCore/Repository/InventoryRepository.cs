@@ -27,7 +27,7 @@ namespace InventoryManagement.Infrastructure.EFCore.Repository
 
         public Inventory GetBy(int productId)
         {
-            throw new NotImplementedException();
+            return _context.Inventories.First(x => x.ProductId == productId);
         }
     }
 }
