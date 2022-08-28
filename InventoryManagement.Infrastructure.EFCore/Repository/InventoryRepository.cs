@@ -17,7 +17,12 @@ namespace InventoryManagement.Infrastructure.EFCore.Repository
 
         public EditInventory GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.Inventories.Select(x => new EditInventory
+            {
+                Id = x.Id,
+                ProductId = x.ProductId,
+                UnitPrice = x.UnitPrice
+            }).First(x => x.Id == id);
         }
 
         public List<InventoryViewModel> Search(InventorySearchModel searchModel)
