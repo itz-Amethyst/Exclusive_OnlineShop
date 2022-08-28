@@ -1,5 +1,6 @@
 using ShopManagement.Configuration;
 using DiscountManagement.Configuration;
+using InventoryManagement.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddRazorPages();
 var connectionString = builder.Configuration.GetConnectionString("Exclusive_OnlineShopDb");
 ShopManagementBootstrapper.Configure(builder.Services, connectionString);
 DiscountManagementBootstrapper.Configure(builder.Services , connectionString);
+InventoryManagementBootstrapper.Configure(builder.Services , connectionString);
 
 var app = builder.Build();
 
