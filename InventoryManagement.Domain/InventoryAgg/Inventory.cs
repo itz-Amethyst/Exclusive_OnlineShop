@@ -19,6 +19,12 @@ namespace InventoryManagement.Domain.InventoryAgg
             InStock = false;
         }
 
+        public void Edit(int productId, double unitPrice)
+        {
+            ProductId = productId;
+            UnitPrice = unitPrice;
+        }
+
         public int CalculateCurrentCount()
         {
             //! Operation 1 == true
