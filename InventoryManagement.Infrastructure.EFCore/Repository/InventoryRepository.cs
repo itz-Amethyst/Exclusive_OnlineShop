@@ -2,7 +2,6 @@
 using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using InventoryManagement.Infrastructure.EFCore.Context;
-using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace InventoryManagement.Infrastructure.EFCore.Repository
