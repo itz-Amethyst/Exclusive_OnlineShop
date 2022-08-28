@@ -31,7 +31,23 @@ namespace InventoryManagement.Application
 
         public OperationResult Edit(EditInventory command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var inventory = _inventoryRepository.GetById(command.Id);
+
+            if (inventory == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (_inventoryRepository.Exists(x => x.ProductId == command.ProductId && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            inventory.Edit(command.ProductId , command.UnitPrice);
+
+            _inventoryRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Increase(IncreaseInventory command)
