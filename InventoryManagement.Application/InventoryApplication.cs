@@ -67,7 +67,7 @@ namespace InventoryManagement.Application
 
         public EditInventory GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _inventoryRepository.GetDetails(id);
         }
 
         public List<InventoryViewModel> Search(InventorySearchModel searchModel)
