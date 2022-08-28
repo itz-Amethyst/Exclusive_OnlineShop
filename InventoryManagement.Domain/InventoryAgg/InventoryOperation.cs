@@ -22,6 +22,11 @@
 
         public Inventory Inventory { get; private set; }
 
+        protected InventoryOperation()
+        {
+
+        }
+
         public InventoryOperation(bool operation, int count, int operationId, int currentCount, string description, int orderId, int inventoryId)
         {
             Operation = operation;
