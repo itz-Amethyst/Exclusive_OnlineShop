@@ -52,7 +52,20 @@ namespace InventoryManagement.Application
 
         public OperationResult Increase(IncreaseInventory command)
         {
-            
+            var operation = new OperationResult();
+            var inventory = _inventoryRepository.GetById(command.InventoryId);
+
+            if (inventory == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            //! For Now (User)
+            const int operatorId = 1;
+            inventory.Increase(command.Count, operatorId, command.Description);
+
+            _inventoryRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Reduce(List<ReduceInventory> command)
