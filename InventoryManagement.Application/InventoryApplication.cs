@@ -57,12 +57,36 @@ namespace InventoryManagement.Application
 
         public OperationResult Reduce(List<ReduceInventory> command)
         {
+            var operation = new OperationResult();
+            const int operatorId = 1;
 
+            foreach (var item in command)
+            {
+                var inventory = _inventoryRepository.GetBy(item.ProductId);
+                inventory.Reduce(item.Count, operatorId, item.Description, item.OrderId);
+            }
+
+            _inventoryRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public OperationResult Reduce(ReduceInventory command)
         {
+            var operation = new OperationResult();
+            var inventory = _inventoryRepository.GetById(command.InventoryId);
 
+            if (inventory == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            //! For Now (User)
+            const int operatorId = 1;
+            inventory.Reduce(command.Count, operatorId, command.Description, 0);
+
+            _inventoryRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public EditInventory GetDetails(int id)
