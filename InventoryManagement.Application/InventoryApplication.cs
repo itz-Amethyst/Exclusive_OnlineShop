@@ -52,17 +52,17 @@ namespace InventoryManagement.Application
 
         public OperationResult Increase(IncreaseInventory command)
         {
-            throw new NotImplementedException();
+            
         }
 
         public OperationResult Reduce(List<ReduceInventory> command)
         {
-            throw new NotImplementedException();
+
         }
 
         public OperationResult Reduce(ReduceInventory command)
         {
-            throw new NotImplementedException();
+
         }
 
         public EditInventory GetDetails(int id)
@@ -72,7 +72,7 @@ namespace InventoryManagement.Application
 
         public List<InventoryViewModel> Search(InventorySearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _inventoryRepository.Search(searchModel);
         }
     }
 }
