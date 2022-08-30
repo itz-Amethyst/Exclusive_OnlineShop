@@ -65,7 +65,7 @@
                         <th>محصول</th>
                         <th>قیمت</th>
                         <th>موجودی انبار</th>
-                        <th style="width: 260px">عملیات</th>
+                        <th style="width: 600px">عملیات</th>
                     </tr>
                 </thead>
 
@@ -82,10 +82,10 @@
                                    href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
 
                                 <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md " 
-                                   href="#showmodal=@Url.Page("./Index" , "Increase" , new {id = item.Id})"><i class="fa fa-plus">افزایش</i></a>
+                                   href="#showmodal=@Url.Page("./Index" , "Increase" , new {id = item.Id})"><i class="fa fa-plus">افزایش موجودی</i></a>
                                 
                                 <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md " 
-                                   href="#showmodal=@Url.Page("./Index" , "Reduce" , new {id = item.Id})"><i class="fa fa-minus">کاهش</i></a>
+                                   href="#showmodal=@Url.Page("./Index" , "Reduce" , new {id = item.Id})"><i class="fa fa-minus">کاهش موجودی</i></a>
 
                             </td>
                         </tr>
