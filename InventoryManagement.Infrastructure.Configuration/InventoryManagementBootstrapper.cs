@@ -1,4 +1,5 @@
-﻿using InventoryManagement.Application.Contract.Inventory;
+﻿using InventoryManagement.Application;
+using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Repository;
@@ -14,7 +15,7 @@ namespace InventoryManagement.Infrastructure.Configuration
             #region Inventory
 
             services.AddTransient<IInventoryRepository, InventoryRepository>();
-            services.AddTransient<IInventoryApplication, IInventoryApplication>();
+            services.AddTransient<IInventoryApplication, InventoryApplication>();
 
             #endregion
 
