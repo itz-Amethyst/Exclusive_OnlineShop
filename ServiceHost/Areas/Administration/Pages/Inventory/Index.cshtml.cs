@@ -91,5 +91,12 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
 
             return new JsonResult(result);
         }
+
+        public IActionResult OnGetOperationLog(int id)
+        {
+            var operationLog = _inventoryApplication.GetOperationLog(id);
+
+            return Partial("OperationLog", operationLog);
+        }
     }
 }
