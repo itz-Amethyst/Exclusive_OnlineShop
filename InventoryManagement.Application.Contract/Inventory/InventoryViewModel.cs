@@ -13,5 +13,7 @@
         public bool InStock { get; set; }
 
         public int CurrentCount { get; set; }
+
+        public string CreationDate { get; set; }
     }
 }

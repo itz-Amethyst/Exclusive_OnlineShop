@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
@@ -38,7 +39,8 @@ namespace InventoryManagement.Infrastructure.EFCore.Repository
                 UnitPrice = x.UnitPrice,
                 InStock = x.InStock,
                 ProductId = x.ProductId,
-                CurrentCount = x.CalculateCurrentCount()
+                CurrentCount = x.CalculateCurrentCount(),
+                CreationDate = x.CreationDate.ToFarsi()
             });
 
             if (searchModel.ProductId > 0)

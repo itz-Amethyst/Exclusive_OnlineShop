@@ -65,6 +65,7 @@
                         <th>محصول</th>
                         <th>قیمت</th>
                         <th>موجودی انبار</th>
+                        <th>تاریخ ایجاد</th>
                         <th style="width: 600px">عملیات</th>
                     </tr>
                 </thead>
@@ -77,6 +78,7 @@
                             <td>@item.ProductName</td>
                             <td>@item.UnitPrice</td>
                             <td>@item.CurrentCount</td>
+                            <td>@item.CreationDate</td>
                             <td>
                                 <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " 
                                    href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
