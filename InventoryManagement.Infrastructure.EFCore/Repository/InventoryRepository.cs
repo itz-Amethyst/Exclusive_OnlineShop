@@ -1,4 +1,5 @@
-﻿using _0_Framework.Infrastructure;
+﻿using System.Xml;
+using _0_Framework.Infrastructure;
 using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using InventoryManagement.Infrastructure.EFCore.Context;
@@ -68,7 +69,21 @@ namespace InventoryManagement.Infrastructure.EFCore.Repository
 
         public List<InventoryOperationViewModel> GetOperationLog(int inventoryId)
         {
-            throw new NotImplementedException();
+            var inventory = _context.Inventories.First(x => x.Id == inventoryId);
+
+            return inventory.Operations.Select(x => new InventoryOperationViewModel
+            {
+                Id = x.Id,
+                Count = x.Count,
+                CurrentCount = x.CurrentCount,
+                Description = x.Description,
+                Operation = x.Operation,
+                OperationDate = x.OperationDate,
+                //Todo: Changed to dynamic after login operation
+                Operator = "مدیر سیستم",
+                OperationId = x.OperationId,
+                OrderId = x.OrderId
+            }).ToList();
         }
     }
 }
