@@ -65,5 +65,10 @@ namespace InventoryManagement.Infrastructure.EFCore.Repository
         {
             return _context.Inventories.First(x => x.ProductId == productId);
         }
+
+        public List<InventoryOperationViewModel> GetOperationLog(int inventoryId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
