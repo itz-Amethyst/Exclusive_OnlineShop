@@ -24,10 +24,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             _productCategoryApplication = productCategoryApplication;
         }
 
-        public void OnGet(ProductSearchModel searchModel , bool inStock = false , bool emptyStock = false)
+        public void OnGet(ProductSearchModel searchModel /*, bool inStock = false , bool emptyStock = false*/)
         {
-            ViewData["InStock"] = inStock;
-            ViewData["EmptyStock"] = emptyStock;
+            //!Work On this later
+
+            //ViewData["InStock"] = inStock;
+            //ViewData["EmptyStock"] = emptyStock;
             ProductCategories = new SelectList(_productCategoryApplication.GetProductsCategories(),"Id" , "Name");
             Products = _productApplication.Search(searchModel);
         }
@@ -61,22 +63,5 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetEmptyStock(int id)
-        {
-            var result = _productApplication.EmptyStock(id);
-           
-            return RedirectToPage("./Index" , new {EmptyStock="True"});
-            
-
-            //Message = result.Message;
-            //return RedirectToPage("./Index");
-        }
-
-        public IActionResult OnGetIsInStock(int id)
-        {
-            var result = _productApplication.InStock(id);
-
-            return RedirectToPage("./Index", new { InStock = "True" });
-        }
     }
 }
