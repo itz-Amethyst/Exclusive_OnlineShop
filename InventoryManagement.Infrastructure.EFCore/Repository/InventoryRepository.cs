@@ -80,7 +80,7 @@ namespace InventoryManagement.Infrastructure.EFCore.Repository
                 CurrentCount = x.CurrentCount,
                 Description = x.Description,
                 Operation = x.Operation,
-                OperationDate = x.OperationDate,
+                OperationDate = x.OperationDate.ToFarsi(),
                 //Todo: Changed to dynamic after login operation
                 Operator = "مدیر سیستم",
                 OperationId = x.OperationId,

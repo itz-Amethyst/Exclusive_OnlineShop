@@ -12,7 +12,7 @@
 
         public string Operator { get; set; }
 
-        public DateTime OperationDate { get; set; }
+        public String OperationDate { get; set; }
 
         public int CurrentCount { get; set; }
 
