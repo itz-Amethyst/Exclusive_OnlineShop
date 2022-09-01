@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using _01_ExclusiveQuery.Contracts.Slide;
+using _01_ExclusiveQuery.Query;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShopManagement.Application;
 using ShopManagement.Application.Contracts.Product;
@@ -42,6 +44,12 @@ namespace ShopManagement.Configuration
 
             services.AddTransient<ISlideApplication, SlideApplication>();
             services.AddTransient<ISlideRepository, SlideRepository>();
+
+            #endregion
+
+            #region SlideQuery
+
+            services.AddTransient<ISlideQuery, SlideQuery>();
 
             #endregion
 
