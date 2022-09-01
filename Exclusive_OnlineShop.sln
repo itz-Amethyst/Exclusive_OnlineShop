@@ -59,7 +59,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Infrastructure.Configuration", "InventoryManagement.Infrastructure.Configuration\InventoryManagement.Infrastructure.Configuration.csproj", "{CE4E7881-D14E-4779-9910-FC9A967A900B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Application", "InventoryManagement.Application\InventoryManagement.Application.csproj", "{CACE2EEB-4ECD-4B01-98C0-A05AC3EEDFAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Application", "InventoryManagement.Application\InventoryManagement.Application.csproj", "{CACE2EEB-4ECD-4B01-98C0-A05AC3EEDFAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_ExclusiveQuery", "01_ExclusiveQuery\01_ExclusiveQuery.csproj", "{B7328B5F-7163-43D2-9E5C-14EE5FFFDA32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{CACE2EEB-4ECD-4B01-98C0-A05AC3EEDFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACE2EEB-4ECD-4B01-98C0-A05AC3EEDFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACE2EEB-4ECD-4B01-98C0-A05AC3EEDFAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7328B5F-7163-43D2-9E5C-14EE5FFFDA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7328B5F-7163-43D2-9E5C-14EE5FFFDA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7328B5F-7163-43D2-9E5C-14EE5FFFDA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7328B5F-7163-43D2-9E5C-14EE5FFFDA32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
