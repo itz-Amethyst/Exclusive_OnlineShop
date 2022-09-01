@@ -28,12 +28,14 @@
                 <div class="form-group">
                     <label asp-for="PictureAlt" class="control-label">Alt</label>
                     <input type="text" class="form-control" asp-for="PictureAlt">
+                    <span asp-validation-for="PictureAlt" class="error"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="PictureTitle" class="control-label"> عنوان عکس</label>
                     <input type="text" class="form-control" asp-for="PictureTitle">
+                    <span asp-validation-for="PictureTitle" class="error"></span>
                 </div>
             </div>
         </div>
@@ -42,12 +44,14 @@
                 <div class="form-group">
                     <label asp-for="Heading" class="control-label">سر تیتر</label>
                     <input type="text" class="form-control" asp-for="Heading">
+                    <span asp-validation-for="Heading" class="error"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"> عنوان</label>
                     <input type="text" class="form-control" asp-for="Title">
+                    <span asp-validation-for="Title" class="error"></span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -60,6 +64,7 @@
                 <div class="form-group">
                     <label asp-for="BtnText" class="control-label"> متن دکمه</label>
                     <input type="text" class="form-control" asp-for="BtnText">
+                    <span asp-validation-for="BtnText" class="error"></span>
                 </div>
             </div>
         </div>
@@ -69,6 +74,7 @@
                     <label asp-for="Link" class="control-label"> لینک
                     </label>
                     <input type="text" class="form-control" asp-for="Link">
+                    <span asp-validation-for="Link" class="error"></span>
                 </div>
             </div>
         </div>
