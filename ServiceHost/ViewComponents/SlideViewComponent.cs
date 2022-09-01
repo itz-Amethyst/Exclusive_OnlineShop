@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ServiceHost.ViewComponents
 {
-    public class SlideViewComponents : ViewComponent
+    public class SlideViewComponent : ViewComponent
     {
         private readonly ISlideQuery _slidQuery;
 
-        public SlideViewComponents(ISlideQuery slideQuery)
+        public SlideViewComponent(ISlideQuery slideQuery)
         {
             _slidQuery = slideQuery;
         }
