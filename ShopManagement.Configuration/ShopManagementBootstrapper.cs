@@ -1,4 +1,5 @@
-﻿using _01_ExclusiveQuery.Contracts.Slide;
+﻿using _01_ExclusiveQuery.Contracts.ProductCategory;
+using _01_ExclusiveQuery.Contracts.Slide;
 using _01_ExclusiveQuery.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,12 @@ namespace ShopManagement.Configuration
             #region SlideQuery
 
             services.AddTransient<ISlideQuery, SlideQuery>();
+
+            #endregion
+
+            #region ProductCategoryQuer
+
+            services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
 
             #endregion
 
