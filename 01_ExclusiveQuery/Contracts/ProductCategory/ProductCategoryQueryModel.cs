@@ -2,6 +2,8 @@
 {
     public class ProductCategoryQueryModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         //!Note For better seo Quality can put description in Description Component and add hide class into it
