@@ -24,5 +24,10 @@ namespace _01_ExclusiveQuery.Query
                 Slug = x.Slug
             }).ToList();
         }
+
+        public List<ProductCategoryQueryModel> GetProductCategoriesWithProducts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
