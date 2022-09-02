@@ -1,4 +1,6 @@
-﻿namespace _01_ExclusiveQuery.Contracts.ProductCategory
+﻿using _01_ExclusiveQuery.Contracts.Product;
+
+namespace _01_ExclusiveQuery.Contracts.ProductCategory
 {
     public class ProductCategoryQueryModel
     {
@@ -16,5 +18,7 @@
         public string PictureTitle { get; set; }
 
         public string Slug { get; set; }
+
+        public List<ProductQueryModel> Products { get; set; }
     }
 }
