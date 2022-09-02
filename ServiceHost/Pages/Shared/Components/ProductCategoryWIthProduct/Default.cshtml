@@ -27,7 +27,7 @@
                         <div class="nav nav-tabs justify-content-center" id="nav-tab2" role="tablist">
                             @foreach (var category in Model)
                             {
-                                <a class="nav-item nav-link active" id="@category.Id" data-toggle="tab"
+                                <a class="nav-item nav-link @(Model.First() == category ? "active" : "")" id="@category.Id" data-toggle="tab"
                                href="#product-series-@category.Id" role="tab" aria-selected="true">@category.Name</a>
                             }
                         </div>
@@ -38,7 +38,8 @@
                     <div class="tab-content">
                         @foreach (var category in Model)
                         {
-                            <div class="tab-pane fade show active" id="product-series-1" role="tabpanel"
+                            @*Important code snippet*@
+                            <div class="tab-pane fade show @(Model.First() == category ? "active" : "")" id="product-series-@category.Id" role="tabpanel"
                              aria-labelledby="product-tab-1">
                                 <!--=======  single row slider wrapper  =======-->
                                 <div class="single-row-slider-wrapper">
