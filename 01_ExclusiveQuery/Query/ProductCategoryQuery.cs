@@ -40,7 +40,7 @@ namespace _01_ExclusiveQuery.Query
                 }).ToList();
         }
 
-        private List<ProductQueryModel> MapProducts(List<Product> products)
+        private static List<ProductQueryModel> MapProducts(List<Product> products)
         {
             var result = new List<ProductQueryModel>();
             
