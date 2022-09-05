@@ -9,6 +9,10 @@ namespace ShopManagement.Application.Contracts.Product
         OperationResult Edit(EditProduct command);
 
         EditProduct GetDetails(int id);
+        
+        OperationResult Remove(int id);
+
+        OperationResult Restore(int id);
 
         List<ProductViewModel> Search(ProductSearchModel searchModel);
 

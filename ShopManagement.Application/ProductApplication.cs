@@ -61,6 +61,38 @@ namespace ShopManagement.Application
             return operation.Succeeded();
         }
 
+        public OperationResult Remove(int id)
+        {
+            var operation = new OperationResult();
+
+            var product = _productRepository.GetById(id);
+
+            if (product == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            product.Remove();
+            _productRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public OperationResult Restore(int id)
+        {
+            var operation = new OperationResult();
+
+            var product = _productRepository.GetById(id);
+
+            if (product == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            product.Restore();
+            _productRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
         public EditProduct GetDetails(int id)
         {
             return _productRepository.GetDetails(id);
