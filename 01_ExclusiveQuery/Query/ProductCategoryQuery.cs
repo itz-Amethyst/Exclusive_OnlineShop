@@ -34,7 +34,9 @@ namespace _01_ExclusiveQuery.Query
 
         public List<ProductCategoryQueryModel> GetProductCategoriesWithProducts()
         {
-            return _shopContext.ProductCategories.Include(x => x.Products)
+            var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+
+            var categories = _shopContext.ProductCategories.Include(x => x.Products)
                 .ThenInclude(x => x.Category)
                 .Select(x => new ProductCategoryQueryModel
                 {
@@ -42,6 +44,17 @@ namespace _01_ExclusiveQuery.Query
                     Name = x.Name,
                     Products = MapProducts(x.Products)
                 }).ToList();
+
+            foreach (var category in categories)
+            {
+                foreach (var product in category.Products)
+                {
+                    product.Price = inventory.FirstOrDefault(x => x.ProductId == product.Id)?
+                        .UnitPrice.ToMoney();
+                }
+            }
+
+            return categories;
         }
 
         private static List<ProductQueryModel> MapProducts(List<Product> products)
