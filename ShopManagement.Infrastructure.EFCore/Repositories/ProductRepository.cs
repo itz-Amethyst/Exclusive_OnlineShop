@@ -41,8 +41,9 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             return _context.Products.Select(x => new ProductViewModel
             {
                 Id = x.Id,
-                Name = x.Name
-            }).ToList();
+                Name = x.Name,
+                IsDeleted = x.IsDeleted
+            }).Where(x=>x.IsDeleted == false).ToList();
         }
 
         public List<ProductViewModel> Search(ProductSearchModel searchModel)
@@ -55,7 +56,8 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 Picture = x.Picture,
                 CategoryName = x.Category.Name,
                 CategoryId = x.CategoryId,
-                CreationDate = x.CreationDate.ToFarsi()
+                CreationDate = x.CreationDate.ToFarsi(),
+                IsDeleted = x.IsDeleted
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
