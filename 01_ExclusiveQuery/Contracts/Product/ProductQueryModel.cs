@@ -21,5 +21,7 @@
         public string ProductCategory { get; set; }
 
         public string Slug { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
