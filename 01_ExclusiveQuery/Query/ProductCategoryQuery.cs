@@ -1,5 +1,7 @@
-﻿using _01_ExclusiveQuery.Contracts.Product;
+﻿using _0_Framework.Application;
+using _01_ExclusiveQuery.Contracts.Product;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
+using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
@@ -9,10 +11,12 @@ namespace _01_ExclusiveQuery.Query
     public class ProductCategoryQuery : IProductCategoryQuery
     {
         private readonly ShopContext _shopContext;
+        private readonly InventoryContext _inventoryContext;
 
-        public ProductCategoryQuery(ShopContext shopContext)
+        public ProductCategoryQuery(ShopContext shopContext, InventoryContext inventoryContext)
         {
             _shopContext = shopContext;
+            _inventoryContext = inventoryContext;
         }
 
         public List<ProductCategoryQueryModel> GetProductCategories()
@@ -42,27 +46,18 @@ namespace _01_ExclusiveQuery.Query
 
         private static List<ProductQueryModel> MapProducts(List<Product> products)
         {
-            var result = new List<ProductQueryModel>();
-            
-            foreach (var product in products)
+            return products.Select(product => new ProductQueryModel
             {
-                var item = new ProductQueryModel
-                {
-                    Id = product.Id,
-                    ProductCategory = product.Category.Name,
-                    Name = product.Name,
-                    Picture = product.Picture,
-                    PictureAlt = product.PictureAlt,
-                    PictureTitle = product.PictureTitle,
-                    Slug = product.Slug,
-                    IsDeleted = product.IsDeleted
-                };
-
-                result.Add(item);
-            }
-
-            return result.Where(x => x.IsDeleted == false).ToList();
-
+                Id = product.Id,
+                ProductCategory = product.Category.Name,
+                Name = product.Name,
+                Picture = product.Picture,
+                PictureAlt = product.PictureAlt,
+                PictureTitle = product.PictureTitle,
+                Slug = product.Slug,
+                IsDeleted = product.IsDeleted
+            }).Where(x => x.IsDeleted == false).ToList();
+            
         }
     }
 }
