@@ -16,5 +16,7 @@
 
         public string CreationDate { get; set; }
 
+        public bool IsDeleted { get; set; }
+
     }
 }
