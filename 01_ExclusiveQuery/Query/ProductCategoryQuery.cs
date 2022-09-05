@@ -54,13 +54,14 @@ namespace _01_ExclusiveQuery.Query
                     Picture = product.Picture,
                     PictureAlt = product.PictureAlt,
                     PictureTitle = product.PictureTitle,
-                    Slug = product.Slug
+                    Slug = product.Slug,
+                    IsDeleted = product.IsDeleted
                 };
 
                 result.Add(item);
             }
 
-            return result;
+            return result.Where(x => x.IsDeleted == false).ToList();
 
         }
     }
