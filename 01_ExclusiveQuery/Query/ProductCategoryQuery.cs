@@ -60,7 +60,7 @@ namespace _01_ExclusiveQuery.Query
                 {
                     var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
 
-                    if (inventory != null)
+                    if (productInventory != null)
                     {
                         var price = productInventory.UnitPrice;
                         product.Price = price.ToMoney();
