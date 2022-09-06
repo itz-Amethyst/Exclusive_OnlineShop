@@ -23,5 +23,7 @@
         public string Slug { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public bool HasDiscount { get; set; }
     }
 }
