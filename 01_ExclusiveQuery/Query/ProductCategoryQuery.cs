@@ -56,17 +56,26 @@ namespace _01_ExclusiveQuery.Query
             {
                 foreach (var product in category.Products)
                 {
-                    var price = inventory.FirstOrDefault(x => x.ProductId == product.Id).UnitPrice;
+                    var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
 
-                    product.Price = price.ToMoney();
+                    if (inventory != null)
+                    {
+                        var price = productInventory.UnitPrice;
+                        product.Price = price.ToMoney();
+                        var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
 
-                    int discountRate = discounts.FirstOrDefault(x => x.ProductId == product.Id).DiscountRate;
+                        if (discount != null)
+                        {
+                            int discountRate = discount.DiscountRate;
 
-                    product.DiscountRate = discountRate;
-                    product.HasDiscount = discountRate > 0;
+                            product.DiscountRate = discountRate;
+                            product.HasDiscount = discountRate > 0;
 
-                    var discountAmount = Math.Round((price * discountRate) / 100);
-                    product.PriceWithDiscount = (price - discountAmount).ToMoney();
+                            var discountAmount = Math.Round((price * discountRate) / 100);
+                            product.PriceWithDiscount = (price - discountAmount).ToMoney();
+                        }
+                    }
+
                 }
             }
 
