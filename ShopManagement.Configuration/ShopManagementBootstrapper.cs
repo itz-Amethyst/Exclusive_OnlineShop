@@ -1,4 +1,5 @@
-﻿using _01_ExclusiveQuery.Contracts.ProductCategory;
+﻿using _01_ExclusiveQuery.Contracts.Product;
+using _01_ExclusiveQuery.Contracts.ProductCategory;
 using _01_ExclusiveQuery.Contracts.Slide;
 using _01_ExclusiveQuery.Query;
 using Microsoft.EntityFrameworkCore;
@@ -55,9 +56,15 @@ namespace ShopManagement.Configuration
 
             #endregion
 
-            #region ProductCategoryQuer
+            #region ProductCategoryQuery
 
             services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
+
+            #endregion
+
+            #region ProductQuery
+
+            services.AddTransient<IProductQuery, ProductQuery>();
 
             #endregion
 
