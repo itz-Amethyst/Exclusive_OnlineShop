@@ -1,4 +1,4 @@
-﻿using _0_Framework.Application;
+﻿    using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Product;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
 using DiscountManagement.Infrastructure.EFCore.Context;
@@ -39,6 +39,8 @@ namespace _01_ExclusiveQuery.Query
         {
             var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
 
+            var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel , x.Id }).ToList();
+
             var discounts = _discountContext.CustomerDiscounts
                 .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
                 .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
@@ -63,6 +65,14 @@ namespace _01_ExclusiveQuery.Query
                         var price = productInventory.UnitPrice;
                         product.Price = price.ToMoney();
                         var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
+
+                        var productDate = date.FirstOrDefault(x => x.Id == product.Id);
+
+                        var productLabelDate = product.LabelDate = productDate.CreationDateNewLabel;
+
+                        var currentDate = DateTime.Now;
+
+                        product.IsNew = currentDate <= productLabelDate;
 
                         if (discount != null)
                         {
