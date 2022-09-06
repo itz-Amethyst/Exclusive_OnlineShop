@@ -70,12 +70,16 @@
                                                 <!--=======  single grid product  =======-->
                                                 <div class="single-grid-product">
                                                     <div class="single-grid-product__image">
-                                                        @if (product.HasDiscount)
-                                                        {
-                                                            <div class="single-grid-product__label">
+                                                        <div class="single-grid-product__label">
+                                                            @if (product.HasDiscount)
+                                                            {
                                                                 <span class="sale">-@product.DiscountRate%</span>
-                                                            </div>
-                                                        }
+                                                            }
+                                                            @if (product.IsNew)
+                                                            {
+                                                                <span class="new">جدید</span>
+                                                            }
+                                                        </div>
 
                                                         <a href="single-product.html">
                                                             <img src="@product.Picture" alt="@product.PictureAlt" title="@product.PictureTitle" class="img-fluid">
@@ -98,7 +102,7 @@
 
                                                         <h3 class="single-grid-product__title">
                                                             <a href="single-product.html">
-                                                              @product.Name
+                                                                @product.Name
                                                             </a>
                                                         </h3>
                                                         <p class="single-grid-product__price">
