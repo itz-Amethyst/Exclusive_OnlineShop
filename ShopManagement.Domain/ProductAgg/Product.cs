@@ -30,6 +30,8 @@ namespace ShopManagement.Domain.ProductAgg
 
         public bool IsDeleted { get; private set; }
 
+        public DateTime CreationDateNewLabel { get; private set; }
+
         public ProductCategory Category { get; private set; }
 
         public List<ProductPicture> ProductPictures { get; private set; }
@@ -48,6 +50,7 @@ namespace ShopManagement.Domain.ProductAgg
             Keywords = keywords;
             MetaDescription = metaDescription;
             IsDeleted = false;
+            CreationDateNewLabel = DateTime.Now.AddDays(7);
         }
 
         public void Edit(string name, string code, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, int categoryId, string slug, string keywords, string metaDescription)
