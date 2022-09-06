@@ -96,7 +96,15 @@
                                                             </a>
                                                         </h3>
                                                         <p class="single-grid-product__price">
-                                                            <span class="main-price">@product.Price تومان</span>
+                                                            @if (product.HasDiscount)
+                                                            {
+                                                                <span class="discounted-price">@product.PriceWithDiscount تومان</span>
+                                                                <span class="main-price discounted">@product.Price تومان</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="main-price">@product.Price تومان</span>
+                                                            }
                                                         </p>
                                                     </div>
                                                 </div>
