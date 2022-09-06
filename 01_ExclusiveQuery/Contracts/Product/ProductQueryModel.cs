@@ -25,5 +25,9 @@
         public bool IsDeleted { get; set; }
 
         public bool HasDiscount { get; set; }
+
+        public DateTime LabelDate { get; set; }
+
+        public bool IsNew { get; set; }
     }
 }
