@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Product;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
+using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Domain.ProductAgg;
@@ -12,11 +13,13 @@ namespace _01_ExclusiveQuery.Query
     {
         private readonly ShopContext _shopContext;
         private readonly InventoryContext _inventoryContext;
+        private readonly DiscountContext _discountContext;
 
-        public ProductCategoryQuery(ShopContext shopContext, InventoryContext inventoryContext)
+        public ProductCategoryQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext)
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
+            _discountContext = discountContext;
         }
 
         public List<ProductCategoryQueryModel> GetProductCategories()
@@ -35,6 +38,10 @@ namespace _01_ExclusiveQuery.Query
         public List<ProductCategoryQueryModel> GetProductCategoriesWithProducts()
         {
             var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+
+            var discounts = _discountContext.CustomerDiscounts
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
 
             var categories = _shopContext.ProductCategories.Include(x => x.Products)
                 .ThenInclude(x => x.Category)
