@@ -22,6 +22,11 @@ namespace _01_ExclusiveQuery.Query
             _discountContext = discountContext;
         }
 
+        public ProductCategoryQueryModel GetProductCategoryWithProductsBy(string slug)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ProductCategoryQueryModel> GetProductCategories()
         {
             return _shopContext.ProductCategories.Select(x => new ProductCategoryQueryModel
