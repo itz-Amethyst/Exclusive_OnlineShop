@@ -11,6 +11,10 @@ namespace _01_ExclusiveQuery.Contracts.ProductCategory
         //!Note For better seo Quality can put description in Description Component and add hide class into it
         public string Description { get; set; }
 
+        public string Keywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         public string Picture { get; set; }
 
         public string PictureAlt { get; set; }
