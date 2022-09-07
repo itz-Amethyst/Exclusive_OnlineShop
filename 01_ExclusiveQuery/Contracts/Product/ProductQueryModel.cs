@@ -29,5 +29,7 @@
         public DateTime LabelDate { get; set; }
 
         public bool IsNew { get; set; }
+
+        public string DiscountEndDate { get; set; }
     }
 }
