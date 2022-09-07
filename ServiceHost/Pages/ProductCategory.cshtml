@@ -73,10 +73,10 @@
                             <div class="col-lg-12">
 
                                 <div class="shop-page-content">
-                                    @foreach (var product in Model.ProductCategory.Products)
-                                    {
-                                        <div class="row shop-product-wrap grid three-column">
 
+                                    <div class="row shop-product-wrap grid three-column">
+                                        @foreach (var product in Model.ProductCategory.Products)
+                                        {
 
                                             <div class="col-12 col-lg-4 col-md-4 col-sm-6">
 
@@ -131,23 +131,20 @@
                                                             {
                                                                 <span class="discounted-price">@product.PriceWithDiscount</span>
                                                                 <span class="main-price discounted">@product.Price</span>
-
+                                                                <div class="product-countdown" data-countdown="@product.DiscountEndDate"></div>
                                                             }
                                                             else
                                                             {
                                                                 <span class="main-price">@product.Price</span>
-
                                                             }
                                                         </p>
-
-                                                        <div class="product-countdown" data-countdown="2020/06/10"></div>
                                                     </div>
                                                 </div>
 
                                             </div>
+                                        }
+                                    </div>
 
-                                        </div>
-                                    }
                                 </div>
 
 
