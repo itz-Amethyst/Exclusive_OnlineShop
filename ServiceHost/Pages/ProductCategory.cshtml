@@ -85,7 +85,7 @@
                                                         <div class="single-grid-product__label">
                                                             @if (product.HasDiscount)
                                                             {
-                                                                <span class="sale">-@product.DiscountRate%</span>
+                                                                <span class="sale">@product.DiscountRate% -</span>
                                                             }
                                                             @if (product.IsNew)
                                                             {
@@ -129,13 +129,13 @@
                                                         <p class="single-grid-product__price">
                                                             @if (product.HasDiscount)
                                                             {
-                                                                <span class="discounted-price">@product.PriceWithDiscount</span>
-                                                                <span class="main-price discounted">@product.Price</span>
+                                                                <span class="discounted-price">@product.PriceWithDiscount تومان</span>
+                                                                <span class="main-price discounted">@product.Price تومان</span>
                                                                 <div class="product-countdown" data-countdown="@product.DiscountEndDate"></div>
                                                             }
                                                             else
                                                             {
-                                                                <span class="main-price">@product.Price</span>
+                                                                <span class="main-price">@product.Price تومان</span>
                                                             }
                                                         </p>
                                                     </div>
