@@ -30,7 +30,7 @@ namespace _01_ExclusiveQuery.Query
 
             var discounts = _discountContext.CustomerDiscounts
                 .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
-                .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
+                .Select(x => new { x.ProductId, x.DiscountRate , x.EndDate }).ToList();
 
             var category = _shopContext.ProductCategories.Include(x => x.Products)
                 .ThenInclude(x => x.Category)
@@ -69,6 +69,9 @@ namespace _01_ExclusiveQuery.Query
                         int discountRate = discount.DiscountRate;
 
                         product.DiscountRate = discountRate;
+
+                        product.DiscountEndDate = discount.EndDate.ToDiscountFormat();
+
                         product.HasDiscount = discountRate > 0;
 
                         var discountAmount = Math.Round((price * discountRate) / 100);
