@@ -8,9 +8,9 @@
     <div class="container wide">
         <div class="row">
             <div class="col-lg-12">
-               
+
                 <div class="breadcrumb-wrapper breadcrumb-bg">
-                   
+
                     <div class="breadcrumb-content">
                         <h2 class="breadcrumb-content__title">@Model.ProductCategory.Name</h2>
                         <h3>@Model.ProductCategory.Description</h3>
@@ -19,9 +19,9 @@
                             <li class="active">@Model.ProductCategory.Name</li>
                         </ul>
                     </div>
-                   
+
                 </div>
-              
+
             </div>
         </div>
     </div>
@@ -31,12 +31,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-               
+
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
                         <div class="row">
                             <div class="col-lg-12">
-                              
+
                                 <div class="shop-header">
                                     <div class="shop-header__left">
                                         <div class="shop-header__left__message">
@@ -67,75 +67,90 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+
                             </div>
 
                             <div class="col-lg-12">
-                               
+
                                 <div class="shop-page-content">
+                                    @foreach (var product in Model.ProductCategory.Products)
+                                    {
+                                        <div class="row shop-product-wrap grid three-column">
 
-                                    <div class="row shop-product-wrap grid three-column">
-                                        
-                                        
-                                        <div class="col-12 col-lg-4 col-md-4 col-sm-6">
 
-                                            <div class="single-grid-product grid-view-product">
-                                                <div class="single-grid-product__image">
-                                                    <div class="single-grid-product__label">
-                                                        <span class="sale">-20%</span>
-                                                        <span class="new">New</span>
-                                                    </div>
-                                                    <a href="single-product.html">
-                                                        <img src="assets/img/products/1-600x800.jpg" class="img-fluid"
-                                                             alt="">
-                                                        <img src="assets/img/products/1_1-600x800.jpg" class="img-fluid"
-                                                             alt="">
-                                                    </a>
+                                            <div class="col-12 col-lg-4 col-md-4 col-sm-6">
 
-                                                    <div class="hover-icons">
-                                                        <a href="javascript:void(0)">
-                                                            <i class="ion-bag"></i>
+                                                <div class="single-grid-product grid-view-product">
+                                                    <div class="single-grid-product__image">
+                                                        <div class="single-grid-product__label">
+                                                            @if (product.HasDiscount)
+                                                            {
+                                                                <span class="sale">-@product.DiscountRate%</span>
+                                                            }
+                                                            @if (product.IsNew)
+                                                            {
+                                                                <span class="new">جدید</span>
+                                                            }
+                                                        </div>
+                                                        <a href="single-product.html">
+                                                            <img src="@product.Picture" title="@product.PictureTitle" class="img-fluid"
+                                                             alt="@product.PictureAlt">
                                                         </a>
-                                                        <a href="javascript:void(0)" data-toggle="modal"
+
+                                                        <div class="hover-icons">
+                                                            <a href="javascript:void(0)">
+                                                                <i class="ion-bag"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0)" data-toggle="modal"
                                                            data-target="#quick-view-modal-container">
-                                                            <i class="ion-android-open"></i>
-                                                        </a>
+                                                                <i class="ion-android-open"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="single-grid-product__content">
-                                                    <div class="single-grid-product__category-rating">
-                                                        <span class="category">
-                                                            <a href="shop-left-sidebar.html">Decor</a>
-                                                        </span>
-                                                        <span class="rating">
-                                                            <i class="ion-android-star active"></i>
-                                                            <i class="ion-android-star active"></i>
-                                                            <i class="ion-android-star active"></i>
-                                                            <i class="ion-android-star active"></i>
-                                                            <i class="ion-android-star-outline"></i>
-                                                        </span>
-                                                    </div>
+                                                    <div class="single-grid-product__content">
+                                                        <div class="single-grid-product__category-rating">
+                                                            <span class="category">
+                                                                <a href="shop-left-sidebar.html">Decor</a>
+                                                            </span>
+                                                            <span class="rating">
+                                                                <i class="ion-android-star active"></i>
+                                                                <i class="ion-android-star active"></i>
+                                                                <i class="ion-android-star active"></i>
+                                                                <i class="ion-android-star active"></i>
+                                                                <i class="ion-android-star-outline"></i>
+                                                            </span>
+                                                        </div>
 
-                                                    <h3 class="single-grid-product__title">
-                                                        <a asp-page="/ProductDetails">
-                                                            Cillum dolore lorem ipsum
-                                                            decoration item
-                                                        </a>
-                                                    </h3>
-                                                    <p class="single-grid-product__price">
-                                                        <span class="discounted-price">$100.00</span> <span class="main-price discounted">$120.00</span>
-                                                    </p>
-                                                    <div class="product-countdown" data-countdown="2020/06/10"></div>
+                                                        <h3 class="single-grid-product__title">
+                                                            <a asp-page="/ProductDetails">
+                                                                @product.Name
+                                                            </a>
+                                                        </h3>
+                                                        <p class="single-grid-product__price">
+                                                            @if (product.HasDiscount)
+                                                            {
+                                                                <span class="discounted-price">@product.PriceWithDiscount</span>
+                                                                <span class="main-price discounted">@product.Price</span>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="main-price">@product.Price</span>
+
+                                                            }
+                                                        </p>
+
+                                                        <div class="product-countdown" data-countdown="2020/06/10"></div>
+                                                    </div>
                                                 </div>
+
                                             </div>
 
                                         </div>
-
-                                    </div>
-
+                                    }
                                 </div>
 
-                               
+
                                 <div class="pagination-area">
                                     <div class="pagination-area__left">
                                         Showing 1 to 9 of 11 (2 Pages)
@@ -151,7 +166,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
