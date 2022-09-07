@@ -41,6 +41,7 @@ namespace _01_ExclusiveQuery.Query
                     Description = x.Description,
                     MetaDescription = x.MetaDescription,
                     Keywords = x.Keywords,
+                    Slug = x.Slug,
                     Products = MapProducts(x.Products)
                 }).FirstOrDefault(x => x.Slug == slug);
 
