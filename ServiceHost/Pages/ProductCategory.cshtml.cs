@@ -5,7 +5,7 @@ namespace ServiceHost.Pages
 {
     public class ProductCategoryModel : PageModel
     {
-        public void OnGet()
+        public void OnGet(string id)
         {
         }
     }
