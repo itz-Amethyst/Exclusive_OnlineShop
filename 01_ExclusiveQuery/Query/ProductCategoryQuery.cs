@@ -1,4 +1,4 @@
-﻿    using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Product;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
 using DiscountManagement.Infrastructure.EFCore.Context;
@@ -24,7 +24,59 @@ namespace _01_ExclusiveQuery.Query
 
         public ProductCategoryQueryModel GetProductCategoryWithProductsBy(string slug)
         {
-            throw new NotImplementedException();
+            var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+
+            var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
+
+            var discounts = _discountContext.CustomerDiscounts
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
+
+            var category = _shopContext.ProductCategories.Include(x => x.Products)
+                .ThenInclude(x => x.Category)
+                .Select(x => new ProductCategoryQueryModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    MetaDescription = x.MetaDescription,
+                    Keywords = x.Keywords,
+                    Products = MapProducts(x.Products)
+                }).FirstOrDefault(x => x.Slug == slug);
+
+
+            foreach (var product in category.Products)
+            {
+                var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
+
+                if (productInventory != null)
+                {
+                    var price = productInventory.UnitPrice;
+                    product.Price = price.ToMoney();
+                    var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
+
+                    var productDate = date.FirstOrDefault(x => x.Id == product.Id);
+
+                    var productLabelDate = product.LabelDate = productDate.CreationDateNewLabel;
+
+                    var currentDate = DateTime.Now;
+
+                    product.IsNew = currentDate <= productLabelDate;
+
+                    if (discount != null)
+                    {
+                        int discountRate = discount.DiscountRate;
+
+                        product.DiscountRate = discountRate;
+                        product.HasDiscount = discountRate > 0;
+
+                        var discountAmount = Math.Round((price * discountRate) / 100);
+                        product.PriceWithDiscount = (price - discountAmount).ToMoney();
+                    }
+                }
+            }
+
+            return category;
         }
 
         public List<ProductCategoryQueryModel> GetProductCategories()
@@ -44,7 +96,7 @@ namespace _01_ExclusiveQuery.Query
         {
             var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
 
-            var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel , x.Id }).ToList();
+            var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
             var discounts = _discountContext.CustomerDiscounts
                 .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
@@ -110,7 +162,7 @@ namespace _01_ExclusiveQuery.Query
                 Slug = product.Slug,
                 IsDeleted = product.IsDeleted
             }).Where(x => x.IsDeleted == false).ToList();
-            
+
         }
     }
 }
