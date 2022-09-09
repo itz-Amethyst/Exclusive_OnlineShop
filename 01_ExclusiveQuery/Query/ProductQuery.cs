@@ -106,7 +106,8 @@ namespace _01_ExclusiveQuery.Query
                     PictureAlt = product.PictureAlt,
                     PictureTitle = product.PictureTitle,
                     Slug = product.Slug,
-                    IsDeleted = product.IsDeleted
+                    IsDeleted = product.IsDeleted,
+                    ShortDescription = product.ShortDescription
                 }).Where(x=>x.IsDeleted == false).AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(value))
