@@ -18,7 +18,8 @@
 
                                     <div class="copyright-text">
 
-                                        Copyright &copy; 2019 <a href="#">Eposi</a>. All Rights Reserved.
+                                        Copyright &copy; <span id="curYr"></span> <a href="#">Callme_Milad</a>. All Rights Reserved.
+
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-5">
@@ -55,3 +56,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    var currentYear = (new Date).getFullYear();
+    document.getElementById("curYr").innerHTML = currentYear;
+</script>
