@@ -45,7 +45,7 @@ namespace _01_ExclusiveQuery.Query
                     PictureTitle = product.PictureTitle,
                     Slug = product.Slug,
                     IsDeleted = product.IsDeleted
-                }).Where(x => x.IsDeleted == false).OrderByDescending(x=>x.Id).Take(6).ToList();
+                }).AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x=>x.Id).Take(6).ToList();
 
 
             foreach (var product in products)
