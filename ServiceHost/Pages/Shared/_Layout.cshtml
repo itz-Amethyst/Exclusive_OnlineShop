@@ -22,25 +22,7 @@
 
     @await Component.InvokeAsync("Footer")
 
-    <div class="search-overlay" id="search-overlay">
-        <a href="javascript:void(0)" class="close-search-overlay" id="close-search-overlay">
-            <i class="ion-ios-close-empty"></i>
-        </a>
-
-        <!--=======  search form  =======-->
-
-        <div class="search-form">
-            <form action="#">
-                <input type="search" placeholder="دنبال چه محصولی هستید ؟">
-                <button type="submit">
-                    <i class="ion-android-search"></i>
-                </button>
-            </form>
-        </div>
-
-        <!--=======  End of search form  =======-->
-    </div>
-
+    <partial name="_SearchBox"/>
 
     <!-- scroll to top  -->
     <div id="scroll-top">
