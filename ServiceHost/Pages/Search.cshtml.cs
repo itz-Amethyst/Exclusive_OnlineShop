@@ -6,6 +6,7 @@ namespace ServiceHost.Pages
 {
     public class SearchModel : PageModel
     {
+        public string Value;
         public List<ProductQueryModel> Products;
         private readonly IProductQuery _productQuery;
 
@@ -16,6 +17,7 @@ namespace ServiceHost.Pages
 
         public void OnGet(string value)
         {
+            Value = value;
             Products = _productQuery.Search(value);
         }
     }
