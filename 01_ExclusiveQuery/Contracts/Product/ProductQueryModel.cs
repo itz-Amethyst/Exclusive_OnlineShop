@@ -31,5 +31,9 @@
         public bool IsNew { get; set; }
 
         public string DiscountEndDate { get; set; }
+
+        public string ShortDescription { get; set; }
+
+        public string Description { get; set; }
     }
 }
