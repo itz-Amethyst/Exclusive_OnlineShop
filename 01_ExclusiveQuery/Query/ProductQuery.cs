@@ -83,5 +83,10 @@ namespace _01_ExclusiveQuery.Query
 
             return products;
         }
+
+        public List<ProductQueryModel> Search(string value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
