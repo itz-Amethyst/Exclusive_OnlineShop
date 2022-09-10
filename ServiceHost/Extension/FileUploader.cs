@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using Directory = System.IO.Directory;
 
 namespace ServiceHost.Extension
 {
@@ -11,19 +12,26 @@ namespace ServiceHost.Extension
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public string Upload(IFormFile file)
+        public string Upload(IFormFile file ,string path)
         {
             if (file == null)
             {
                 return "";
             }
+            
 
-            var path = $"{_webHostEnvironment.WebRootPath}//ProductPictures//{file.FileName}";
+            var directoryPath = $"{_webHostEnvironment.WebRootPath}//ProductPictures//{path}";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
 
+            var filePath = $"{directoryPath}{file.FileName}";
+            
             using var output = System.IO.File.Create(path);
-            file.CopyToAsync(output);
+            file.CopyTo(output);
 
-            return file.FileName;
+            return $"{path}/{file.FileName}";
         }
     }
 }
