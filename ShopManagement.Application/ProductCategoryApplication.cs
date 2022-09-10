@@ -51,7 +51,7 @@ namespace ShopManagement.Application
             }
 
             var slug = command.Slug.Slugify();
-            var picturePath = $"{command.Slug}//";
+            var picturePath = $"{command.Slug}";
             var fileName = _fileUploader.Upload(command.Picture , picturePath);
             productCategory.Edit(command.Name, command.Description, fileName,
                 command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug);
