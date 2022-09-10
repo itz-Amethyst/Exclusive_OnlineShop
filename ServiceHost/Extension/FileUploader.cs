@@ -20,18 +20,19 @@ namespace ServiceHost.Extension
             }
             
 
-            var directoryPath = $"{_webHostEnvironment.WebRootPath}//ProductPictures//{path}";
+            var directoryPath = $"{_webHostEnvironment.WebRootPath}//UploadedFiles//{path}";
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
 
-            var filePath = $"{directoryPath}{file.FileName}";
+            var fileName = $"{DateTime.Now.ToFileName()}-{file.FileName}";
+            var filePath = $"{directoryPath}//{fileName}";
             
-            using var output = System.IO.File.Create(path);
+            using var output = File.Create(filePath);
             file.CopyTo(output);
 
-            return $"{path}/{file.FileName}";
+            return $"{path}/{fileName}";
         }
     }
 }
