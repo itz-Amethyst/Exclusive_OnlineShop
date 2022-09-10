@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using _0_Framework.Application;
+using Microsoft.AspNetCore.Http;
 
 namespace ShopManagement.Application.Contracts.ProductCategory
 {
@@ -12,7 +13,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         public string Description { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        public string Picture { get; set; }
+        public IFormFile Picture { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string PictureAlt { get; set; }
