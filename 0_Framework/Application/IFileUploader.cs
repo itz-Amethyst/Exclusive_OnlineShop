@@ -4,6 +4,6 @@ namespace _0_Framework.Application
 {
     public interface IFileUploader
     {
-        string Upload(IFormFile file);
+        string Upload(IFormFile file ,string path);
     }
 }
