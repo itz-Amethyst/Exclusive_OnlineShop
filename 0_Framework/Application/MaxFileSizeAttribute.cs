@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace _0_Framework.Application
 {
-    public class MaxFileSizeAttribute : ValidationAttribute
+    public class MaxFileSizeAttribute : ValidationAttribute , IClientModelValidator
     {
         private readonly int _maxFileSize;
 
@@ -19,6 +20,12 @@ namespace _0_Framework.Application
             if (file == null) return true;
 
             return file.Length <= _maxFileSize;
+        }
+
+        public void AddValidation(ClientModelValidationContext context)
+        {
+            context.Attributes.Add("data-value" , "true");
+            context.Attributes.Add("data-val-maxFileSize" , ErrorMessage);
         }
     }
 }
