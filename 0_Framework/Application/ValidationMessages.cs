@@ -4,5 +4,6 @@
     {
         public const string IsRequired = "این مقدار نمیتواند خالی باشد";
         public const string NotValid = "مقدار وارد شده صحیح نمیباشد";
+        public const string MaxFileSize = "فایل حجیم تر ازحد مجاز است";
     }
 }
