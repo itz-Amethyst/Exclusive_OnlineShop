@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.Product;
@@ -29,7 +28,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 Description = x.Description,
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,
-                Picture = x.Picture,
+                //Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 ShortDescription = x.ShortDescription,
@@ -76,6 +75,11 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             }
 
             return query.OrderByDescending(x => x.Id).ToList();
+        }
+
+        public Product GetProductWithCategory(int id)
+        {
+            return _context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
         }
     }
 }
