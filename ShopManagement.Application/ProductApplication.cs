@@ -47,7 +47,7 @@ namespace ShopManagement.Application
         {
             var operation = new OperationResult();
 
-            var product = _productRepository.GetById(command.Id);
+            var product = _productRepository.GetProductWithCategory(command.Id);
 
             if (product == null)
             {
@@ -61,8 +61,11 @@ namespace ShopManagement.Application
 
             var slug = command.Slug.Slugify();
 
+            var path = $"{product.Category.Slug}/{slug}";
+            var picturePath = _fileUploader.Upload(command.Picture, path);
+
             product.Edit(command.Name, command.Code, command.ShortDescription,
-                command.Description, command.Picture, command.PictureAlt, command.PictureTitle, command.CategoryId,
+                command.Description, picturePath, command.PictureAlt, command.PictureTitle, command.CategoryId,
                 slug, command.Keywords, command.MetaDescription);
 
             _productRepository.SaveChanges();
