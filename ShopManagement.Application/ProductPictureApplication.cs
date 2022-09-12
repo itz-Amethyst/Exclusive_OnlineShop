@@ -22,16 +22,16 @@ namespace ShopManagement.Application
         {
             var operation = new OperationResult();
 
-            if (_productPictureRepository.Exists(x => x.Picture == command.Picture.FileName && x.ProductId == command.ProductId))
-            {
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
-            }
-
             var product = _productRepository.GetProductWithCategory(command.ProductId);
 
             var path = $"{product.Category.Slug}/{product.Slug}";
 
             var picturePath = _fileUploader.UploadProductPicture(command.Picture, path);
+
+            if (_productPictureRepository.Exists(x => x.Picture == picturePath && x.ProductId == command.ProductId))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
 
             var productPicture = new ProductPicture(command.ProductId, picturePath, command.PictureAlt,
                 command.PictureTitle);
