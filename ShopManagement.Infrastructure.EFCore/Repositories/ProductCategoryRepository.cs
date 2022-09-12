@@ -57,6 +57,11 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             }
 
             return query.OrderByDescending(x => x.Id).ToList();
+        }   
+
+        public string GetSlugById(int id)
+        {
+            return _context.ProductCategories.Select(x => new { x.Id, x.Slug }).First(x => x.Id == id).Slug;
         }
     }
 }
