@@ -34,5 +34,28 @@ namespace ServiceHost.Extension
 
             return $"{path}/{fileName}";
         }
+
+        public string UploadProductPicture(IFormFile file, string path)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+
+
+            var directoryPath = $"{_webHostEnvironment.WebRootPath}//UploadedFiles//{path}";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            var fileName = $"{file.FileName}";
+            var filePath = $"{directoryPath}//{fileName}";
+
+            using var output = File.Create(filePath);
+            file.CopyTo(output);
+
+            return $"{path}/{fileName}";
+        }
     }
 }
