@@ -22,7 +22,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             return _context.ProductPictures.Select(x => new EditProductPicture
             {
                 Id =x.Id,
-                Picture = x.Picture,
+                //Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 ProductId = x.ProductId
@@ -50,5 +50,10 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         }
 
+        public ProductPicture GetWithProductAndCategory(int id)
+        {
+            return _context.ProductPictures.Include(x => x.Product).ThenInclude(x => x.Category)
+                .FirstOrDefault(x => x.Id == id);
+        }
     }
 }
