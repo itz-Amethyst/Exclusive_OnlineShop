@@ -46,20 +46,24 @@ namespace ShopManagement.Application
         {
             var operation = new OperationResult();
 
-            var productPicture = _productPictureRepository.GetById(command.Id);
+            var productPicture = _productPictureRepository.GetWithProductAndCategory(command.Id);
 
             if (productPicture == null)
             {
                 return operation.Failed(ApplicationMessages.RecordNotFound);
             }
 
+            var path = $"{productPicture.Product.Category.Slug}/{productPicture.Product.Slug}";
+
+            var picturePath = _fileUploader.UploadProductPicture(command.Picture, path);
+
             if (_productPictureRepository.Exists(x =>
-                    x.Picture == command.Picture && x.ProductId == command.ProductId && x.Id != command.Id))
+                    x.Picture == picturePath && x.ProductId == command.ProductId && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
-            productPicture.Edit(command.ProductId , command.Picture , command.PictureAlt , command.PictureTitle);
+            productPicture.Edit(command.ProductId , picturePath , command.PictureAlt , command.PictureTitle);
             _productPictureRepository.SaveChanges();
 
             return operation.Succeeded();
