@@ -7,16 +7,16 @@ namespace ServiceHost.Pages
     public class ProductCategoryModel : PageModel
     {
         public ProductCategoryQueryModel ProductCategory;
-        private readonly IProductCategoryQuery _productcategoryQuery;
+        private readonly IProductCategoryQuery _productCategoryQuery;
 
-        public ProductCategoryModel(IProductCategoryQuery productcategoryQuery)
+        public ProductCategoryModel(IProductCategoryQuery productCategoryQuery)
         {
-            _productcategoryQuery = productcategoryQuery;
+            _productCategoryQuery = productCategoryQuery;
         }
 
         public void OnGet(string id)
         {
-            ProductCategory = _productcategoryQuery.GetProductCategoryWithProductsBy(id);
+            ProductCategory = _productCategoryQuery.GetProductCategoryWithProductsBy(id);
         }
     }
 }
