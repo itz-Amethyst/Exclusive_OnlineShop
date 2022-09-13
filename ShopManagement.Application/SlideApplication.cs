@@ -45,7 +45,9 @@ namespace ShopManagement.Application
                 return operation.Failed(ApplicationMessages.RecordNotFound);
             }
 
-            slide.Edit(command.Picture, command.PictureAlt, command.PictureTitle, command.Title,
+            var pictureName = _fileUploader.Upload(command.Picture, "Slides");
+
+            slide.Edit(pictureName, command.PictureAlt, command.PictureTitle, command.Title,
             command.Heading, command.BtnText, command.Text, command.Link);
 
             _slideRepository.SaveChanges();
