@@ -1,11 +1,8 @@
 ﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Product;
-using _01_ExclusiveQuery.Contracts.ProductCategory;
 using DiscountManagement.Infrastructure.EFCore.Context;
-using InventoryManagement.Domain.InventoryAgg;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace _01_ExclusiveQuery.Query
@@ -152,6 +149,11 @@ namespace _01_ExclusiveQuery.Query
             }
 
             return products;
+        }
+
+        public ProductQueryModel GetDetails(string slug)
+        {
+            throw new NotImplementedException();
         }
     }
 }
