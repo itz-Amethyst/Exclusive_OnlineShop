@@ -168,31 +168,31 @@
                                         </p>
 
                                         <p class="product-description">
-                                            Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. At, delectus. Voluptates omnis distinctio vitae quo
-                                            quia veniam minima dolorem hic necessitatibus pariatur, quae fuga
-                                            similique optio laboriosam assumenda voluptatum aperiam.
+                                            @Model.Product.ShortDescription
                                         </p>
 
-                                        <div class="product-countdown" data-countdown="2020/06/01"></div>
+                                        @if (Model.Product.HasDiscount)
+                                        {
+                                            <div class="product-countdown" data-countdown="@Model.Product.DiscountEndDate"></div>
+
+                                        }
 
                                         <div class="product-actions">
                                             <div class="quantity-selection">
-                                                <label>Qty</label>
+                                                <label>تعداد</label>
                                                 <input type="number" value="1" min="1">
                                             </div>
 
                                             <div class="product-buttons">
                                                 <a class="cart-btn" href="#">
-                                                    <i class="ion-bag"></i> ADD TO
-                                                    CART
+                                                    <i class="ion-bag"></i> افزودن به سبد خرید
                                                 </a>
                                             </div>
 
                                         </div>
 
                                         <div class="social-share-buttons mt-20">
-                                            <h5>share this product</h5>
+                                            <h5>اشتراک گذاری این محصول</h5>
                                             <ul>
                                                 <li>
                                                     <a class="twitter" href="#">
@@ -217,8 +217,8 @@
                                             </ul>
                                         </div>
                                         <p class="single-info mb-0">
-                                            Tags: <a href="shop-left-sidebar.html">Dolor</a>
-                                            , <a href="shop-left-sidebar.html">Ipsum</a>, <a href="shop-left-sidebar.html">Lorem</a>
+                                            @*Work on this*@
+                                          تگ ها :@Model.Product.Keywords
                                         </p>
 
 
@@ -237,9 +237,9 @@
                                                  role="tablist">
                                                 <a class="nav-item nav-link active" id="description-tab"
                                                    data-toggle="tab" href="#product-description" role="tab"
-                                                   aria-selected="true">Description</a>
+                                                   aria-selected="true">توضیحات</a>
                                                 <a class="nav-item nav-link" id="review-tab" data-toggle="tab"
-                                                   href="#review" role="tab" aria-selected="false">Reviews (1)</a>
+                                                   href="#review" role="tab" aria-selected="false"> (1) نظرات</a>
                                             </div>
                                         </nav>
                                         <div class="tab-content" id="nav-tabContent">
@@ -248,24 +248,7 @@
 
                                                 <div class="product-description">
                                                     <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                                                        fringilla augue nec est tristique auctor. Donec non est at
-                                                        libero vulputate rutrum. Morbi ornare lectus quis justo
-                                                        gravida semper. Nulla tellus mi, vulputate adipiscing cursus
-                                                        eu, suscipit id nulla.
-                                                    </p>
-
-                                                    <p>
-                                                        Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus
-                                                        feugiat sem, quis fermentum turpis eros eget velit. Donec ac
-                                                        tempus ante. Fusce ultricies massa massa. Fusce aliquam,
-                                                        purus eget sagittis vulputate, sapien libero hendrerit est,
-                                                        sed commodo augue nisi non neque. Lorem ipsum dolor sit
-                                                        amet, consectetur adipiscing elit. Sed tempor, lorem et
-                                                        placerat vestibulum, metus nisi posuere nisl, in accumsan
-                                                        elit odio quis mi. Cras neque metus, consequat et blandit
-                                                        et, luctus a nunc. Etiam gravida vehicula tellus, in
-                                                        imperdiet ligula euismod eget.
+                                                        @Model.Product.Description
                                                     </p>
                                                 </div>
 
