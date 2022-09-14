@@ -92,7 +92,7 @@
                                                                 <span class="new">جدید</span>
                                                             }
                                                         </div>
-                                                        <a href="#">
+                                                        <a asp-page="/Product" asp-route-id="@product.Slug">
                                                             <img src="~/UploadedFiles/@product.Picture" title="@product.PictureTitle" class="img-fluid"
                                                              alt="@product.PictureAlt">
                                                         </a>
@@ -124,7 +124,7 @@
                                                         </div>
 
                                                         <h3 class="single-grid-product__title">
-                                                            <a asp-page="/ProductDetails">
+                                                            <a asp-page="/Product" asp-route-id="@product.Slug">
                                                                 @product.Name
                                                             </a>
                                                         </h3>
