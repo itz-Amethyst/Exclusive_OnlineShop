@@ -42,7 +42,7 @@ namespace _01_ExclusiveQuery.Query
                     PictureTitle = product.PictureTitle,
                     Slug = product.Slug,
                     IsDeleted = product.IsDeleted
-                }).AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x=>x.Id).Take(6).ToList();
+                }).AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => x.Id).Take(6).ToList();
 
 
             foreach (var product in products)
@@ -105,7 +105,7 @@ namespace _01_ExclusiveQuery.Query
                     Slug = product.Slug,
                     IsDeleted = product.IsDeleted,
                     ShortDescription = product.ShortDescription
-                }).Where(x=>x.IsDeleted == false).AsNoTracking();
+                }).Where(x => x.IsDeleted == false).AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -153,7 +153,68 @@ namespace _01_ExclusiveQuery.Query
 
         public ProductQueryModel GetDetails(string slug)
         {
-            throw new NotImplementedException();
+            var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+
+            var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
+
+            var discounts = _discountContext.CustomerDiscounts
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
+
+            var product = _shopContext.Products
+                .Include(x => x.Category)
+                .Select(product => new ProductQueryModel
+                {
+                    Id = product.Id,
+                    ProductCategory = product.Category.Name,
+                    Name = product.Name,
+                    Picture = product.Picture,
+                    PictureAlt = product.PictureAlt,
+                    PictureTitle = product.PictureTitle,
+                    Slug = product.Slug,
+                    IsDeleted = product.IsDeleted,
+                    CategorySlug = product.Category.Slug,
+                    Code = product.Code,
+                    Description = product.Description,
+                    Keywords = product.Keywords,
+                    MetaDescription = product.MetaDescription,
+                    ShortDescription = product.ShortDescription
+                }).AsNoTracking().Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Slug == slug);
+
+            if (product == null)
+            {
+                return new ProductQueryModel();
+            }
+
+            var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
+
+            if (productInventory != null)
+            {
+                var price = productInventory.UnitPrice;
+                product.Price = price.ToMoney();
+                var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
+
+                var productDate = date.FirstOrDefault(x => x.Id == product.Id);
+
+                var productLabelDate = product.LabelDate = productDate.CreationDateNewLabel;
+
+                var currentDate = DateTime.Now;
+
+                product.IsNew = currentDate <= productLabelDate;
+
+                if (discount != null)
+                {
+                    int discountRate = discount.DiscountRate;
+
+                    product.DiscountRate = discountRate;
+                    product.HasDiscount = discountRate > 0;
+
+                    var discountAmount = Math.Round((price * discountRate) / 100);
+                    product.PriceWithDiscount = (price - discountAmount).ToMoney();
+                }
+            }
+
+            return product;
         }
     }
 }
