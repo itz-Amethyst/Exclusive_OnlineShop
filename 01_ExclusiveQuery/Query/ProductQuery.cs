@@ -153,7 +153,7 @@ namespace _01_ExclusiveQuery.Query
 
         public ProductQueryModel GetDetails(string slug)
         {
-            var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+            var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice  , x.InStock}).ToList();
 
             var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
@@ -190,6 +190,8 @@ namespace _01_ExclusiveQuery.Query
 
             if (productInventory != null)
             {
+                product.IsInStock = productInventory.InStock;
+                
                 var price = productInventory.UnitPrice;
                 product.Price = price.ToMoney();
                 var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
