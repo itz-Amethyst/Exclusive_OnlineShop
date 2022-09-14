@@ -17,7 +17,7 @@
                                 <a asp-page="/Index">صفحه اصلی</a>
                             </li>
                             <li>
-                                <a asp-page="/Index" asp-route-id="@Model.Product.CategorySlug">@Model.Product.ProductCategory</a>
+                                <a asp-page="/ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.ProductCategory</a>
                             </li>
                             <li class="active">@Model.Product.Name</li>
                         </ul>
@@ -125,9 +125,9 @@
                                 <div class="col-lg-6">
                                     <div class="single-product-content-description">
                                         <p class="single-info">
-                                            Brands <a href="shop-left-sidebar.html">Dolor</a>
+                                            <a asp-page="/ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.ProductCategory</a>
                                         </p>
-                                        <h4 class="product-title">Lorem ipsum dolor set amet decor</h4>
+                                        <h4 class="product-title">@Model.Product.Name</h4>
                                         <div class="product-rating">
                                             <span class="rating">
                                                 <i class="ion-android-star active"></i>
@@ -138,18 +138,33 @@
                                             </span>
 
                                             <span class="review-count">
-                                                <a href="#">(2 reviews)</a> | <a href="#">Write A Review</a>
+                                                <a href="#">(2 reviews)</a> | <a href="#">نظر خود را یادداشت کنید</a>
                                             </span>
                                         </div>
 
                                         <p class="single-grid-product__price">
-                                            <span class="discounted-price">$100.00</span> <span class="main-price discounted">$120.00</span>
+                                            @if (Model.Product.HasDiscount)
+                                            {
+                                                <span class="discounted-price">@Model.Product.PriceWithDiscount تومان</span>
+                                                <span class="main-price discounted">@Model.Product.Price تومان</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="main-price">@Model.Product.Price تومان</span>
+                                            }
                                         </p>
 
-                                        <p class="single-info">Product Code: <span class="value">CODE123</span> </p>
-                                        <p class="single-info">Reward Points: <span class="value">200</span> </p>
+                                        <p class="single-info">کد محصول : <span class="value">@Model.Product.Code</span> </p>
+                                        @*<p class="single-info">Reward Points: <span class="value">200</span> </p>*@
                                         <p class="single-info">
-                                            Availability: <span class="value">In Stock</span>
+                                            @if (Model.Product.IsInStock)
+                                            {
+                                                <span class="text-success">موجود در انبار</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">ناموجود در انبار</span>
+                                            }
                                         </p>
 
                                         <p class="product-description">
