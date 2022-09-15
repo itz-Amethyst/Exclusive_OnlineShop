@@ -45,5 +45,8 @@
         public string MetaDescription { get; set; }
 
         public bool IsInStock { get; set; }
+
+        public List<ProductPictureQueryModel> Pictures { get; set; }
+
     }
 }
