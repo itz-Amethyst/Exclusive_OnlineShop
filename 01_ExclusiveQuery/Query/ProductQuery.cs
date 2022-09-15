@@ -3,6 +3,7 @@ using _01_ExclusiveQuery.Contracts.Product;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace _01_ExclusiveQuery.Query
@@ -164,6 +165,7 @@ namespace _01_ExclusiveQuery.Query
 
             var product = _shopContext.Products
                 .Include(x => x.Category)
+                .Include(x=> x.ProductPictures)
                 .Select(product => new ProductQueryModel
                 {
                     Id = product.Id,
@@ -179,8 +181,9 @@ namespace _01_ExclusiveQuery.Query
                     Description = product.Description,
                     Keywords = product.Keywords,
                     MetaDescription = product.MetaDescription,
-                    ShortDescription = product.ShortDescription
-                }).AsNoTracking().Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Slug == slug);
+                    ShortDescription = product.ShortDescription,
+                    Pictures = MapProductPictures(product.ProductPictures)
+                }).AsNoTracking().Where(x => !x.IsDeleted).FirstOrDefault(x => x.Slug == slug);
 
             if (product == null)
             {
@@ -219,6 +222,18 @@ namespace _01_ExclusiveQuery.Query
             }
 
             return product;
+        }
+
+        private static List<ProductPictureQueryModel> MapProductPictures(List<ProductPicture> picture)
+        {
+            return picture.Select(x => new ProductPictureQueryModel
+            {
+                IsRemoved = x.IsRemoved,
+                Picture = x.Picture,
+                PictureAlt = x.PictureAlt,
+                PictureTitle = x.PictureTitle,
+                ProductId = x.ProductId
+            }).Where(x => !x.IsRemoved).ToList();
         }
     }
 }
