@@ -58,7 +58,7 @@ namespace ShopManagement.Application
 
         public List<CommentViewModel> Search(CommentSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _commentRepository.Search(searchModel);
         }
     }
 }
