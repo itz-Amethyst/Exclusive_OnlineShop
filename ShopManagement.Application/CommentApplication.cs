@@ -28,7 +28,17 @@ namespace ShopManagement.Application
 
         public OperationResult Confirm(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var comment = _commentRepository.GetById(id);
+
+            if (comment == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            comment.Confirm();
+            _commentRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Cancel(int id)
