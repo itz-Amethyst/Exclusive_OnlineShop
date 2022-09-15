@@ -26,5 +26,15 @@ namespace ShopManagement.Domain.CommentAgg
             Message = message;
             ProductId = productId;
         }
+
+        public void Confirm()
+        {
+            IsConfirmed = true;
+        }
+
+        public void Cancel()
+        {
+            IsCanceled = true;
+        }
     }
 }
