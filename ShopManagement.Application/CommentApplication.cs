@@ -1,12 +1,13 @@
 ﻿using _0_Framework.Application;
 using ShopManagement.Application.Contracts.Comment;
 using ShopManagement.Domain.CommentAgg;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ShopManagement.Application
 {
     public class CommentApplication : ICommentApplication
     {
-        private ICommentRepository _commentRepository;
+        private readonly ICommentRepository _commentRepository;
 
         public CommentApplication(ICommentRepository commentRepository)
         {
@@ -32,7 +33,17 @@ namespace ShopManagement.Application
 
         public OperationResult Cancel(int id)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var comment = _commentRepository.GetById(id);
+
+            if (comment == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            comment.Cancel();
+            _commentRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public List<CommentViewModel> Search(CommentSearchModel searchModel)
