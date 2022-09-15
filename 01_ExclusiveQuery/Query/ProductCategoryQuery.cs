@@ -159,6 +159,7 @@ namespace _01_ExclusiveQuery.Query
             {
                 Id = product.Id,
                 ProductCategory = product.Category.Name,
+                CategorySlug = product.Category.Slug,
                 Name = product.Name,
                 Picture = product.Picture,
                 PictureAlt = product.PictureAlt,
