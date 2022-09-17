@@ -373,12 +373,12 @@
                                                                             </div>
                                                                             </div>*@
                                                                 <div class="col-md-6 col-12 form-group">
-                                                                    <label for="name">نام:</label>
-                                                                    <input id="name" placeholder="نام شما" type="text">
+                                                                    <label for="Name">نام:</label>
+                                                                    <input id="Name" placeholder="نام شما" type="text" name="Name">
                                                                 </div>
                                                                 <div class="col-md-6 col-12 form-group">
-                                                                    <label for="email">ایمیل شما:</label>
-                                                                    <input id="email" placeholder="Email" type="email">
+                                                                    <label for="Email">ایمیل شما:</label>
+                                                                    <input id="Email" placeholder="Email" type="email" name="Email">
                                                                 </div>
                                                                 <div class="col-12 form-group">
                                                                     <label for="message">نظر شما:</label>
@@ -386,6 +386,7 @@
                                                                               placeholder="Write a review"></textarea>
                                                                 </div>
                                                                 <input type="hidden" name="productId" value="@Model.Product.Id" />
+                                                                <input type="hidden" name="productSlug" value="@Model.Product.Slug"/>
                                                                 <div class="col-12">
                                                                     <input value="ثبت نظر" type="submit">
                                                                 </div>

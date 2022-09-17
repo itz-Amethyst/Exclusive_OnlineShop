@@ -22,10 +22,10 @@ namespace ServiceHost.Pages
             Product = _productQuery.GetDetails(id);
         }
 
-        public IActionResult OnPost(AddComment command)
+        public IActionResult OnPost(AddComment command , string productSlug)
         {
             var result = _commentApplication.Add(command);
-            return RedirectToPage("/Product" , new {Id = command.ProductId});
+            return RedirectToPage("/Product" , new {Id = productSlug});
         }
     }
 }
