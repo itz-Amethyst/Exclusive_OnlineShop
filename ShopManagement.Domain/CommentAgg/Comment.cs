@@ -30,6 +30,7 @@ namespace ShopManagement.Domain.CommentAgg
         public void Confirm()
         {
             IsConfirmed = true;
+            IsCanceled = false;
         }
 
         public void Cancel()
