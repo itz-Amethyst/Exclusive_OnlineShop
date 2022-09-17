@@ -1,4 +1,6 @@
-﻿namespace _01_ExclusiveQuery.Contracts.Product
+﻿using _01_ExclusiveQuery.Contracts.Comment;
+
+namespace _01_ExclusiveQuery.Contracts.Product
 {
     public class ProductQueryModel
     {
@@ -47,6 +49,8 @@
         public bool IsInStock { get; set; }
 
         public List<ProductPictureQueryModel> Pictures { get; set; }
+
+        public List<CommentQueryModel> Comments { get; set; }
 
     }
 }
