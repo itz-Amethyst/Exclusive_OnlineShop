@@ -38,7 +38,28 @@ namespace BlogManagement.Application
 
         public OperationResult Edit(EditArticleCategory command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var articleCategory = _articleCategoryRepository.GetById(command.Id);
+
+            if (articleCategory == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (_articleCategoryRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var slug = command.Slug.Slugify();
+            var picturePath = _fileUploader.Upload(command.Picture, slug);
+
+            articleCategory.Edit(command.Name, picturePath, command.Description, command.ShowOrder,
+                slug, command.Keywords, command.MetaDescription, command.CannoicalAddress);
+
+            _articleCategoryRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
