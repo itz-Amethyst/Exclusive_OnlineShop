@@ -64,7 +64,7 @@ namespace BlogManagement.Application
 
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _articleCategoryRepository.Search(searchModel);
         }
     }
 }
