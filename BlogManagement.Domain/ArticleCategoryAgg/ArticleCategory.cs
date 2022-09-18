@@ -19,9 +19,9 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
 
         public string MetaDescription { get; private set; }
 
-        public string CannoicalAddress { get; set; }
+        public string CanonicalAddress { get; set; }
 
-        public ArticleCategory(string name, string picture, string description, int showOrder, string slug, string keywords, string metaDescription, string cannoicalAddress)
+        public ArticleCategory(string name, string picture, string description, int showOrder, string slug, string keywords, string metaDescription, string canonicalAddress)
         {
             Name = name;
             Picture = picture;
@@ -30,10 +30,10 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
             Slug = slug;
             Keywords = keywords;
             MetaDescription = metaDescription;
-            CannoicalAddress = cannoicalAddress;
+            CanonicalAddress = canonicalAddress;
         }
 
-        public void Edit(string name, string picture, string description, int showOrder, string slug, string keywords, string metaDescription, string cannoicalAddress)
+        public void Edit(string name, string picture, string description, int showOrder, string slug, string keywords, string metaDescription, string canonicalAddress)
         {
             Name = name;
             if (!string.IsNullOrWhiteSpace(picture))
@@ -45,7 +45,7 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
             Slug = slug;
             Keywords = keywords;
             MetaDescription = metaDescription;
-            CannoicalAddress = cannoicalAddress;
+            CanonicalAddress = canonicalAddress;
         }
     }
 }
