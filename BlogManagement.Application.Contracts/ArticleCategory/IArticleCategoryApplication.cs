@@ -9,5 +9,7 @@ namespace BlogManagement.Application.Contracts.ArticleCategory
         OperationResult Edit(EditArticleCategory command);
 
         List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel);
+
+        EditArticleCategory GetDetails(int id);
     }
 }
