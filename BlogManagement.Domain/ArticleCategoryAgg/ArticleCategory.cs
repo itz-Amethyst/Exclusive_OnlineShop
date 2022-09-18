@@ -32,5 +32,20 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
             MetaDescription = metaDescription;
             CannoicalAddress = cannoicalAddress;
         }
+
+        public void Edit(string name, string picture, string description, int showOrder, string slug, string keywords, string metaDescription, string cannoicalAddress)
+        {
+            Name = name;
+            if (!string.IsNullOrWhiteSpace(picture))
+            {
+                Picture = picture;
+            }
+            Description = description;
+            ShowOrder = showOrder;
+            Slug = slug;
+            Keywords = keywords;
+            MetaDescription = metaDescription;
+            CannoicalAddress = cannoicalAddress;
+        }
     }
 }
