@@ -19,8 +19,4 @@
     <ProjectReference Include="..\BlogManagement.Domain\BlogManagement.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
 </Project>
