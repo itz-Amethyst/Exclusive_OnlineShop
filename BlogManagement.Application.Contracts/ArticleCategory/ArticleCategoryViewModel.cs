@@ -4,9 +4,11 @@ namespace BlogManagement.Application.Contracts.ArticleCategory
 {
     public class ArticleCategoryViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
-        public IFormFile Picture { get; set; }
+        public string Picture { get; set; }
 
         public string Description { get; set; }
 
