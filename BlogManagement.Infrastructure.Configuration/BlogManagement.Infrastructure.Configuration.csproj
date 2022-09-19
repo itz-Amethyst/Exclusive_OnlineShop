@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlogManagement.Application\BlogManagement.Application.csproj" />
+    <ProjectReference Include="..\BlogManagement.Domain\BlogManagement.Domain.csproj" />
+    <ProjectReference Include="..\BlogManagement.Infrastructure.EFCore\BlogManagement.Infrastructure.EFCore.csproj" />
+  </ItemGroup>
+
 </Project>
