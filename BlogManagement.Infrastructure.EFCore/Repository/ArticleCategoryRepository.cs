@@ -31,7 +31,21 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
 
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var query = _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Name,
+                Picture = x.Picture,
+                ShowOrder = x.ShowOrder
+            });
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Name))
+            {
+                query = query.Where(x => x.Name.Contains(searchModel.Name));
+            }
+
+            return query.OrderByDescending(x => x.ShowOrder).ToList();
         }
     }
 }
