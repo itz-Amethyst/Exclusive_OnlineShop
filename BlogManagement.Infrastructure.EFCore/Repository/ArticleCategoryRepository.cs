@@ -16,7 +16,17 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
 
         public EditArticleCategory GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.ArticleCategories.Select(x => new EditArticleCategory
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                CannoicalAddress = x.CanonicalAddress,
+                Keywords = x.Keywords,
+                MetaDescription = x.MetaDescription,
+                ShowOrder = x.ShowOrder,
+                Slug = x.Slug
+            }).First(x => x.Id == id);
         }
 
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
