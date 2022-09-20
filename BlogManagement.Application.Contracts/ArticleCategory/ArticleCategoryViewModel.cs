@@ -14,5 +14,6 @@ namespace BlogManagement.Application.Contracts.ArticleCategory
 
         public int ShowOrder { get; set; }
 
+        public string CreationDate { get; set; }
     }
 }
