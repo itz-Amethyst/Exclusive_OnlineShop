@@ -42,7 +42,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="ShowOrder" class="control-label">ترتیب نمایش</label>
-                    <input class="form-control" asp-for="ShowOrder">
+                    <input type="number" class="form-control" asp-for="ShowOrder">
                     <span asp-validation-for="ShowOrder" class="error"></span>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="CanonicalAddress" class="control-label">CanonicalAddress</label>
@@ -100,7 +100,7 @@
                     <span asp-validation-for="CanonicalAddress" class="error"></span>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
