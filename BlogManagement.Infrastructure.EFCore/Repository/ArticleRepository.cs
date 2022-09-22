@@ -1,4 +1,5 @@
-﻿using _0_Framework.Infrastructure;
+﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EFCore.Context;
@@ -16,12 +17,47 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
 
         public EditArticle GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.Articles.Select(x => new EditArticle
+            {
+                Id = x.Id,
+                Picture = x.Picture,
+                PictureTitle = x.PictureTitle,
+                PictureAlt = x.PictureAlt,
+                Title = x.Title,
+                CanonicalAddress = x.CanonicalAddress,
+                CategoryId = x.CategoryId,
+                ShortDescription = x.ShortDescription,
+                Description = x.Description,
+                Keywords = x.Keywords,
+                MetaDescription = x.MetaDescription,
+                Slug = x.Slug,
+                PublishDate = x.PublishDate.ToFarsi()
+            }).First(x => x.Id == id);
         }
 
         public List<ArticleViewModel> Search(ArticleSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var query = _context.Articles.Select(x => new ArticleViewModel()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                ShortDescription = x.ShortDescription,
+                Category = x.Category.Name,
+                Picture = x.Picture,
+                PublishDate = x.PublishDate.ToFarsi(),
+            });
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Title))
+            {
+                query = query.Where(x => x.Title.Contains(searchModel.Title));
+            }
+
+            if (searchModel.CategoryId > 0)
+            {
+                query = query.Where(x => x.CategoryId == searchModel.CategoryId);
+            }
+
+            return query.OrderBy(x => x.Id).ToList();
         }
     }
 }
