@@ -15,5 +15,8 @@
         public string Category { get; set; }
 
         public string PublishDate { get; set; }
+
+        public bool IsDeleted { get; set; }
+
     }
 }
