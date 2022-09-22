@@ -31,6 +31,8 @@ namespace BlogManagement.Domain.ArticleAgg
 
         public DateTime PublishDate { get; private set; }
 
+        public bool IsDeleted { get; private set; }
+
         public Article(string title, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, string slug, string metaDescription, string keywords, string canonicalAddress, int categoryId, DateTime publishDate)
         {
             Title = title;
@@ -45,6 +47,7 @@ namespace BlogManagement.Domain.ArticleAgg
             CanonicalAddress = canonicalAddress;
             CategoryId = categoryId;
             PublishDate = publishDate;
+            IsDeleted = false;
         }
 
         public void Edit(string title, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, string slug, string metaDescription, string keywords, string canonicalAddress, int categoryId, DateTime publishDate)
@@ -64,6 +67,16 @@ namespace BlogManagement.Domain.ArticleAgg
             CanonicalAddress = canonicalAddress;
             CategoryId = categoryId;
             PublishDate = publishDate;
+        }
+
+        public void Remove()
+        {
+            IsDeleted = true;
+        }
+
+        public void Restore()
+        {
+            IsDeleted = false;
         }
     }
 }
