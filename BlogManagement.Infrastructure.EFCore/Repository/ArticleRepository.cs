@@ -45,6 +45,7 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
                 Category = x.Category.Name,
                 Picture = x.Picture,
                 PublishDate = x.PublishDate.ToFarsi(),
+                IsDeleted = x.IsDeleted
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Title))
