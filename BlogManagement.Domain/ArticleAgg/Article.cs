@@ -29,7 +29,9 @@ namespace BlogManagement.Domain.ArticleAgg
 
         public ArticleCategory Category { get; private set; }
 
-        public Article(string title, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, string slug, string metaDescription, string keywords, string canonicalAddress, int categoryId)
+        public DateTime PublishDate { get; private set; }
+
+        public Article(string title, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, string slug, string metaDescription, string keywords, string canonicalAddress, int categoryId, DateTime publishDate)
         {
             Title = title;
             ShortDescription = shortDescription;
@@ -42,9 +44,10 @@ namespace BlogManagement.Domain.ArticleAgg
             Keywords = keywords;
             CanonicalAddress = canonicalAddress;
             CategoryId = categoryId;
+            PublishDate = publishDate;
         }
 
-        public void Edit(string title, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, string slug, string metaDescription, string keywords, string canonicalAddress, int categoryId)
+        public void Edit(string title, string shortDescription, string description, string picture, string pictureAlt, string pictureTitle, string slug, string metaDescription, string keywords, string canonicalAddress, int categoryId, DateTime publishDate)
         {
             Title = title;
             ShortDescription = shortDescription;
@@ -60,6 +63,7 @@ namespace BlogManagement.Domain.ArticleAgg
             Keywords = keywords;
             CanonicalAddress = canonicalAddress;
             CategoryId = categoryId;
+            PublishDate = publishDate;
         }
     }
 }
