@@ -21,6 +21,10 @@ namespace BlogManagement.Infrastructure.EFCore.Mapping
             builder.Property(x => x.MetaDescription).HasMaxLength(500).IsRequired();
             builder.Property(x => x.CanonicalAddress).HasMaxLength(500).IsRequired(false);
 
+            builder.HasMany(x => x.Articles)
+                .WithOne(x => x.Category)
+                .HasForeignKey(x => x.CategoryId);
+
         }
     }
 }
