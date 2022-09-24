@@ -33,12 +33,14 @@ namespace BlogManagement.Application
 
             var path = $"{categorySlug}/{slug}";
 
-            var pictureName =_fileUploader.Upload(command.Picture, path);
+            var pictureName = _fileUploader.Upload(command.Picture, path);
+
+            var publishDate = command.PublishDate.ToGeorgianDateTime();
 
             var article = new Article(command.Title, command.ShortDescription
-                , command.Description, command.PictureAlt, command.PictureTitle
-                , pictureName, command.Keywords, command.MetaDescription
-                , slug, command.CanonicalAddress , command.CategoryId , DateTime.Now);
+                , command.Description, pictureName, command.PictureAlt, command.PictureTitle
+                , slug, command.MetaDescription, command.Keywords
+                , command.CanonicalAddress, command.CategoryId, publishDate);
 
             _articleRepository.Create(article);
             _articleRepository.SaveChanges();
@@ -48,7 +50,35 @@ namespace BlogManagement.Application
 
         public OperationResult Edit(EditArticle command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var article = _articleRepository.GetWithCategory(command.Id);
+
+            if (article == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (_articleRepository.Exists(x => x.Title == command.Title && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var slug = command.Slug.Slugify();
+
+            var path = $"{article.Category.Slug}/{slug}";
+
+            var pictureName = _fileUploader.Upload(command.Picture, path);
+
+            var publishDate = command.PublishDate.ToGeorgianDateTime();
+            article.Edit(command.Title, command.ShortDescription
+                , command.Description, pictureName, command.PictureAlt, command.PictureTitle
+                , slug, command.MetaDescription, command.Keywords
+                , command.CanonicalAddress, command.CategoryId, publishDate);
+
+            _articleRepository.SaveChanges();
+            return operation.Succeeded();
+
         }
 
         public EditArticle GetDetails(int id)
