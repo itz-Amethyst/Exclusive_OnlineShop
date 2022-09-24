@@ -83,7 +83,7 @@ namespace BlogManagement.Application
 
         public EditArticle GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _articleRepository.GetDetails(id);
         }
 
         public List<ArticleViewModel> Search(ArticleSearchModel searchModel)
