@@ -3,6 +3,7 @@ using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EFCore.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogManagement.Infrastructure.EFCore.Repository
 {
@@ -33,6 +34,11 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
                 Slug = x.Slug,
                 PublishDate = x.PublishDate.ToFarsi()
             }).First(x => x.Id == id);
+        }
+
+        public Article GetWithCategory(int id)
+        {
+            return _context.Articles.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
         }
 
         public List<ArticleViewModel> Search(ArticleSearchModel searchModel)

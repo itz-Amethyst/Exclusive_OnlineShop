@@ -7,6 +7,8 @@ namespace BlogManagement.Domain.ArticleAgg
     {
         EditArticle GetDetails(int id);
 
+        Article GetWithCategory(int id);
+
         List<ArticleViewModel> Search(ArticleSearchModel searchModel);
     }
 }
