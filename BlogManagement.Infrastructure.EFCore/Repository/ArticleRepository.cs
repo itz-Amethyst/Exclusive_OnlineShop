@@ -21,7 +21,7 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
             return _context.Articles.Select(x => new EditArticle
             {
                 Id = x.Id,
-                Picture = x.Picture,
+                //Picture = x.Picture,
                 PictureTitle = x.PictureTitle,
                 PictureAlt = x.PictureAlt,
                 Title = x.Title,
