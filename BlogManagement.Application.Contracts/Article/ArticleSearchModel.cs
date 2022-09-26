@@ -7,7 +7,5 @@ namespace BlogManagement.Application.Contracts.Article
         public string Title { get; set; }
 
         public int CategoryId { get; set; }
-
-        public List<ArticleCategoryViewModel> Categories { get; set; }
     }
 }
