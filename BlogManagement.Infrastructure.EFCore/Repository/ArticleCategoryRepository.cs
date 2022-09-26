@@ -56,5 +56,14 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
         {
             return _context.ArticleCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
         }
+
+        public List<ArticleCategoryViewModel> GetArticleCategories()
+        {
+            return _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+        }
     }
 }
