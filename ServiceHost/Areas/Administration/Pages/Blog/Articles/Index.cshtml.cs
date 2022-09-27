@@ -20,8 +20,10 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
             _articleCategoryApplication = articleCategoryApplication;
         }
 
-        public void OnGet(ArticleSearchModel searchModel)
+        public void OnGet(ArticleSearchModel searchModel , bool created = false)
         {
+            ViewData["Created"] = created;
+
             ArticleCategories = new SelectList(_articleCategoryApplication.GetArticleCategories(), "Id", "Name");
 
             Articles = _articleApplication.Search(searchModel);

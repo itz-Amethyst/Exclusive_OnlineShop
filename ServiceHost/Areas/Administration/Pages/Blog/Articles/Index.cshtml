@@ -94,6 +94,7 @@
 </div>
 <!-- end row -->
 @section Scripts{
+    <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
@@ -103,5 +104,80 @@
 
         // Removing Pagination and SearchBox
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
+
+        //? Sweet Alert
+
+        var url = window.location.href;
+        const MainUrl = url.split('?')[0];
+
+        function Location() {
+            window.location.href = MainUrl;
+
+        }
+
+        function Clear() {
+            setTimeout(Location, 2500);
+        }
+
     </script>
+    
+    @if (ViewBag.Created == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'ایجاد مقاله با موفقیت امیز انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+
+
+    @if (ViewBag.Removed == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'حذف محصول با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+    @if (ViewBag.Restored == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'فعال سازی محصول با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+            Clear();
+
+        </script>
+    }
 }
