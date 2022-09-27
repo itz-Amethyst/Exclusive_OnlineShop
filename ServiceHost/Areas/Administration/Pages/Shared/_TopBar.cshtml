@@ -1,0 +1,27 @@
+﻿<!-- Top Bar Start -->
+<div class="topbar">
+
+    <!-- LOGO -->
+    <div class="topbar-left">
+        <a asp-page="/Index" class="logo"><span>Excl<span>usive</span></span></a>
+    </div>
+
+    <!-- Button mobile view to collapse sidebar menu -->
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+
+            <!-- Page title -->
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <button class="button-menu-mobile open-left">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </li>
+                <li>
+                    <h4 class="page-title">@ViewData["Title"]</h4>
+                </li>
+            </ul>
+        </div><!-- end container -->
+    </div><!-- end navbar -->
+</div>
+<!-- Top Bar End -->
