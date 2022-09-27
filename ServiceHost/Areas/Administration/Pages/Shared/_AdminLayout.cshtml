@@ -1,35 +1,15 @@
-﻿ <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="rtl">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Coderthemes">
-
+    
     <link rel="shortcut icon" href="~/AdminTheme/assets/images/favicon.ico">
 
     <title>@ViewData["Title"] | Exclusive_OnlineShop</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-
-    <!--Morris Chart CSS -->
-    @*<link rel="stylesheet" href="~/AdminTheme/assets/plugins/morris/morris.css">*@
-
-    <!-- App css -->
-    <link href="~/AdminTheme/assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/AdminTheme/assets/css/core.css" rel="stylesheet" type="text/css" />
-    <link href="~/AdminTheme/assets/css/components.css" rel="stylesheet" type="text/css" />
-    <link href="~/AdminTheme/assets/less/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/AdminTheme/assets/css/pages.css" rel="stylesheet" type="text/css" />
-    <link href="~/AdminTheme/assets/css/menu.css" rel="stylesheet" type="text/css" />
-    <link href="~/AdminTheme/assets/css/responsive.css" rel="stylesheet" type="text/css" />
     
-    <!--Persian DatePicker-->
-    <link href="~/AdminTheme/assets/DatePicker/persian-datepicker.min.css" rel="stylesheet" type="text/css"/>
-    
-    <!-- form Uploads -->
-    <link href="~/AdminTheme/assets/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+    <partial name="_MetaTags"/>
 
-    <script src="~/AdminTheme/assets/js/modernizr.min.js"></script>
+    <partial name="_Styles" />
 
 </head>
 
@@ -39,38 +19,12 @@
     <!-- Begin page -->
     <div id="wrapper">
 
-        <!-- Top Bar Start -->
-        <div class="topbar">
-
-            <!-- LOGO -->
-            <div class="topbar-left">
-                <a asp-page="/Index" class="logo"><span>Excl<span>usive</span></span></a>
-            </div>
-
-            <!-- Button mobile view to collapse sidebar menu -->
-            <div class="navbar navbar-default" role="navigation">
-                <div class="container">
-
-                    <!-- Page title -->
-                    <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <button class="button-menu-mobile open-left">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <h4 class="page-title">@ViewData["Title"]</h4>
-                        </li>
-                    </ul>
-                </div><!-- end container -->
-            </div><!-- end navbar -->
-        </div>
-        <!-- Top Bar End -->
+        <partial name="_TopBar" />
         <!-- ========== Left Sidebar Start ========== -->
-        
 
-        <partial name="_Menu"/>
-        
+
+        <partial name="_Menu" />
+
 
         <!-- Left Sidebar End -->
         <!-- ============================================================== -->
@@ -87,10 +41,7 @@
 
             </div> <!-- content -->
 
-            <footer class="footer">
-                Made By Callme-Milad ©
-                <span id="curYr"></span>
-            </footer>
+          <partial name="_Footer"/>
 
         </div>
 
@@ -101,73 +52,14 @@
 
     </div>
     <!-- END wrapper -->
-    <!-- Modal -->
-    <div id="MainModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content" id="ModalContent">
+    <partial name="_Modal"/>
 
-            </div>
-        </div>
-    </div><!-- /.modal -->
+    <partial name="_StylesJs" />
 
-
-
-
-
-    <script>
-        var resizefunc = [];
-
-        var c = new Date().getFullYear();
-        document.getElementById("curYr").innerHTML = c;
-    </script>
-
-<!-- jQuery  -->
-    
-    <script src="~/AdminTheme/assets/js/jquery.min.js"></script>
-    <script src="~/AdminTheme/assets/js/bootstrap-rtl.min.js"></script>
-    <script src="~/AdminTheme/assets/js/detect.js"></script>
-    <script src="~/AdminTheme/assets/js/fastclick.js"></script>
-    <script src="~/AdminTheme/assets/js/jquery.blockUI.js"></script>
-    <script src="~/AdminTheme/assets/js/waves.js"></script>
-    <script src="~/AdminTheme/assets/js/jquery.nicescroll.js"></script>
-    <script src="~/AdminTheme/assets/js/jquery.slimscroll.js"></script>
-    <script src="~/AdminTheme/assets/js/jquery.scrollTo.min.js"></script>
-
-    <script src="~/AdminTheme/assets/plugins/jquery-knob/jquery.knob.js"></script>
-    
-    <!--Jquery Validation For Modal_Js-->
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" ></script>
-
-    <!--Morris Chart-->
-    @*<script src="~/AdminTheme/assets/plugins/morris/morris.min.js"></script>*@
-    <script src="~/AdminTheme/assets/plugins/raphael/raphael-min.js"></script>
-
-    <!-- Dashboard init -->
-    @*<script src="~/AdminTheme/assets/pages/jquery.dashboard.js"></script>*@
-
-    <!-- App js -->
-    <script src="~/AdminTheme/assets/js/jquery.core.js"></script>
-    <script src="~/AdminTheme/assets/js/jquery.app.js"></script>
-
-    <!--Modal_Js-->
-    <script src="~/AdminTheme/assets/Modal_Js/site.js"></script>
-
-    <!--Date Picker-->
-    <script src="~/AdminTheme/assets/DatePicker/persian-date.min.js"></script>
-    <script src="~/AdminTheme/assets/DatePicker/persian-datepicker.min.js"></script>
-
-    <!-- file uploads js -->
-    <script src="~/AdminTheme/assets/plugins/fileuploads/js/dropify.min.js"></script>
+    <partial name="_Scripts" />
 
     @RenderSection("Scripts",false)
 
-    <script>
-        $('.persianDateInput').persianDatepicker({
-            format: 'YYYY/MM/DD',
-            autoClose: true,
-            initialValue: false
-        });
-    </script>
+
 </body>
 </html>
