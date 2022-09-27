@@ -22,6 +22,7 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
+                Image = x.Picture,
                 CanonicalAddress = x.CanonicalAddress,
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,

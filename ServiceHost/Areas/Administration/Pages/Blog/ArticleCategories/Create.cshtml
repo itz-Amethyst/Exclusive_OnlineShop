@@ -32,14 +32,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-md-12">
+                <div class="card-box">
                     <label asp-for="Picture" class="control-label">عکس</label>
-                    <input type="file" class="form-control" asp-for="Picture" accept="image/*">
+                    <input type="file" class="dropify" asp-for="Picture" accept=".png, .jpg, .jpeg" data-max-file-size="3M" data-allowed-file-extensions="png jpg jpeg" data-max-file-size-preview="3M">
                     <span asp-validation-for="Picture" class="error"></span>
                 </div>
             </div>
-            <div class="col-md-6">
+           
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="ShowOrder" class="control-label">ترتیب نمایش</label>
                     <input type="number" class="form-control" asp-for="ShowOrder">
@@ -107,3 +110,19 @@
         <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
     </div>
 </form>
+
+
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Drag and drop a file here or click',
+            'replace': 'Drag and drop or click to replace',
+            'remove': 'Remove',
+            'error': 'مشکلی پیش امده لطفا دوباره تلاش کنید'
+        },
+        error: {
+            'fileSize': ' حجم فایل نمیتواند بیشتر از ({{ value }}) باشد .',
+            'imageFormat': 'فرمت فایل مجاز نیست ({{ value }} فقط مجاز میباشد).'
+        }
+    });
+</script>
