@@ -11,7 +11,7 @@ namespace ShopManagement.Application.Contracts.ProductPicture
         public int ProductId { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        [MaxFileSize(2 * 1024 * 1024 , ErrorMessage = ValidationMessages.MaxFileSize)]
+        //[MaxFileSize(2 * 1024 * 1024 , ErrorMessage = ValidationMessages.MaxFileSize)]
         public IFormFile Picture { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]

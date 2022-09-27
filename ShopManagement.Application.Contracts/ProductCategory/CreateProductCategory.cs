@@ -13,8 +13,8 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Description { get; set; }
 
-        [MaxFileSize(3 * 1024 * 1024 , ErrorMessage = ValidationMessages.MaxFileSize)]
-        [FileExtensionLimitation(new string[] {".jpeg" , ".jpg" , ".png"} , ErrorMessage = ValidationMessages.InvalidFileFormat)]
+        //[MaxFileSize(3 * 1024 * 1024 , ErrorMessage = ValidationMessages.MaxFileSize)]
+        //[FileExtensionLimitation(new string[] {".jpeg" , ".jpg" , ".png"} , ErrorMessage = ValidationMessages.InvalidFileFormat)]
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public IFormFile Picture { get; set; }
 
