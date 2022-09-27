@@ -1,6 +1,9 @@
-﻿namespace ShopManagement.Application.Contracts.ProductCategory;
-
-public class EditProductCategory : CreateProductCategory
+﻿namespace ShopManagement.Application.Contracts.ProductCategory
 {
-    public int Id { get; set; }
+    public class EditProductCategory : CreateProductCategory
+    {
+        public int Id { get; set; }
+
+        public string Image { get; set; }
+    }
 }

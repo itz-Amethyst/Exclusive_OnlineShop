@@ -34,7 +34,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 Name = x.Name,
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,
-                //Picture = x.Picture,
+                Image = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug
