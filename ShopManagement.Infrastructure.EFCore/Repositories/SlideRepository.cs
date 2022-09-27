@@ -6,7 +6,7 @@ using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace ShopManagement.Infrastructure.EFCore.Repositories
 {
-    public class SlideRepository : RepositoryBase<int , Slide> , ISlideRepository
+    public class SlideRepository : RepositoryBase<int, Slide>, ISlideRepository
     {
         private readonly ShopContext _context;
 
@@ -17,12 +17,12 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public EditSlide GetDetails(int id)
         {
-           return _context.Slides.Select(x => new EditSlide
+            return _context.Slides.Select(x => new EditSlide
             {
                 Id = x.Id,
                 BtnText = x.BtnText,
                 Heading = x.Heading,
-                //Picture = x.Picture,
+                Image = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 Text = x.Text,
@@ -35,7 +35,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
         {
             return _context.Slides.Select(x => new SlideViewModel
             {
-                Id=x.Id,
+                Id = x.Id,
                 Heading = x.Heading,
                 Picture = x.Picture,
                 Title = x.Title,
