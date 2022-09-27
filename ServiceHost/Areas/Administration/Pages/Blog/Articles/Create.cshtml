@@ -29,12 +29,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.CategoryId">گروه مقاله</label>
                                 <select asp-for="Command.CategoryId" class="form-control w-25" asp-items="Model.ArticleCategories">
                                     <option value="0">گروه مقاله ...</option>
                                 </select>
+                                <span asp-validation-for="Command.CategoryId" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.PublishDate" class="control-label">تاریخ انتشار</label>
+                                <input class="form-control persianDateInput" asp-for="Command.PublishDate">
+                                <span asp-validation-for="Command.PublishDate" class="error"></span>
                             </div>
                         </div>
                     </div>
@@ -66,10 +74,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group no-margin">
-                                <label asp-for="Command.Description" class="control-label">توضیحات کوتاه</label>
-                                <textarea class="form-control autogrow" asp-for="Command.Description" onchange="fillField('ShortDescription', 'MetaDescription')"
+                                <label asp-for="Command.ShortDescription" class="control-label">توضیحات کوتاه</label>
+                                <textarea class="form-control autogrow" asp-for="Command.ShortDescription" onchange="fillField('ShortDescription', 'MetaDescription')"
                                           style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
-                                <span asp-validation-for="Command.Description" class="error"></span>
+                                <span asp-validation-for="Command.ShortDescription" class="error"></span>
                             </div>
                         </div>
                     </div>
@@ -105,8 +113,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label asp-for="Command.CanonicalAddress" class="control-label">CanonicalAddress</label>
-                                <input type="text" class="form-control" asp-for="Command.CanonicalAddress">
-                                <span asp-validation-for="Command.CanonicalAddress" class="error"></span>
+                                <input type="text" class="form-control" asp-for="Command.CanonicalAddress" >
                             </div>
                         </div>
                     </div>
@@ -117,20 +124,3 @@
         </div>
     </div>
 </div>
-
-
-
-<script>
-    $('.dropify').dropify({
-        messages: {
-            'default': 'Drag and drop a file here or click',
-            'replace': 'Drag and drop or click to replace',
-            'remove': 'Remove',
-            'error': 'مشکلی پیش امده لطفا دوباره تلاش کنید'
-        },
-        error: {
-            'fileSize': ' حجم فایل نمیتواند بیشتر از ({{ value }}) باشد .',
-            'imageFormat': 'فرمت فایل مجاز نیست ({{ value }} فقط مجاز میباشد).'
-        }
-    });
-</script>
