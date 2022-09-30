@@ -75,7 +75,7 @@
                         <div class="col-md-12">
                             <div class="form-group no-margin">
                                 <label asp-for="Command.ShortDescription" class="control-label">توضیحات کوتاه</label>
-                                <textarea class="form-control autogrow" asp-for="Command.ShortDescription" onchange="fillField('ShortDescription', 'MetaDescription')"
+                                <textarea class="form-control" asp-for="Command.ShortDescription" onchange="fillField('ShortDescription', 'MetaDescription')"
                                           style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
                                 <span asp-validation-for="Command.ShortDescription" class="error"></span>
                             </div>
@@ -85,7 +85,7 @@
                         <div class="col-md-12">
                             <div class="form-group no-margin">
                                 <label asp-for="Command.Description" class="control-label">توضیحات</label>
-                                <textarea class="form-control autogrow" asp-for="Command.Description"></textarea>
+                                <textarea class="form-control TextArea-height" id="BodyContent" asp-for="Command.Description"></textarea>
                                 <span asp-validation-for="Command.Description" class="error"></span>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label asp-for="Command.CanonicalAddress" class="control-label">CanonicalAddress</label>
-                                <input type="text" class="form-control" asp-for="Command.CanonicalAddress" >
+                                <input type="text" class="form-control" asp-for="Command.CanonicalAddress">
                             </div>
                         </div>
                     </div>
