@@ -21,18 +21,21 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
             return _context.Articles.Select(x => new EditArticle
             {
                 Id = x.Id,
-                //Picture = x.Picture,
-                PictureTitle = x.PictureTitle,
-                PictureAlt = x.PictureAlt,
                 Title = x.Title,
+                ShortDescription = x.ShortDescription,
                 CanonicalAddress = x.CanonicalAddress,
                 CategoryId = x.CategoryId,
-                ShortDescription = x.ShortDescription,
+                PublishDate = x.PublishDate.ToFarsi(),
                 Description = x.Description,
+                Image = x.Picture,
+                //Picture = x.Picture
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,
+                //Picture = x.Picture,
+                PictureAlt = x.PictureAlt,
+                PictureTitle = x.PictureTitle,
                 Slug = x.Slug,
-                PublishDate = x.PublishDate.ToFarsi()
+
             }).First(x => x.Id == id);
         }
 
