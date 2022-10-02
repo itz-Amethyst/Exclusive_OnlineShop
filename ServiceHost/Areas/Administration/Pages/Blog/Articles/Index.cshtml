@@ -26,7 +26,7 @@
                                 <option value="0">گروه مقاله</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md">
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-l-15 w-md" formnovalidate>
                             <span>جستجو</span>
                             <i class="fa fa-search m-l-15"></i>
                         </button>
@@ -127,6 +127,26 @@
             Swal.fire({
                 position: 'top-end',
                 title: 'ایجاد مقاله با موفقیت امیز انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+    
+    @if (ViewBag.Edited == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'ویرایش مقاله با موفقیت امیز انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
