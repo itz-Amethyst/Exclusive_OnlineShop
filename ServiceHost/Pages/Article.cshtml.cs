@@ -8,6 +8,7 @@ namespace ServiceHost.Pages
         private readonly IArticleQuery _articleQuery;
 
         public ArticleQueryModel Article;
+        public List<ArticleQueryModel> LatestArticles;
 
         public ArticleModel(IArticleQuery articleQuery)
         {
@@ -17,6 +18,7 @@ namespace ServiceHost.Pages
         public void OnGet(string slug)
         {
             Article = _articleQuery.GetArticleDetails(slug);
+            LatestArticles = _articleQuery.GetLatestArticles();
         }
     }
 }

@@ -266,108 +266,28 @@
                                             <h4 class="single-sidebar-widget__title">اخرین مقالات</h4>
                                             <div class="block-container">
 
-                                                <div class="single-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-image-format.html">
-                                                            <img src="assets/img/blog/slider/1-370x235.jpg"
-                                                                 class="img-fluid" alt="">
-                                                        </a>
+                                                @foreach (var article in Model.LatestArticles)
+                                                {
+                                                    <div class="single-block d-flex">
+                                                        <div class="image">
+                                                            <a asp-page="/Article" asp-route-id="@article.Slug">
+                                                                <img src="~/UploadedFiles/@article.Picture"
+                                                                     class="img-fluid" alt="@article.PictureAlt" title="@article.Title">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <p>
+                                                            <a asp-page="/Article" asp-route-id="@article.Slug">@article.Title</a> <span>@article.PublishDate</span>
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <a href="blog-post-image-format.html">The biggest lie in
-                                                                furniture</a> <span>APRIL 24, 2019</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
 
-                                        </div>
-                                      
-                                        <div class="single-sidebar-widget">
-
-                                            <h4 class="single-sidebar-widget__title">Recent Comments</h4>
-
-
-                                            <div class="block-container">
-
-
-                                                <div class="single-block comment-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-image-format.html">
-                                                            <img src="assets/img/blog/comment-icon.png"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <span>Admin Says</span> <a
-                                                                href="blog-post-image-format.html">The biggest lie in
-                                                                plant</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                               
-
-                                                <div class="single-block comment-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-image-gallery.html">
-                                                            <img src="assets/img/blog/comment-icon.png"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <span>Admin Says</span><a
-                                                                href="blog-post-image-gallery.html">How to improve plant
-                                                                quality</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                             
-
-                                                <div class="single-block comment-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-audio-format.html">
-                                                            <img src="assets/img/blog/comment-icon.png"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <span>Admin Says</span><a
-                                                                href="blog-post-audio-format.html">101 ideas for
-                                                                plant</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                             
-
-                                                <div class="single-block comment-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-video-format.html">
-                                                            <img src="assets/img/blog/comment-icon.png"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <span>Admin Says</span><a
-                                                                href="blog-post-video-format.html">No more mistakes with
-                                                                plant</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
+                                                }
 
                                             </div>
 
                                         </div>
-                                     
+
                                         <div class="single-sidebar-widget">
                                             <h4 class="single-sidebar-widget__title">Popular Tags</h4>
                                             <ul class="single-sidebar-widget__tag-list">
