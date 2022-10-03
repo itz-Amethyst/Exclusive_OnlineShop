@@ -32,88 +32,38 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <!--=======  page wrapper  =======-->
                     <div class="page-wrapper">
                         <div class="page-content-wrapper">
                             <div class="row">
 
                                 <div class="col-lg-9 order-1 order-lg-1">
-                                    <!--=======  blog page content  =======-->
                                     <div class="blog-page-content">
-                                        <!--=======  blog post container  =======-->
-
                                         <div class="blog-single-post-container">
 
-                                            <!--=======  post title  =======-->
 
 
-                                            <h3 class="post-title">The biggest lie in furniture</h3>
+                                            <h3 class="post-title">@Model.Article.Title</h3>
 
-                                            <!--=======  End of post title  =======-->
-                                            <!--=======  Post meta  =======-->
                                             <div class="post-meta">
                                                 <p>
-                                                    <span><i class="fa fa-user-circle"></i> Posted By: </span> <a
-                                                        href="#">admin</a> <span class="separator">|</span> <span><i
-                                                            class="fa fa-calendar"></i> Posted On: <a href="#">24
-                                                            August, 2019</a></span>
+                                                   @* <span><i class="fa fa-user-circle"></i> Posted By: </span> <a href="#">admin</a> <span class="separator">|</span> *@ <span><i class="fa fa-calendar"></i> نوشته شده در تاریخ :@Model.Article.PublishDate </span>
                                                 </p>
                                             </div>
 
-                                            <!--=======  End of Post meta  =======-->
-                                            <!--=======  Post media  =======-->
+                                            
 
                                             <div class="single-blog-post-media">
                                                 <div class="image">
-                                                    <img src="assets/img/blog/1-1170x743.jpg" class="img-fluid" alt="">
+                                                    <img src="~/UploadedFiles/@Model.Article.Picture" class="img-fluid" alt="@Model.Article.PictureAlt" title="@Model.Article.PictureTitle">
                                                 </div>
                                             </div>
 
-                                            <!--=======  End of Post media  =======-->
-                                            <!--=======  Post content  =======-->
+                                          
 
                                             <div class="post-content">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, ipsum
-                                                    deleniti repellendus nam deserunt vitae ullam amet quos! Nesciunt,
-                                                    quo. Lorem, ipsum dolor. Lorem ipsum dolor sit amet consectetur
-                                                    adipisicing elit. Quod, vitae numquam! Vitae alias ullam
-                                                    voluptatibus asperiores fugit ea soluta consectetur adipisci enim,
-                                                    impedit odit quisquam, ut, numquam voluptatem quas cum!</p>
-
-                                                <blockquote>
-                                                    <p>ipsum deleniti repellendus nam deserunt vitae ullam amet quos!
-                                                        Nesciunt, quo. Lorem, ipsum dolor. Lorem ipsum dolor sit amet
-                                                        consectetur adipisicing elit. Quod, vitae numquam! VitaeLorem
-                                                        ipsum dolor sit amet consectetur adipisicing elit. Sed, ipsum
-                                                        deleniti repellendus nam deserunt vitae ullam amet quos!
-                                                        Nesciunt, quo. Lorem, ipsum dolor.</p>
-                                                </blockquote>
-
-                                                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, vitae
-                                                    numquam! Vitae alias ullam voluptatibus asperiores fugit ea soluta
-                                                    consectetur adipisci enim, impedit odit quisquam, u Lorem ipsum
-                                                    dolor sit amet consectetur adipisicing elit. Sed, ipsum deleniti
-                                                    repellendus nam deserunt vitae ullam amet quos! Nesciunt, quo.
-                                                    Lorem, ipsum dolor. Lorem ipsum dolor sit amet consectetur
-                                                    adipisicing elit. Quod, vitae numquam! Vitae alias ullam
-                                                    voluptatibus asperiores fugit ea soluta consectetur adipisci enim,
-                                                    impedit odit quisquam, ut, numquam voluptatem quas cum!</p>
-
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, ipsum
-                                                    deleniti repellendus nam deserunt vitae ullam amet quos! Nesciunt,
-                                                    quo. Lorem, ipsum dolor. Lorem ipsum dolor sit amet consectetur
-                                                    adipisicing elit. Quod, vitae numquam! Vitae alias ullam
-                                                    voluptatibus asperiores fugit ea soluta consectetur adipisci enim,
-                                                    impedit odit quisquam, ut, numquam voluptatem quas cum! repellendus
-                                                    nam deserunt vitae ullam amet quos! Nesciunt, quo. Lorem, ipsum
-                                                    dolor. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                    Quod, vitae numquam! Vitae alias ullam voluptatibus asperiores fugit
-                                                    ea soluta consectetur adipisci enim, impedit odit quisquam, ut,
-                                                    numquam voluptatem quas cum!</p>
+                                               @Html.Raw(Model.Article.Description)
                                             </div>
 
-                                            <!--=======  End of Post content  =======-->
-                                            <!--=======  Tags area  =======-->
 
                                             <div class="tag-area">
                                                 <span>Tags: </span>
@@ -125,8 +75,6 @@
                                                 </ul>
                                             </div>
 
-                                            <!--=======  End of Tags area  =======-->
-                                            <!--=======  Share post area  =======-->
 
                                             <div class="social-share-buttons">
                                                 <h3>share this post</h3>
@@ -155,18 +103,12 @@
                                             </div>
                                         </div>
 
-                                        <!--=======  End of blog post container  =======-->
-                                        <!--=============================================
-    =            Comment section         =
-    =============================================-->
 
                                         <div class="comment-section">
                                             <h3 class="comment-counter">4 COMMENTS</h3>
 
-                                            <!--=======  comment container  =======-->
 
                                             <div class="comment-container">
-                                                <!--=======  single comment  =======-->
 
                                                 <div class="single-comment">
                                                     <span class="reply-btn">
@@ -186,8 +128,6 @@
 
                                                 </div>
 
-                                                <!--=======  End of single comment  =======-->
-                                                <!--=======  single reply comment  =======-->
 
                                                 <div class="single-comment reply-comment">
                                                     <span class="reply-btn">
@@ -207,8 +147,7 @@
 
                                                 </div>
 
-                                                <!--=======  End of single reply comment  =======-->
-                                                <!--=======  single comment  =======-->
+                                               
 
                                                 <div class="single-comment">
                                                     <span class="reply-btn">
@@ -228,20 +167,16 @@
 
                                                 </div>
 
-                                                <!--=======  End of single comment  =======-->
 
 
                                             </div>
 
-                                            <!--=======  End of comment container  =======-->
-                                            <!--=======  comment form container  =======-->
+                                          
 
                                             <div class="comment-form-container">
                                                 <h3 class="comment-form-title">LEAVE A REPLY</h3>
                                                 <p>Your email address will not be published. Required fields are marked
                                                     *</p>
-
-                                                <!--=======  comment form  =======-->
 
                                                 <div class="comment-form">
                                                     <form action="#">
@@ -279,22 +214,15 @@
                                                     </form>
                                                 </div>
 
-                                                <!--=======  End of comment form  =======-->
                                             </div>
 
-                                            <!--=======  End of comment form container  =======-->
 
                                         </div>
 
-
-                                        <!--=====  End of Comment section  ======-->
                                     </div>
-                                    <!--=======  End of blog page content  =======-->
                                 </div>
                                 <div class="col-lg-3 order-2 order-lg-2">
-                                    <!--=======  page sidebar wrapper =======-->
                                     <div class="page-sidebar-wrapper">
-                                        <!--=======  single sidebar widget  =======-->
                                         <div class="single-sidebar-widget">
 
                                             <h4 class="single-sidebar-widget__title">Categories</h4>
@@ -335,13 +263,14 @@
 
                                         <div class="single-sidebar-widget">
 
-                                            <h4 class="single-sidebar-widget__title">Recent Posts</h4>
+                                            <h4 class="single-sidebar-widget__title">اخرین مقالات</h4>
                                             <div class="block-container">
+
                                                 <div class="single-block d-flex">
                                                     <div class="image">
                                                         <a href="blog-post-image-format.html">
                                                             <img src="assets/img/blog/slider/1-370x235.jpg"
-                                                                class="img-fluid" alt="">
+                                                                 class="img-fluid" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="content">
@@ -351,74 +280,18 @@
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div class="single-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-image-gallery.html">
-                                                            <img src="assets/img/blog/slider/2-370x235.jpg"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <a href="blog-post-image-gallery.html">How to improve
-                                                                furniture quality</a> <span>APRIL 24, 2019</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <!--=======  End of single block  =======-->
-                                                <!--=======  single block  =======-->
-
-                                                <div class="single-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-audio-format.html">
-                                                            <img src="assets/img/blog/slider/3-370x235.jpg"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <a href="blog-post-audio-format.html">101 ideas for
-                                                                furniture</a> <span>APRIL 24, 2019</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <!--=======  End of single block  =======-->
-                                                <!--=======  single block  =======-->
-
-                                                <div class="single-block d-flex">
-                                                    <div class="image">
-                                                        <a href="blog-post-video-format.html">
-                                                            <img src="assets/img/blog/slider/4-370x235.jpg"
-                                                                class="img-fluid" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>
-                                                            <a href="blog-post-video-format.html">No more mistakes with
-                                                                furniture</a> <span>APRIL 24, 2019</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <!--=======  End of single block  =======-->
-
+                                                
                                             </div>
 
-                                            <!--=======  End of block container  =======-->
                                         </div>
-                                        <!--=======  End of single sidebar widget  =======-->
-                                        <!--=======  single sidebar widget  =======-->
+                                      
                                         <div class="single-sidebar-widget">
 
                                             <h4 class="single-sidebar-widget__title">Recent Comments</h4>
 
-                                            <!--=======  block container  =======-->
 
                                             <div class="block-container">
 
-                                                <!--=======  single block  =======-->
 
                                                 <div class="single-block comment-block d-flex">
                                                     <div class="image">
@@ -436,8 +309,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!--=======  End of single block  =======-->
-                                                <!--=======  single block  =======-->
+                                               
 
                                                 <div class="single-block comment-block d-flex">
                                                     <div class="image">
@@ -455,8 +327,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!--=======  End of single block  =======-->
-                                                <!--=======  single block  =======-->
+                                             
 
                                                 <div class="single-block comment-block d-flex">
                                                     <div class="image">
@@ -474,8 +345,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!--=======  End of single block  =======-->
-                                                <!--=======  single block  =======-->
+                                             
 
                                                 <div class="single-block comment-block d-flex">
                                                     <div class="image">
@@ -493,14 +363,11 @@
                                                     </div>
                                                 </div>
 
-                                                <!--=======  End of single block  =======-->
 
                                             </div>
 
-                                            <!--=======  End of block container  =======-->
                                         </div>
-                                        <!--=======  End of single sidebar widget  =======-->
-                                        <!--=======  single sidebar widget  =======-->
+                                     
                                         <div class="single-sidebar-widget">
                                             <h4 class="single-sidebar-widget__title">Popular Tags</h4>
                                             <ul class="single-sidebar-widget__tag-list">
@@ -531,14 +398,11 @@
 
                                             </ul>
                                         </div>
-                                        <!--=======  End of single sidebar widget  =======-->
                                     </div>
-                                    <!--=======  End of page sidebar wrapper  =======-->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--=======  End of page wrapper  =======-->
                 </div>
             </div>
         </div>
