@@ -1,4 +1,6 @@
-﻿using BlogManagement.Application;
+﻿using _01_ExclusiveQuery.Contracts.Article;
+using _01_ExclusiveQuery.Query;
+using BlogManagement.Application;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using BlogManagement.Domain.ArticleAgg;
@@ -25,6 +27,12 @@ namespace BlogManagement.Infrastructure.Configuration
 
             services.AddTransient<IArticleApplication, ArticleApplication>();
             services.AddTransient<IArticleRepository, ArticleRepository>();
+
+            #endregion
+
+            #region ArticleQuery
+
+            services.AddTransient<IArticleQuery,ArticleQuery>();
 
             #endregion
 
