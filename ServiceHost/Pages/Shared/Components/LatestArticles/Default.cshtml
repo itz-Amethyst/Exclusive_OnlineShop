@@ -5,22 +5,17 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <!--=======  blog post slider border wrapper  =======-->
                 <div class="blog-post-slider-border-wrapper section-space--inner">
                     <div class="row">
                         <div class="col-lg-12">
-                            <!--=======  section title  =======-->
                             <div class="section-title-wrapper text-center section-space--half">
-                                <h2 class="section-title">Latest Blog Posts</h2>
+                                <h2 class="section-title">اخرین مقالات سایت</h2>
                                 <p class="section-subtitle">
-                                    Mirum est notare quam littera gothica, quam nunc putamus
-                                    parum claram anteposuerit litterarum formas.
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
                                 </p>
                             </div>
-                            <!--=======  End of section title  =======-->
                         </div>
                         <div class="col-lg-12">
-                            <!--=======  blog post slider wrapper  =======-->
                             <div class="blog-post-slider-wrapper">
                                 <div class="ht-slick-slider" data-slick-setting='{
                                     "slidesToShow": 3,
@@ -39,184 +34,43 @@
                                     {"breakpoint":575, "settings": {"slidesToShow": 1} },
                                     {"breakpoint":479, "settings": {"slidesToShow": 1} }
                                 ]'>
-
-                                    <div class="col">
-                                        <!--=======  single slider post  =======-->
-                                        <div class="single-slider-post">
-                                            <div class="single-slider-post__image">
-                                                <a href="blog-post-left-sidebar.html">
-                                                    <img src="~/Theme/assets/img/blog/slider/1-370x235.jpg"
-                                                         class="img-fluid" alt="">
-                                                </a>
-                                                <div class="single-slider-post__date-sticker">
-                                                    <span class="month">Oct</span>
-                                                    <span class="day">02</span>
+                                    @foreach (var article in Model)
+                                    {
+                                        <div class="col">
+                                            <div class="single-slider-post">
+                                                <div class="single-slider-post__image">
+                                                    <a asp-page="/Article" asp-route-id="@article.Slug">
+                                                        <img src="~/UploadedFiles/@article.Picture"
+                                                         class="img-fluid" alt="@article.PictureAlt" title="@article.PictureTitle">
+                                                    </a>
+                                                    <div class="single-slider-post__date-sticker">
+                                                        <span class="month">@article.PublishDate</span>
+                                                        @*<span class="day">02</span>*@
+                                                    </div>
+                                                </div>
+                                                <div class="single-slider-post__content">
+                                                    <h3 class="title">
+                                                        <a asp-page="/Article" asp-route-id="@article.Slug">
+                                                           @article.Title
+                                                        </a>
+                                                    </h3>
+                                                    @*<p class="post-meta">by <a href="#">HasTech</a></p>*@
+                                                    <p class="short-desc">
+                                                      @article.ShortDescription
+                                                    </p>
+                                                    <a asp-page="/Article" asp-route-id="@article.Slug" class="blog-post-link">
+                                                      ادامه مطلب
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <div class="single-slider-post__content">
-                                                <h3 class="title">
-                                                    <a href="blog-post-left-sidebar.html">
-                                                        Buy Used
-                                                        Furniture and Used Decor
-                                                    </a>
-                                                </h3>
-                                                <p class="post-meta">by <a href="#">HasTech</a></p>
-                                                <p class="short-desc">
-                                                    It's no secret, engines and transmissions can
-                                                    be very expensive...
-                                                </p>
-                                                <a href="blog-post-left-sidebar.html" class="blog-post-link">
-                                                    Read
-                                                    More
-                                                </a>
-                                            </div>
                                         </div>
-                                        <!--=======  End of single slider post  =======-->
-                                    </div>
-
-                                    <div class="col">
-                                        <!--=======  single slider post  =======-->
-                                        <div class="single-slider-post">
-                                            <div class="single-slider-post__image">
-                                                <a href="blog-post-left-sidebar.html">
-                                                    <img src="~/Theme/assets/img/blog/slider/2-370x235.jpg"
-                                                         class="img-fluid" alt="">
-                                                </a>
-                                                <div class="single-slider-post__date-sticker">
-                                                    <span class="month">Oct</span>
-                                                    <span class="day">03</span>
-                                                </div>
-                                            </div>
-                                            <div class="single-slider-post__content">
-                                                <h3 class="title">
-                                                    <a href="blog-post-left-sidebar.html">
-                                                        Get Your
-                                                        Furniture Ready for the Summer!
-                                                    </a>
-                                                </h3>
-                                                <p class="post-meta">by <a href="#">HasTech</a></p>
-                                                <p class="short-desc">
-                                                    It's no secret, engines and transmissions can
-                                                    be very expensive...
-                                                </p>
-                                                <a href="blog-post-left-sidebar.html" class="blog-post-link">
-                                                    Read
-                                                    More
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!--=======  End of single slider post  =======-->
-                                    </div>
-
-                                    <div class="col">
-                                        <!--=======  single slider post  =======-->
-                                        <div class="single-slider-post">
-                                            <div class="single-slider-post__image">
-                                                <a href="blog-post-left-sidebar.html">
-                                                    <img src="~/Theme/assets/img/blog/slider/3-370x235.jpg"
-                                                         class="img-fluid" alt="">
-                                                </a>
-                                                <div class="single-slider-post__date-sticker">
-                                                    <span class="month">Oct</span>
-                                                    <span class="day">04</span>
-                                                </div>
-                                            </div>
-                                            <div class="single-slider-post__content">
-                                                <h3 class="title">
-                                                    <a href="blog-post-left-sidebar.html">
-                                                        Minor Wreck?
-                                                        We Got The Furniture!
-                                                    </a>
-                                                </h3>
-                                                <p class="post-meta">by <a href="#">HasTech</a></p>
-                                                <p class="short-desc">
-                                                    It's no secret, engines and transmissions can
-                                                    be very expensive...
-                                                </p>
-                                                <a href="blog-post-left-sidebar.html" class="blog-post-link">
-                                                    Read
-                                                    More
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!--=======  End of single slider post  =======-->
-                                    </div>
-
-                                    <div class="col">
-                                        <!--=======  single slider post  =======-->
-                                        <div class="single-slider-post">
-                                            <div class="single-slider-post__image">
-                                                <a href="blog-post-left-sidebar.html">
-                                                    <img src="~/Theme/assets/img/blog/slider/4-370x235.jpg"
-                                                         class="img-fluid" alt="">
-                                                </a>
-                                                <div class="single-slider-post__date-sticker">
-                                                    <span class="month">Oct</span>
-                                                    <span class="day">05</span>
-                                                </div>
-                                            </div>
-                                            <div class="single-slider-post__content">
-                                                <h3 class="title">
-                                                    <a href="blog-post-left-sidebar.html">
-                                                        Purchasing
-                                                        Furniture in our Online Store
-                                                    </a>
-                                                </h3>
-                                                <p class="post-meta">by <a href="#">HasTech</a></p>
-                                                <p class="short-desc">
-                                                    It's no secret, engines and transmissions can
-                                                    be very expensive...
-                                                </p>
-                                                <a href="blog-post-left-sidebar.html" class="blog-post-link">
-                                                    Read
-                                                    More
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!--=======  End of single slider post  =======-->
-                                    </div>
-
-                                    <div class="col">
-                                        <!--=======  single slider post  =======-->
-                                        <div class="single-slider-post">
-                                            <div class="single-slider-post__image">
-                                                <a href="blog-post-left-sidebar.html">
-                                                    <img src="~/Theme/assets/img/blog/slider/5-370x235.jpg"
-                                                         class="img-fluid" alt="">
-                                                </a>
-                                                <div class="single-slider-post__date-sticker">
-                                                    <span class="month">Oct</span>
-                                                    <span class="day">06</span>
-                                                </div>
-                                            </div>
-                                            <div class="single-slider-post__content">
-                                                <h3 class="title">
-                                                    <a href="blog-post-left-sidebar.html">
-                                                        The Life
-                                                        Cycle of Decor Items
-                                                    </a>
-                                                </h3>
-                                                <p class="post-meta">by <a href="#">HasTech</a></p>
-                                                <p class="short-desc">
-                                                    It's no secret, engines and transmissions can
-                                                    be very expensive...
-                                                </p>
-                                                <a href="blog-post-left-sidebar.html" class="blog-post-link">
-                                                    Read
-                                                    More
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!--=======  End of single slider post  =======-->
-                                    </div>
+                                    }
 
                                 </div>
                             </div>
-                            <!--=======  End of blog post slider wrapper  =======-->
                         </div>
                     </div>
                 </div>
-                <!--=======  End of blog post slider border wrapper  =======-->
             </div>
         </div>
 
