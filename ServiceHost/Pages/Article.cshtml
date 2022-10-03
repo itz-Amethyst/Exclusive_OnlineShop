@@ -11,12 +11,15 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-wrapper breadcrumb-bg">
                         <div class="breadcrumb-content">
-                            <h2 class="breadcrumb-content__title">Blog Post</h2>
+                            <h1 class="breadcrumb-content__title">@Model.Article.Title</h1>
                             <ul class="breadcrumb-content__page-map">
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a asp-page="/Index">صفحه اصلی</a>
                                 </li>
-                                <li class="active">Blog Post</li>
+                                <li>
+                                    <a asp-page="/ArticleCategory" asp-route-id="@Model.Article.CategorySlug">@Model.Article.CategoryName</a>
+                                </li>
+                                <li class="active">@Model.Article.Title</li>
                             </ul>
                         </div>
                     </div>
