@@ -1,4 +1,5 @@
 ﻿using _01_ExclusiveQuery.Contracts.Article;
+using _01_ExclusiveQuery.Contracts.ArticleCategory;
 using _01_ExclusiveQuery.Query;
 using BlogManagement.Application;
 using BlogManagement.Application.Contracts.Article;
@@ -33,6 +34,7 @@ namespace BlogManagement.Infrastructure.Configuration
             #region ArticleQuery
 
             services.AddTransient<IArticleQuery,ArticleQuery>();
+            services.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();
 
             #endregion
 
