@@ -21,19 +21,12 @@ namespace _01_ExclusiveQuery.Query
                 {
                     Title = x.Title,
                     ShortDescription = x.ShortDescription,
-                    Description = x.Description,
                     Picture = x.Picture,
                     PictureAlt = x.PictureAlt,
                     PictureTitle = x.PictureTitle,
                     Slug = x.Slug,
-                    MetaDescription = x.MetaDescription,
-                    Keywords = x.Keywords,
-                    CanonicalAddress = x.CanonicalAddress,
-                    CategoryId = x.CategoryId,
                     PublishDate = x.PublishDate.ToFarsi(),
                     IsDeleted = x.IsDeleted,
-                    CategoryName = x.Category.Name,
-                    CategorySlug = x.Category.Slug
                 }).ToList();
         }
 
@@ -52,7 +45,6 @@ namespace _01_ExclusiveQuery.Query
                     MetaDescription = x.MetaDescription,
                     Keywords = x.Keywords,
                     CanonicalAddress = x.CanonicalAddress,
-                    CategoryId = x.CategoryId,
                     PublishDate = x.PublishDate.ToFarsi(),
                     IsDeleted = x.IsDeleted,
                     CategoryName = x.Category.Name,
