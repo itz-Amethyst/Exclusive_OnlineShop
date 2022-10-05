@@ -19,6 +19,8 @@ namespace _01_ExclusiveQuery.Contracts.ArticleCategory
         public string Slug { get; set; }
 
         public string Keywords { get; set; }
+        
+        public List<string> KeywordList { get; set; }
 
         public string MetaDescription { get; set; }
 
