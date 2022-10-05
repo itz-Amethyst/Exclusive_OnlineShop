@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Article;
+using BlogManagement.Domain.ArticleCategoryAgg;
 using BlogManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,7 +52,10 @@ namespace _01_ExclusiveQuery.Query
                     CategorySlug = x.Category.Slug
                 }).First(x => x.Slug == slug);
 
-            article.KeyWordList = article.Keywords.Split(",").ToList();
+            if (!string.IsNullOrWhiteSpace(article.Keywords))
+            {
+                article.KeyWordList = article.Keywords.Split(",").ToList();
+            }
 
             return article;
         }
