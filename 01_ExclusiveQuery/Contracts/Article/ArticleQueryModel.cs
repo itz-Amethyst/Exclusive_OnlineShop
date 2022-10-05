@@ -31,5 +31,7 @@
         public string CategoryName { get; set; }
 
         public string CategorySlug { get; set; }
+
+        public List<string> KeyWordList { get; set; }
     }
 }

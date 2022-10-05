@@ -32,7 +32,7 @@ namespace _01_ExclusiveQuery.Query
 
         public ArticleQueryModel GetArticleDetails(string slug)
         {
-            return _context.Articles.Include(x => x.Category).Where(x => x.PublishDate <= DateTime.Now && x.IsDeleted != true)
+            var article = _context.Articles.Include(x => x.Category).Where(x => x.PublishDate <= DateTime.Now && x.IsDeleted != true)
                 .Select(x => new ArticleQueryModel
                 {
                     Title = x.Title,
@@ -50,6 +50,10 @@ namespace _01_ExclusiveQuery.Query
                     CategoryName = x.Category.Name,
                     CategorySlug = x.Category.Slug
                 }).First(x => x.Slug == slug);
+
+            article.KeyWordList = article.Keywords.Split(",").ToList();
+
+            return article;
         }
     }
 }
