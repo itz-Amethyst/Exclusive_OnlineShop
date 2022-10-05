@@ -33,19 +33,29 @@ namespace _01_ExclusiveQuery.Query
 
         public ArticleCategoryQueryModel GetArticleCategoryBySlug(string slug)
         {
-            return _context.ArticleCategories.Select(x => new ArticleCategoryQueryModel
+            var articleCategory = _context.ArticleCategories
+                .Include(x => x.Articles)
+                .Select(x => new ArticleCategoryQueryModel
+                {
+                    Slug = x.Slug,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Picture = x.Picture,
+                    PictureAlt = x.PictureAlt,
+                    PictureTitle = x.PictureTitle,
+                    Keywords = x.Keywords,
+                    MetaDescription = x.MetaDescription,
+                    CanonicalAddress = x.CanonicalAddress,
+                    ArticlesCount = x.Articles.Count,
+                    Articles = MapArticles(x.Articles)
+                }).First(x => x.Slug == slug);
+
+            if (!string.IsNullOrWhiteSpace(articleCategory.Keywords))
             {
-                Slug = x.Slug,
-                Name = x.Name,
-                Description = x.Description,
-                Picture = x.Picture,
-                PictureAlt = x.PictureAlt,
-                PictureTitle = x.PictureTitle,
-                Keywords = x.Keywords,
-                MetaDescription = x.MetaDescription,
-                CanonicalAddress = x.CanonicalAddress,
-                Articles = MapArticles(x.Articles)
-            }).First(x=> x.Slug == slug);
+                articleCategory.KeywordList = articleCategory.Keywords.Split(",").ToList();
+            }
+
+            return articleCategory;
         }
 
         private static List<ArticleQueryModel> MapArticles(List<Article> xArticles)
