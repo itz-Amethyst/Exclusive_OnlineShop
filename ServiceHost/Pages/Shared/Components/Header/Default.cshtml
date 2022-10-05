@@ -1,4 +1,9 @@
-﻿<div class="header-area header-sticky">
+﻿@model _01_ExclusiveQuery.MenuModel.MenuModel
+@{
+
+}
+
+<div class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -18,26 +23,30 @@
 
                                 <li class="menu-item-has-children">
                                     <a href="#">محصولات</a>
-                                    <ul class="sub-menu">
-                                        <li>
-                                            <a href="blog-left-sidebar.html">دکوری</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-right-sidebar.html">نگه دارنده</a>
-                                        </li>
-                                    </ul>
+                                    
+                                    @foreach (var category in Model.ProductCategories)
+                                    {
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                            </li>
+                                        </ul>
+                                    }
+                                    
                                 </li>
 
                                 <li class="menu-item-has-children">
                                     <a href="#">مقالات</a>
-                                    <ul class="sub-menu">
-                                        <li>
-                                            <a href="blog-left-sidebar.html">گروه مقاله1</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-right-sidebar.html">گروه مقاله2</a>
-                                        </li>
-                                    </ul>
+                                    
+                                    @foreach (var category in Model.ArticleCategories)
+                                    {
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a asp-page="./ArticleCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                            </li>
+                                        </ul>
+                                    }
+                                    
                                 </li>
 
                                 <li>
@@ -256,7 +265,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li>
                         <a asp-page="/Contact">تماس با ما</a>
                     </li>
@@ -289,7 +298,7 @@
                             <li>
                                 <i class="ion-android-phone-portrait"></i>
                                 <a href="tel://12452456012">
-                                   1 2 3 4 5 6
+                                    1 2 3 4 5 6
                                 </a>
                             </li>
                             <li>
