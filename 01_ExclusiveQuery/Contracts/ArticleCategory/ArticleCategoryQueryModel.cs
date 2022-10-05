@@ -1,4 +1,6 @@
-﻿namespace _01_ExclusiveQuery.Contracts.ArticleCategory
+﻿using _01_ExclusiveQuery.Contracts.Article;
+
+namespace _01_ExclusiveQuery.Contracts.ArticleCategory
 {
     public class ArticleCategoryQueryModel
     {
@@ -23,6 +25,8 @@
         public string CanonicalAddress { get; set; }
 
         public int ArticlesCount { get; set; }
+
+        public List<ArticleQueryModel> Articles { get; set; }
 
     }
 }
