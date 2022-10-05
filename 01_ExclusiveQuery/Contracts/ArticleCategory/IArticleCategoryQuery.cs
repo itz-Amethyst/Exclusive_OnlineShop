@@ -3,5 +3,7 @@
     public interface IArticleCategoryQuery
     {
         List<ArticleCategoryQueryModel> GetArticleCategories();
+
+        ArticleCategoryQueryModel GetArticleCategoryBySlug(string slug);
     }
 }

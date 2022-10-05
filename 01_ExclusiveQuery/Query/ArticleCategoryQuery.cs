@@ -27,5 +27,10 @@ namespace _01_ExclusiveQuery.Query
                     ArticlesCount = x.Articles.Count,
                 }).ToList();
         }
+
+        public ArticleCategoryQueryModel GetArticleCategoryBySlug(string slug)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
