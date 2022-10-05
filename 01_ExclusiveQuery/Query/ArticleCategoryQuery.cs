@@ -1,4 +1,5 @@
-﻿using _01_ExclusiveQuery.Contracts.Article;
+﻿using _0_Framework.Application;
+using _01_ExclusiveQuery.Contracts.Article;
 using _01_ExclusiveQuery.Contracts.ArticleCategory;
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EFCore.Context;
@@ -49,7 +50,16 @@ namespace _01_ExclusiveQuery.Query
 
         private static List<ArticleQueryModel> MapArticles(List<Article> xArticles)
         {
-            throw new NotImplementedException();
+            return xArticles.Select(x => new ArticleQueryModel
+            {
+                Slug = x.Slug,
+                ShortDescription = x.ShortDescription,
+                Title = x.Title,
+                Picture = x.Picture,
+                PictureTitle = x.PictureTitle,
+                PictureAlt = x.PictureAlt,
+                PublishDate = x.PublishDate.ToFarsi(),
+            }).ToList();
         }
     }
 }
