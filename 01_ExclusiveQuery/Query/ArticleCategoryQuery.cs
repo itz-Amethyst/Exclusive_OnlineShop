@@ -1,4 +1,6 @@
-﻿using _01_ExclusiveQuery.Contracts.ArticleCategory;
+﻿using _01_ExclusiveQuery.Contracts.Article;
+using _01_ExclusiveQuery.Contracts.ArticleCategory;
+using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +31,23 @@ namespace _01_ExclusiveQuery.Query
         }
 
         public ArticleCategoryQueryModel GetArticleCategoryBySlug(string slug)
+        {
+            return _context.ArticleCategories.Select(x => new ArticleCategoryQueryModel
+            {
+                Slug = x.Slug,
+                Name = x.Name,
+                Description = x.Description,
+                Picture = x.Picture,
+                PictureAlt = x.PictureAlt,
+                PictureTitle = x.PictureTitle,
+                Keywords = x.Keywords,
+                MetaDescription = x.MetaDescription,
+                CanonicalAddress = x.CanonicalAddress,
+                Articles = MapArticles(x.Articles)
+            }).First(x=> x.Slug == slug);
+        }
+
+        private static List<ArticleQueryModel> MapArticles(List<Article> xArticles)
         {
             throw new NotImplementedException();
         }
