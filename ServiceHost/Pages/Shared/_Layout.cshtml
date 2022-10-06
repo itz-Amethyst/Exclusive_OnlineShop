@@ -4,7 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lampshapde Store</title>
+
+    @if (@ViewData["Title"] != null)
+    {
+        <title>@ViewData["Title"] | Exclusive Shop</title>
+    }
+    else
+    {
+        <title>Exclusive Shop</title>
+    }
+
 
     <!-- Vendor CSS -->
     <link href="~/Theme/assets/css/vendors.css" rel="stylesheet">
@@ -22,7 +31,7 @@
 
     @await Component.InvokeAsync("Footer")
 
-    <partial name="_SearchBox"/>
+    <partial name="_SearchBox" />
 
     <!-- scroll to top  -->
     <div id="scroll-top">
