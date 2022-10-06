@@ -27,7 +27,7 @@ namespace _01_ExclusiveQuery.Query
                     PictureTitle = x.PictureTitle,
                     PictureAlt = x.PictureAlt,
                     Slug = x.Slug,
-                    ArticlesCount = x.Articles.Count,
+                    ArticlesCount = x.Articles.Where(x=>x.IsDeleted !=true).Count(),
                 }).ToList();
         }
 
@@ -60,16 +60,18 @@ namespace _01_ExclusiveQuery.Query
 
         private static List<ArticleQueryModel> MapArticles(List<Article> xArticles)
         {
-            return xArticles.Select(x => new ArticleQueryModel
-            {
-                Slug = x.Slug,
-                ShortDescription = x.ShortDescription,
-                Title = x.Title,
-                Picture = x.Picture,
-                PictureTitle = x.PictureTitle,
-                PictureAlt = x.PictureAlt,
-                PublishDate = x.PublishDate.ToFarsi(),
-            }).ToList();
+            return xArticles
+                .Where(x => x.IsDeleted != true)
+                .Select(x => new ArticleQueryModel
+                {
+                    Slug = x.Slug,
+                    ShortDescription = x.ShortDescription,
+                    Title = x.Title,
+                    Picture = x.Picture,
+                    PictureTitle = x.PictureTitle,
+                    PictureAlt = x.PictureAlt,
+                    PublishDate = x.PublishDate.ToFarsi(),
+                }).ToList();
         }
     }
 }
