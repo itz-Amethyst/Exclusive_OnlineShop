@@ -11,5 +11,9 @@ namespace BlogManagement.Application.Contracts.Article
         EditArticle GetDetails(int id);
 
         List<ArticleViewModel> Search(ArticleSearchModel searchModel);
+
+        OperationResult Remove(int id);
+
+        OperationResult Restore(int id);
     }
 }
