@@ -22,6 +22,7 @@ namespace BlogManagement.Application
         {
             var operation = new OperationResult();
 
+            //Todo : need to work
             if (_articleRepository.Exists(x => x.Title == command.Title))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
@@ -89,6 +90,38 @@ namespace BlogManagement.Application
         public List<ArticleViewModel> Search(ArticleSearchModel searchModel)
         {
             return _articleRepository.Search(searchModel);
+        }
+
+        public OperationResult Remove(int id)
+        {
+            var operation = new OperationResult();
+
+            var article = _articleRepository.GetById(id);
+
+            if (article == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            article.Remove();
+            _articleRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public OperationResult Restore(int id)
+        {
+            var operation = new OperationResult();
+
+            var article = _articleRepository.GetById(id);
+
+            if (article == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            article.Restore();
+            _articleRepository.SaveChanges();
+            return operation.Succeeded();
         }
     }
 }
