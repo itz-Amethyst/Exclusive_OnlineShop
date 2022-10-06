@@ -1,5 +1,6 @@
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -20,15 +21,34 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
             _articleCategoryApplication = articleCategoryApplication;
         }
 
-        public void OnGet(ArticleSearchModel searchModel , bool created = false , bool edited = false)
+        public void OnGet(ArticleSearchModel searchModel , bool created = false , bool edited = false , bool activated = false , bool deActivated = false)
         {
             ViewData["Created"] = created;
             
             ViewData["Edited"] = edited;
+            
+            ViewData["DeActivated"] = deActivated;
+
+            ViewData["Activated"] = activated;
 
             ArticleCategories = new SelectList(_articleCategoryApplication.GetArticleCategories(), "Id", "Name");
 
             Articles = _articleApplication.Search(searchModel);
+        }
+        
+        public IActionResult OnGetDeActive(int id)
+        {
+            var result = _articleApplication.Remove(id);
+
+            return RedirectToPage("./Index", new { DeActivated = "True" });
+
+        }
+
+        public IActionResult OnGetActive(int id)
+        {
+            var result = _articleApplication.Restore(id);
+
+            return RedirectToPage("./Index", new { Activated = "True" });
         }
     }
 }
