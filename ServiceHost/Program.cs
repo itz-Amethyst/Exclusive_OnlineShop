@@ -1,3 +1,5 @@
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using _0_Framework.Application;
 using BlogManagement.Infrastructure.Configuration;
 using ShopManagement.Configuration;
@@ -9,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+//! Encode to Persian
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
+
 
 //!WiredUp ShopManagementBootstrapper Dependencies
 var connectionString = builder.Configuration.GetConnectionString("Exclusive_OnlineShopDb");
