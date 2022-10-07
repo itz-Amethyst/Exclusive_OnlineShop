@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CommentManagement.Domain.CommentAgg;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShopManagement.Domain.CommentAgg;
 
-namespace ShopManagement.Infrastructure.EFCore.Mappings
+namespace CommentManagement.Infrastructure.EFCore.Mapping
 {
     public class CommentMapping : IEntityTypeConfiguration<Comment>
     {
