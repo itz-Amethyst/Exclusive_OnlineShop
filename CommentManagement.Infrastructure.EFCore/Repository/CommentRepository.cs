@@ -1,17 +1,16 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using ShopManagement.Application.Contracts.Comment;
-using ShopManagement.Domain.CommentAgg;
-using ShopManagement.Infrastructure.EFCore.Context;
+using CommentManagement.Application.Contract.Comment;
+using CommentManagement.Domain.CommentAgg;
+using CommentManagement.Infrastructure.EFCore.Context;
 
-namespace ShopManagement.Infrastructure.EFCore.Repositories
+namespace CommentManagement.Infrastructure.EFCore.Repository
 {
     public class CommentRepository : RepositoryBase<int, Comment>, ICommentRepository
     {
-        private readonly ShopContext _context;
+        private readonly CommentContext _context;
 
-        public CommentRepository(ShopContext context) : base(context)
+        public CommentRepository(CommentContext context) : base(context)
         {
             _context = context;
         }
@@ -19,7 +18,6 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
         public List<CommentViewModel> Search(CommentSearchModel searchModel)
         {
             var query = _context.Comments
-                .Include(x => x.Product)
                 .Select(x => new CommentViewModel
                 {
                     Id = x.Id,
