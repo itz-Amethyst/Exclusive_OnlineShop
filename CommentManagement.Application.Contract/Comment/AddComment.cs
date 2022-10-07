@@ -9,6 +9,12 @@
         public string Message { get; set; }
 
         public int ProductId { get; set; }
-        
+
+        public int OwnerRecordId { get; set; }
+
+        public int Type { get; set; }
+
+        public int ParentId { get; set; }
+
     }
 }
