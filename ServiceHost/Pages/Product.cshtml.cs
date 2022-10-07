@@ -1,4 +1,5 @@
 using _01_ExclusiveQuery.Contracts.Product;
+using CommentManagement.Application.Contract.Comment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShopManagement.Application.Contracts.Comment;
