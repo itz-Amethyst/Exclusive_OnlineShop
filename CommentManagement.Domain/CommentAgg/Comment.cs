@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Domain;
 using ShopManagement.Domain.ProductAgg;
 
-namespace ShopManagement.Domain.CommentAgg
+namespace CommentManagement.Domain.CommentAgg
 {
     public class Comment : EntityBase
     {
