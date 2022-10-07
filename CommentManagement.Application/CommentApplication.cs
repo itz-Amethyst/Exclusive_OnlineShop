@@ -1,9 +1,9 @@
 ﻿using _0_Framework.Application;
+using CommentManagement.Application.Contract.Comment;
+using CommentManagement.Domain.CommentAgg;
 using ShopManagement.Application.Contracts.Comment;
-using ShopManagement.Domain.CommentAgg;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace ShopManagement.Application
+namespace CommentManagement.Application
 {
     public class CommentApplication : ICommentApplication
     {
