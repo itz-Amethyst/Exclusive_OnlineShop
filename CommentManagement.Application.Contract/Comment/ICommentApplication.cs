@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using CommentManagement.Application.Contract.Comment;
 
 namespace ShopManagement.Application.Contracts.Comment
 {
