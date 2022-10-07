@@ -21,13 +21,13 @@ namespace CommentManagement.Infrastructure.EFCore.Repository
                 .Select(x => new CommentViewModel
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Email = x.Email,
                     IsConfirmed = x.IsConfirmed,
                     IsCanceled = x.IsCanceled,
                     Message = x.Message,
-                    Name = x.Name,
-                    ProductId = x.ProductId,
-                    ProductName = x.Product.Name,
+                    OwnerRecordId = x.OwnerRecordId,
+                    Type = x.Type,
                     CommentCreatedDate = x.CreationDate.ToFarsi()
                 });
 
