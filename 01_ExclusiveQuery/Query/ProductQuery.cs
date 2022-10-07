@@ -4,7 +4,6 @@ using _01_ExclusiveQuery.Contracts.Product;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 
@@ -168,7 +167,6 @@ namespace _01_ExclusiveQuery.Query
             var product = _shopContext.Products
                 .Include(x => x.Category)
                 .Include(x=> x.ProductPictures)
-                .Include(x=> x.Comments)
                 .Select(product => new ProductQueryModel
                 {
                     Id = product.Id,
@@ -185,7 +183,6 @@ namespace _01_ExclusiveQuery.Query
                     Keywords = product.Keywords,
                     MetaDescription = product.MetaDescription,
                     ShortDescription = product.ShortDescription,
-                    Comments = MapComments(product.Comments),
                     Pictures = MapProductPictures(product.ProductPictures)
                 }).AsNoTracking().Where(x => !x.IsDeleted).FirstOrDefault(x => x.Slug == slug);
 
@@ -228,17 +225,17 @@ namespace _01_ExclusiveQuery.Query
             return product;
         }
 
-        private static List<CommentQueryModel> MapComments(List<Comment> productComments)
-        {
-            return productComments.Where(x => !x.IsCanceled && x.IsConfirmed)
-                .Select(x => new CommentQueryModel
-                {
-                    Id = x.Id,
-                    Message = x.Message,
-                    Name = x.Name,
-                    CreationDate = x.CreationDate.ToFarsi()
-                }).OrderByDescending(x=>x.Id).ToList();
-        }
+        //private static List<CommentQueryModel> MapComments(List<Comment> productComments)
+        //{
+        //    return productComments.Where(x => !x.IsCanceled && x.IsConfirmed)
+        //        .Select(x => new CommentQueryModel
+        //        {
+        //            Id = x.Id,
+        //            Message = x.Message,
+        //            Name = x.Name,
+        //            CreationDate = x.CreationDate.ToFarsi()
+        //        }).OrderByDescending(x=>x.Id).ToList();
+        //}
 
         private static List<ProductPictureQueryModel> MapProductPictures(List<ProductPicture> picture)
         {
