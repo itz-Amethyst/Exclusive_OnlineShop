@@ -13,18 +13,28 @@ namespace CommentManagement.Domain.CommentAgg
 
         public int ProductId { get; private set; }
 
-        public Product Product { get; private set; }
-
         public bool IsConfirmed { get; private set; }
 
         public bool IsCanceled { get; private set; }
 
-        public Comment(string name, string email, string message, int productId)
+        public int OwnerRecordId { get; private set; }
+
+        public int Type { get; private set; }
+
+        public int ParentId { get; private set; }
+
+        public Comment Parent { get; private set; }
+
+        public List<Comment> Children { get; private set; }
+
+        public Comment(string name, string email, string message, int ownerRecordId, int type , int parentId)
         {
             Name = name;
             Email = email;
             Message = message;
-            ProductId = productId;
+            OwnerRecordId = ownerRecordId;
+            Type = type;
+            ParentId = parentId;
         }
 
         public void Confirm()
