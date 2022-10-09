@@ -1,4 +1,6 @@
 ﻿@page
+@using _0_Framework.Application
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Comments.IndexModel
 @{
     ViewData["Title"] = "مدیریت کامنت ها";
@@ -56,6 +58,7 @@
                         <th>نام</th>
                         <th>ایمیل</th>
                         <th>پیام</th>
+                        <th>مرتبط با </th>
                         <th>وضعیت</th>
                         <th>تاریخ تولید</th>
                         <th style="width: 260px">عملیات</th>
@@ -70,6 +73,19 @@
                             <td>@item.Name</td>
                             <td>@item.Email</td>
                             <td>@item.Message</td>
+                            <td>
+                                
+                                @if (item.Type == CommentTypes.Product)
+                                {
+                                    <span class="text-black">محصول</span>
+                                }
+                                else
+                                {
+                                    <span class="text-black">مقاله</span>
+
+                                }
+
+                            </td>
                             <td class="text-center">
                                 @if (item.IsCanceled)
                                 {
