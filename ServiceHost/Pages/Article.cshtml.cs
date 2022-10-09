@@ -25,8 +25,10 @@ namespace ServiceHost.Pages
             _commentApplication = commentApplication;
         }
 
-        public void OnGet(string id)
+        public void OnGet(string id , bool created = false)
         {
+            ViewData["Created"] = created;
+
             Article = _articleQuery.GetArticleDetails(id);
             LatestArticles = _articleQuery.GetLatestArticles();
             ArticleCategories = _articleCategoryQuery.GetArticleCategories();
@@ -37,7 +39,7 @@ namespace ServiceHost.Pages
             command.Type = CommentTypes.Article;
 
             var result = _commentApplication.Add(command);
-            return RedirectToPage("/Article", new { Id = articleSlug });
+            return RedirectToPage("/Article", new { Id = articleSlug  , Created = true});
         }
     }
 }
