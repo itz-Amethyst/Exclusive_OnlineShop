@@ -161,12 +161,12 @@
     </script>
 
 
-    @if (ViewBag.Removed == true)
+    @if (ViewBag.Canceled == true)
     {
         <script>
             Swal.fire({
                 position: 'top-end',
-                title: 'حذف با موفقیت انجام شد',
+                title: 'رد کامنت با موفقیت انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
@@ -180,12 +180,12 @@
             Clear();
         </script>
     }
-    @if (ViewBag.Restored == true)
+    @if (ViewBag.Confirmed == true)
     {
         <script>
             Swal.fire({
                 position: 'top-end',
-                title: 'فعال سازی با موفقیت انجام شد',
+                title: 'تایید کامنت با موفقیت انجام شد',
                 icon: 'success',
                 confirmButtonText: 'خواندم',
                 showCloseButton: false,
