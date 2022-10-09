@@ -1,7 +1,11 @@
-﻿namespace _01_ExclusiveQuery.Contracts.Article
+﻿using _01_ExclusiveQuery.Contracts.Comment;
+
+namespace _01_ExclusiveQuery.Contracts.Article
 {
     public class ArticleQueryModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string ShortDescription { get; set; }
@@ -33,5 +37,7 @@
         public string CategorySlug { get; set; }
 
         public List<string> KeyWordList { get; set; }
+
+        public List<CommentQueryModel> Comments { get; set; }
     }
 }
