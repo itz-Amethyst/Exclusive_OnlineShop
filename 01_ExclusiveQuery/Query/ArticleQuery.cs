@@ -1,18 +1,23 @@
 ﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Article;
+using _01_ExclusiveQuery.Contracts.Comment;
 using BlogManagement.Domain.ArticleCategoryAgg;
 using BlogManagement.Infrastructure.EFCore.Context;
+using CommentManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.ProductAgg;
 
 namespace _01_ExclusiveQuery.Query
 {
     public class ArticleQuery : IArticleQuery
     {
         private readonly BlogContext _context;
+        private readonly CommentContext _commentContext;
 
-        public ArticleQuery(BlogContext context)
+        public ArticleQuery(BlogContext context, CommentContext commentContext)
         {
             _context = context;
+            _commentContext = commentContext;
         }
 
         public List<ArticleQueryModel> GetLatestArticles()
@@ -36,6 +41,7 @@ namespace _01_ExclusiveQuery.Query
             var article = _context.Articles.Include(x => x.Category).Where(x => x.PublishDate <= DateTime.Now && x.IsDeleted != true)
                 .Select(x => new ArticleQueryModel
                 {
+                    Id = x.Id,
                     Title = x.Title,
                     ShortDescription = x.ShortDescription,
                     Description = x.Description,
@@ -56,6 +62,21 @@ namespace _01_ExclusiveQuery.Query
             {
                 article.KeyWordList = article.Keywords.Split(",").ToList();
             }
+
+            article.Comments = _commentContext.Comments
+                .Where(x => x.Type == CommentTypes.Product)
+                .Where(x => x.OwnerRecordId == article.Id)
+                .Where(x => !x.IsCanceled && x.IsConfirmed)
+                .Include(x=>x.Parent)
+                .Select(x => new CommentQueryModel
+                {
+                    Id = x.Id,
+                    Message = x.Message,
+                    Name = x.Name,
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    ParentName = x.Parent.Name,
+                    ParentId = x.ParentId,
+                }).ToList();
 
             return article;
         }
