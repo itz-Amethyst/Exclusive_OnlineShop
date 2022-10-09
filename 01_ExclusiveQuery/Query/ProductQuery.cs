@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Comment;
 using _01_ExclusiveQuery.Contracts.Product;
+using CommentManagement.Infrastructure.EFCore.Context;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,14 @@ namespace _01_ExclusiveQuery.Query
         private readonly ShopContext _shopContext;
         private readonly InventoryContext _inventoryContext;
         private readonly DiscountContext _discountContext;
+        private readonly CommentContext _commentContext;
 
-        public ProductQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext)
+        public ProductQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, CommentContext commentContext)
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
+            _commentContext = commentContext;
         }
 
         public List<ProductQueryModel> GetLatestArrivals()
@@ -154,7 +157,7 @@ namespace _01_ExclusiveQuery.Query
             return products;
         }
 
-        public ProductQueryModel GetDetails(string slug)
+        public ProductQueryModel GetProductDetails(string slug)
         {
             var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice  , x.InStock}).ToList();
 
@@ -221,6 +224,18 @@ namespace _01_ExclusiveQuery.Query
                     product.PriceWithDiscount = (price - discountAmount).ToMoney();
                 }
             }
+
+            product.Comments = _commentContext.Comments
+                .Where(x => x.Type == CommentTypes.Product)
+                .Where(x => x.OwnerRecordId == product.Id)
+                .Where(x => !x.IsCanceled && x.IsConfirmed)
+                .Select(x => new CommentQueryModel
+                {
+                    Id = x.Id,
+                    Message = x.Message,
+                    Name = x.Name,
+                    CreationDate = x.CreationDate.ToFarsi()
+                }).ToList();
 
             return product;
         }

@@ -6,6 +6,6 @@
 
         List<ProductQueryModel> Search(string value);
 
-        ProductQueryModel GetDetails(string slug);
+        ProductQueryModel GetProductDetails(string slug);
     }
 }
