@@ -10,5 +10,9 @@
 
         public string CreationDate { get; set; }
 
+        public int ParentId { get; set; }
+
+        public string ParentName { get; set; }
+
     }
 }
