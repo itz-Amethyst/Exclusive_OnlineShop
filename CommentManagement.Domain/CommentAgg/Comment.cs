@@ -11,8 +11,6 @@ namespace CommentManagement.Domain.CommentAgg
 
         public string Message { get; private set; }
 
-        public int ProductId { get; private set; }
-
         public bool IsConfirmed { get; private set; }
 
         public bool IsCanceled { get; private set; }
