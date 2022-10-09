@@ -63,20 +63,28 @@ namespace _01_ExclusiveQuery.Query
                 article.KeyWordList = article.Keywords.Split(",").ToList();
             }
 
-            article.Comments = _commentContext.Comments
-                .Where(x => x.Type == CommentTypes.Product)
+            var comments = _commentContext.Comments
+                .Where(x => x.Type == CommentTypes.Article)
                 .Where(x => x.OwnerRecordId == article.Id)
                 .Where(x => !x.IsCanceled && x.IsConfirmed)
-                .Include(x=>x.Parent)
                 .Select(x => new CommentQueryModel
                 {
                     Id = x.Id,
                     Message = x.Message,
                     Name = x.Name,
                     CreationDate = x.CreationDate.ToFarsi(),
-                    ParentName = x.Parent.Name,
                     ParentId = x.ParentId,
                 }).ToList();
+
+            foreach (var comment in comments)
+            {
+                if (comment.ParentId > 0)
+                {
+                    comment.ParentName = comments.FirstOrDefault(x => x.Id == comment.ParentId)?.Name;
+                }
+            }
+
+            article.Comments = comments;
 
             return article;
         }
