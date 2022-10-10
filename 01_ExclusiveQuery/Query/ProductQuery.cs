@@ -235,7 +235,7 @@ namespace _01_ExclusiveQuery.Query
                     Message = x.Message,
                     Name = x.Name,
                     CreationDate = x.CreationDate.ToFarsi()
-                }).ToList();
+                }).OrderByDescending(x=>x.Id).ToList();
 
             return product;
         }
