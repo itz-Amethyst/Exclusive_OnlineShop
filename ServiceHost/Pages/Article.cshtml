@@ -170,6 +170,17 @@
                                                                 <input type="email" name="Email" placeholder="test@gmail.com" required>
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label>Recaptcha <span class="required">*</span></label>
+                                                                <div class="g-recaptcha" data-sitekey="6Lf-bm0iAAAAAGAnNPsFvfgQIw4lcqdPUmf7R2dl"></div>
+
+                                                                <span class="text-danger h6">
+                                                                    @TempData["Message"]
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
                                                         <input type="hidden" name="OwnerRecordId" value="@Model.Article.Id" />
                                                         <input type="hidden" name="ArticleSlug" value="@Model.Article.Slug" />
                                                         <input type="hidden" name="parentId" id="commentParentId" value="" />
