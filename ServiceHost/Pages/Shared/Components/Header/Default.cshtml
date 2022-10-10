@@ -23,30 +23,29 @@
 
                                 <li class="menu-item-has-children">
                                     <a href="#">محصولات</a>
-                                    
-                                    @foreach (var category in Model.ProductCategories)
-                                    {
-                                        <ul class="sub-menu">
+                                    <ul class="sub-menu">
+                                        @foreach (var category in Model.ProductCategories)
+                                        {
                                             <li>
                                                 <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
                                             </li>
-                                        </ul>
-                                    }
-                                    
+                                        }
+                                    </ul>
+
                                 </li>
 
                                 <li class="menu-item-has-children">
                                     <a href="#">مقالات</a>
-                                    
-                                    @foreach (var category in Model.ArticleCategories)
-                                    {
-                                        <ul class="sub-menu">
+                                    <ul class="sub-menu">
+                                        @foreach (var category in Model.ArticleCategories)
+                                        {
                                             <li>
                                                 <a asp-page="./ArticleCategory" asp-route-id="@category.Slug">@category.Name</a>
                                             </li>
-                                        </ul>
-                                    }
-                                    
+
+                                        }
+                                    </ul>
+
                                 </li>
 
                                 <li>
