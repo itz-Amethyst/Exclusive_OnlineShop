@@ -4,7 +4,10 @@ using _01_ExclusiveQuery.Contracts.ArticleCategory;
 using CommentManagement.Application.Contract.Comment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json.Linq;
+using ServiceHost.Extension;
 using ShopManagement.Application.Contracts.Comment;
+using System.Net;
 
 namespace ServiceHost.Pages
 {
@@ -36,10 +39,25 @@ namespace ServiceHost.Pages
 
         public IActionResult OnPost(AddComment command, string articleSlug)
         {
-            command.Type = CommentTypes.Article;
 
-            var result = _commentApplication.Add(command);
-            return RedirectToPage("/Article", new { Id = articleSlug  , Created = true});
+            var response = Request.Form["g-recaptcha-response"];
+            string secretKey = "6Lf-bm0iAAAAALfFjSkAOJkGmsT8LFS1jYmy6rw4";
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(result);
+            var status = (bool)obj.SelectToken("success");
+
+            if (status)
+            {
+                command.Type = CommentTypes.Article;
+                _commentApplication.Add(command);
+                return RedirectToPage("/Article", new { Id = articleSlug, Created = true });
+            }
+
+            TempData["Message"] = "Google reCaptcha validation failed";
+
+            return RedirectToPage("/Article");
+
         }
     }
 }
