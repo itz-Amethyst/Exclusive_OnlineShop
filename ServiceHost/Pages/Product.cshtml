@@ -10,6 +10,17 @@
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
         <div class="row">
+            
+            @if (ViewBag.Created == true)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>عملیات با موفقیت انجام شد!</strong> نظر شما پس از تایید همکاران نمایش داده خواهد شد
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
             <div class="col-lg-12">
                 <div class="breadcrumb-wrapper breadcrumb-bg">
                     <div class="breadcrumb-content">
@@ -335,6 +346,17 @@
                                                                     <label for="message">نظر شما:</label>
                                                                     <textarea name="message" id="message"
                                                                               placeholder="نظر خود را یادداشت کنید"></textarea>
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <label>Recaptcha <span class="required">*</span></label>
+                                                                        <div class="g-recaptcha" data-sitekey="6Lf-bm0iAAAAAGAnNPsFvfgQIw4lcqdPUmf7R2dl"></div>
+
+                                                                        <span class="text-danger h6">
+                                                                            @TempData["Message"]
+                                                                        </span>
+
+                                                                    </div>
                                                                 </div>
                                                                 <input type="hidden" name="OwnerRecordId" value="@Model.Product.Id" />
                                                                 <input type="hidden" name="productSlug" value="@Model.Product.Slug" />
