@@ -12,7 +12,9 @@
 
         public int OwnerRecordId { get; set; }
 
-        public string OwnerName { get; set; }
+        public string OwnerNameProduct { get; set; }
+
+        public string OwnerNameArticle { get; set; }
 
         public int Type { get; set; }
 
@@ -21,5 +23,6 @@
         public bool IsCanceled { get; set; }
 
         public string CommentCreatedDate { get; set; }
+
     }
 }
