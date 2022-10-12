@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlogManagement.Infrastructure.EFCore\BlogManagement.Infrastructure.EFCore.csproj" />
     <ProjectReference Include="..\CommentManagement.Domain\CommentManagement.Domain.csproj" />
+    <ProjectReference Include="..\ShopManagement.Infrastructure.EFCore\ShopManagement.Infrastructure.EFCore.csproj" />
   </ItemGroup>
 
 </Project>
