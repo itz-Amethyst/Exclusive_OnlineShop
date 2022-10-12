@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application;
 using _01_ExclusiveQuery.Contracts.Comment;
 using _01_ExclusiveQuery.Contracts.Product;
+using BlogManagement.Domain.ArticleAgg;
 using CommentManagement.Infrastructure.EFCore.Context;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
@@ -225,7 +226,7 @@ namespace _01_ExclusiveQuery.Query
                 }
             }
 
-            product.Comments = _commentContext.Comments
+            var comments = _commentContext.Comments
                 .Where(x => x.Type == CommentTypes.Product)
                 .Where(x => x.OwnerRecordId == product.Id)
                 .Where(x => !x.IsCanceled && x.IsConfirmed)
@@ -234,8 +235,19 @@ namespace _01_ExclusiveQuery.Query
                     Id = x.Id,
                     Message = x.Message,
                     Name = x.Name,
-                    CreationDate = x.CreationDate.ToFarsi()
-                }).OrderByDescending(x=>x.Id).ToList();
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    ParentId = x.ParentId,
+                }).ToList();
+
+            foreach (var comment in comments)
+            {
+                if (comment.ParentId > 0)
+                {
+                    comment.ParentName = comments.FirstOrDefault(x => x.Id == comment.ParentId)?.Name;
+                }
+            }
+
+            product.Comments = comments;
 
             return product;
         }
