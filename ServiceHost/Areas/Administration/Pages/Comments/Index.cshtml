@@ -74,14 +74,14 @@
                             <td>@item.Email</td>
                             <td>@item.Message</td>
                             <td>
-                                
+
                                 @if (item.Type == CommentTypes.Product)
                                 {
-                                    <span class="text-black">محصول</span>
+                                    <span class="text-black">محصول - @item.OwnerNameProduct</span>
                                 }
                                 else
                                 {
-                                    <span class="text-black">مقاله</span>
+                                    <span class="text-black">مقاله - @item.OwnerNameArticle</span>
 
                                 }
 
