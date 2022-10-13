@@ -6,18 +6,35 @@ namespace AccountManagement.Application
 {
     public class AccountApplication :IAccountApplication
     {
+        private readonly IFileUploader _fileUploader;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAccountRepository _accountRepository;
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
+            _fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateAccount command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var password = _passwordHasher.Hash(command.Password);
+
+            var path = $"ProfilePhotos/{command.Username}";
+            var picturePath = _fileUploader.Upload(command.ProfilePhoto , path);
+
+            var account = new Account(command.Username , password , command.Fullname , command.Mobile , command.RoleId , picturePath);
+            
+            _accountRepository.Create(account);
+            _accountRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult Edit(EditAccount command)
