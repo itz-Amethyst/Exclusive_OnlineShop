@@ -39,7 +39,24 @@ namespace AccountManagement.Application
 
         public OperationResult Edit(EditAccount command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+            var account = _accountRepository.GetById(command.Id);
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var path = $"ProfilePhotos/{command.Username}";
+            var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
+
+            account.Edit(command.Username, command.Fullname, command.Mobile, command.RoleId, picturePath);
+            _accountRepository.SaveChanges();
+            return operation.Succeeded();
         }
 
         public OperationResult ChangePassword(ChangePassword command)
