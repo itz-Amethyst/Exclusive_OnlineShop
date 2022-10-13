@@ -24,6 +24,7 @@ DiscountManagementBootstrapper.Configure(builder.Services , connectionString);
 InventoryManagementBootstrapper.Configure(builder.Services , connectionString);
 BlogManagementBootstrapper.Configure(builder.Services, connectionString);
 CommentManagementBootstrapper.Configure(builder.Services, connectionString);
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
 
 builder.Services.AddTransient<IFileUploader, FileUploader>();
