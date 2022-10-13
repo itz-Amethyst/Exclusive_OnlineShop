@@ -9,5 +9,7 @@
         public const string InputDateNotValid = "تاریخ شروع وارد شده بیشتر از تاریخ پایان میباشد لطفا دوباره تلاش کنید";
 
         public const string DuplicatedDate = "تاریخ وارد شده نمیتواند تکراری باشد لطفا دوباره تلاش کنید";
+
+        public const string PasswordNotMatch = "پسورد وارد شده با تکرار آن مطابقت ندارد لطفا دوباره تلاش کنید";
     }
 }
