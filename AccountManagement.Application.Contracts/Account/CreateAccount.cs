@@ -1,4 +1,6 @@
-﻿namespace AccountManagement.Application.Contracts.Account
+﻿using Microsoft.AspNetCore.Http;
+
+namespace AccountManagement.Application.Contracts.Account
 {
     public class CreateAccount
     {
@@ -12,6 +14,6 @@
         
         public int RoleId { get; set; }
         
-        public string ProfilePhoto { get; set; }
+        public IFormFile ProfilePhoto { get; set; }
     }
 }
