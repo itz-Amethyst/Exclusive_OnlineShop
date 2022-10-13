@@ -30,12 +30,12 @@ namespace AccountManagement.Application
 
         public EditAccount GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _accountRepository.GetDetails(id);
         }
 
         public List<AccountViewModel> Search(AccountSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            return _accountRepository.Search(searchModel);
         }
     }
 }
