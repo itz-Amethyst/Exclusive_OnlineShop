@@ -6,11 +6,13 @@ namespace AccountManagement.Application
 {
     public class AccountApplication :IAccountApplication
     {
+        private readonly IPasswordHasher _passwordHasher;
         private readonly IAccountRepository _accountRepository;
 
-        public AccountApplication(IAccountRepository accountRepository)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher)
         {
             _accountRepository = accountRepository;
+            _passwordHasher = passwordHasher;
         }
 
         public OperationResult Create(CreateAccount command)
@@ -25,7 +27,27 @@ namespace AccountManagement.Application
 
         public OperationResult ChangePassword(ChangePassword command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var account = _accountRepository.GetById(command.Id);
+
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (account.Password != command.RePassword)
+            {
+                return operation.Failed(ApplicationMessages.PasswordNotMatch);
+            }
+
+            var password = _passwordHasher.Hash(command.Password);
+
+            account.ChangePassword(password);
+
+            _accountRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public EditAccount GetDetails(int id)
