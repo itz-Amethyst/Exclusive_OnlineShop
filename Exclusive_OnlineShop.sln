@@ -105,6 +105,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AM.Domain", "AM.Domain", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Domain", "AccountManagement.Domain\AccountManagement.Domain.csproj", "{F7B6F95F-8E89-4D1A-825B-910D567039B8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AM.Application", "AM.Application", "{908C312A-4878-4FF6-B1E2-9CE582B6011C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Application.Contracts", "AccountManagement.Application.Contracts\AccountManagement.Application.Contracts.csproj", "{14E055A4-02ED-49C7-BCC0-CE8E45750089}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -227,6 +231,10 @@ Global
 		{F7B6F95F-8E89-4D1A-825B-910D567039B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7B6F95F-8E89-4D1A-825B-910D567039B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7B6F95F-8E89-4D1A-825B-910D567039B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E055A4-02ED-49C7-BCC0-CE8E45750089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E055A4-02ED-49C7-BCC0-CE8E45750089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E055A4-02ED-49C7-BCC0-CE8E45750089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E055A4-02ED-49C7-BCC0-CE8E45750089}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -274,6 +282,8 @@ Global
 		{A3CCD715-BF9C-4391-A5F2-4F4DC2834A51} = {551BF14B-9BD6-40FF-B14C-0E2631BDD10D}
 		{B2A7237D-0AE4-44EF-A5EA-05723C19DB36} = {77B7374E-44B5-4D92-8B45-5308149B8CFE}
 		{F7B6F95F-8E89-4D1A-825B-910D567039B8} = {B2A7237D-0AE4-44EF-A5EA-05723C19DB36}
+		{908C312A-4878-4FF6-B1E2-9CE582B6011C} = {77B7374E-44B5-4D92-8B45-5308149B8CFE}
+		{14E055A4-02ED-49C7-BCC0-CE8E45750089} = {908C312A-4878-4FF6-B1E2-9CE582B6011C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45DE509F-5A60-48F3-8788-804D4E0401D4}
