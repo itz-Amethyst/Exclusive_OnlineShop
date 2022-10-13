@@ -30,7 +30,38 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public List<AccountViewModel> Search(AccountSearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var query = _context.Accounts.Select(x => new AccountViewModel
+            {
+                Id = x.Id,
+                Fullname = x.Fullname,
+                Username = x.Username,
+                Mobile = x.Mobile,
+                ProfilePhoto = x.ProfilePhoto,
+                Role = "مدیر سیستم",
+                RoleId = 2
+            });
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
+            {
+                query = query.Where(x => x.Fullname.Contains(searchModel.Fullname));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Username))
+            {
+                query = query.Where(x => x.Username.Contains(searchModel.Username));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Mobile))
+            {
+                query = query.Where(x => x.Mobile.Contains(searchModel.Mobile));
+            }
+
+            if (searchModel.RoleId > 0)
+            {
+                query = query.Where(x => x.RoleId == searchModel.RoleId);
+            }
+
+            return query.OrderByDescending(x => x.Id).ToList();
         }
     }
 }
