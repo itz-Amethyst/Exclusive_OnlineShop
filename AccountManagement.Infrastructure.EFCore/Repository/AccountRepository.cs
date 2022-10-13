@@ -17,7 +17,15 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public EditAccount GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _context.Accounts.Select(x => new EditAccount
+            {
+                Id = x.Id,
+                Fullname = x.Fullname,
+                Username = x.Username,
+                Mobile = x.Mobile,
+                RoleId = x.RoleId,
+                Image = x.ProfilePhoto
+            }).First(x => x.Id == id);
         }
 
         public List<AccountViewModel> Search(AccountSearchModel searchModel)
