@@ -69,5 +69,18 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
 
             return RedirectToPage("./Index", new { Restored = "True" });
         }
+
+        public IActionResult OnGetChangePassword(int id)
+        {
+            var command = new ChangePassword { Id = id };
+            return Partial("ChangePassword", command);
+        }
+
+        public JsonResult OnPostChangePassword(ChangePassword command)
+        {
+            var result = _accountApplication.ChangePassword(command);
+
+            return new JsonResult(result);
+        }
     }
 }
