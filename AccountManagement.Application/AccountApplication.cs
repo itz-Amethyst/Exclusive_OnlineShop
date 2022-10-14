@@ -93,5 +93,37 @@ namespace AccountManagement.Application
         {
             return _accountRepository.Search(searchModel);
         }
+
+        public OperationResult Remove(int id)
+        {
+            var operation = new OperationResult();
+
+            var account = _accountRepository.GetById(id);
+
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            account.Remove();
+            _accountRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public OperationResult Restore(int id)
+        {
+            var operation = new OperationResult();
+
+            var account = _accountRepository.GetById(id);
+
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            account.Restore();
+            _accountRepository.SaveChanges();
+            return operation.Succeeded();
+        }
     }
 }
