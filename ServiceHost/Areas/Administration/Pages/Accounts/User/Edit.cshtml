@@ -60,7 +60,7 @@
             <div class="col-md-12">
                 <div class="card-box">
                     <label asp-for="ProfilePhoto" class="control-label">عکس پروفایل</label>
-                    <input type="file" class="dropify" asp-for="ProfilePhoto" accept=".png, .jpg, .jpeg" data-max-file-size="3M" data-allowed-file-extensions="png jpg jpeg" data-max-file-size-preview="3M">
+                    <input type="file" class="dropify" asp-for="ProfilePhoto" accept=".png, .jpg, .jpeg" data-max-file-size="3M" data-allowed-file-extensions="png jpg jpeg" data-max-file-size-preview="3M" data-default-file="/UploadedFiles/@Model.Image">
                     <span asp-validation-for="ProfilePhoto" class="error"></span>
                 </div>
             </div>
