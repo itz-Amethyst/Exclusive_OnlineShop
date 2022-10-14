@@ -1,6 +1,7 @@
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using _0_Framework.Application;
+using AccountManagement.Infrastructure.Configuration;
 using BlogManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Configuration;
@@ -24,6 +25,7 @@ DiscountManagementBootstrapper.Configure(builder.Services , connectionString);
 InventoryManagementBootstrapper.Configure(builder.Services , connectionString);
 BlogManagementBootstrapper.Configure(builder.Services, connectionString);
 CommentManagementBootstrapper.Configure(builder.Services, connectionString);
+AccountManagementBootstrapper.Configure(builder.Services, connectionString);
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
 

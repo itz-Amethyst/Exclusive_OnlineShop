@@ -115,6 +115,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Applicati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastructure.EFCore", "AccountManagement.Infrastructure.EFCore\AccountManagement.Infrastructure.EFCore.csproj", "{4E1E8CB8-154A-4A0C-8499-4920EB1EB058}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastructure.Configuration", "AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj", "{083D6C27-CA17-4933-9592-DA78963FF769}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -249,6 +251,10 @@ Global
 		{4E1E8CB8-154A-4A0C-8499-4920EB1EB058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E1E8CB8-154A-4A0C-8499-4920EB1EB058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E1E8CB8-154A-4A0C-8499-4920EB1EB058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083D6C27-CA17-4933-9592-DA78963FF769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083D6C27-CA17-4933-9592-DA78963FF769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083D6C27-CA17-4933-9592-DA78963FF769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083D6C27-CA17-4933-9592-DA78963FF769}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -301,6 +307,7 @@ Global
 		{C2EDDED2-44F9-42C1-8548-854FF01A2226} = {77B7374E-44B5-4D92-8B45-5308149B8CFE}
 		{E6889082-0199-4644-B208-28396F355584} = {908C312A-4878-4FF6-B1E2-9CE582B6011C}
 		{4E1E8CB8-154A-4A0C-8499-4920EB1EB058} = {C2EDDED2-44F9-42C1-8548-854FF01A2226}
+		{083D6C27-CA17-4933-9592-DA78963FF769} = {C2EDDED2-44F9-42C1-8548-854FF01A2226}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45DE509F-5A60-48F3-8788-804D4E0401D4}
