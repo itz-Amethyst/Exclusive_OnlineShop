@@ -40,7 +40,8 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 ProfilePhoto = x.ProfilePhoto,
                 Role = "مدیر سیستم",
                 RoleId = 2,
-                CreationDate = x.CreationDate.ToFarsi()
+                CreationDate = x.CreationDate.ToFarsi(),
+                IsDeleted = x.IsRemoved
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
