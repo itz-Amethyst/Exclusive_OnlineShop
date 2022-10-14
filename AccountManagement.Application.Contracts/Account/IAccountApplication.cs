@@ -13,5 +13,9 @@ namespace AccountManagement.Application.Contracts.Account
         EditAccount GetDetails(int id);
         
         List<AccountViewModel> Search(AccountSearchModel searchModel);
+
+        OperationResult Remove(int id);
+
+        OperationResult Restore(int id);
     }
 }
