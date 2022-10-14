@@ -15,5 +15,7 @@
         public int RoleId { get; set; }
 
         public string ProfilePhoto { get; set; }
+
+        public string CreationDate { get; set; }
     }
 }
