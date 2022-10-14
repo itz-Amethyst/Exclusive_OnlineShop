@@ -12,7 +12,8 @@ namespace AccountManagement.Application.Contracts.Account
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Password { get; set; }
-        
+
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Fullname { get; set; }
         
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
@@ -20,7 +21,8 @@ namespace AccountManagement.Application.Contracts.Account
         
         [Range(1, int.MaxValue , ErrorMessage = ValidationMessages.IsRequired)]
         public int RoleId { get; set; }
-        
+
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public IFormFile ProfilePhoto { get; set; }
 
         public List<RoleViewModel> Roles { get; set; }
