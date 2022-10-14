@@ -70,7 +70,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.RecordNotFound);
             }
 
-            if (account.Password != command.RePassword)
+            if (command.Password != command.RePassword)
             {
                 return operation.Failed(ApplicationMessages.PasswordNotMatch);
             }
