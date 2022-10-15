@@ -33,7 +33,7 @@ namespace AccountManagement.Application
         {
             var operation = new OperationResult();
 
-            var role = new Role(command.Name);
+            var role = _roleRepository.GetById(command.Id);
 
             if (role == null)
             {
@@ -46,8 +46,6 @@ namespace AccountManagement.Application
             }
 
             role.Edit(command.Name);
-            
-            _roleRepository.Create(role);
             _roleRepository.SaveChanges();
 
             return operation.Succeeded();
