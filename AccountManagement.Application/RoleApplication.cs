@@ -15,7 +15,18 @@ namespace AccountManagement.Application
 
         public OperationResult Create(CreateRole command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            if (_roleRepository.Exists(x => x.Name == command.Name))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            var role = new Role(command.Name);
+            _roleRepository.Create(role);
+            _roleRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public OperationResult Edit(EditRole command)
