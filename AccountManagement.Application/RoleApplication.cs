@@ -55,12 +55,12 @@ namespace AccountManagement.Application
 
         public EditRole GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _roleRepository.GetDetails(id);
         }
 
         public List<RoleViewModel> List()
         {
-            throw new NotImplementedException();
+            return _roleRepository.List();
         }
     }
 }
