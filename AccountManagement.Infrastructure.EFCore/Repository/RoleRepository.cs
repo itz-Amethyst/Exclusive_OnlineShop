@@ -16,12 +16,20 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public EditRole GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _accountContext.Roles.Select(x => new EditRole
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).First(x => x.Id == id);
         }
 
         public List<RoleViewModel> List()
         {
-            throw new NotImplementedException();
+            return _accountContext.Roles.Select(x => new RoleViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
         }
     }
 }
