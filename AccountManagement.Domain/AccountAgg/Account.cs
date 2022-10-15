@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Domain;
+using AccountManagement.Domain.RoleAgg;
 
 namespace AccountManagement.Domain.AccountAgg
 {
@@ -13,6 +14,8 @@ namespace AccountManagement.Domain.AccountAgg
         public string Mobile { get; private set; }
         
         public int RoleId { get; private set; }
+
+        public Role Role { get; private set; }
         
         public bool IsRemoved { get; private set; }
 
