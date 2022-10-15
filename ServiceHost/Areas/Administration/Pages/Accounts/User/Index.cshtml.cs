@@ -1,4 +1,5 @@
 using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Role;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
     public class IndexModel : PageModel
     {
         private readonly IAccountApplication _accountApplication;
+        private readonly IRoleApplication _roleApplication;
 
         //[TempData] 
         //public string Message { get; set; }
@@ -16,15 +18,17 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
         public List<AccountViewModel> Accounts;
         public SelectList Roles;
 
-        public IndexModel(IAccountApplication accountApplication)
+        public IndexModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
         {
             _accountApplication = accountApplication;
+            _roleApplication = roleApplication;
         }
 
         public void OnGet(AccountSearchModel searchModel , bool removed = false , bool restored = false)
         {
             ViewData["Removed"] = removed;
             ViewData["Restored"] = restored;
+            Roles = new SelectList(_roleApplication.List(), "Id", "Name");
             Accounts = _accountApplication.Search(searchModel);
         }
 
@@ -32,6 +36,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
         {
             var command = new CreateAccount
             {
+                Roles = _roleApplication.List()
             };
             return Partial("./Create", command);
         }
@@ -45,6 +50,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
         public IActionResult OnGetEdit(int id)
         {
             var account = _accountApplication.GetDetails(id);
+            account.Roles = _roleApplication.List();
             return Partial("Edit", account);
         }
 
