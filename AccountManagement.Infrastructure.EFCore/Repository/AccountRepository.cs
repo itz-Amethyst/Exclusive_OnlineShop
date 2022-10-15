@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Infrastructure.EFCore.Repository
 {
-    public class AccountRepository : RepositoryBase<int , Account> , IAccountRepository
+    public class AccountRepository : RepositoryBase<int, Account>, IAccountRepository
     {
         private readonly AccountContext _context;
 
@@ -31,18 +31,20 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public List<AccountViewModel> Search(AccountSearchModel searchModel)
         {
-            var query = _context.Accounts.Select(x => new AccountViewModel
-            {
-                Id = x.Id,
-                Fullname = x.Fullname,
-                Username = x.Username,
-                Mobile = x.Mobile,
-                ProfilePhoto = x.ProfilePhoto,
-                Role = "مدیر سیستم",
-                RoleId = 2,
-                CreationDate = x.CreationDate.ToFarsi(),
-                IsDeleted = x.IsRemoved
-            });
+            var query = _context.Accounts
+                .Include(x => x.Role)
+                .Select(x => new AccountViewModel
+                {
+                    Id = x.Id,
+                    Fullname = x.Fullname,
+                    Username = x.Username,
+                    Mobile = x.Mobile,
+                    ProfilePhoto = x.ProfilePhoto,
+                    Role = x.Role.Name,
+                    RoleId = x.RoleId,
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    IsDeleted = x.IsRemoved
+                });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
             {
