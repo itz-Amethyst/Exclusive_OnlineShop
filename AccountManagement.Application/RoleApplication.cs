@@ -31,7 +31,26 @@ namespace AccountManagement.Application
 
         public OperationResult Edit(EditRole command)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var role = new Role(command.Name);
+
+            if (role == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+            
+            if (_roleRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            role.Edit(command.Name);
+            
+            _roleRepository.Create(role);
+            _roleRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
 
         public EditRole GetDetails(int id)
