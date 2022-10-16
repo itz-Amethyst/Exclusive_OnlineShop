@@ -9,12 +9,14 @@ namespace AccountManagement.Application
         private readonly IFileUploader _fileUploader;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAccountRepository _accountRepository;
+        private readonly IAuthHelper _authHelper;
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _fileUploader = fileUploader;
+            _authHelper = authHelper;
         }
 
         public OperationResult Create(CreateAccount command)
@@ -102,6 +104,10 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
             }
 
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId ,account.Fullname , account.Username);
+
+            _authHelper.SignIn(authViewModel);
+            
             return operation.Succeeded();
         }
 
