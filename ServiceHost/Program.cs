@@ -27,9 +27,11 @@ BlogManagementBootstrapper.Configure(builder.Services, connectionString);
 CommentManagementBootstrapper.Configure(builder.Services, connectionString);
 AccountManagementBootstrapper.Configure(builder.Services, connectionString);
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
-
-
 builder.Services.AddTransient<IFileUploader, FileUploader>();
+builder.Services.AddTransient<IAuthHelper , AuthHelper>();
+builder.Services.AddHttpContextAccessor();
+
+
 
 var app = builder.Build();
 
