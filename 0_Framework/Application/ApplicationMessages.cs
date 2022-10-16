@@ -11,5 +11,7 @@
         public const string DuplicatedDate = "تاریخ وارد شده نمیتواند تکراری باشد لطفا دوباره تلاش کنید";
 
         public const string PasswordNotMatch = "پسورد وارد شده با تکرار آن مطابقت ندارد لطفا دوباره تلاش کنید";
+
+        public const string WrongUsernameOrPassword = "نام کاربری یا رمز عبور اشتباه است لطفا دوباره تلاش کنید";
     }
 }
