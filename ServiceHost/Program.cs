@@ -6,6 +6,7 @@ using BlogManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Configuration;
 using InventoryManagement.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using ServiceHost.Extension;
 using ShopManagement.Infrastructure.Configuration;
 
@@ -32,6 +33,23 @@ builder.Services.AddTransient<IAuthHelper , AuthHelper>();
 builder.Services.AddHttpContextAccessor();
 
 
+//! Cookie Section
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.LoginPath = new PathString("/Login");
+        options.LogoutPath = new PathString("/Login/Logout");
+        options.AccessDeniedPath = new PathString("/AccessDenied");
+        //!Option not necessary
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    });
+
 
 var app = builder.Build();
 
@@ -43,8 +61,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseAuthentication();
+
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
+
+app.UseCookiePolicy();
 
 app.UseRouting();
 
