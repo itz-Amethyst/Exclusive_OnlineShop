@@ -9,10 +9,18 @@ public class AuthViewModel
     public string FullName { get; set; }
         
     public string Username { get; set; }
-        
+    
     //public string Email { get; set; }
         
     //public string Picture { get; set; }
         
     //public List<long> Roles { get; set; }
+
+    public AuthViewModel(int id, int roleId, string fullName, string username)
+    {
+        Id = id;
+        RoleId = roleId;
+        FullName = fullName;
+        Username = username;
+    }
 }
