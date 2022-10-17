@@ -36,8 +36,9 @@ builder.Services.AddHttpContextAccessor();
 //! Cookie Section
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    options.CheckConsentNeeded = context => true;
-    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+    //? Will Cause TempData
+    //options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
