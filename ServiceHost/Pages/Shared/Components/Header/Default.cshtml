@@ -291,12 +291,22 @@
                         <li class="menu-item-has-children">
                             <a href="#">پروفایل من </a>
                             <ul class="sub-menu">
-                                <li>
-                                    <a asp-page="/Register"> ثبت نام</a>
-                                </li>
-                                <li>
-                                    <a asp-page="/Login"> ورود</a>
-                                </li>
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-page="/Register">ثبت نام</a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="/Login">ورود</a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     </ul>
