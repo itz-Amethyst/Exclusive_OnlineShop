@@ -1,17 +1,19 @@
 using AccountManagement.Application.Contracts.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace ServiceHost.Pages
 {
-    public class AccountModel : PageModel
+    public class LoginModel : PageModel
     {
         [TempData]
-        public string Message { get; set; }
+        public string LoginMessage { get; set; }
 
+        
         private readonly IAccountApplication _accountApplication;
 
-        public AccountModel(IAccountApplication accountApplication)
+        public LoginModel(IAccountApplication accountApplication)
         {
             _accountApplication = accountApplication;
         }
@@ -29,10 +31,17 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Index");
             }
 
-            Message = result.Message;
-            
+            LoginMessage = result.Message;
+
             return RedirectToPage("/Login");
 
+        }
+
+        public IActionResult OnGetLogout()
+        {
+            _accountApplication.Logout();
+
+            return RedirectToPage("/Index");
         }
     }
 }
