@@ -152,5 +152,10 @@ namespace AccountManagement.Application
             _accountRepository.SaveChanges();
             return operation.Succeeded();
         }
+
+        public void Logout()
+        {
+            _authHelper.SignOut();
+        }
     }
 }
