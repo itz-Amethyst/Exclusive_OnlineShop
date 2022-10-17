@@ -1,4 +1,5 @@
-﻿using _0_Framework.Application;
+﻿using System.ComponentModel.DataAnnotations;
+using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Domain.AccountAgg;
@@ -71,7 +72,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public Account GetBy(string username)
         {
-            return _context.Accounts.First(x => x.Username == username);
+            return _context.Accounts.FirstOrDefault(x => x.Username == username);
         }
     }
 }
