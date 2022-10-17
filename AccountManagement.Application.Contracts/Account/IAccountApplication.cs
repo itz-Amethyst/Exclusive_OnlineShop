@@ -19,5 +19,6 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult Remove(int id);
 
         OperationResult Restore(int id);
+        void Logout();
     }
 }
