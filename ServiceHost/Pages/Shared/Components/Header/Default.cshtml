@@ -1,4 +1,6 @@
-﻿@model _01_ExclusiveQuery.MenuModel.MenuModel
+﻿@using _0_Framework.Application
+@model _01_ExclusiveQuery.MenuModel.MenuModel
+@inject IAuthHelper AuthHelper
 @{
 
 }
@@ -165,12 +167,22 @@
                                         <div class="single-settings-block">
                                             <h4 class="title">پروفایل من </h4>
                                             <ul>
-                                                <li>
-                                                    <a asp-page="/Register">ثبت نام</a>
-                                                </li>
-                                                <li>
-                                                    <a asp-page="/Login">ورود</a>
-                                                </li>
+                                                @if (AuthHelper.IsAuthenticated())
+                                                {
+                                                    <li>
+                                                        <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                                    </li>
+
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a asp-page="/Register">ثبت نام</a>
+                                                    </li>
+                                                    <li>
+                                                        <a asp-page="/Login">ورود</a>
+                                                    </li>
+                                                }
                                             </ul>
                                         </div>
                                     </div>
