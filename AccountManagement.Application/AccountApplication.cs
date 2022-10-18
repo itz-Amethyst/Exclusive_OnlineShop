@@ -19,7 +19,7 @@ namespace AccountManagement.Application
             _authHelper = authHelper;
         }
 
-        public OperationResult Create(CreateAccount command)
+        public OperationResult Create(RegisterAccount command)
         {
             var operation = new OperationResult();
             if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile))
@@ -33,9 +33,43 @@ namespace AccountManagement.Application
             var picturePath = _fileUploader.Upload(command.ProfilePhoto , path);
 
             var account = new Account(command.Username , password , command.Fullname , command.Mobile , command.RoleId , picturePath);
-            
+
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Fullname, account.Username);
+
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
+
+            return operation.Succeeded();
+        }
+
+        public OperationResult Register(RegisterAccountByUser command)
+        {
+            var operation = new OperationResult();
+            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedUser);
+            }
+
+            if (command.Password != command.RePassword)
+            {
+                return operation.Failed(ApplicationMessages.PasswordNotMatch);
+            }
+
+
+            var password = _passwordHasher.Hash(command.Password);
+
+            var path = $"ProfilePhotos/{command.Username}";
+            var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
+
+            var account = new Account(command.Username, password, command.Fullname, command.Mobile, command.RoleId, picturePath);
+
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Fullname, account.Username);
+
+            _accountRepository.Create(account);
+            _accountRepository.SaveChanges();
+
+            _authHelper.SignIn(authViewModel);
+
             return operation.Succeeded();
         }
 
