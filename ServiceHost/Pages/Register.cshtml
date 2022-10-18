@@ -30,31 +30,50 @@
                     <div class="page-content-wrapper">
                         <div class="row justify-content-center">
                             <div class="col-sm-8 col-md-8 col-lg-8 col-xs-8">
-                                <form action="#">
-
+                                @if (Model.RegisterMessage != null)
+                                {
+                                    <div class="alert alert-danger">@Model.RegisterMessage</div>
+                                }
+                                <form method="post">
                                     <div class="login-form">
                                         <h4 class="login-title">ثبت نام</h4>
 
                                         <div class="row">
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label>نام کامل</label>
-                                                <input type="text" placeholder="نام کامل">
+                                                <input type="text" name="fullname" placeholder="نام کامل" required>
+                                                @if (Model.RegisterValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.RegisterValidation</span>
+                                                }
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label>نام کاربری</label>
-                                                <input type="text" placeholder="نام کاربری">
+                                                <input type="text" name="username" placeholder="نام کاربری" required>
+                                                @if (Model.RegisterValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.RegisterValidation</span>
+                                                }
                                             </div>
                                             <div class="col-md-12 mb-20">
                                                 <label>شماره موبایل</label>
-                                                <input type="number" name="mobile" placeholder="شماره موبایل">
+                                                <input type="number" name="mobile" placeholder="شماره موبایل" required>
+                                                @if (Model.RegisterValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.RegisterValidation</span>
+                                                }
                                             </div>
                                             <div class="col-md-6 mb-20">
                                                 <label>رمز عبور</label>
-                                                <input type="password" name="password" placeholder="رمز عبور">
+                                                <input type="password" name="password" placeholder="رمز عبور" required>
+                                                @if (Model.RegisterValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.RegisterValidation</span>
+                                                }
                                             </div>
                                             <div class="col-md-6 mb-20">
                                                 <label>تکرار رمز عبور</label>
-                                                <input type="password" name="repassword" placeholder="تکرار رمز عبور">
+                                                <input type="password" name="repassword" placeholder="تکرار رمز عبور" required>
                                             </div>
                                             <div class="col-12">
                                                 <button class="register-button mt-0">ثبت نام</button>
