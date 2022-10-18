@@ -56,5 +56,15 @@ namespace _0_Framework.Application
 
             return false;
         }
+
+        public string CurrentUserRole()
+        {
+            if (IsAuthenticated())
+            {
+                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+            }
+
+            return null;
+        }
     }
 }
