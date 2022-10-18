@@ -7,5 +7,7 @@
         void SignOut();
 
         bool IsAuthenticated();
+
+        string CurrentUserRole();
     }
 }
