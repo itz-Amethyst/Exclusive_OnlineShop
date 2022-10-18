@@ -28,6 +28,12 @@ namespace AccountManagement.Domain.AccountAgg
             Fullname = fullname;
             Mobile = mobile;
             RoleId = roleId;
+
+            if (roleId == 0)
+            {
+                RoleId = 3;
+            }
+            
             IsRemoved = false;
             ProfilePhoto = profilePhoto;
         }
