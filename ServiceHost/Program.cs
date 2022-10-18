@@ -51,6 +51,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{"2" , "4"}));
+});
+
+builder.Services.AddRazorPages()
+    .AddRazorPagesOptions(options =>
+    {
+        options.Conventions.AuthorizeAreaFolder("Administration" , "/" ,  "AdminArea");
+    });
 
 var app = builder.Build();
 
