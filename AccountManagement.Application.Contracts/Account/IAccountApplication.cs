@@ -4,7 +4,9 @@ namespace AccountManagement.Application.Contracts.Account
 {
     public interface IAccountApplication
     {
-        OperationResult Create(CreateAccount command);
+        OperationResult Create(RegisterAccount command);
+
+        OperationResult Register(RegisterAccountByUser command);
         
         OperationResult Edit(EditAccount command);
 
