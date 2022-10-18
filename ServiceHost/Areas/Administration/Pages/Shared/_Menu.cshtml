@@ -1,4 +1,7 @@
-﻿<div class="left side-menu">
+﻿@using _0_Framework.Application
+@inject IAuthHelper AuthHelper
+
+<div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
 
         <!-- User -->
@@ -38,16 +41,20 @@
                 <li>
                     <a asp-page="/Inventory/Index" class="waves-effect"><i class="fa fa-archive"></i> <span> انبارداری </span> </a>
                 </li>
+                
+                @if (AuthHelper.CurrentUserRole() == "2")
+                {
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shopping-cart"></i> <span> فروشگاه </span> <span class="menu-arrow"></span></a>
+                        <ul class="list-unstyled">
+                            <li><a asp-page="/Shop/Slides/Index"><i class="fa fa-image"></i>اسلایدر</a></li>
+                            <li><a asp-page="/Shop/ProductCategories/Index"><i class="fa fa-inbox"></i>گروه محصولات</a></li>
+                            <li><a asp-page="/Shop/Products/Index"><i class="fa fa-shopping-basket"></i> محصولات</a></li>
+                            <li><a asp-page="/Shop/ProductPictures/Index"><i class="fa fa-camera-retro"></i>عکس محصولات</a></li>
+                        </ul>
+                    </li>
+                }
 
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shopping-cart"></i> <span> فروشگاه </span> <span class="menu-arrow"></span></a>
-                    <ul class="list-unstyled">
-                        <li><a asp-page="/Shop/Slides/Index"><i class="fa fa-image"></i>اسلایدر</a></li>
-                        <li><a asp-page="/Shop/ProductCategories/Index"><i class="fa fa-inbox"></i>گروه محصولات</a></li>
-                        <li><a asp-page="/Shop/Products/Index"><i class="fa fa-shopping-basket"></i> محصولات</a></li>
-                        <li><a asp-page="/Shop/ProductPictures/Index"><i class="fa fa-camera-retro"></i>عکس محصولات</a></li>
-                    </ul>
-                </li>
                 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-percent"></i> <span>سیستم تخفیفات </span> <span class="menu-arrow"></span></a>
