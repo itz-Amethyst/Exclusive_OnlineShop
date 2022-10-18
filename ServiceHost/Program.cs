@@ -1,6 +1,7 @@
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using AccountManagement.Infrastructure.Configuration;
 using BlogManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
@@ -53,13 +54,19 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{"2" , "4"}));
+    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{Roles.Administrator , Roles.Manager}));
+
+    options.AddPolicy("Shop", policy => policy.RequireRole(new List<string>{Roles.Administrator}));
+
 });
 
 builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options =>
     {
         options.Conventions.AuthorizeAreaFolder("Administration" , "/" ,  "AdminArea");
+
+        options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
+        
     });
 
 var app = builder.Build();
