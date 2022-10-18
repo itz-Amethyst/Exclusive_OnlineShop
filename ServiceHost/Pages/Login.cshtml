@@ -41,12 +41,18 @@
                                             <div class="col-md-12 col-12">
                                                 <label>نام کاربری</label>
                                                 <input type="text" placeholder="نام کاربری" name="username" required>
-                                                @*<span class="text-danger" asp-validation-for="@Model.LoginM.UserName"></span>*@
+                                                @if (Model.UserNameValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.UserNameValidation</span>
+                                                }
                                             </div>
                                             <div class="col-12">
                                                 <label>کلمه عبور</label>
                                                 <input type="password" placeholder="کلمه عبور" name="password" required>
-                                                @*<span class="text-danger" asp-validation-for="LoginM.Password"></span>*@
+                                                @if (Model.PasswordValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.PasswordValidation</span>
+                                                }
                                             </div>
                                             <div class="col-sm-6">
 
