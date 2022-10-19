@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using _0_Framework.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -65,6 +66,27 @@ namespace _0_Framework.Application
             }
 
             return null;
+        }
+
+        public AuthViewModel CurrentAccountInfo()
+        {
+            var result = new AuthViewModel();
+
+            if (!IsAuthenticated())
+            {
+                return result;
+            }
+
+            var claims = _contextAccessor.HttpContext.User.Claims.ToList();
+
+            result.Id = int.Parse(claims.First(x => x.Type == "AccountId").Value);
+            result.Username = claims.First(x => x.Type == "Username").Value;
+            result.RoleId = int.Parse(claims.First(x => x.Type == ClaimTypes.Role).Value);
+            result.FullName = claims.First(x => x.Type == ClaimTypes.Name).Value;
+            result.Role = Roles.GetRoleBy(result.RoleId);
+            //!Can be used for email
+
+            return result;
         }
     }
 }
