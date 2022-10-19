@@ -59,5 +59,10 @@ namespace ServiceHost.Pages
 
             return RedirectToPage("/Index");
         }
+
+        public IActionResult OnGetLogoutFromAdmin()
+        {
+            return RedirectToPage("/Index");
+        }
     }
 }
