@@ -16,6 +16,11 @@ public class AuthViewModel
         
     //public List<long> Roles { get; set; }
 
+    public AuthViewModel()
+    {
+
+    }
+
     public AuthViewModel(int id, int roleId, string fullName, string username)
     {
         Id = id;
