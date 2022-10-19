@@ -60,6 +60,7 @@ builder.Services.AddAuthorization(options =>
 
     options.AddPolicy("Discounts", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
     
+    options.AddPolicy("Account", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
 
 });
 
@@ -71,6 +72,8 @@ builder.Services.AddRazorPages()
         options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
         
         options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discounts");
+
+        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
 
     });
 
