@@ -1,11 +1,13 @@
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Application.Contracts.Role;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.User
 {
+    [Authorize(Roles = _0_Framework.Infrastructure.Roles.Administrator)]
     public class IndexModel : PageModel
     {
         private readonly IAccountApplication _accountApplication;
