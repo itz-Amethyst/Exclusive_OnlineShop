@@ -2,6 +2,10 @@
 @using _0_Framework.Infrastructure
 @inject IAuthHelper AuthHelper
 
+@{
+    var currentAccount = AuthHelper.CurrentAccountInfo();
+}
+
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
 
@@ -10,7 +14,8 @@
             <div class="user-img">
                 <img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
             </div>
-            <h5><a href="#">Mat Helme</a> </h5>
+            <h5><a href="#">@currentAccount.FullName</a> </h5>
+            <p>@currentAccount.Role</p>
             <ul class="list-inline">
                 <li>
                     <a href="#">
