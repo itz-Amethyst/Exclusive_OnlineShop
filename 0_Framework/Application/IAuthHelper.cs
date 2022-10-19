@@ -9,5 +9,7 @@
         bool IsAuthenticated();
 
         string CurrentUserRole();
+
+        AuthViewModel CurrentAccountInfo();
     }
 }
