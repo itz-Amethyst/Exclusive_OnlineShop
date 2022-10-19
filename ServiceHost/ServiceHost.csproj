@@ -108,7 +108,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Areas\Administration\Pages\AccessDenied.cshtml" />
+    <None Include="Pages\AccessDenied.cshtml" />
   </ItemGroup>
 
 </Project>

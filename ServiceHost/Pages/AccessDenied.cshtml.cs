@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ServiceHost.Areas.Administration.Pages
+namespace ServiceHost.Pages
 {
     public class AccessDeniedModel : PageModel
     {
