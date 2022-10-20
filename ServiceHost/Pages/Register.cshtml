@@ -39,9 +39,17 @@
                                         <h4 class="login-title">ثبت نام</h4>
 
                                         <div class="row">
-                                            <div class="col-md-6 col-12 mb-20">
+                                            <div class="col-md-6 col-6 mb-20">
                                                 <label>نام کاربری</label>
                                                 <input type="text" name="username" placeholder="نام کاربری" required>
+                                                @if (Model.RegisterValidation != null)
+                                                {
+                                                    <span class="text-danger">@Model.RegisterValidation</span>
+                                                }
+                                            </div>
+                                            <div class="col-md-6 col-6 mb-20">
+                                                <label>ایمیل</label>
+                                                <input type="email" name="email" placeholder="ایمیل" required>
                                                 @if (Model.RegisterValidation != null)
                                                 {
                                                     <span class="text-danger">@Model.RegisterValidation</span>
