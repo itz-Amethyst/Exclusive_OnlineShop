@@ -19,7 +19,11 @@ namespace AccountManagement.Domain.AccountAgg
 
         public string ProfilePhoto { get; private set; }
 
-        public Account(string username, string password, string mobile, int roleId, string profilePhoto)
+        public string ActiveCode { get; private set; }
+
+        public string Email { get; private set; }
+
+        public Account(string username, string password, string mobile, int roleId, string profilePhoto , string activeCode , string email)
         {
             Username = username;
             Password = password;
@@ -33,9 +37,11 @@ namespace AccountManagement.Domain.AccountAgg
             
             IsRemoved = false;
             ProfilePhoto = profilePhoto;
+            ActiveCode = activeCode;
+            Email = email;
         }
 
-        public void Edit(string username, string mobile, int roleId, string profilePhoto)
+        public void Edit(string username, string mobile, int roleId, string profilePhoto , string email)
         {
             Username = username;
             Mobile = mobile;
@@ -44,6 +50,8 @@ namespace AccountManagement.Domain.AccountAgg
             {
                 ProfilePhoto = profilePhoto;
             }
+            Email = email;
+
         }
 
         public void ChangePassword(string password)
