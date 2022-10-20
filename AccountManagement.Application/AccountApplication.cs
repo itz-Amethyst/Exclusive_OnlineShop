@@ -22,7 +22,7 @@ namespace AccountManagement.Application
         public OperationResult Create(RegisterAccount command)
         {
             var operation = new OperationResult();
-            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile))
+            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile  || x.Email == command.Email))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -32,7 +32,9 @@ namespace AccountManagement.Application
             var path = $"ProfilePhotos/{command.Username}";
             var picturePath = _fileUploader.Upload(command.ProfilePhoto , path);
 
-            var account = new Account(command.Username , password , command.Mobile , command.RoleId , picturePath);
+            var activeCode = ActiveCodeGenerator.GenerateActiveCode();
+
+            var account = new Account(command.Username, command.Password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
 
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
 
@@ -45,7 +47,7 @@ namespace AccountManagement.Application
         public OperationResult Register(RegisterAccountByUser command)
         {
             var operation = new OperationResult();
-            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile))
+            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile || x.Email == command.Email))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedUser);
             }
@@ -61,7 +63,9 @@ namespace AccountManagement.Application
             var path = $"ProfilePhotos/{command.Username}";
             var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
 
-            var account = new Account(command.Username, password, command.Mobile, command.RoleId, picturePath);
+            var activeCode = ActiveCodeGenerator.GenerateActiveCode();
+
+            var account = new Account(command.Username, command.Password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
 
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
 
@@ -82,7 +86,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.RecordNotFound);
             }
 
-            if (_accountRepository.Exists(x => x.Username == command.Username && x.Id != command.Id))
+            if (_accountRepository.Exists(x => x.Username == command.Username && x.Id != command.Id || x.Mobile == command.Mobile || x.Email == command.Email))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -90,7 +94,7 @@ namespace AccountManagement.Application
             var path = $"ProfilePhotos/{command.Username}";
             var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
 
-            account.Edit(command.Username, command.Mobile, command.RoleId, picturePath);
+            account.Edit(command.Username, command.Mobile, command.RoleId, picturePath, command.Email);
             _accountRepository.SaveChanges();
             return operation.Succeeded();
         }
@@ -124,7 +128,7 @@ namespace AccountManagement.Application
         {
             var operation = new OperationResult();
 
-            var account = _accountRepository.GetBy(command.UserName);
+            var account = _accountRepository.GetBy(command.UserNameOrEmail);
 
             if (account == null)
             {
