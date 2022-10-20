@@ -11,7 +11,6 @@ namespace AccountManagement.Infrastructure.EFCore.Mapping
             builder.ToTable("Accounts");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Fullname).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Username).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Password).HasMaxLength(1000).IsRequired();
             builder.Property(x => x.Mobile).HasMaxLength(20).IsRequired();

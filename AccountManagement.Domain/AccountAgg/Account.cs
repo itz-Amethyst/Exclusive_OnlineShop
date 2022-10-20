@@ -9,8 +9,6 @@ namespace AccountManagement.Domain.AccountAgg
         
         public string Password { get; private set; }
         
-        public string Fullname { get; private set; }
-        
         public string Mobile { get; private set; }
         
         public int RoleId { get; private set; }
@@ -21,11 +19,10 @@ namespace AccountManagement.Domain.AccountAgg
 
         public string ProfilePhoto { get; private set; }
 
-        public Account(string username, string password, string fullname, string mobile, int roleId, string profilePhoto)
+        public Account(string username, string password, string mobile, int roleId, string profilePhoto)
         {
             Username = username;
             Password = password;
-            Fullname = fullname;
             Mobile = mobile;
             RoleId = roleId;
 
@@ -38,10 +35,9 @@ namespace AccountManagement.Domain.AccountAgg
             ProfilePhoto = profilePhoto;
         }
 
-        public void Edit(string username, string fullname, string mobile, int roleId, string profilePhoto)
+        public void Edit(string username, string mobile, int roleId, string profilePhoto)
         {
             Username = username;
-            Fullname = fullname;
             Mobile = mobile;
             RoleId = roleId;
             if (!string.IsNullOrWhiteSpace(profilePhoto))

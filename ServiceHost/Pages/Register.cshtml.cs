@@ -25,11 +25,6 @@ namespace ServiceHost.Pages
 
         public IActionResult OnPost(RegisterAccountByUser command)
         {
-            if (string.IsNullOrWhiteSpace(command.Fullname))
-            {
-                RegisterValidation = "نام را وارد کنید";
-                return RedirectToPage("/Register");
-            }
 
             if (string.IsNullOrWhiteSpace(command.Password))
             {

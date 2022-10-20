@@ -32,9 +32,9 @@ namespace AccountManagement.Application
             var path = $"ProfilePhotos/{command.Username}";
             var picturePath = _fileUploader.Upload(command.ProfilePhoto , path);
 
-            var account = new Account(command.Username , password , command.Fullname , command.Mobile , command.RoleId , picturePath);
+            var account = new Account(command.Username , password , command.Mobile , command.RoleId , picturePath);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Fullname, account.Username);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
@@ -61,9 +61,9 @@ namespace AccountManagement.Application
             var path = $"ProfilePhotos/{command.Username}";
             var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
 
-            var account = new Account(command.Username, password, command.Fullname, command.Mobile, command.RoleId, picturePath);
+            var account = new Account(command.Username, password, command.Mobile, command.RoleId, picturePath);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Fullname, account.Username);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
@@ -90,7 +90,7 @@ namespace AccountManagement.Application
             var path = $"ProfilePhotos/{command.Username}";
             var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
 
-            account.Edit(command.Username, command.Fullname, command.Mobile, command.RoleId, picturePath);
+            account.Edit(command.Username, command.Mobile, command.RoleId, picturePath);
             _accountRepository.SaveChanges();
             return operation.Succeeded();
         }
@@ -138,7 +138,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
             }
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId ,account.Fullname , account.Username);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId , account.Username);
 
             _authHelper.SignIn(authViewModel);
             

@@ -6,7 +6,6 @@ public class AuthViewModel
 
     public int RoleId { get; set; }
         
-    public string FullName { get; set; }
         
     public string Username { get; set; }
     
@@ -23,11 +22,10 @@ public class AuthViewModel
 
     }
 
-    public AuthViewModel(int id, int roleId, string fullName, string username)
+    public AuthViewModel(int id, int roleId, string username)
     {
         Id = id;
         RoleId = roleId;
-        FullName = fullName;
         Username = username;
     }
 }

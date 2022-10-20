@@ -27,7 +27,7 @@ namespace ServiceHost.Pages
             _articleCategoryQuery = articleCategoryQuery;
             _commentApplication = commentApplication;
         }
-
+        
         public void OnGet(string id , bool created = false)
         {
             ViewData["Created"] = created;

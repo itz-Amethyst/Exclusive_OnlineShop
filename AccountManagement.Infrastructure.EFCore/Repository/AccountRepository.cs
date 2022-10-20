@@ -22,7 +22,6 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             return _context.Accounts.Select(x => new EditAccount
             {
                 Id = x.Id,
-                Fullname = x.Fullname,
                 Username = x.Username,
                 Mobile = x.Mobile,
                 RoleId = x.RoleId,
@@ -37,7 +36,6 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 .Select(x => new AccountViewModel
                 {
                     Id = x.Id,
-                    Fullname = x.Fullname,
                     Username = x.Username,
                     Mobile = x.Mobile,
                     ProfilePhoto = x.ProfilePhoto,
