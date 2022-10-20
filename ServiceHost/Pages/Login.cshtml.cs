@@ -28,7 +28,7 @@ namespace ServiceHost.Pages
 
         public IActionResult OnPost(Login command)
         {
-            if (string.IsNullOrWhiteSpace(command.UserName))
+            if (string.IsNullOrWhiteSpace(command.UserNameOrEmail))
             {
                 UserNameValidation = "نام کاربری را وارد کنید";
                 return RedirectToPage("/Login");
