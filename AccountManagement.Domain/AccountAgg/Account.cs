@@ -19,7 +19,8 @@ namespace AccountManagement.Domain.AccountAgg
 
         public string ProfilePhoto { get; private set; }
 
-        public string ActiveCode { get; private set; }
+        //! It's not private cause we need to use it in application and change it ActiveAccount Method for 1 time uses
+        public string ActiveCode { get; set; }
 
         public string Email { get; private set; }
 
