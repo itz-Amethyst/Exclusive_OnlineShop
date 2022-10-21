@@ -23,6 +23,8 @@ namespace AccountManagement.Domain.AccountAgg
 
         public string Email { get; private set; }
 
+        public bool IsActive { get; private set; }
+
         public Account(string username, string password, string mobile, int roleId, string profilePhoto , string activeCode , string email)
         {
             Username = username;
@@ -36,6 +38,7 @@ namespace AccountManagement.Domain.AccountAgg
             }
             
             IsRemoved = false;
+            IsActive = false;
             ProfilePhoto = profilePhoto;
             ActiveCode = activeCode;
             Email = email;
@@ -67,6 +70,11 @@ namespace AccountManagement.Domain.AccountAgg
         public void Restore()
         {
             IsRemoved = false;
+        }
+
+        public void ActivatedAccount()
+        {
+            IsActive = true;
         }
     }
 }
