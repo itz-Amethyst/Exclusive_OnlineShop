@@ -16,7 +16,7 @@ namespace ServiceHost.Pages
         [TempData]
         public bool ActiveMessage { get; set; }
 
-        public PageResult OnGet(string id)
+        public IActionResult OnGet(string id)
         {
 
             ActiveMessage = _accountApplication.ActiveAccount(id);
