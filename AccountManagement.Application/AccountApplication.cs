@@ -36,7 +36,7 @@ namespace AccountManagement.Application
 
             var account = new Account(command.Username, password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
+            var authViewModel = new AuthViewModel(account.Id , account.RoleId , account.Username , account.Email , false);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
@@ -65,7 +65,7 @@ namespace AccountManagement.Application
 
             var account = new Account(command.Username, password, command.Mobile, command.RoleId, path, _accountRepository.GenerateActiveCodeUser(), command.Email);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email , true);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
@@ -145,7 +145,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
             }
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId , account.Username);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, command.RememberMe);
 
             _authHelper.SignIn(authViewModel);
             
