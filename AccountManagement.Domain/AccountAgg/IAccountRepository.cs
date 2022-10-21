@@ -12,5 +12,7 @@ namespace AccountManagement.Domain.AccountAgg
         Account GetBy(string usernameOrEmail);
 
         string GenerateActiveCodeUser();
+        
+        Account GetByActiveCode(string activeCode);
     }
 }

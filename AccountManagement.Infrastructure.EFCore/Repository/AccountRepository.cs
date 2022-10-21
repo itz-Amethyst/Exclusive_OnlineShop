@@ -78,5 +78,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return ActiveCodeGenerator.GenerateActiveCode();
         }
+
+        public Account GetByActiveCode(string activeCode)
+        {
+            return _context.Accounts.FirstOrDefault(x => x.ActiveCode == activeCode);
+        }
     }
 }
