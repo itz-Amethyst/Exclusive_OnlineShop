@@ -10,5 +10,7 @@ namespace AccountManagement.Application.Contracts.Account
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }
