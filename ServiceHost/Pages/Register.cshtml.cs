@@ -28,14 +28,13 @@ namespace ServiceHost.Pages
 
             if (result.IsSuccessful)
             {
-                return RedirectToPage("/Index");
+                return Partial("_SuccessRegister", command);
+
             }
 
             RegisterMessage = result.Message;
 
             return RedirectToPage("/Register");
-
-
         }
     }
 }
