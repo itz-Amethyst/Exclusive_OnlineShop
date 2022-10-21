@@ -21,21 +21,23 @@ namespace _0_Framework.Application
             {
                 new Claim("AccountId", account.Id.ToString()),
                 new Claim(ClaimTypes.Role, account.RoleId.ToString()),
-                new Claim("Username", account.Username), // Or Use ClaimTypes.NameIdentifier
+                new Claim(ClaimTypes.Name , account.Username),
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 //new Claim("permissions", permissions),
                 //new Claim("Mobile", account.)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
+                IsPersistent = account.RememberMe
             };
 
-            _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
         }
         
         public void SignOut()
