@@ -194,6 +194,27 @@ namespace AccountManagement.Application
             return operation.Succeeded();
         }
 
+        public bool ActiveAccount(string activeCode)
+        {
+            var account = _accountRepository.GetByActiveCode(activeCode);
+
+            if (account == null || account.IsActive)
+            {
+                return false;
+            }
+
+            account.ActivatedAccount();
+            
+            //! For 1 time uses
+            account.ActiveCode = ActiveCodeGenerator.GenerateActiveCode();
+
+            _accountRepository.SaveChanges();
+
+            //! work on this
+            //_authHelper.SignIn();
+            return true;
+        }
+
         public void Logout()
         {
             _authHelper.SignOut();
