@@ -20,23 +20,24 @@ namespace _0_Framework.Application
             var claims = new List<Claim>
             {
                 new Claim("AccountId", account.Id.ToString()),
-                new Claim(ClaimTypes.Name, account.FullName),
                 new Claim(ClaimTypes.Role, account.RoleId.ToString()),
-                new Claim("Username", account.Username), // Or Use ClaimTypes.NameIdentifier
+                new Claim(ClaimTypes.Name , account.Username),
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 //new Claim("permissions", permissions),
                 //new Claim("Mobile", account.)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
+                IsPersistent = account.RememberMe
             };
 
-            _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
         }
         
         public void SignOut()
@@ -82,7 +83,6 @@ namespace _0_Framework.Application
             result.Id = int.Parse(claims.First(x => x.Type == "AccountId").Value);
             result.Username = claims.First(x => x.Type == "Username").Value;
             result.RoleId = int.Parse(claims.First(x => x.Type == ClaimTypes.Role).Value);
-            result.FullName = claims.First(x => x.Type == ClaimTypes.Name).Value;
             result.Role = Roles.GetRoleBy(result.RoleId);
             //!Can be used for email
 

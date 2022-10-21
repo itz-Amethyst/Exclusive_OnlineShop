@@ -7,7 +7,6 @@ namespace BlogManagement.Application.Contracts.Article
     public class CreateArticle
     {
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-
         public string Title { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]

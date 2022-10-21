@@ -17,8 +17,8 @@
 
                     <form class="form-inline" role="form" method="get">
                         <div class="form-group col-xs-2">
-                            <label class="sr-only" asp-for="SearchModel.Fullname"></label>
-                            <input asp-for="SearchModel.Fullname" class="form-control" placeholder="نام ">
+                            <label class="sr-only" asp-for="SearchModel.Email"></label>
+                            <input asp-for="SearchModel.Email" class="form-control" placeholder="ایمیل ">
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="sr-only" asp-for="SearchModel.Username"></label>
@@ -68,8 +68,8 @@
                     <tr>
                         <th>#</th>
                         <th>عکس</th>
-                        <th>نام</th>
                         <th>نام کاربری</th>
+                        <th>ایمیل</th>
                         <th>شماره موبایل</th>
                         <th>نقش</th>
                         <th>وضعیت</th>
@@ -86,8 +86,8 @@
                             <td>
                                 <img src="~/UploadedFiles/@item.ProfilePhoto" style="width: 80px; height: 80px" />
                             </td>
-                            <td>@item.Fullname</td>
                             <td>@item.Username</td>
+                            <td>@item.Email</td>
                             <td>@item.Mobile</td>
                             <td>@item.Role</td>
                             <td class="text-center">

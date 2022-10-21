@@ -15,5 +15,7 @@
         public const string WrongUsernameOrPassword = "نام کاربری یا رمز عبور اشتباه است لطفا دوباره تلاش کنید";
 
         public const string DuplicatedUser = "قبلا شخصی با این مشخصات ثبت نام شده است لطفا دوباره تلاش کنید";
+        
+        public const string AccountIsNotActive = "حساب کاربری شما فعال نمیباشد لطفا لطفا از طریق لینکی که به ایمیل شما فرستاده شده است اقدام به فعال سازی نمایید";
     }
 }

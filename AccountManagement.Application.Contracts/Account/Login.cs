@@ -6,9 +6,11 @@ namespace AccountManagement.Application.Contracts.Account
     public class Login
     {
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        public string UserName { get; set; }
+        public string UserNameOrEmail { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

@@ -42,15 +42,34 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.Lax;
 });
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-    {
-        options.LoginPath = new PathString("/Login");
-        options.LogoutPath = new PathString("/Login/Logout");
-        options.AccessDeniedPath = new PathString("/AccessDenied");
-        //!Option not necessary
-        options.ExpireTimeSpan = TimeSpan.FromDays(1);
-    });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+//    {
+//        options.LoginPath = new PathString("/Login");
+//        options.LogoutPath = new PathString("/Login/Logout");
+//        options.AccessDeniedPath = new PathString("/AccessDenied");
+//        //!Option not necessary
+//        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+//    });
+
+#region Authentication
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.LoginPath = new PathString("/Login");
+    options.LogoutPath = new PathString("/Logout");
+    options.AccessDeniedPath = new PathString("/AccessDenied");
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(43200); //? Around a Month
+
+});
+
+#endregion
+
 
 builder.Services.AddAuthorization(options =>
 {

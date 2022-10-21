@@ -22,7 +22,6 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             return _context.Accounts.Select(x => new EditAccount
             {
                 Id = x.Id,
-                Fullname = x.Fullname,
                 Username = x.Username,
                 Mobile = x.Mobile,
                 RoleId = x.RoleId,
@@ -37,19 +36,19 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 .Select(x => new AccountViewModel
                 {
                     Id = x.Id,
-                    Fullname = x.Fullname,
                     Username = x.Username,
                     Mobile = x.Mobile,
                     ProfilePhoto = x.ProfilePhoto,
                     Role = x.Role.Name,
                     RoleId = x.RoleId,
                     CreationDate = x.CreationDate.ToFarsi(),
-                    IsDeleted = x.IsRemoved
+                    IsDeleted = x.IsRemoved,
+                    Email = x.Email
                 });
 
-            if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
+            if (!string.IsNullOrWhiteSpace(searchModel.Email))
             {
-                query = query.Where(x => x.Fullname.Contains(searchModel.Fullname));
+                query = query.Where(x => x.Email.Contains(searchModel.Email));
             }
 
             if (!string.IsNullOrWhiteSpace(searchModel.Username))
@@ -70,9 +69,19 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             return query.OrderByDescending(x => x.Id).ToList();
         }
 
-        public Account GetBy(string username)
+        public Account GetBy(string usernameOrEmail)
         {
-            return _context.Accounts.FirstOrDefault(x => x.Username == username);
+            return _context.Accounts.FirstOrDefault(x => x.Username == usernameOrEmail || x.Email == usernameOrEmail);
+        }
+
+        public string GenerateActiveCodeUser()
+        {
+            return ActiveCodeGenerator.GenerateActiveCode();
+        }
+
+        public Account GetByActiveCode(string activeCode)
+        {
+            return _context.Accounts.FirstOrDefault(x => x.ActiveCode == activeCode);
         }
     }
 }
