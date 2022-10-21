@@ -73,5 +73,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return _context.Accounts.FirstOrDefault(x => x.Username == usernameOrEmail || x.Email == usernameOrEmail);
         }
+
+        public string GenerateActiveCodeUser()
+        {
+            return ActiveCodeGenerator.GenerateActiveCode();
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace AccountManagement.Domain.AccountAgg
         List<AccountViewModel> Search(AccountSearchModel searchModel);
 
         Account GetBy(string usernameOrEmail);
+
+        string GenerateActiveCodeUser();
     }
 }
