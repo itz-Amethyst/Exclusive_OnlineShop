@@ -34,7 +34,7 @@ namespace AccountManagement.Application
 
             var activeCode = ActiveCodeGenerator.GenerateActiveCode();
 
-            var account = new Account(command.Username, command.Password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
+            var account = new Account(command.Username, password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
 
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
 
@@ -60,12 +60,10 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
 
-            var path = $"ProfilePhotos/{command.Username}";
-            var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
+            var path = $"ProfilePhotos/{command.Username}/avatar-9.jpg";
+            //var picturePath = _fileUploader.Upload(,path);
 
-            var activeCode = ActiveCodeGenerator.GenerateActiveCode();
-
-            var account = new Account(command.Username, command.Password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
+            var account = new Account(command.Username, password, command.Mobile, command.RoleId, path, _accountRepository.GenerateActiveCodeUser(), command.Email);
 
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username);
 
@@ -133,6 +131,11 @@ namespace AccountManagement.Application
             if (account == null)
             {
                 return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
+            }
+
+            if (!account.IsActive)
+            {
+                return operation.Failed(ApplicationMessages.AccountIsNotActive);
             }
 
             (bool Verified , bool NeedsUpgrade) result = _passwordHasher.Check(account.Password, command.Password);
