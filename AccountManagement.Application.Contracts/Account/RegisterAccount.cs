@@ -21,7 +21,7 @@ namespace AccountManagement.Application.Contracts.Account
         public string Email { get; set; }
         
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        [MaxLength(200, ErrorMessage = " {0} نمیتواند بیشتر از {1} کاراکترباشد")]
+        [MaxLength(11, ErrorMessage = " {0} نمیتواند بیشتر از {1} کاراکترباشد")]
         public string Mobile { get; set; }
         
         [Range(1, int.MaxValue , ErrorMessage = ValidationMessages.IsRequired)]
