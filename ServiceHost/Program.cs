@@ -31,6 +31,7 @@ AccountManagementBootstrapper.Configure(builder.Services, connectionString);
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddTransient<IAuthHelper , AuthHelper>();
+builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 builder.Services.AddHttpContextAccessor();
 
 
