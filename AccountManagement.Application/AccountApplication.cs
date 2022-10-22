@@ -10,13 +10,16 @@ namespace AccountManagement.Application
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAccountRepository _accountRepository;
         private readonly IAuthHelper _authHelper;
+        private readonly IViewRenderService _viewRender;
+        
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper, IViewRenderService viewRender)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _fileUploader = fileUploader;
             _authHelper = authHelper;
+            _viewRender = viewRender;
         }
 
         public OperationResult Create(RegisterAccount command)
@@ -44,6 +47,8 @@ namespace AccountManagement.Application
 
             var authViewModel = new AuthViewModel(account.Id , account.RoleId , account.Username , account.Email , false);
 
+            account.ActivatedAccount();
+
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
 
@@ -69,7 +74,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.PasswordNotMatch);
             }
 
-
+            
             var password = _passwordHasher.Hash(command.Password);
 
             var path = $"ProfilePhotos/{command.Username}/avatar-9.jpg";
@@ -77,12 +82,17 @@ namespace AccountManagement.Application
 
             var account = new Account(command.Username, password, command.Mobile, command.RoleId, path, _accountRepository.GenerateActiveCodeUser(), command.Email);
 
+            //!Activation Section
+            string body = _viewRender.RenderToStringAsync("_ActiveEmail", account);
+
+            SendEmail.Send(command.Email, "فعالسازی", body);
+
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email , true);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
 
-            _authHelper.SignIn(authViewModel);
+            //_authHelper.SignIn(authViewModel);
 
             return operation.Succeeded();
         }
@@ -228,8 +238,10 @@ namespace AccountManagement.Application
 
             _accountRepository.SaveChanges();
 
-            //! work on this
-            //_authHelper.SignIn();
+            var user = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true);
+
+            _authHelper.SignIn(user);
+            
             return true;
         }
 
