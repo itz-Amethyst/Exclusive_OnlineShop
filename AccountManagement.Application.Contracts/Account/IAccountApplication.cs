@@ -25,5 +25,9 @@ namespace AccountManagement.Application.Contracts.Account
         bool ActiveAccount(string activeCode);
 
         void Logout();
+
+        OperationResult SendForgotPasswordLink(string email);
+        
+        OperationResult ResetPassword(ResetPasswordViewModel command);
     }
 }
