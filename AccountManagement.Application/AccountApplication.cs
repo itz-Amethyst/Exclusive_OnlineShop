@@ -22,6 +22,12 @@ namespace AccountManagement.Application
         public OperationResult Create(RegisterAccount command)
         {
             var operation = new OperationResult();
+
+            if(!_accountRepository.IsMobileNumberValid(command.Mobile))
+            {
+                return operation.Failed(ApplicationMessages.InvalidMobileNumber);
+            }
+
             if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile  || x.Email == command.Email))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
@@ -47,6 +53,12 @@ namespace AccountManagement.Application
         public OperationResult Register(RegisterAccountByUser command)
         {
             var operation = new OperationResult();
+            
+            if (!_accountRepository.IsMobileNumberValid(command.Mobile))
+            {
+                return operation.Failed(ApplicationMessages.InvalidMobileNumber);
+            }
+
             if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile || x.Email == command.Email))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedUser);
@@ -78,6 +90,12 @@ namespace AccountManagement.Application
         public OperationResult Edit(EditAccount command)
         {
             var operation = new OperationResult();
+            
+            if (!_accountRepository.IsMobileNumberValid(command.Mobile))
+            {
+                return operation.Failed(ApplicationMessages.InvalidMobileNumber);
+            }
+
             var account = _accountRepository.GetById(command.Id);
             if (account == null)
             {
