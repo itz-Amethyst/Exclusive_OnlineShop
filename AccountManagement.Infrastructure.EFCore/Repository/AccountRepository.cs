@@ -83,5 +83,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return _context.Accounts.FirstOrDefault(x => x.ActiveCode == activeCode);
         }
+
+        public bool IsMobileNumberValid(string mobile)
+        {
+            return MobileNumberValidator.IsMobileNumberValid(mobile);
+        }
     }
 }

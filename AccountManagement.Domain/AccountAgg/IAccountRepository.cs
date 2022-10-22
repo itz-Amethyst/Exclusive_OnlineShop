@@ -14,5 +14,7 @@ namespace AccountManagement.Domain.AccountAgg
         string GenerateActiveCodeUser();
         
         Account GetByActiveCode(string activeCode);
+
+        bool IsMobileNumberValid(string mobile);
     }
 }
