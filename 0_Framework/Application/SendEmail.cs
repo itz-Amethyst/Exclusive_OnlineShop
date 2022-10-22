@@ -8,7 +8,7 @@ namespace _0_Framework.Application
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("starkironmk11@gmail.com", "Exclusive_Shop");
+            mail.From = new MailAddress(EmailValues.Email , EmailValues.DisplayName); 
             mail.To.Add(To);
             mail.Subject = Subject;
             mail.Body = Body;
@@ -19,7 +19,7 @@ namespace _0_Framework.Application
             // mail.Attachments.Add(attachment);
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("starkironmk11@gmail.com", "2812tan@");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(EmailValues.Email, EmailValues.AppPassword);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
