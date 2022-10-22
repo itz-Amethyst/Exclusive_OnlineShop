@@ -88,5 +88,12 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return MobileNumberValidator.IsMobileNumberValid(mobile);
         }
+
+        public Account GetByEmail(string email)
+        {
+            var input = email.Trim().ToLower();
+
+            return _context.Accounts.FirstOrDefault(x => x.Email == input);
+        }
     }
 }
