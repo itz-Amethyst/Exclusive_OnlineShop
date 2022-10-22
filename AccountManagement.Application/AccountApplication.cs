@@ -1,6 +1,8 @@
 ﻿using _0_Framework.Application;
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Domain.AccountAgg;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Security.Principal;
 
 namespace AccountManagement.Application
 {
@@ -248,6 +250,59 @@ namespace AccountManagement.Application
         public void Logout()
         {
             _authHelper.SignOut();
+        }
+
+        public OperationResult SendForgotPasswordLink(string email)
+        {
+            var operation = new OperationResult();
+
+            var user = _accountRepository.GetByEmail(email);
+
+            if (user == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            //!Activation Section
+            string body = _viewRender.RenderToStringAsync("_ForgotPassword", user);
+
+            SendEmail.Send(user.Email, "بازیابی رمز عبور", body);
+
+            return operation.Succeeded(ApplicationMessages.ForgotPasswordLinkSent);
+        }
+
+        public OperationResult ResetPassword(ResetPasswordViewModel command)
+        {
+            var operation = new OperationResult();
+            
+            var user = _accountRepository.GetByActiveCode(command.ActiveCode);
+
+            if (user == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            var checkPassword = _passwordHasher.Check(user.Password, command.Password);
+
+            if (checkPassword.Verified)
+            {
+                return operation.Failed(ApplicationMessages.PasswordIsSame);
+            }
+
+            if (command.Password != command.RePassword)
+            {
+                return operation.Failed(ApplicationMessages.PasswordNotMatch);
+            }
+
+            var password = _passwordHasher.Hash(command.Password);
+
+            user.ChangePassword(password);
+
+            user.ActiveCode = _accountRepository.GenerateActiveCodeUser();
+
+            _accountRepository.SaveChanges();
+
+            return operation.Succeeded();
         }
     }
 }
