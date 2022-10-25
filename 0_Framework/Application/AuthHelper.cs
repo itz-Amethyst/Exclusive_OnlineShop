@@ -81,7 +81,7 @@ namespace _0_Framework.Application
             var claims = _contextAccessor.HttpContext.User.Claims.ToList();
 
             result.Id = int.Parse(claims.First(x => x.Type == "AccountId").Value);
-            result.Username = claims.First(x => x.Type == "Username").Value;
+            //result.Username = claims.First(x => x.Type == "Username").Value;
             result.RoleId = int.Parse(claims.First(x => x.Type == ClaimTypes.Role).Value);
             result.Role = Roles.GetRoleBy(result.RoleId);
             //!Can be used for email
