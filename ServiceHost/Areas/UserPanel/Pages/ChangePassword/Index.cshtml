@@ -1,0 +1,79 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Accounts.Role.IndexModel
+@{
+    ViewData["Title"] = "تغییر رمز عبور";
+}
+
+<partial name="_JqueryValidator" />
+
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h1 class="breadcrumb-content__title"></h1>
+                        <ul class="breadcrumb-content__page-map">
+                            <li>
+                                <a href="/">صفحه اصلی</a>
+                            </li>
+                            <li>
+                                <a>@ViewData["Title"]</a>
+                            </li>
+                            <li class="active">username</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="main_content_area">
+    <div class="container">
+        <div class="account_dashboard">
+            <div class="row">
+                @await Component.InvokeAsync("UserSideBar")
+                <div class="col-sm-12 col-md-9 col-lg-9 userpanel-dashboard-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="m-t-0 header-title"><b>@ViewData["Title"]</b></h4>
+                        </div>
+                        <div class="panel-body">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label class="control-label">رمز عبور فعلی</label>
+                                            <input type="password" class="form-control">
+                                            <span class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label class="control-label">رمز عبور جدید</label>
+                                            <input type="password" class="form-control">
+                                            <span class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-box">
+                                            <label class="control-label">تکرار رمز عبور جدید</label>
+                                            <input type="password" class="form-control">
+                                            <span class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-8 col-xs-12 m-t-20px">
+                                        <button class="btn btn-success"> تغییر رمز عبور </button>
+                                    </div>
+                                </div>
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
