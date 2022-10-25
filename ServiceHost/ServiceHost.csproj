@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\UserPanel\Pages\EditProfile\" />
     <Folder Include="Areas\UserPanel\Pages\Orders\" />
     <Folder Include="wwwroot\AdminTheme\assets\plugins\jstree\themes\default\" />
   </ItemGroup>
