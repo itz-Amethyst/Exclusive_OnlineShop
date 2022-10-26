@@ -95,5 +95,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
             return _context.Accounts.FirstOrDefault(x => x.Email == input);
         }
+
+        public Account GetByUserName(string username)
+        {
+            return _context.Accounts.FirstOrDefault(x => x.Username == username);
+        }
     }
 }
