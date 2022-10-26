@@ -3,20 +3,18 @@
     <aside class="sidebar box-shadow">
         <div class="headline">
             <div class="img-layer">
-                <form action="/Account/ChangeAvatar" enctype="multipart/form-data" id="form" method="post">
-                    <div class="imgAvatar">
-                        <a href="/UserPanel/EditProfile" class="change-image">
-                            <i class="fa fa-pencil"></i>
-                        </a>
-                        <img id="imgAvatar" src="~/UploadedFiles/Default-User-Avatar/avatar-9.jpg">
-                    </div>
-                </form>
+                <div class="imgAvatar">
+                    <a asp-page="/EditProfile/Index" class="change-image">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <img id="imgAvatar" src="~/UploadedFiles/Default-User-Avatar/avatar-9.jpg">
+                </div>
             </div>
             <div class="detail">
-                <span>ken543436wdsad</span>
+                <span>@User.Identity.Name</span>
                 <span>تاریخ عضویت :‌ 1945/12/02</span>
             </div>
-            <a data-toggle="tooltip" data-placement="right" title="" class="exit-link" href="/logOut" data-original-title=" خروج از حساب "><i class="fa fa-sign-out"></i></a>
+            <a data-toggle="tooltip" data-placement="right" title="" class="exit-link" asp-page="/Login" asp-page-handler="Logout" data-original-title=" خروج از حساب "><i class="fa fa-sign-out"></i></a>
         </div>
     </aside>
     <div class="dashboard_tab_button">
