@@ -29,5 +29,7 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult SendForgotPasswordLink(string email);
         
         OperationResult ResetPassword(ResetPasswordViewModel command);
+
+        AccountInformationViewModel GetUserInformation(string username);
     }
 }

@@ -304,5 +304,22 @@ namespace AccountManagement.Application
 
             return operation.Succeeded();
         }
+
+        public AccountInformationViewModel GetUserInformation(string username)
+        {
+            var account = _accountRepository.GetByUserName(username);
+
+
+            var information = new AccountInformationViewModel
+            {
+                Email = account.Email,
+                Mobile = account.Mobile,
+                ProfilePhoto = account.ProfilePhoto,
+                RegisterDate = account.CreationDate.ToFarsi(),
+                Username = account.Username
+            };
+
+            return information;
+        }
     }
 }
