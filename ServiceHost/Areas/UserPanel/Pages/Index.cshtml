@@ -13,7 +13,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb-wrapper breadcrumb-bg">
                     <div class="breadcrumb-content">
-                        <h1 class="breadcrumb-content__title"></h1>
+                        <h1 class="breadcrumb-content__title">@ViewData["Title"]</h1>
                         <ul class="breadcrumb-content__page-map">
                             <li>
                                 <a href="/">صفحه اصلی</a>
@@ -21,7 +21,7 @@
                             <li>
                                 <a>@ViewData["Title"]</a>
                             </li>
-                            <li class="active">username</li>
+                            <li class="active">@Model.Information.Username</li>
                         </ul>
                     </div>
                 </div>
@@ -36,92 +36,41 @@
             <div class="row">
                 @await Component.InvokeAsync("UserSideBar")
                 <div class="col-sm-12 col-md-9 col-lg-9 userpanel-dashboard-right">
+                    <section class="section-style box-shadow">
+                        <header>
+                            <h4>اطلاعات حساب کاربری</h4>
+                        </header>
+                        <div class="inner">
+                            <form method="" class="form-style">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
 
-                    <!-- Tab panes -->
-                    <div class="tab-content dashboard_content">
-                        <div class="tab-pane fade active show" id="downloads">
-                            <h3>دریافت ها</h3>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>محصول</th>
-                                            <th>دریافت ها</th>
-                                            <th>انقضا</th>
-                                            <th>دریافت</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</td>
-                                            <td>10 تیر 1397</td>
-                                            <td><span class="danger">منقضی شده</span></td>
-                                            <td><a href="#" class="view">برای دریافت فایل خود کلیک کنید</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>لورم ایپسوم متن ساختگی با تولید سادگی</td>
-                                            <td>11 مرداد 1397</td>
-                                            <td>هرگز</td>
-                                            <td><a href="#" class="view">برای دریافت فایل خود کلیک کنید</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="address">
-                            <p>آدرس های زیر به صورت پیش فرض در صفحه سفارش شما استفاده خواهند شد.</p>
-                            <h4 class="billing-address">آدرس صورت حساب</h4>
-                            <a href="#" class="view">ویرایش</a>
-                            <p><strong>جان اسنو</strong></p>
-                            <address>
-                                ایران<br>
-                                آذربایجان شرقی<br>
-                                تبریز<br>
-                                چهارراه آبرسان، فلکه دانشگاه، برج بلور، طبقه 456، واحد 89
-                            </address>
-                        </div>
-                        <div class="tab-pane fade" id="account-details">
-                            <h3>جزئیات حساب </h3>
-                            <div class="login">
-                                <div class="login_form_container">
-                                    <div class="account_login_form">
-                                        <form action="#">
-                                            <p>حساب کاربری دارید؟ <a href="#">وارد شوید!</a></p>
-                                            <div class="input-radio">
-                                                <span class="custom-radio"><label><input type="radio" value="1" name="id_gender"> آقا</label></span>
-                                                <span class="custom-radio"><label><input type="radio" value="1" name="id_gender"> خانم</label></span>
-                                            </div>
-                                            <br>
-                                            <label>نام</label>
-                                            <input type="text" name="first-name">
-                                            <label>نام خانوادگی</label>
-                                            <input type="text" name="last-name">
-                                            <label>ایمیل</label>
-                                            <input type="email" name="email-name" dir="ltr">
-                                            <label>رمز عبور</label>
-                                            <input type="password" name="user-password">
-                                            <label>تاریخ تولد</label>
-                                            <input type="text" placeholder="YYYY/MM/DD" value="" name="birthday">
-                                            <span class="example">
-                                                (مثال: 1397/05/26)
-                                            </span>
-                                            <br>
-                                            <span class="custom_checkbox">
-                                                <label><input type="checkbox" value="1" name="optin"> دریافت پیشنهادات ویژه</label>
-                                            </span>
-                                            <br>
-                                            <span class="custom_checkbox">
-                                                <label><input type="checkbox" value="1" name="newsletter"> عضویت در خبرنامه ما<br><em>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و</em></label>
-                                            </span>
-                                            <div class="save_button primary_btn default_button">
-                                                <button type="submit">ذخیره</button>
-                                            </div>
-                                        </form>
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-user"></i> نام کاربری : Ken Kaneki
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-phone"></i> شماره تماس : +989195579147
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-envelope"></i> ایمیل : pransermi@gmail.com
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>
