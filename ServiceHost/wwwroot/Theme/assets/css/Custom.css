@@ -272,3 +272,107 @@ input[type=number] {
 .m-t-20px {
     margin-top: 20px;
 }
+
+.sidebar {
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.sidebar .headline {
+    background: url('/UploadedFiles/UserSideBarBackground/abstract-white-and-gray-color-background-free-vector.jpg');
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.sidebar .headline .img-layer {
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.sidebar .headline .img-layer .change-image {
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    line-height: 130px;
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+    background-color: rgba(228,235,245,0.4);
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+}
+
+.sidebar .headline .img-layer img {
+    width: 130px;
+    height: 130px;
+    padding: 3px;
+    border: 3px solid #ecf1f8;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.sidebar .headline .imgAvatar  .change-image {
+        width: 120px;
+        height: 120px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 27px;
+        color: #657d9a;
+        background-color: rgba(228,235,245,0.4);
+        position: absolute;
+        z-index: 2;
+        opacity: 0;
+    right: 4%;
+    top: 3%;
+}
+
+.sidebar .headline .imgAvatar:hover .change-image {
+        opacity: 1;
+}
+
+    .sidebar .headline .exit-link {
+        position: absolute;
+        left: 17px;
+        top: 13px;
+        font-size: 22px;
+        color: rgb(159 22 61);
+        z-index: 10;
+    }
+
+    .sidebar .headline .detail {
+        width: 100%;
+        padding: 10px 0 15px;
+        text-align: center;
+    }
+
+        .sidebar .headline .detail span {
+            font-size: 14px;
+            word-spacing: -1px;
+            line-height: 25px;
+            color: #7389a3;
+            display: block;
+        }
+
