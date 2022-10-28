@@ -106,6 +106,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return _context.Accounts.Select(x => new EditUserProfile
             {
+                Id = x.Id,
                 UserName = x.Username,
                 Email = x.Email,
                 Mobile = x.Mobile,
