@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using _0_Framework.Application;
 using _0_Framework.Infrastructure;
-using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Account.Admin;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;

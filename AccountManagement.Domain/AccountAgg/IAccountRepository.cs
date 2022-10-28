@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Domain;
-using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Account.Admin;
 
 namespace AccountManagement.Domain.AccountAgg
 {

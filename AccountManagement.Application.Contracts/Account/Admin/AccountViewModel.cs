@@ -1,4 +1,4 @@
-﻿namespace AccountManagement.Application.Contracts.Account
+﻿namespace AccountManagement.Application.Contracts.Account.Admin
 {
     public class AccountViewModel
     {
@@ -10,7 +10,7 @@
 
         public string Mobile { get; set; }
 
-        public string Role  { get; set; }
+        public string Role { get; set; }
 
         public int RoleId { get; set; }
 

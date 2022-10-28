@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace AccountManagement.Application.Contracts.Account
+namespace AccountManagement.Application.Contracts.Account.User
 {
     public class ForgotPasswordViewModel
     {
