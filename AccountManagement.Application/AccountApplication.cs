@@ -321,5 +321,20 @@ namespace AccountManagement.Application
 
             return information;
         }
+
+        public UserPanelSideBarViewModel GetUserSideBarData(string username)
+        {
+            var user = _accountRepository.GetByUserName(username);
+
+            var sideBarData = new UserPanelSideBarViewModel
+            {
+                 //= user.ProfilePhoto,
+                UserName = user.Username,
+                RegisterDate = user.CreationDate.ToFarsi(),
+                UserProfilePicture = user.ProfilePhoto
+            };
+
+            return sideBarData;
+        }
     }
 }

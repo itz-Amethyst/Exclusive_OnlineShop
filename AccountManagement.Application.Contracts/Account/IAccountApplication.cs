@@ -31,5 +31,7 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult ResetPassword(ResetPasswordViewModel command);
 
         AccountInformationViewModel GetUserInformation(string username);
+
+        UserPanelSideBarViewModel GetUserSideBarData(string username);
     }
 }
