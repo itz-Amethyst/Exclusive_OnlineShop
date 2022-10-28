@@ -58,6 +58,17 @@ namespace AccountManagement.Domain.AccountAgg
 
         }
 
+        public void EditUserPanel(string username, string mobile, string profilePhoto, string email)
+        {
+            Username = username;
+            Mobile = mobile;
+            if (!string.IsNullOrWhiteSpace(profilePhoto))
+            {
+                ProfilePhoto = profilePhoto;
+            }
+            Email = email;
+        }
+
         public void ChangePassword(string password)
         {
             Password = password;
@@ -76,6 +87,11 @@ namespace AccountManagement.Domain.AccountAgg
         public void ActivatedAccount()
         {
             IsActive = true;
+        }
+
+        public void DeActiveAccount()
+        {
+            IsActive = false;
         }
     }
 }
