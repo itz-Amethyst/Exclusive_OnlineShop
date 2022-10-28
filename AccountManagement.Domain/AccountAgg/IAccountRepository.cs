@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Domain;
 using AccountManagement.Application.Contracts.Account.Admin;
+using AccountManagement.Application.Contracts.Account.User;
 
 namespace AccountManagement.Domain.AccountAgg
 {
@@ -20,5 +21,7 @@ namespace AccountManagement.Domain.AccountAgg
         Account GetByEmail(string email);
 
         Account GetByUserName(string username);
+
+        EditUserProfile GetProfileDetails(string username);
     }
 }

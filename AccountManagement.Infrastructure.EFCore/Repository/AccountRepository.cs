@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Account.Admin;
+using AccountManagement.Application.Contracts.Account.User;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +23,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 Username = x.Username,
+                Email = x.Email,
                 Mobile = x.Mobile,
                 RoleId = x.RoleId,
                 Image = x.ProfilePhoto
@@ -99,6 +100,17 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         public Account GetByUserName(string username)
         {
             return _context.Accounts.FirstOrDefault(x => x.Username == username);
+        }
+
+        public EditUserProfile GetProfileDetails(string username)
+        {
+            return _context.Accounts.Select(x => new EditUserProfile
+            {
+                UserName = x.Username,
+                Email = x.Email,
+                Mobile = x.Mobile,
+                Image = x.ProfilePhoto,
+            }).First(x => x.UserName == username);
         }
     }
 }
