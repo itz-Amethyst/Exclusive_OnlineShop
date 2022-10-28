@@ -336,5 +336,10 @@ namespace AccountManagement.Application
 
             return sideBarData;
         }
+
+        public EditUserProfile GetProfileDetails(string username)
+        {
+            return _accountRepository.GetProfileDetails(username);
+        }
     }
 }

@@ -35,5 +35,7 @@ namespace AccountManagement.Application.Contracts.Account
         AccountInformationViewModel GetUserInformation(string username);
 
         UserPanelSideBarViewModel GetUserSideBarData(string username);
+
+        EditUserProfile GetProfileDetails(string username);
     }
 }
