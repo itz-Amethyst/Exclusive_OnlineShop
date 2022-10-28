@@ -1,7 +1,7 @@
 ﻿@page
 @model ServiceHost.Areas.UserPanel.Pages.EditProfile.IndexModel
 @{
-    ViewData["Title"] = "ویرایش اطلاعات کاربری" + User.Identity.Name;
+    ViewData["Title"] = "ویرایش اطلاعات کاربری" + @Model.Command.UserName;
 }
 
 <partial name="_JqueryValidator" />
@@ -20,7 +20,7 @@
                             <li>
                                 <a>@ViewData["Title"]</a>
                             </li>
-                            <li class="active">@User.Identity.Name</li>
+                            <li class="active">@Model.Command.UserName</li>
                         </ul>
                     </div>
                 </div>
@@ -37,6 +37,10 @@
                 @await Component.InvokeAsync("UserSideBar")
                 <div class="col-sm-12 col-md-9 col-lg-9 userpanel-dashboard-right">
                     <div class="panel panel-default">
+                        @if (Model.EditMessage != null)
+                        {
+                            <div class="alert alert-danger">@Model.EditMessage</div>
+                        }
                         <div class="panel-heading">
                             <h4 class="m-t-0 header-title"><b>@ViewData["Title"]</b></h4>
                         </div>
@@ -46,29 +50,38 @@
                                     <div class="col-md-7">
                                         <div class="form-group">
                                             <label asp-for="Command.UserName" class="control-label">نام کاربری</label>
-                                            <input asp-for="Command.UserName" type="text" class="form-control">
+                                            <input asp-for="Command.UserName" type="text" class="form-control" placeholder="نام کاربری">
                                             <span asp-validation-for="Command.UserName" class="text-danger error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label asp-for ="Command.Email" class="control-label">ایمیل</label>
-                                            <input asp-for="Command.Email" type="email" class="form-control">
+                                            <label asp-for="Command.Email" class="control-label">ایمیل</label>
+                                            <input asp-for="Command.Email" type="email" class="form-control" placeholder="ایمیل">
                                             <span asp-validation-for="Command.Email" class="text-danger error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label asp-for="Command.Mobile" class="control-label">شماره موبایل</label>
+                                            <input asp-for="Command.Mobile" type="number" class="form-control" placeholder="شماره موبایل">
+                                            <span asp-validation-for="Command.Mobile" class="text-danger error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-box">
                                             <label asp-for="Command.ProfilePicture" class="control-label">اواتار</label>
                                             <input type="file" class="dropify" asp-for="Command.ProfilePicture" accept=".png, .jpg, .jpeg" data-max-file-size="5M" data-allowed-file-extensions="png jpg jpeg" data-max-file-size-preview="5M" data-default-file="/UploadedFiles/@Model.Command.Image">
-                                            <span class="error"></span>
+                                            <span asp-validation-for="Command.ProfilePicture" class="error"></span>
+
                                         </div>
                                     </div>
+                                    <input type="hidden" asp-for="Command.Id" value="@Model.Command.Id" />
                                     <div class="col-md-7 col-sm-8 col-xs-12 m-t-20px">
-                                        <button class="btn btn-success">ویرایش اطلاعات </button>
+                                        <button class="btn btn-success" formnovalidate>ویرایش اطلاعات </button>
                                     </div>
                                 </div>
-                               
+
                             </form>
                         </div>
                     </div>
