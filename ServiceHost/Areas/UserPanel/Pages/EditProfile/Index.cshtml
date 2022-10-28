@@ -45,22 +45,22 @@
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label class="control-label">نام کاربری</label>
-                                            <input type="text" class="form-control">
-                                            <span class="error"></span>
+                                            <label asp-for="Command.UserName" class="control-label">نام کاربری</label>
+                                            <input asp-for="Command.UserName" type="text" class="form-control">
+                                            <span asp-validation-for="Command.UserName" class="text-danger error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label class="control-label">ایمیل</label>
-                                            <input type="email" class="form-control">
-                                            <span class="error"></span>
+                                            <label asp-for ="Command.Email" class="control-label">ایمیل</label>
+                                            <input asp-for="Command.Email" type="email" class="form-control">
+                                            <span asp-validation-for="Command.Email" class="text-danger error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-box">
-                                            <label class="control-label">اواتار</label>
-                                            <input type="file" class="dropify"  accept=".png, .jpg, .jpeg" data-max-file-size="5M" data-allowed-file-extensions="png jpg jpeg" data-max-file-size-preview="5M">
+                                            <label asp-for="Command.ProfilePicture" class="control-label">اواتار</label>
+                                            <input type="file" class="dropify" asp-for="Command.ProfilePicture" accept=".png, .jpg, .jpeg" data-max-file-size="5M" data-allowed-file-extensions="png jpg jpeg" data-max-file-size-preview="5M" data-default-file="/UploadedFiles/@Model.Command.Image">
                                             <span class="error"></span>
                                         </div>
                                     </div>
