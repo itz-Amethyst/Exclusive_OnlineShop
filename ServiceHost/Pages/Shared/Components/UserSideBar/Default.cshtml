@@ -1,4 +1,12 @@
-﻿<!-- Nav tabs -->
+﻿@using AccountManagement.Application.Contracts.Account
+@inject IAccountApplication _accountApplication
+
+@{
+    UserPanelSideBarViewModel user = _accountApplication.GetUserSideBarData(User.Identity.Name);
+    // @user.UserProfilePicture
+}
+
+<!-- Nav tabs -->
 <div class="col-md-3 col-sm-12 col-xs-12 sidebar-left">
     <aside class="sidebar box-shadow">
         <div class="headline">
@@ -7,12 +15,12 @@
                     <a asp-page="/EditProfile/Index" class="change-image">
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <img id="imgAvatar" src="~/UploadedFiles/Default-User-Avatar/avatar-9.jpg">
+                    <img id="imgAvatar" src="~/UploadedFiles/@user.UserProfilePicture">
                 </div>
             </div>
             <div class="detail">
-                <span>@User.Identity.Name</span>
-                <span>تاریخ عضویت :‌ 1945/12/02</span>
+                <span>@user.UserName</span>
+                <span>تاریخ عضویت :‌ @user.RegisterDate</span>
             </div>
             <a data-toggle="tooltip" data-placement="right" title="" class="exit-link" asp-page="/Login" asp-page-handler="Logout" data-original-title=" خروج از حساب "><i class="fa fa-sign-out"></i></a>
         </div>
