@@ -34,6 +34,11 @@
                                 {
                                     <div class="alert alert-danger">@Model.LoginMessage</div>
                                 }
+                                
+                                @if (ViewBag.ChangePassword == true)
+                                {
+                                    <div class="alert alert-danger">تغییر رمز عبور با موفقیت انجام شد</div>
+                                }
                                 <form method="post">
                                     <div class="login-form">
                                         <h4 class="login-title">ورود</h4>

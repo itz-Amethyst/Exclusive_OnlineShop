@@ -21,6 +21,7 @@ namespace ServiceHost.Pages
 
         public void OnGet()
         {
+            ViewData["ChangePassword"] = false;
         }
 
         public IActionResult OnPost(Login command)
