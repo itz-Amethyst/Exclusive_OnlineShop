@@ -6,14 +6,14 @@ using AccountManagement.Application.Contracts.Account.Admin;
 
 namespace AccountManagement.Application
 {
-    public class AccountApplication :IAccountApplication
+    public class AccountApplication : IAccountApplication
     {
         private readonly IFileUploader _fileUploader;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAccountRepository _accountRepository;
         private readonly IAuthHelper _authHelper;
         private readonly IViewRenderService _viewRender;
-        
+
 
         public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper, IViewRenderService viewRender)
         {
@@ -28,12 +28,12 @@ namespace AccountManagement.Application
         {
             var operation = new OperationResult();
 
-            if(!_accountRepository.IsMobileNumberValid(command.Mobile))
+            if (!_accountRepository.IsMobileNumberValid(command.Mobile))
             {
                 return operation.Failed(ApplicationMessages.InvalidMobileNumber);
             }
 
-            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile  || x.Email == command.Email))
+            if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile == command.Mobile || x.Email == command.Email))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -41,13 +41,13 @@ namespace AccountManagement.Application
             var password = _passwordHasher.Hash(command.Password);
 
             var path = $"ProfilePhotos/{command.Username}";
-            var picturePath = _fileUploader.Upload(command.ProfilePhoto , path);
+            var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
 
             var activeCode = ActiveCodeGenerator.GenerateActiveCode();
 
             var account = new Account(command.Username, password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
 
-            var authViewModel = new AuthViewModel(account.Id , account.RoleId , account.Username , account.Email , false);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, false);
 
             account.ActivatedAccount();
 
@@ -60,7 +60,7 @@ namespace AccountManagement.Application
         public OperationResult Register(RegisterAccountByUser command)
         {
             var operation = new OperationResult();
-            
+
             if (!_accountRepository.IsMobileNumberValid(command.Mobile))
             {
                 return operation.Failed(ApplicationMessages.InvalidMobileNumber);
@@ -76,7 +76,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.PasswordNotMatch);
             }
 
-            
+
             var password = _passwordHasher.Hash(command.Password);
 
             var path = $"ProfilePhotos/{command.Username}/avatar-9.jpg";
@@ -89,7 +89,7 @@ namespace AccountManagement.Application
 
             SendEmail.Send(command.Email, "فعالسازی", body);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email , true);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
@@ -102,7 +102,7 @@ namespace AccountManagement.Application
         public OperationResult Edit(EditAccount command)
         {
             var operation = new OperationResult();
-            
+
             if (!_accountRepository.IsMobileNumberValid(command.Mobile))
             {
                 return operation.Failed(ApplicationMessages.InvalidMobileNumber);
@@ -127,7 +127,7 @@ namespace AccountManagement.Application
             return operation.Succeeded();
         }
 
-        public OperationResult ChangePassword(ChangePassword command)
+        public OperationResult ChangePassword(ChangePasswordViewModel command)
         {
             var operation = new OperationResult();
 
@@ -168,7 +168,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.AccountIsNotActive);
             }
 
-            (bool Verified , bool NeedsUpgrade) result = _passwordHasher.Check(account.Password, command.Password);
+            (bool Verified, bool NeedsUpgrade) result = _passwordHasher.Check(account.Password, command.Password);
 
             if (!result.Verified)
             {
@@ -178,7 +178,7 @@ namespace AccountManagement.Application
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, command.RememberMe);
 
             _authHelper.SignIn(authViewModel);
-            
+
             return operation.Succeeded();
         }
 
@@ -234,7 +234,7 @@ namespace AccountManagement.Application
             }
 
             account.ActivatedAccount();
-            
+
             //! For 1 time uses
             account.ActiveCode = ActiveCodeGenerator.GenerateActiveCode();
 
@@ -243,7 +243,7 @@ namespace AccountManagement.Application
             var user = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true);
 
             _authHelper.SignIn(user);
-            
+
             return true;
         }
 
@@ -274,7 +274,7 @@ namespace AccountManagement.Application
         public OperationResult ResetPassword(ResetPasswordViewModel command)
         {
             var operation = new OperationResult();
-            
+
             var user = _accountRepository.GetByActiveCode(command.ActiveCode);
 
             if (user == null)
@@ -328,7 +328,7 @@ namespace AccountManagement.Application
 
             var sideBarData = new UserPanelSideBarViewModel
             {
-                 //= user.ProfilePhoto,
+                //= user.ProfilePhoto,
                 UserName = user.Username,
                 RegisterDate = user.CreationDate.ToFarsi(),
                 UserProfilePicture = user.ProfilePhoto
@@ -340,6 +340,77 @@ namespace AccountManagement.Application
         public EditUserProfile GetProfileDetails(string username)
         {
             return _accountRepository.GetProfileDetails(username);
+        }
+
+        public OperationResult EditUserProfile(EditUserProfile command)
+        {
+            bool flag = false;
+            
+            var operation = new OperationResult();
+
+            if (!_accountRepository.IsMobileNumberValid(command.Mobile))
+            {
+                return operation.Failed(ApplicationMessages.InvalidMobileNumber);
+            }
+
+            var account = _accountRepository.GetById(command.Id);
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (_accountRepository.Exists(x => x.Username == command.UserName && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            if (_accountRepository.Exists(x => x.Mobile == command.Mobile && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            if (_accountRepository.Exists(x => x.Email == command.Email && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            if (command.UserName != account.Username || command.Email != account.Email)
+            {
+                account.ActiveCode = _accountRepository.GenerateActiveCodeUser();
+                flag = true;
+            }
+
+            if (command.Email != account.Email)
+            {
+                account.DeActiveAccount();
+
+                //!Activation Section
+                string bodyWarn = _viewRender.RenderToStringAsync("_WarnUserLastEmail", command);
+
+                SendEmail.Send(account.Email, "اخطار", bodyWarn);
+
+                string bodyActive = _viewRender.RenderToStringAsync("_ActiveAccountByEditProfile", account);
+
+                SendEmail.Send(command.Email, "فعالسازی", bodyActive);
+
+                flag = true;
+            }
+
+            var path = $"ProfilePhotos/{command.UserName}";
+            var picturePath = _fileUploader.Upload(command.ProfilePicture, path);
+
+            account.EditUserPanel(command.UserName, command.Mobile, picturePath, command.Email);
+
+
+            _accountRepository.SaveChanges();
+
+            if (flag)
+            {
+               _authHelper.SignOut();
+               return operation.SucceededNeedToLoginAgain();
+            }
+
+            return operation.Succeeded();
         }
     }
 }

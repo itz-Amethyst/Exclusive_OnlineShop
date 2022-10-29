@@ -12,7 +12,7 @@ namespace AccountManagement.Application.Contracts.Account
         
         OperationResult Edit(EditAccount command);
 
-        OperationResult ChangePassword(ChangePassword command);
+        OperationResult ChangePassword(ChangePasswordViewModel command);
 
         OperationResult Login(Login command);
 
@@ -37,5 +37,7 @@ namespace AccountManagement.Application.Contracts.Account
         UserPanelSideBarViewModel GetUserSideBarData(string username);
 
         EditUserProfile GetProfileDetails(string username);
+
+        OperationResult EditUserProfile(EditUserProfile command);
     }
 }
