@@ -145,6 +145,11 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
 
+            if (_accountRepository.CheckDuplicatePassword(account.Password, command.Password))
+            {
+                return operation.Failed(ApplicationMessages.PasswordIsSame);
+            }
+
             account.ChangePassword(password);
 
             _accountRepository.SaveChanges();
@@ -289,6 +294,11 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.PasswordIsSame);
             }
 
+            if (_accountRepository.CheckDuplicatePassword(user.Password, command.Password))
+            {
+                return operation.Failed(ApplicationMessages.PasswordIsSame);
+            }
+
             if (command.Password != command.RePassword)
             {
                 return operation.Failed(ApplicationMessages.PasswordNotMatch);
@@ -410,6 +420,42 @@ namespace AccountManagement.Application
                return operation.SucceededNeedToLoginAgain();
             }
 
+            return operation.Succeeded();
+        }
+
+        public OperationResult ChangePasswordByUser(ChangePasswordViewModel command)
+        {
+            var operation = new OperationResult();
+
+            var account = _accountRepository.GetByUserName(command.Username);
+
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            if (!_accountRepository.CheckOldPassword(command.OldPassword , account.Username))
+            {
+                return operation.Failed(ApplicationMessages.OldPasswordIsWrong);
+            }
+
+            if (_accountRepository.CheckDuplicatePassword(account.Password, command.Password))
+            {
+                return operation.Failed(ApplicationMessages.PasswordIsSame);
+            }
+
+            if (command.Password != command.RePassword)
+            {
+                return operation.Failed(ApplicationMessages.PasswordNotMatch);
+            }
+
+            var password = _passwordHasher.Hash(command.Password);
+
+            account.ChangePassword(password);
+
+            _accountRepository.SaveChanges();
+            
+            _authHelper.SignOut();
             return operation.Succeeded();
         }
     }
