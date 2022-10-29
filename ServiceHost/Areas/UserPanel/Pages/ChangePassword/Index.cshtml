@@ -1,7 +1,8 @@
 ﻿@page
-@model ServiceHost.Areas.Administration.Pages.Accounts.Role.IndexModel
+@model ServiceHost.Areas.UserPanel.Pages.ChangePassword.IndexModel
 @{
     ViewData["Title"] = "تغییر رمز عبور";
+    var Username = User.Identity.Name;
 }
 
 <partial name="_JqueryValidator" />
@@ -20,7 +21,7 @@
                             <li>
                                 <a>@ViewData["Title"]</a>
                             </li>
-                            <li class="active">username</li>
+                            <li class="active">@Username</li>
                         </ul>
                     </div>
                 </div>
@@ -37,38 +38,43 @@
                 @await Component.InvokeAsync("UserSideBar")
                 <div class="col-sm-12 col-md-9 col-lg-9 userpanel-dashboard-right">
                     <div class="panel panel-default">
+                        @if (Model.ChangePasswordMessage != null)
+                        {
+                            <div class="alert alert-danger">@Model.ChangePasswordMessage</div>
+                        }
                         <div class="panel-heading">
                             <h4 class="m-t-0 header-title"><b>@ViewData["Title"]</b></h4>
                         </div>
                         <div class="panel-body">
-                            <form method="post" enctype="multipart/form-data">
+                            <form method="post">
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label class="control-label">رمز عبور فعلی</label>
-                                            <input type="password" class="form-control">
-                                            <span class="error"></span>
+                                            <label class="control-label" asp-for="Command.OldPassword">رمز عبور فعلی</label>
+                                            <input type="password" asp-for="Command.OldPassword" class="form-control">
+                                            <span asp-validation-for="Command.OldPassword" class="error text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label class="control-label">رمز عبور جدید</label>
-                                            <input type="password" class="form-control">
-                                            <span class="error"></span>
+                                            <label class="control-label" asp-for="Command.Password">رمز عبور جدید</label>
+                                            <input type="password" asp-for="Command.Password" class="form-control">
+                                            <span class="error text-danger" asp-validation-for="Command.Password"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-box">
-                                            <label class="control-label">تکرار رمز عبور جدید</label>
-                                            <input type="password" class="form-control">
-                                            <span class="error"></span>
+                                            <label class="control-label" asp-for="Command.RePassword">تکرار رمز عبور جدید</label>
+                                            <input type="password" asp-for="Command.RePassword" class="form-control">
+                                            <span class="error text-danger" asp-validation-for="Command.RePassword"></span>
                                         </div>
                                     </div>
+                                    <input type="hidden" asp-for="Command.Username" value="@Username"/>
                                     <div class="col-md-7 col-sm-8 col-xs-12 m-t-20px">
                                         <button class="btn btn-success"> تغییر رمز عبور </button>
                                     </div>
                                 </div>
-                               
+
                             </form>
                         </div>
                     </div>
