@@ -11,10 +11,12 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
     public class AccountRepository : RepositoryBase<int, Account>, IAccountRepository
     {
         private readonly AccountContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public AccountRepository(AccountContext context) : base(context)
+        public AccountRepository(AccountContext context, IPasswordHasher passwordHasher) : base(context)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public EditAccount GetDetails(int id)
@@ -112,6 +114,12 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Mobile = x.Mobile,
                 Image = x.ProfilePhoto,
             }).First(x => x.UserName == username);
+        }
+
+        public bool CheckOldPassword(string oldPassword, string username)
+        {
+            string hashOldPassword = _passwordHasher.Hash(oldPassword);
+            return _context.Accounts.Any(u => u.Username == username && u.Password == hashOldPassword);
         }
     }
 }
