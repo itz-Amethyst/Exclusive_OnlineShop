@@ -3,9 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AccountManagement.Application.Contracts.Account
 {
-    public class ChangePassword
+    public class ChangePasswordViewModel
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
+        public string OldPassword { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [MaxLength(200, ErrorMessage = " {0} نمیتواند بیشتر از {1} کاراکترباشد")]
@@ -13,7 +16,7 @@ namespace AccountManagement.Application.Contracts.Account
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [MaxLength(200, ErrorMessage = " {0} نمیتواند بیشتر از {1} کاراکترباشد")]
-        //[Compare("Password", ErrorMessage = ValidationMessages.PasswordsDoNotMatch)]
+        [Compare("Password", ErrorMessage = ValidationMessages.PasswordsDoNotMatch)]
         public string RePassword { get; set; }
     }
 }
