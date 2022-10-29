@@ -4,7 +4,9 @@ using AccountManagement.Application.Contracts.Account.Admin;
 using AccountManagement.Application.Contracts.Account.User;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Infrastructure.EFCore.Context;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AccountManagement.Infrastructure.EFCore.Repository
 {
@@ -118,8 +120,23 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public bool CheckOldPassword(string oldPassword, string username)
         {
+            //Todo: Need to replace hash method with encode method
+
             string hashOldPassword = _passwordHasher.Hash(oldPassword);
             return _context.Accounts.Any(u => u.Username == username && u.Password == hashOldPassword);
+        }
+
+        public bool CheckDuplicatePassword(string userPassword, string currentPassword)
+        {
+            //Todo: Implement this method By Encode Password Method
+            var checkPassword = _passwordHasher.Check(userPassword, currentPassword);
+
+            if (checkPassword.Verified)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
