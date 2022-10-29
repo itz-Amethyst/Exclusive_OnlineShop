@@ -7,6 +7,8 @@ namespace AccountManagement.Application.Contracts.Account
     {
         public int Id { get; set; }
 
+        public string Username { get; set; }
+
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string OldPassword { get; set; }
 
