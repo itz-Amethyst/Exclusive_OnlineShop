@@ -81,11 +81,11 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
 
         public IActionResult OnGetChangePassword(int id)
         {
-            var command = new ChangePassword { Id = id };
+            var command = new ChangePasswordViewModel { Id = id };
             return Partial("ChangePassword", command);
         }
 
-        public JsonResult OnPostChangePassword(ChangePassword command)
+        public JsonResult OnPostChangePassword(ChangePasswordViewModel command)
         {
             var result = _accountApplication.ChangePassword(command);
 

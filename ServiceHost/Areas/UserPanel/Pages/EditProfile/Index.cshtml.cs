@@ -4,7 +4,6 @@ using AccountManagement.Domain.AccountAgg;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NuGet.Common;
 
 namespace ServiceHost.Areas.UserPanel.Pages.EditProfile
 {
