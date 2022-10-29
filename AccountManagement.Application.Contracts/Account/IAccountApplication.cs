@@ -39,5 +39,7 @@ namespace AccountManagement.Application.Contracts.Account
         EditUserProfile GetProfileDetails(string username);
 
         OperationResult EditUserProfile(EditUserProfile command);
+
+        OperationResult ChangePasswordByUser(ChangePasswordViewModel command);
     }
 }
