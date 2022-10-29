@@ -25,5 +25,7 @@ namespace AccountManagement.Domain.AccountAgg
         EditUserProfile GetProfileDetails(string username);
 
         bool CheckOldPassword(string oldPassword, string username);
+
+        bool CheckDuplicatePassword(string userPassword, string currentPassword);
     }
 }
