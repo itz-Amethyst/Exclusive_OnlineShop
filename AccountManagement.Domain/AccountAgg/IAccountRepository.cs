@@ -23,5 +23,7 @@ namespace AccountManagement.Domain.AccountAgg
         Account GetByUserName(string username);
 
         EditUserProfile GetProfileDetails(string username);
+
+        bool CheckOldPassword(string oldPassword, string username);
     }
 }
