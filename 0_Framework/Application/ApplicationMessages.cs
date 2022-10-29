@@ -24,5 +24,6 @@
 
         public const string PasswordIsSame = "رمز عبور جدید نمیتواند با رمز عبور قبلی یکسان باشد لطفا دوباره تلاش کنید";
 
+        public const string OldPasswordIsWrong = "رمز عبور فعلی اشتباه است لطفا دوباره تلاش کنید";
     }
 }
