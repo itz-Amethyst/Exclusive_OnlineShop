@@ -145,7 +145,7 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
 
-            if (_accountRepository.CheckDuplicatePassword(account.Password, command.Password))
+            if (_accountRepository.CheckPassword(account.Password, command.Password))
             {
                 return operation.Failed(ApplicationMessages.PasswordIsSame);
             }
@@ -173,9 +173,14 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.AccountIsNotActive);
             }
 
-            (bool Verified, bool NeedsUpgrade) result = _passwordHasher.Check(account.Password, command.Password);
+            //(bool Verified, bool NeedsUpgrade) result = _passwordHasher.Check(account.Password, command.Password);
 
-            if (!result.Verified)
+            //if (!result.Verified)
+            //{
+            //    return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
+            //}
+
+            if (!_accountRepository.CheckPassword(account.Password, command.Password))
             {
                 return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
             }
@@ -294,7 +299,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.PasswordIsSame);
             }
 
-            if (_accountRepository.CheckDuplicatePassword(user.Password, command.Password))
+            if (_accountRepository.CheckPassword(user.Password, command.Password))
             {
                 return operation.Failed(ApplicationMessages.PasswordIsSame);
             }
@@ -434,19 +439,19 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.RecordNotFound);
             }
 
-            if (!_accountRepository.CheckOldPassword(command.OldPassword , account.Username))
+            if (command.Password != command.RePassword)
+            {
+                return operation.Failed(ApplicationMessages.PasswordNotMatch);
+            }
+
+            if (!_accountRepository.CheckPassword(account.Password, command.OldPassword))
             {
                 return operation.Failed(ApplicationMessages.OldPasswordIsWrong);
             }
 
-            if (_accountRepository.CheckDuplicatePassword(account.Password, command.Password))
+            if (_accountRepository.CheckPassword(account.Password, command.Password))
             {
                 return operation.Failed(ApplicationMessages.PasswordIsSame);
-            }
-
-            if (command.Password != command.RePassword)
-            {
-                return operation.Failed(ApplicationMessages.PasswordNotMatch);
             }
 
             var password = _passwordHasher.Hash(command.Password);
