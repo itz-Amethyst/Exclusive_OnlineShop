@@ -19,9 +19,9 @@ namespace ServiceHost.Pages
             _accountApplication = accountApplication;
         }
 
-        public void OnGet()
+        public void OnGet(bool changePassword = false)
         {
-            ViewData["ChangePassword"] = false;
+            ViewData["ChangePassword"] = changePassword;
         }
 
         public IActionResult OnPost(Login command)
