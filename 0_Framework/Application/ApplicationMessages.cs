@@ -17,5 +17,13 @@
         public const string DuplicatedUser = "قبلا شخصی با این مشخصات ثبت نام شده است لطفا دوباره تلاش کنید";
         
         public const string AccountIsNotActive = "حساب کاربری شما فعال نمیباشد لطفا لطفا از طریق لینکی که به ایمیل شما فرستاده شده است اقدام به فعال سازی نمایید";
+        
+        public const string InvalidMobileNumber = "شماره موبایل وارد شده صحیح نمیباشد لطفا دوباره تلاش کنید";
+
+        public const string ForgotPasswordLinkSent = "لینک بازیابی رمز عبور به ایمیل شما ارسال شد";
+
+        public const string PasswordIsSame = "رمز عبور جدید نمیتواند با رمز عبور قبلی یکسان باشد لطفا دوباره تلاش کنید";
+
+        public const string OldPasswordIsWrong = "رمز عبور فعلی اشتباه است لطفا دوباره تلاش کنید";
     }
 }

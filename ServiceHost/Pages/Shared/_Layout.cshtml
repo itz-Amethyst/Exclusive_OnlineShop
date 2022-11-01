@@ -19,12 +19,7 @@
     
     <meta name="keywords"  content="@ViewData["Keywords"]"/>
 
-    <!-- Vendor CSS -->
-    <link href="~/Theme/assets/css/vendors.css" rel="stylesheet">
-    <!-- Main CSS -->
-    <link href="~/Theme/assets/css/style.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="~/Theme/assets/css/Custom.css" rel="stylesheet">
+   <partial name="_StyleCss"/>
 </head>
 
 <body>
@@ -42,16 +37,12 @@
         <span>برو به بالا</span><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i>
     </div>
     <!-- end of scroll to top -->
-    <!-- Vendor JS -->
-    <script src="~/Theme/assets/js/vendors.js"></script>
 
-    <!-- Active JS -->
-    <script src="~/Theme/assets/js/active.js"></script>
+    <partial name="_StyleJs" />
 
-    <!--Jquery Validate-->
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <partial name="_JqueryValidator" />
 
+    <partial name="_Scripts"/>
 
     <!--Recaptcha-->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

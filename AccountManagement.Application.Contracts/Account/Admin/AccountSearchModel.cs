@@ -1,4 +1,4 @@
-﻿namespace AccountManagement.Application.Contracts.Account
+﻿namespace AccountManagement.Application.Contracts.Account.Admin
 {
     public class AccountSearchModel
     {

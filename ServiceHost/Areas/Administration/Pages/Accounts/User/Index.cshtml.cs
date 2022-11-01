@@ -1,4 +1,5 @@
 using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Account.Admin;
 using AccountManagement.Application.Contracts.Role;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -80,11 +81,11 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
 
         public IActionResult OnGetChangePassword(int id)
         {
-            var command = new ChangePassword { Id = id };
+            var command = new ChangePasswordViewModel { Id = id };
             return Partial("ChangePassword", command);
         }
 
-        public JsonResult OnPostChangePassword(ChangePassword command)
+        public JsonResult OnPostChangePassword(ChangePasswordViewModel command)
         {
             var result = _accountApplication.ChangePassword(command);
 

@@ -1,0 +1,41 @@
+﻿@using AccountManagement.Application.Contracts.Account
+@using AccountManagement.Application.Contracts.Account.User
+@inject IAccountApplication _accountApplication
+
+@{
+    UserPanelSideBarViewModel user = _accountApplication.GetUserSideBarData(User.Identity.Name);
+    // @user.UserProfilePicture
+}
+
+<!-- Nav tabs -->
+<div class="col-md-3 col-sm-12 col-xs-12 sidebar-left">
+    <aside class="sidebar box-shadow">
+        <div class="headline">
+            <div class="img-layer">
+                <div class="imgAvatar">
+                    <a asp-page="/EditProfile/Index" class="change-image">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <img id="imgAvatar" src="~/UploadedFiles/@user.UserProfilePicture">
+                </div>
+            </div>
+            <div class="detail">
+                <span>@user.UserName</span>
+                <span>تاریخ عضویت :‌ @user.RegisterDate</span>
+            </div>
+            <a data-toggle="tooltip" data-placement="right" title="" class="exit-link" asp-page="/Login" asp-page-handler="Logout" data-original-title=" خروج از حساب "><i class="fa fa-sign-out"></i></a>
+        </div>
+    </aside>
+    <div class="dashboard_tab_button">
+        <ul role="tablist" class="nav flex-column dashboard-list">
+            <li><a asp-area="UserPanel" asp-page="/Index" class="nav-link active show">داشبورد</a></li>
+            <li><a asp-area="UserPanel" asp-page="/ChangePassword/Index" class="nav-link">تغییر کلمه ی عبور</a></li>
+            <li><a asp-area="UserPanel" asp-page="/EditProfile/Index" class="nav-link">ویرایش اطلاعات</a></li>
+            <li><a asp-area="UserPanel" asp-controller="Ticket" asp-action="AddTicket" class="nav-link">ثبت تیکت جدید</a></li>
+            <li><a asp-area="UserPanel" asp-controller="Ticket" asp-action="Index" class="nav-link">لیست تیکت ها</a></li>
+            <li><a asp-area="UserPanel" asp-controller="Seller" asp-action="RequestSellerPanel" class="nav-link">درخواست پنل فروشندگی</a></li>
+            <li><a asp-area="UserPanel" asp-controller="Seller" asp-action="SellerRequests" class="nav-link">درخواست های فروشندگی</a></li>
+            <li><a asp-controller="Account" asp-action="LogOut" class="nav-link">خروج</a></li>
+        </ul>
+    </div>
+</div>

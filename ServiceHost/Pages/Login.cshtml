@@ -34,6 +34,11 @@
                                 {
                                     <div class="alert alert-danger">@Model.LoginMessage</div>
                                 }
+                                
+                                @if (ViewBag.ChangePassword == true)
+                                {
+                                    <div class="alert alert-success">تغییر رمز عبور با موفقیت انجام شد</div>
+                                }
                                 <form method="post">
                                     <div class="login-form">
                                         <h4 class="login-title">ورود</h4>
@@ -59,7 +64,7 @@
                                             </div>
 
                                             <div class="col-sm-6 text-left text-sm-right">
-                                                <a href="#" class="forget-pass-link"> رمز عبور خود را فراموش کرده اید ؟</a>
+                                                <a asp-page="/ForgotPassword" class="forget-pass-link"> رمز عبور خود را فراموش کرده اید ؟</a>
                                             </div>
 
                                             <div class="col-md-12">

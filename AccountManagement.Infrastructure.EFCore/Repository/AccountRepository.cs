@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
-using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Account.Admin;
+using AccountManagement.Application.Contracts.Account.User;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +11,12 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
     public class AccountRepository : RepositoryBase<int, Account>, IAccountRepository
     {
         private readonly AccountContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public AccountRepository(AccountContext context) : base(context)
+        public AccountRepository(AccountContext context, IPasswordHasher passwordHasher) : base(context)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public EditAccount GetDetails(int id)
@@ -23,6 +25,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 Username = x.Username,
+                Email = x.Email,
                 Mobile = x.Mobile,
                 RoleId = x.RoleId,
                 Image = x.ProfilePhoto
@@ -82,6 +85,47 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         public Account GetByActiveCode(string activeCode)
         {
             return _context.Accounts.FirstOrDefault(x => x.ActiveCode == activeCode);
+        }
+
+        public bool IsMobileNumberValid(string mobile)
+        {
+            return MobileNumberValidator.IsMobileNumberValid(mobile);
+        }
+
+        public Account GetByEmail(string email)
+        {
+            var input = email.Trim().ToLower();
+
+            return _context.Accounts.FirstOrDefault(x => x.Email == input);
+        }
+
+        public Account GetByUserName(string username)
+        {
+            return _context.Accounts.FirstOrDefault(x => x.Username == username);
+        }
+
+        public EditUserProfile GetProfileDetails(string username)
+        {
+            return _context.Accounts.Select(x => new EditUserProfile
+            {
+                Id = x.Id,
+                UserName = x.Username,
+                Email = x.Email,
+                Mobile = x.Mobile,
+                Image = x.ProfilePhoto,
+            }).First(x => x.UserName == username);
+        }
+
+        public bool CheckPassword(string databasePassword,string userPassword)
+        {
+            (bool Verified, bool NeedsUpgrade) result = _passwordHasher.Check(databasePassword, userPassword);
+
+            if (!result.Verified)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
