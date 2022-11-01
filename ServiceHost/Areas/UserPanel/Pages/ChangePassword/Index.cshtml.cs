@@ -25,7 +25,7 @@ namespace ServiceHost.Areas.UserPanel.Pages.ChangePassword
 
             if (result.IsSuccessful)
             {
-                return RedirectToPage("./Login?ChangePassword=true");
+                return Redirect("/Login?ChangePassword=true");
             }
 
             ChangePasswordMessage = result.Message;
