@@ -15,15 +15,15 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             _roleApplication = roleApplication;
         }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
-            
+            Command = _roleApplication.GetDetails(id);
         }
 
-        public IActionResult OnPost(CreateRole command)
+        public IActionResult OnPost(EditRole command)
         {
-            var result = _roleApplication.Create(command);
-            return RedirectToPage("./Index", new { Created = "True" });
+            var result = _roleApplication.Edit(command);
+            return RedirectToPage("./Index", new { Edited = "True" });
         }
     }
 }
