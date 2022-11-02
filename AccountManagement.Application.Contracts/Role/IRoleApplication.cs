@@ -12,5 +12,8 @@ namespace AccountManagement.Application.Contracts.Role
 
         List<RoleViewModel> List();
 
+        OperationResult Remove(int id);
+
+        OperationResult Restore(int id);
     }
 }
