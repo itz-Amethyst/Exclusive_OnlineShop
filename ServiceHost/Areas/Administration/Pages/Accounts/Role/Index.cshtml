@@ -52,6 +52,15 @@
                                 <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " asp-page="./Edit" asp-route-id="@item.Id">
                                     <i class="fa fa-edit m-r-5"></i>ویرایش
                                 </a>
+                                
+                                @if (!item.IsDeleted)
+                                {
+                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="DeActive" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>غیر فعال سازی</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Active" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
+                                }
                             </td>
                         </tr>
                     }
@@ -73,4 +82,84 @@
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
 
     </script>
+    
+    @if (ViewBag.Created == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'ایجاد نقش با موفقیت امیز انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+
+    @if (ViewBag.Edited == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'ویرایش نقش با موفقیت امیز انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+
+
+    @if (ViewBag.DeActivated == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'غیر فعال سازی نقش با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+    @if (ViewBag.Activated == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'فعال سازی نقش با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+            Clear();
+
+        </script>
+    }
 }

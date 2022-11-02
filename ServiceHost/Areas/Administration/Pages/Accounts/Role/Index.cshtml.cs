@@ -27,29 +27,19 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             Roles = _roleApplication.List();
         }
 
-        public IActionResult OnGetCreate()
+        public IActionResult OnGetDeActive(int id)
         {
-            var command = new CreateRole();
-            return Partial("./Create", command);
+            var result = _roleApplication.Remove(id);
+
+            return RedirectToPage("./Index", new { DeActivated = "True" });
+
         }
 
-        public JsonResult OnPostCreate(CreateRole command)
+        public IActionResult OnGetActive(int id)
         {
-            var account = _roleApplication.Create(command);
-            return new JsonResult(account);
-        }
+            var result = _roleApplication.Restore(id);
 
-        public IActionResult OnGetEdit(int id)
-        {
-            var role = _roleApplication.GetDetails(id);
-            return Partial("Edit", role);
-        }
-
-        public JsonResult OnPostEdit(EditRole command)
-        {
-            var account = _roleApplication.Edit(command);
-
-            return new JsonResult(account);
+            return RedirectToPage("./Index", new { Activated = "True" });
         }
     }
 }
