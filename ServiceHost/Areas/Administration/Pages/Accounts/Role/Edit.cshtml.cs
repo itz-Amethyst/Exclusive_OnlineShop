@@ -8,7 +8,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
     {
         private readonly IRoleApplication _roleApplication;
 
-        public CreateRole command;
+        public EditRole Command;
 
         public EditModel(IRoleApplication roleApplication)
         {
