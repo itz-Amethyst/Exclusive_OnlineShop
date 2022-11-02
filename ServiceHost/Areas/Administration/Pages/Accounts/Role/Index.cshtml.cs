@@ -22,7 +22,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             _roleApplication = roleApplication;
         }
 
-        public void OnGet(AccountSearchModel searchModel , bool removed = false , bool restored = false)
+        public void OnGet(bool removed = false , bool restored = false)
         {
             Roles = _roleApplication.List();
         }
