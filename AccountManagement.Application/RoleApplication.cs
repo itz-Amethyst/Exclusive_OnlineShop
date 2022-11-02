@@ -60,5 +60,37 @@ namespace AccountManagement.Application
         {
             return _roleRepository.List();
         }
+
+        public OperationResult Remove(int id)
+        {
+            var operation = new OperationResult();
+
+            var role = _roleRepository.GetById(id);
+
+            if (role == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            role.Remove();
+            _roleRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public OperationResult Restore(int id)
+        {
+            var operation = new OperationResult();
+
+            var role = _roleRepository.GetById(id);
+
+            if (role == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            role.Restore();
+            _roleRepository.SaveChanges();
+            return operation.Succeeded();
+        }
     }
 }
