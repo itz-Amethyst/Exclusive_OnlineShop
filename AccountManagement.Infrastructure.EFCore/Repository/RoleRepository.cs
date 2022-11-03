@@ -70,5 +70,12 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
             return true;
         }
+
+        public List<int> SelectedPermissionsRole(int roleId)
+        {
+            return _accountContext.RolePermissions
+                .Where(p => p.RoleId == roleId)
+                .Select(p => p.PermissionId).ToList();
+        }
     }
 }
