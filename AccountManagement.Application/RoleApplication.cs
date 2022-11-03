@@ -1,6 +1,8 @@
 ﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Application
 {
@@ -13,7 +15,7 @@ namespace AccountManagement.Application
             _roleRepository = roleRepository;
         }
 
-        public OperationResult Create(CreateRole command)
+        public OperationResult Create(CreateRole command, List<int> permissions)
         {
             var operation = new OperationResult();
 
@@ -25,6 +27,11 @@ namespace AccountManagement.Application
             var role = new Role(command.Name);
             _roleRepository.Create(role);
             _roleRepository.SaveChanges();
+
+            if (!_roleRepository.AddPermissionsToRole(role.Id, permissions))
+            {
+                return operation.Failed(ApplicationMessages.OperationFailed);
+            }
 
             return operation.Succeeded();
         }

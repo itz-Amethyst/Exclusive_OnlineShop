@@ -4,7 +4,7 @@ namespace AccountManagement.Application.Contracts.Role
 {
     public interface IRoleApplication
     {
-        OperationResult Create(CreateRole command);
+        OperationResult Create(CreateRole command, List<int> permissions);
 
         OperationResult Edit(EditRole command);
 
