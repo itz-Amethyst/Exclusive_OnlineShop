@@ -104,5 +104,10 @@ namespace AccountManagement.Application
         {
             return _roleRepository.GetAllPermissions();
         }
+
+        public List<int> SelectedPermissionsRole(int id)
+        {
+            return _roleRepository.SelectedPermissionsRole(id);
+        }
     }
 }

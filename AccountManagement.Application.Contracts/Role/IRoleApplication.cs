@@ -17,5 +17,7 @@ namespace AccountManagement.Application.Contracts.Role
         OperationResult Restore(int id);
 
         List<PermissionViewModel> GetAllPermissions();
+
+        List<int> SelectedPermissionsRole(int id);
     }
 }
