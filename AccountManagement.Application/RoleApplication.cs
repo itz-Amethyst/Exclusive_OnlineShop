@@ -92,5 +92,10 @@ namespace AccountManagement.Application
             _roleRepository.SaveChanges();
             return operation.Succeeded();
         }
+
+        public List<PermissionViewModel> GetAllPermissions()
+        {
+            return _roleRepository.GetAllPermissions();
+        }
     }
 }
