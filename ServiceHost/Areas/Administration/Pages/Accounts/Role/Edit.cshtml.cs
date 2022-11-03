@@ -26,9 +26,10 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             RolePermission = _roleApplication.SelectedPermissionsRole(id);
         }
 
-        public IActionResult OnPost(EditRole command)
+        public IActionResult OnPost(EditRole command, List<int> SelectedPermission)
         {
-            var result = _roleApplication.Edit(command);
+            var result = _roleApplication.Edit(command, SelectedPermission);
+
             return RedirectToPage("./Index", new { Edited = "True" });
         }
     }
