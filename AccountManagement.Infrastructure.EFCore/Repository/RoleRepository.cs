@@ -3,6 +3,8 @@ using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
 using AccountManagement.Infrastructure.EFCore.Context;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Infrastructure.EFCore.Repository
 {
@@ -43,6 +45,30 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 PermissionTitle = x.PermissionTitle,
                 ParentId = x.ParentId
             }).ToList();
+        }
+
+        public bool AddPermissionsToRole(int roleId, List<int> permissions)
+        {
+            foreach (var perm in permissions)
+            {
+                try
+                {
+                    _accountContext.RolePermissions.Add(new RolePermissions()
+                    {
+                        PermissionId = perm,
+                        RoleId = roleId
+                    });
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+
+            }
+
+            _accountContext.SaveChanges();
+
+            return true;
         }
     }
 }
