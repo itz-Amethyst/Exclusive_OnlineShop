@@ -34,5 +34,14 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 IsDeleted = x.IsDeleted
             }).ToList();
         }
+
+        public List<PermissionViewModel> GetAllPermissions()
+        {
+            return _accountContext.Permissions.Select(x => new PermissionViewModel()
+            {
+               PermissionTitle = x.PermissionTitle,
+               ParentId = x.ParentId
+            }).ToList();
+        }
     }
 }
