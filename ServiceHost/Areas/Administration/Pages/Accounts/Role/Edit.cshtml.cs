@@ -10,6 +10,10 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 
         public EditRole Command;
 
+        public List<PermissionViewModel> Permission;
+
+        public List<int> RolePermission;
+
         public EditModel(IRoleApplication roleApplication)
         {
             _roleApplication = roleApplication;
@@ -18,6 +22,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
         public void OnGet(int id)
         {
             Command = _roleApplication.GetDetails(id);
+            Permission = _roleApplication.GetAllPermissions();
+            RolePermission = _roleApplication.SelectedPermissionsRole(id);
         }
 
         public IActionResult OnPost(EditRole command)
