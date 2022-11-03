@@ -6,7 +6,7 @@ using AccountManagement.Infrastructure.EFCore.Context;
 
 namespace AccountManagement.Infrastructure.EFCore.Repository
 {
-    public class RoleRepository : RepositoryBase<int , Role>, IRoleRepository
+    public class RoleRepository : RepositoryBase<int, Role>, IRoleRepository
     {
         private readonly AccountContext _accountContext;
 
@@ -39,8 +39,9 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return _accountContext.Permissions.Select(x => new PermissionViewModel()
             {
-               PermissionTitle = x.PermissionTitle,
-               ParentId = x.ParentId
+                PermissionId = x.Id,
+                PermissionTitle = x.PermissionTitle,
+                ParentId = x.ParentId
             }).ToList();
         }
     }
