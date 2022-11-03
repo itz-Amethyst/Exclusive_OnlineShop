@@ -10,5 +10,7 @@ namespace AccountManagement.Domain.RoleAgg
         List<RoleViewModel> List();
         
         List<PermissionViewModel> GetAllPermissions();
+        
+        bool AddPermissionsToRole(int roleId, List<int> permissions);
     }
 }
