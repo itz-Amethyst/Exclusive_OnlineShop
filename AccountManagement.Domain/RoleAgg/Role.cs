@@ -12,7 +12,7 @@ namespace AccountManagement.Domain.RoleAgg
 
         public List<Account> Accounts { get; private set; }
 
-        public List<RolePermissions> RolePermissions { get; private set; }
+        public List<RolePermissions> RolePermissions { get; set; }
 
         public Role(string name)
         {
