@@ -6,7 +6,7 @@ namespace AccountManagement.Application.Contracts.Role
     {
         OperationResult Create(CreateRole command, List<int> permissions);
 
-        OperationResult Edit(EditRole command);
+        OperationResult Edit(EditRole command , List<int> permissions);
 
         EditRole GetDetails(int id);
 

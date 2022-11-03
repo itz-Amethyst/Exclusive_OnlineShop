@@ -36,7 +36,7 @@ namespace AccountManagement.Application
             return operation.Succeeded();
         }
 
-        public OperationResult Edit(EditRole command)
+        public OperationResult Edit(EditRole command , List<int> permissions)
         {
             var operation = new OperationResult();
 
@@ -54,6 +54,12 @@ namespace AccountManagement.Application
 
             role.Edit(command.Name);
             _roleRepository.SaveChanges();
+
+            if (!_roleRepository.UpdatePermissionsRole(role.Id, permissions))
+            {
+                return operation.Failed(ApplicationMessages.OperationFailed);
+            }
+
 
             return operation.Succeeded();
         }
