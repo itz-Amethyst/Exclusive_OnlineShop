@@ -22,9 +22,10 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             Permission = _roleApplication.GetAllPermissions();
         }
 
-        public IActionResult OnPost(CreateRole command)
+        public IActionResult OnPost(CreateRole command , List<int> SelectedPermission)
         {
-            var result = _roleApplication.Create(command);
+            var result = _roleApplication.Create(command , SelectedPermission);
+
             return RedirectToPage("./Index", new { Created = "True" });
         }
     }
