@@ -22,8 +22,12 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             _roleApplication = roleApplication;
         }
 
-        public void OnGet(bool removed = false , bool restored = false)
+        public void OnGet(bool created = false, bool edited = false ,bool activated = false , bool deactivated = false)
         {
+            ViewData["Created"] = created;
+            ViewData["Edited"] = edited;
+            ViewData["Activated"] = activated;
+            ViewData["DeActivated"] = deactivated;
             Roles = _roleApplication.List();
         }
 

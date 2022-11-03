@@ -36,6 +36,7 @@
                     <tr>
                         <th>#</th>
                         <th>نام</th>
+                        <th>وضعیت</th>
                         <th>تاریخ تولید</th>
                         <th style="width: 260px">عملیات</th>
                     </tr>
@@ -47,6 +48,16 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.Name</td>
+                            <td class="text-center">
+                                @if (!item.IsDeleted)
+                                {
+                                    <i class="fa fa-check text-success fa-3x"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-remove text-danger fa-3x"></i>
+                                }
+                            </td>
                             <td>@item.CreationDate</td>
                             <td>
                                 <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " asp-page="./Edit" asp-route-id="@item.Id">
@@ -71,6 +82,7 @@
 </div>
 <!-- end row -->
 @section Scripts{
+    <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
