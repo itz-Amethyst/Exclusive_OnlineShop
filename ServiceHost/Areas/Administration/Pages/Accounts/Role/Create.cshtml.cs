@@ -10,6 +10,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 
         public CreateRole Command;
 
+        public List<PermissionViewModel> Permission;
+
         public CreateModel(IRoleApplication roleApplication)
         {
             _roleApplication = roleApplication;
@@ -17,7 +19,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 
         public void OnGet()
         {
-            
+            Permission = _roleApplication.GetAllPermissions();
         }
 
         public IActionResult OnPost(CreateRole command)
