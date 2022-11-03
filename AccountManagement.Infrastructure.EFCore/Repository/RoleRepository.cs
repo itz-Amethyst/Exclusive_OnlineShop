@@ -77,5 +77,23 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 .Where(p => p.RoleId == roleId)
                 .Select(p => p.PermissionId).ToList();
         }
+
+        public bool UpdatePermissionsRole(int roleId, List<int> permissions)
+        {
+            try
+            {
+                _accountContext.RolePermissions.Where(p => p.RoleId == roleId)
+                    .ToList().ForEach(p => _accountContext.RolePermissions.Remove(p));
+
+                AddPermissionsToRole(roleId, permissions);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }
