@@ -23,31 +23,41 @@
                         <div class="col-md-6 right-create-role">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <input type="hidden" asp-for="@Model.Command.Id"/>
+
                                     <h4 class="card-title">دسترسی های نقش</h4>
                                     <ul>
+                                        @foreach (var perm in @Model.Permission.Where(p => p.ParentId == null))
+                                        {
+                                            <li>
+                                                <input type="checkbox" name="SelectedPermission" @((@Model.RolePermission.Any( p=> p == perm.PermissionId)?"checked":"")) value="@perm.PermissionId" /> @perm.PermissionTitle
 
-                                        <li>
-                                            <input type="checkbox" name="SelectedPermission" value="" /> test
-
-
-                                            <ul>
-                                                <li>
-
-                                                    <input type="checkbox" name="SelectedPermission" value="" /> fdsfd
-
+                                                @if (@Model.Permission.Any(p => p.ParentId == perm.ParentId))
+                                                {
                                                     <ul>
-
                                                         <li>
-                                                            <input type="checkbox" name="SelectedPermission" value="" /> test
+                                                            @foreach (var sub in @Model.Permission.Where(p => p.ParentId == perm.PermissionId))
+                                                            {
+                                                                <input type="checkbox" name="SelectedPermission" @((@Model.RolePermission.Any( p=> p== sub.PermissionId)?"checked":"")) value="@sub.PermissionId" /> @sub.PermissionTitle
+                                                                @if (@Model.Permission.Any(p => p.ParentId == sub.ParentId))
+                                                                {
+                                                                    <ul>
+                                                                        @foreach (var sub2 in @Model.Permission.Where(p => p.ParentId == sub.PermissionId))
+                                                                        {
+                                                                            <li>
+                                                                                <input type="checkbox" name="SelectedPermission" @((@Model.RolePermission.Any( p=> p== sub2.PermissionId)?"checked":"")) value="@sub2.PermissionId" /> @sub2.PermissionTitle
+                                                                            </li>
+                                                                        }
+                                                                    </ul>
+                                                                }
+
+                                                            }
                                                         </li>
-
                                                     </ul>
-
-                                                </li>
-                                            </ul>
-
-                                        </li>
-
+                                                }
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
