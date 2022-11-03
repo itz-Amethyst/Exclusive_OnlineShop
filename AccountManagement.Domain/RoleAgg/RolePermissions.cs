@@ -4,16 +4,9 @@
     {
         public int Id { get; private set; }
 
-        public int RoleId { get; private set; }
+        public int RoleId { get; set; }
 
-        public int PermissionId { get; private set; }
-
-        public RolePermissions(int roleId, int permissionId)
-        {
-            RoleId = roleId;
-            PermissionId = permissionId;
-        }
-
+        public int PermissionId { get; set; }
 
         public Role Role { get; private set; }
 
