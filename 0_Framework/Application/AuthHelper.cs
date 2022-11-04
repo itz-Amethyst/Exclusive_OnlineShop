@@ -20,7 +20,7 @@ namespace _0_Framework.Application
             var claims = new List<Claim>
             {
                 new Claim("AccountId", account.Id.ToString()),
-                new Claim(ClaimTypes.Role, account.RoleId.ToString()),
+                //new Claim(ClaimTypes.Role, account.RoleId.ToString()),
                 new Claim(ClaimTypes.Name , account.Username),
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 //new Claim("permissions", permissions),
@@ -45,48 +45,48 @@ namespace _0_Framework.Application
             _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
-        public bool IsAuthenticated()
-        {
-            //! Can do a lot of things here
+        //public bool IsAuthenticated()
+        //{
+        //    //! Can do a lot of things here
 
-            var claimsPrincipal = _contextAccessor.HttpContext.User.Claims.ToList();
+        //    var claimsPrincipal = _contextAccessor.HttpContext.User.Claims.ToList();
 
-            if (claimsPrincipal.Count > 0)
-            {
-                return true;
-            }
+        //    if (claimsPrincipal.Count > 0)
+        //    {
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
-        public string CurrentUserRole()
-        {
-            if (IsAuthenticated())
-            {
-                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
-            }
+        //public string CurrentUserRole()
+        //{
+        //    if (IsAuthenticated())
+        //    {
+        //        return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        public AuthViewModel CurrentAccountInfo()
-        {
-            var result = new AuthViewModel();
+        //public AuthViewModel CurrentAccountInfo()
+        //{
+        //    var result = new AuthViewModel();
 
-            if (!IsAuthenticated())
-            {
-                return result;
-            }
+        //    if (!IsAuthenticated())
+        //    {
+        //        return result;
+        //    }
 
-            var claims = _contextAccessor.HttpContext.User.Claims.ToList();
+        //    var claims = _contextAccessor.HttpContext.User.Claims.ToList();
 
-            result.Id = int.Parse(claims.First(x => x.Type == "AccountId").Value);
-            //result.Username = claims.First(x => x.Type == "Username").Value;
-            result.RoleId = int.Parse(claims.First(x => x.Type == ClaimTypes.Role).Value);
-            result.Role = Roles.GetRoleBy(result.RoleId);
-            //!Can be used for email
+        //    result.Id = int.Parse(claims.First(x => x.Type == "AccountId").Value);
+        //    //result.Username = claims.First(x => x.Type == "Username").Value;
+        //    result.RoleId = int.Parse(claims.First(x => x.Type == ClaimTypes.Role).Value);
+        //    result.Role = Roles.GetRoleBy(result.RoleId);
+        //    //!Can be used for email
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }
