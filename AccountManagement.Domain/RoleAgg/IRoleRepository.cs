@@ -16,5 +16,7 @@ namespace AccountManagement.Domain.RoleAgg
         List<int> SelectedPermissionsRole(int roleId);
         
         bool UpdatePermissionsRole(int roleId, List<int> permissions);
+
+        bool CheckPermission(int permissionId, string username);
     }
 }
