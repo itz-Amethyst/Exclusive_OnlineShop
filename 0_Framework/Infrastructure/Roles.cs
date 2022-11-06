@@ -50,7 +50,13 @@
         public const int DecreaseItemInventory = 46;
         public const int ShowOperationHistory = 47;
         public const int ChangeUserPassword = 48;
+        public const int AccessDiscounts = 49;
+        public const int AccessAccounts = 50;
+        public const int AccessShop = 51;
+        public const int AccessBlog = 51;
         
+
+
 
         //public static string GetRoleBy(int id)
         //{
