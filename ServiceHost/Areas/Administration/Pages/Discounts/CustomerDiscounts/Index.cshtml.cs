@@ -1,4 +1,5 @@
 using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using DiscountManagement.Application.Contract.CustomerDiscount;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using ShopManagement.Application.Contracts.Product;
 
 namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
 {
-    [Authorize(Roles = Roles.Administrator)]
+    [PermissionChecker(Roles.ManageCustomerDiscount)]
     public class IndexModel : PageModel
     {
         private readonly IProductApplication _productApplication;
@@ -31,6 +32,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.CreateCustomerDiscount)]
         public IActionResult OnGetCreate()
         {
             var command = new DefineCustomerDiscount
@@ -45,7 +47,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             var result = _customerDiscountApplication.Define(command);
             return new JsonResult(result);
         }
-
+        
+        [PermissionChecker(Roles.EditCustomerDiscount)]
         public IActionResult OnGetEdit(int id)
         {
             var customerDiscount  = _customerDiscountApplication.GetDetails(id);
