@@ -1,11 +1,11 @@
 using AccountManagement.Application.Contracts.Role;
-using Microsoft.AspNetCore.Authorization;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 {
-    //[Authorize(Roles = _0_Framework.Infrastructure.Roles.Administrator)]
+    [PermissionChecker(_0_Framework.Infrastructure.Roles.ManageRoles)]
     public class IndexModel : PageModel
     {
         private readonly IRoleApplication _roleApplication;
@@ -20,7 +20,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             _roleApplication = roleApplication;
         }
 
-        public void OnGet(bool created = false, bool edited = false ,bool activated = false , bool deactivated = false)
+        public void OnGet(bool created = false, bool edited = false, bool activated = false, bool deactivated = false)
         {
             ViewData["Created"] = created;
             ViewData["Edited"] = edited;
@@ -29,6 +29,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             Roles = _roleApplication.List();
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.DeleteRole)]
         public IActionResult OnGetDeActive(int id)
         {
             var result = _roleApplication.Remove(id);
@@ -37,6 +38,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.DeleteRole)]
         public IActionResult OnGetActive(int id)
         {
             var result = _roleApplication.Restore(id);
