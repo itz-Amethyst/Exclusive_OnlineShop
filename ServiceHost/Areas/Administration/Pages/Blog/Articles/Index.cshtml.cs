@@ -1,3 +1,5 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
 {
+    [PermissionChecker(Roles.ManageArticle)]
     public class IndexModel : PageModel
     {
         private readonly IArticleApplication _articleApplication;
@@ -35,7 +38,8 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
 
             Articles = _articleApplication.Search(searchModel);
         }
-        
+
+        [PermissionChecker(Roles.DeleteArticle)]
         public IActionResult OnGetDeActive(int id)
         {
             var result = _articleApplication.Remove(id);
@@ -44,6 +48,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
 
         }
 
+        [PermissionChecker(Roles.DeleteArticle)]
         public IActionResult OnGetActive(int id)
         {
             var result = _articleApplication.Restore(id);
