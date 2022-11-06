@@ -5,6 +5,7 @@ using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Domain.RoleAgg;
 using AccountManagement.Infrastructure.EFCore.Context;
 using AccountManagement.Infrastructure.EFCore.Repository;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,12 @@ namespace AccountManagement.Infrastructure.Configuration
             services.AddTransient<IRoleApplication, RoleApplication>();
 
             services.AddTransient<IRoleRepository, RoleRepository>();
+
+            #endregion
+
+            #region PermissionChecker
+
+            services.AddTransient<IPermissionChecker, PermissionChecker>();
 
             #endregion
 
