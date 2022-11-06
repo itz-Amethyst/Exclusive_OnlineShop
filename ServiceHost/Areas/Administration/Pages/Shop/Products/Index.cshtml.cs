@@ -1,3 +1,5 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +8,7 @@ using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 {
+    [PermissionChecker(Roles.ManageShop)]
     public class IndexModel : PageModel
     {
         private readonly IProductApplication _productApplication;
@@ -32,6 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             Products = _productApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.CreateProduct)]
         public IActionResult OnGetCreate()
         {
             var command = new CreateProduct
@@ -47,6 +51,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditProduct)]
         public IActionResult OnGetEdit(int id)
         {
             var product = _productApplication.GetDetails(id);
@@ -61,6 +66,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DeleteProduct)]
         public IActionResult OnGetRemove(int id)
         {
             var result = _productApplication.Remove(id);
@@ -69,6 +75,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 
         }
 
+        [PermissionChecker(Roles.DeleteProduct)]
         public IActionResult OnGetRestore(int id)
         {
             var result = _productApplication.Restore(id);
