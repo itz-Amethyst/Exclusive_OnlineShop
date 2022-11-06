@@ -7,7 +7,7 @@ namespace AccountManagement.Infrastructure.EFCore.Security
 {
     public class PermissionCheckerAttribute : AuthorizeAttribute , IAuthorizationFilter
     {
-        private IRoleRepository _roleRepository;
+        private IPermissionChecker _permissionChecker;
 
         private int _permissionId = 0;
 
@@ -18,14 +18,14 @@ namespace AccountManagement.Infrastructure.EFCore.Security
         
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            _roleRepository =
-                (IRoleRepository)context.HttpContext.RequestServices.GetService(typeof(IRoleRepository));
+            _permissionChecker =
+                (IPermissionChecker)context.HttpContext.RequestServices.GetService(typeof(IPermissionChecker));
 
             if (context.HttpContext.User.Identity.IsAuthenticated)
             {
                 string UserName = context.HttpContext.User.Identity.Name;
 
-                if (!_roleRepository.CheckPermission(_permissionId, UserName))
+                if (!_permissionChecker.CheckPermission(_permissionId, UserName))
                 {
                     context.Result = new RedirectResult("/AccessDenied");
                 }
