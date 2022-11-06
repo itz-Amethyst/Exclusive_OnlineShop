@@ -1,12 +1,14 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductPicture;
-using ShopManagement.Domain.ProductAgg;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 {
+    [PermissionChecker(Roles.ManageProductPicture)]
     public class IndexModel : PageModel
     {
         private readonly IProductApplication _productApplication;
@@ -30,6 +32,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             ProductPictures = _productPictureApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.AddProductPicture)]
         public IActionResult OnGetCreate()
         {
             var command = new CreateProductPicture
@@ -45,6 +48,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditProductPicture)]
         public IActionResult OnGetEdit(int id)
         {
             var ProductPicture = _productPictureApplication.GetDetails(id);
@@ -59,6 +63,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DeleteProductPicture)]
         public IActionResult OnGetRemove(int id)
         {
             var result = _productPictureApplication.Remove(id);
@@ -67,6 +72,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             
         }
 
+        [PermissionChecker(Roles.DeleteProductPicture)]
         public IActionResult OnGetRestore(int id)
         {
             var result = _productPictureApplication.Restore(id);
