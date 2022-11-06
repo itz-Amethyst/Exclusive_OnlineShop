@@ -1,9 +1,13 @@
+using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
+using AccountManagement.Infrastructure.EFCore.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 {
+    [PermissionChecker(Roles.CreateRole)]
     public class CreateModel : PageModel
     {
         private readonly IRoleApplication _roleApplication;
