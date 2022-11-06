@@ -1,4 +1,5 @@
 using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using DiscountManagement.Application.Contract.ColleagueDiscount;
 using DiscountManagement.Application.Contract.CustomerDiscount;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ using ShopManagement.Application.Contracts.Product;
 
 namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
 {
-    [Authorize(Roles = Roles.Administrator)]
+    [PermissionChecker(Roles.ManageColleagueDiscount)]
     public class IndexModel : PageModel
     {
         private readonly IProductApplication _productApplication;
@@ -34,6 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             ColleagueDiscounts = _colleagueDiscountApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.CreateColleagueDiscount)]
         public IActionResult OnGetCreate()
         {
             var command = new DefineColleagueDiscount()
@@ -49,6 +51,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditColleagueDiscount)]
         public IActionResult OnGetEdit(int id)
         {
             var colleagueDiscount  = _colleagueDiscountApplication.GetDetails(id);
@@ -63,6 +66,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DeleteColleagueDiscount)]
         public IActionResult OnGetRemove(int id)
         {
             var result = _colleagueDiscountApplication.Remove(id);
@@ -70,6 +74,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             return RedirectToPage("./Index", new { Removed = "True" });
         }
 
+        [PermissionChecker(Roles.DeleteColleagueDiscount)]
         public IActionResult OnGetRestore(int id)
         {
             var result = _colleagueDiscountApplication.Restore(id);
