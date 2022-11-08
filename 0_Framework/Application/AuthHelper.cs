@@ -45,19 +45,10 @@ namespace _0_Framework.Application
             _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
-        //public bool IsAuthenticated()
-        //{
-        //    //! Can do a lot of things here
-
-        //    var claimsPrincipal = _contextAccessor.HttpContext.User.Claims.ToList();
-
-        //    if (claimsPrincipal.Count > 0)
-        //    {
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
+        public bool IsAuthenticated()
+        {
+            return _contextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        }
 
         //public string CurrentUserRole()
         //{

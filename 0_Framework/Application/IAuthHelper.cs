@@ -6,7 +6,7 @@
 
         void SignOut();
 
-        //bool IsAuthenticated();
+        bool IsAuthenticated();
 
         //string CurrentUserRole();
 
