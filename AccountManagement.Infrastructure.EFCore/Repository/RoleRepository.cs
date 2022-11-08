@@ -23,7 +23,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 Name = x.Name
-            }).First(x => x.Id == id);
+            }).AsNoTracking().First(x => x.Id == id);
         }
 
         public List<RoleViewModel> List()
@@ -44,7 +44,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 PermissionId = x.Id,
                 PermissionTitle = x.PermissionTitle,
                 ParentId = x.ParentId
-            }).ToList();
+            }).AsNoTracking().ToList();
         }
 
         public bool AddPermissionsToRole(int roleId, List<int> permissions)
