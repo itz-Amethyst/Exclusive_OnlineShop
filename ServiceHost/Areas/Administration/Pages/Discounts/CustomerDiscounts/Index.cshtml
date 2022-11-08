@@ -1,4 +1,5 @@
 ﻿@page
+@using _0_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts.IndexModel
 @{
     ViewData["Title"] = "مدیریت تخفیفات مشتریان";
@@ -37,7 +38,7 @@
                             <span>پاک کردن فیلتر</span>
                             <i class="fa fa-remove m-l-15"></i>
                         </a>
-                        <a type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
+                        <a permission="@Roles.CreateCustomerDiscount" type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
                             <span>تعریف تخفیف مشتری</span>
                             <i class="fa fa-plus m-l-15"></i>
                         </a>
@@ -84,7 +85,7 @@
                             <td>@item.Reason</td>
                             <td>@item.CreationDate</td>
                             <td>
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
+                                <a permission="@Roles.EditCustomerDiscount" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
                             </td>
                         </tr>
                     }
