@@ -1,4 +1,5 @@
 ﻿@page
+@using _0_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Blog.Articles.IndexModel
 @{
     ViewData["Title"] = "مدیریت مقالات";
@@ -34,7 +35,7 @@
                             <span>پاک کردن فیلتر</span>
                             <i class="fa fa-remove m-l-15"></i>
                         </a>
-                        <a class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" asp-page="./Create">
+                        <a permission="@Roles.CreateArticle" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" asp-page="./Create">
                             <span>ایجاد  مقاله جدید</span>
                             <i class="fa fa-plus m-l-15"></i>
                         </a>
@@ -92,16 +93,16 @@
                             </td>
                             <td>@item.PublishDate</td>
                             <td>
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " asp-page="./Edit" asp-route-id="@item.Id">
+                                <a permission="@Roles.EditArticle" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " asp-page="./Edit" asp-route-id="@item.Id">
                                     <i class="fa fa-edit m-r-5"></i>ویرایش
                                 </a>
                                 @if (!item.IsDeleted)
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="DeActive" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>غیر فعال سازی</a>
+                                    <a permission="@Roles.DeleteArticle" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="DeActive" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>غیر فعال سازی</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Active" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
+                                    <a permission="@Roles.DeleteArticle" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Active" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
                                 }
                             </td>
                         </tr>
