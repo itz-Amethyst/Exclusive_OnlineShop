@@ -53,7 +53,7 @@
         public const int AccessDiscounts = 49;
         public const int AccessAccounts = 50;
         public const int AccessShop = 51;
-        public const int AccessBlog = 51;
+        public const int AccessBlog = 52;
         
 
 
