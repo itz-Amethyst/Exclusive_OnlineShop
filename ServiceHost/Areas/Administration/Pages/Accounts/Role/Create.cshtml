@@ -44,6 +44,17 @@
                                                                         {
                                                                             <li>
                                                                                 <input type="checkbox" name="SelectedPermission" value="@sub2.PermissionId" /> @sub2.PermissionTitle
+                                                                                @if (@Model.Permission.Any(p => p.ParentId == sub2.ParentId))
+                                                                                {
+                                                                                    @foreach (var sub3 in @Model.Permission.Where(p => p.ParentId == sub2.PermissionId))
+                                                                                    {
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <input type="checkbox" name="SelectedPermission" value="@sub3.PermissionId" /> @sub3.PermissionTitle
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    }
+                                                                                }
                                                                             </li>
                                                                         }
                                                                     </ul>
