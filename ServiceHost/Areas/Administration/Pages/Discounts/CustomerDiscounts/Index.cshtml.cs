@@ -26,8 +26,10 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             _customerDiscountApplication = customerDiscountApplication;
         }
 
-        public void OnGet(CustomerDiscountSearchModel searchModel)
+        public void OnGet(CustomerDiscountSearchModel searchModel , bool removed = false , bool restored = false)
         {
+            ViewData["Restored"] = restored;
+            ViewData["Removed"] = removed;
             Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
             CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
         }
@@ -63,5 +65,20 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DeleteCustomerDiscount)]
+        public IActionResult OnGetRemove(int id)
+        {
+            var result = _customerDiscountApplication.Remove(id);
+
+            return RedirectToPage("./Index", new { Removed = "True" });
+        }
+
+        [PermissionChecker(Roles.DeleteCustomerDiscount)]
+        public IActionResult OnGetRestore(int id)
+        {
+            var result = _customerDiscountApplication.Restore(id);
+
+            return RedirectToPage("./Index", new { Restored = "True" });
+        }
     }
 }
