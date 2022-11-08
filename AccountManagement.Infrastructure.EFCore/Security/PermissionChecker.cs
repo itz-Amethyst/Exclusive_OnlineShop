@@ -15,10 +15,18 @@ namespace AccountManagement.Infrastructure.EFCore.Security
         {
             int userId = _accountContext.Accounts.Single(x => x.Username == username).Id;
 
-
             List<int> UserRoles = _accountContext.Accounts
                 .Where(r => r.Id == userId)
                 .Select(u => u.RoleId).ToList();
+
+            //? Do not work on Multiple roles
+            bool checkIsDeleted = _accountContext.Roles.Single(x => x.Id == UserRoles[0]).IsDeleted;
+
+            if (checkIsDeleted)
+            {
+                return false;
+            }
+
             if (!UserRoles.Any())
                 return false;
 
