@@ -8,7 +8,6 @@ namespace AccountManagement.Domain.RoleAgg
         public string Name { get; private set; }
 
         public bool IsDeleted { get; private set; }
-        
 
         public List<Account> Accounts { get; private set; }
 

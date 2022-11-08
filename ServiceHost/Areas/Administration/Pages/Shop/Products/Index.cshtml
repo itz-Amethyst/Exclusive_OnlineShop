@@ -81,18 +81,22 @@
                             <td>
                                 <img src="~/UploadedFiles/@item.Picture" style="width: 80px; height: 80px" />
                             </td>
-                            <td>@item.Name</td>
+                            <td>
+                                <a href="https://localhost:7018/Product/@item.Slug">
+                                    @item.Name
+                                </a>
+                            </td>
                             <td>@item.Code</td>
                             <td>@item.CategoryName</td>
                             <td class="text-center">
-                            @if (!item.IsDeleted)
-                            {
-                                <i class="fa fa-check text-success fa-3x"></i>
-                            }
-                            else
-                            {
-                                <i class="fa fa-remove text-danger fa-3x"></i>
-                            }
+                                @if (!item.IsDeleted)
+                                {
+                                    <i class="fa fa-check text-success fa-3x"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-remove text-danger fa-3x"></i>
+                                }
                             </td>
                             <td>@item.CreationDate</td>
                             <td>
@@ -119,21 +123,21 @@
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#datatable').DataTable();
         });
 
         // Removing Pagination and SearchBox
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
 
-        //? Sweet Alert 
+        //? Sweet Alert
 
         var url = window.location.href;
         const MainUrl = url.split('?')[0];
 
         function Location() {
             window.location.href = MainUrl;
-           
+
         }
 
         function Clear() {
