@@ -21,5 +21,7 @@
         public DateTime EndDateEn { get; set; }
 
         public string CreationDate { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
