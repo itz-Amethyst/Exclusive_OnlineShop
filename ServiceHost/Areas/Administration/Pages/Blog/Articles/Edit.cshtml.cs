@@ -1,3 +1,5 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
 {
+    [PermissionChecker(Roles.EditArticle)]
     public class EditModel : PageModel
     {
         private readonly IArticleCategoryApplication _articleCategoryApplication;

@@ -52,6 +52,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             {
                 Id = x.Id,
                 Name = x.Name,
+                Slug = x.Slug,
                 Code = x.Code,
                 Picture = x.Picture,
                 CategoryName = x.Category.Name,

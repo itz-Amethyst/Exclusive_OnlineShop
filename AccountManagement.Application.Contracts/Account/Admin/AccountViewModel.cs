@@ -1,4 +1,4 @@
-﻿namespace AccountManagement.Application.Contracts.Account
+﻿namespace AccountManagement.Application.Contracts.Account.Admin
 {
     public class AccountViewModel
     {
@@ -6,11 +6,11 @@
 
         public string Username { get; set; }
 
-        public string Fullname { get; set; }
+        public string Email { get; set; }
 
         public string Mobile { get; set; }
 
-        public string Role  { get; set; }
+        public string Role { get; set; }
 
         public int RoleId { get; set; }
 

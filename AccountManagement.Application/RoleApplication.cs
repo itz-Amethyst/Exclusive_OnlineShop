@@ -1,6 +1,8 @@
 ﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Application
 {
@@ -13,7 +15,7 @@ namespace AccountManagement.Application
             _roleRepository = roleRepository;
         }
 
-        public OperationResult Create(CreateRole command)
+        public OperationResult Create(CreateRole command, List<int> permissions)
         {
             var operation = new OperationResult();
 
@@ -26,10 +28,15 @@ namespace AccountManagement.Application
             _roleRepository.Create(role);
             _roleRepository.SaveChanges();
 
+            if (!_roleRepository.AddPermissionsToRole(role.Id, permissions))
+            {
+                return operation.Failed(ApplicationMessages.OperationFailed);
+            }
+
             return operation.Succeeded();
         }
 
-        public OperationResult Edit(EditRole command)
+        public OperationResult Edit(EditRole command , List<int> permissions)
         {
             var operation = new OperationResult();
 
@@ -48,6 +55,12 @@ namespace AccountManagement.Application
             role.Edit(command.Name);
             _roleRepository.SaveChanges();
 
+            if (!_roleRepository.UpdatePermissionsRole(role.Id, permissions))
+            {
+                return operation.Failed(ApplicationMessages.OperationFailed);
+            }
+
+
             return operation.Succeeded();
         }
 
@@ -59,6 +72,48 @@ namespace AccountManagement.Application
         public List<RoleViewModel> List()
         {
             return _roleRepository.List();
+        }
+
+        public OperationResult Remove(int id)
+        {
+            var operation = new OperationResult();
+
+            var role = _roleRepository.GetById(id);
+
+            if (role == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            role.Remove();
+            _roleRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public OperationResult Restore(int id)
+        {
+            var operation = new OperationResult();
+
+            var role = _roleRepository.GetById(id);
+
+            if (role == null)
+            {
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            role.Restore();
+            _roleRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public List<PermissionViewModel> GetAllPermissions()
+        {
+            return _roleRepository.GetAllPermissions();
+        }
+
+        public List<int> SelectedPermissionsRole(int id)
+        {
+            return _roleRepository.SelectedPermissionsRole(id);
         }
     }
 }

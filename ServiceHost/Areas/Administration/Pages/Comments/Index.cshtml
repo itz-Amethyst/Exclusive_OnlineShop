@@ -1,5 +1,6 @@
 ﻿@page
 @using _0_Framework.Application
+@using _0_Framework.Infrastructure
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Comments.IndexModel
 @{
@@ -104,25 +105,25 @@
                             <td>
                                 @if (!item.IsConfirmed && !item.IsCanceled)
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>رد تایید</a>
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>تایید</a>
+                                    <a permission="@Roles.AccessToCommentOperations" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>رد تایید</a>
+                                    <a permission="@Roles.AccessToCommentOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>تایید</a>
 
                                 }
 
                                 @if (!item.IsConfirmed && item.IsCanceled)
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>تایید</a>
+                                    <a permission="@Roles.AccessToCommentOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>تایید</a>
 
                                 }
                                 
                                 @if (item.IsConfirmed && !item.IsCanceled)
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>رد تایید</a>
+                                    <a permission="@Roles.AccessToCommentOperations" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>رد تایید</a>
                                 }
                                 
                                 @if (item.IsConfirmed && item.IsCanceled)
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>تایید</a>
+                                    <a permission="@Roles.AccessToCommentOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>تایید</a>
                                 }
                             </td>
                         </tr>

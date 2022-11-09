@@ -14,6 +14,8 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
 
         public string Reason { get; private set; }
 
+        public bool IsDeleted { get; private set; }
+
         public CustomerDiscount(int productId, int discountRate, DateTime startDate, DateTime endDate, string reason)
         {
             ProductId = productId;
@@ -21,6 +23,7 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
             StartDate = startDate;
             EndDate = endDate;
             Reason = reason;
+            IsDeleted = false;
         }
 
         public void Edit(int productId, int discountRate, DateTime startDate, DateTime endDate, string reason)
@@ -30,6 +33,16 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
             StartDate = startDate;
             EndDate = endDate;
             Reason = reason;
+        }
+
+        public void Remove()
+        {
+            IsDeleted = true;
+        }
+
+        public void Restore()
+        {
+            IsDeleted = false;
         }
     }
 }

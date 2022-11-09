@@ -9,8 +9,6 @@ namespace AccountManagement.Domain.AccountAgg
         
         public string Password { get; private set; }
         
-        public string Fullname { get; private set; }
-        
         public string Mobile { get; private set; }
         
         public int RoleId { get; private set; }
@@ -21,11 +19,17 @@ namespace AccountManagement.Domain.AccountAgg
 
         public string ProfilePhoto { get; private set; }
 
-        public Account(string username, string password, string fullname, string mobile, int roleId, string profilePhoto)
+        //! It's not private cause we need to use it in application and change it ActiveAccount Method for 1 time uses
+        public string ActiveCode { get; set; }
+
+        public string Email { get; private set; }
+
+        public bool IsActive { get; private set; }
+
+        public Account(string username, string password, string mobile, int roleId, string profilePhoto , string activeCode , string email)
         {
             Username = username;
             Password = password;
-            Fullname = fullname;
             Mobile = mobile;
             RoleId = roleId;
 
@@ -35,19 +39,34 @@ namespace AccountManagement.Domain.AccountAgg
             }
             
             IsRemoved = false;
+            IsActive = false;
             ProfilePhoto = profilePhoto;
+            ActiveCode = activeCode;
+            Email = email;
         }
 
-        public void Edit(string username, string fullname, string mobile, int roleId, string profilePhoto)
+        public void Edit(string username, string mobile, int roleId, string profilePhoto , string email)
         {
             Username = username;
-            Fullname = fullname;
             Mobile = mobile;
             RoleId = roleId;
             if (!string.IsNullOrWhiteSpace(profilePhoto))
             {
                 ProfilePhoto = profilePhoto;
             }
+            Email = email;
+
+        }
+
+        public void EditUserPanel(string username, string mobile, string profilePhoto, string email)
+        {
+            Username = username;
+            Mobile = mobile;
+            if (!string.IsNullOrWhiteSpace(profilePhoto))
+            {
+                ProfilePhoto = profilePhoto;
+            }
+            Email = email;
         }
 
         public void ChangePassword(string password)
@@ -63,6 +82,16 @@ namespace AccountManagement.Domain.AccountAgg
         public void Restore()
         {
             IsRemoved = false;
+        }
+
+        public void ActivatedAccount()
+        {
+            IsActive = true;
+        }
+
+        public void DeActiveAccount()
+        {
+            IsActive = false;
         }
     }
 }

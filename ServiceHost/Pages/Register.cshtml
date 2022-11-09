@@ -39,41 +39,31 @@
                                         <h4 class="login-title">ثبت نام</h4>
 
                                         <div class="row">
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label>نام کامل</label>
-                                                <input type="text" name="fullname" placeholder="نام کامل" required>
-                                                @if (Model.RegisterValidation != null)
-                                                {
-                                                    <span class="text-danger">@Model.RegisterValidation</span>
-                                                }
+                                            <div class="col-md-6 col-6 mb-20">
+                                                <label asp-for="Command.Username">نام کاربری</label>
+                                                <input type="text" asp-for="Command.Username" placeholder="نام کاربری">
+                                                <span class="text-danger" asp-validation-for="Command.Username"></span>
                                             </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label>نام کاربری</label>
-                                                <input type="text" name="username" placeholder="نام کاربری" required>
-                                                @if (Model.RegisterValidation != null)
-                                                {
-                                                    <span class="text-danger">@Model.RegisterValidation</span>
-                                                }
+                                            <div class="col-md-6 col-6 mb-20">
+                                                <label asp-for="Command.Email">ایمیل</label>
+                                                <input type="email" asp-for="Command.Email" placeholder="ایمیل">
+                                                <span class="text-danger" asp-validation-for="Command.Email"></span>
                                             </div>
                                             <div class="col-md-12 mb-20">
-                                                <label>شماره موبایل</label>
-                                                <input type="number" name="mobile" placeholder="شماره موبایل" required>
-                                                @if (Model.RegisterValidation != null)
-                                                {
-                                                    <span class="text-danger">@Model.RegisterValidation</span>
-                                                }
+                                                <label asp-for="Command.Mobile">شماره موبایل</label>
+                                                <input type="number" asp-for="Command.Mobile" placeholder="شماره موبایل">
+                                                <span class="text-danger" asp-validation-for="Command.Mobile"></span>
+                                                
                                             </div>
                                             <div class="col-md-6 mb-20">
-                                                <label>رمز عبور</label>
-                                                <input type="password" name="password" placeholder="رمز عبور" required>
-                                                @if (Model.RegisterValidation != null)
-                                                {
-                                                    <span class="text-danger">@Model.RegisterValidation</span>
-                                                }
+                                                <label asp-for="Command.Password">رمز عبور</label>
+                                                <input type="password" asp-for="Command.Password" placeholder="رمز عبور">
+                                                <span class="text-danger" asp-validation-for="Command.Password"></span>
                                             </div>
                                             <div class="col-md-6 mb-20">
-                                                <label>تکرار رمز عبور</label>
-                                                <input type="password" name="repassword" placeholder="تکرار رمز عبور" required>
+                                                <label asp-for="Command.RePassword">تکرار رمز عبور</label>
+                                                <input type="password" asp-for="Command.RePassword" placeholder="تکرار رمز عبور">
+                                                <span class="text-danger" asp-validation-for="Command.RePassword"></span>
                                             </div>
                                             <div class="col-12">
                                                 <button class="register-button mt-0">ثبت نام</button>

@@ -1,4 +1,5 @@
 using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using InventoryManagement.Application.Contract.Inventory;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using ShopManagement.Application.Contracts.Product;
 
 namespace ServiceHost.Areas.Administration.Pages.Inventory
 {
-    [Authorize(Roles = Roles.Administrator)]
+    [PermissionChecker(Roles.ManageInventory)]
     public class IndexModel : PageModel
     {
         private readonly IProductApplication _productApplication;
@@ -33,6 +34,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             Inventory = _inventoryApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.AddInventory)]
         public IActionResult OnGetCreate()
         {
             var command = new CreateInventory()
@@ -48,6 +50,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditInventory)]
         public IActionResult OnGetEdit(int id)
         {
             var inventory  = _inventoryApplication.GetDetails(id);
@@ -62,6 +65,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.IncreaseItemInventory)]
         public IActionResult OnGetIncrease(int id)
         {
             var command = new IncreaseInventory()
@@ -79,6 +83,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DecreaseItemInventory)]
         public IActionResult OnGetReduce(int id)
         {
             var command = new ReduceInventory()
@@ -95,6 +100,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.ShowOperationHistory)]
         public IActionResult OnGetOperationLog(int id)
         {
             var operationLog = _inventoryApplication.GetOperationLog(id);

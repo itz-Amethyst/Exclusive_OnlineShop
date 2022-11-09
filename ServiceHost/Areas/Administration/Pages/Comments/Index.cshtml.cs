@@ -1,3 +1,5 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using CommentManagement.Application.Contract.Comment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,6 +7,7 @@ using ShopManagement.Application.Contracts.Comment;
 
 namespace ServiceHost.Areas.Administration.Pages.Comments
 {
+    [PermissionChecker(Roles.ManageComment)]
     public class IndexModel : PageModel
     {
         private readonly ICommentApplication _commentApplication;
@@ -25,6 +28,7 @@ namespace ServiceHost.Areas.Administration.Pages.Comments
             Comments = _commentApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.AccessToCommentOperations)]
         public IActionResult OnGetCancel(int id)
         {
             var result = _commentApplication.Cancel(id);
@@ -33,6 +37,7 @@ namespace ServiceHost.Areas.Administration.Pages.Comments
             
         }
 
+        [PermissionChecker(Roles.AccessToCommentOperations)]
         public IActionResult OnGetConfirm(int id)
         {
             var result = _commentApplication.Confirm(id);

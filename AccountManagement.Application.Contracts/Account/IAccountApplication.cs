@@ -1,4 +1,6 @@
 ﻿using _0_Framework.Application;
+using AccountManagement.Application.Contracts.Account.Admin;
+using AccountManagement.Application.Contracts.Account.User;
 
 namespace AccountManagement.Application.Contracts.Account
 {
@@ -10,7 +12,7 @@ namespace AccountManagement.Application.Contracts.Account
         
         OperationResult Edit(EditAccount command);
 
-        OperationResult ChangePassword(ChangePassword command);
+        OperationResult ChangePassword(ChangePasswordViewModel command);
 
         OperationResult Login(Login command);
 
@@ -21,6 +23,23 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult Remove(int id);
 
         OperationResult Restore(int id);
+
+        bool ActiveAccount(string activeCode);
+
         void Logout();
+
+        OperationResult SendForgotPasswordLink(string email);
+        
+        OperationResult ResetPassword(ResetPasswordViewModel command);
+
+        AccountInformationViewModel GetUserInformation(string username);
+
+        UserPanelSideBarViewModel GetUserSideBarData(string username);
+
+        EditUserProfile GetProfileDetails(string username);
+
+        OperationResult EditUserProfile(EditUserProfile command);
+
+        OperationResult ChangePasswordByUser(ChangePasswordViewModel command);
     }
 }

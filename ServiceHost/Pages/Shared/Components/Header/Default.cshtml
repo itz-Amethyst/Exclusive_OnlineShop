@@ -12,7 +12,7 @@
                 <div class="header-wrapper d-none d-lg-flex">
                     <!-- logo -->
                     <div class="logo">
-                        <a asp-page="/Index">
+                        <a  href="/">
                             <img src="~/Theme/assets/img/logo.png" class="img-fluid" alt="">
                         </a>
                     </div>
@@ -20,7 +20,7 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a asp-page="/Index">صفحه اصلی</a>
+                                    <a href="/">صفحه اصلی</a>
                                 </li>
 
                                 <li class="menu-item-has-children">
@@ -76,10 +76,32 @@
                                         <div class="single-settings-block">
                                             <h4 class="title">پروفایل من </h4>
                                             <ul>
-                                                @if (AuthHelper.IsAuthenticated())
+                                                @* @if (AuthHelper.IsAuthenticated())
                                                 {
                                                     <li>
                                                         <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                                    </li>
+
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a asp-page="/Register">ثبت نام</a>
+                                                    </li>
+                                                    <li>
+                                                        <a asp-page="/Login">ورود</a>
+                                                    </li>
+                                                }*@
+                                                
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <li>
+
+                                                        <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                                    </li>
+                                                    
+                                                    <li>
+                                                        <a asp-area="UserPanel"> پروفایل من ,@User.Identity.Name</a>
                                                     </li>
 
                                                 }
@@ -200,7 +222,24 @@
                         <li class="menu-item-has-children">
                             <a href="#">پروفایل من </a>
                             <ul class="sub-menu">
-                                @if (AuthHelper.IsAuthenticated())
+                                @* @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-page="/Register">ثبت نام</a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="/Login">ورود</a>
+                                    </li>
+                                }*@
+                                
+                                @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
                                         <a asp-page="/Login" asp-page-handler="Logout">خروج</a>

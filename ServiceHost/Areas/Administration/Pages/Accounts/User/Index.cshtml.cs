@@ -1,5 +1,7 @@
 using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Account.Admin;
 using AccountManagement.Application.Contracts.Role;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,7 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.User
 {
-    [Authorize(Roles = _0_Framework.Infrastructure.Roles.Administrator)]
+    [Authorize]
+    [PermissionChecker(_0_Framework.Infrastructure.Roles.ManageUsers)]
     public class IndexModel : PageModel
     {
         private readonly IAccountApplication _accountApplication;
@@ -34,6 +37,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
             Accounts = _accountApplication.Search(searchModel);
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.CreateUser)]
         public IActionResult OnGetCreate()
         {
             var command = new RegisterAccount
@@ -49,6 +53,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
             return new JsonResult(account);
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.EditUser)]
         public IActionResult OnGetEdit(int id)
         {
             var account = _accountApplication.GetDetails(id);
@@ -63,6 +68,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
             return new JsonResult(account);
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.DeleteUser)]
         public IActionResult OnGetRemove(int id)
         {
             var result = _accountApplication.Remove(id);
@@ -71,6 +77,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
 
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.DeleteUser)]
         public IActionResult OnGetRestore(int id)
         {
             var result = _accountApplication.Restore(id);
@@ -78,13 +85,14 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.User
             return RedirectToPage("./Index", new { Restored = "True" });
         }
 
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.ChangeUserPassword)]
         public IActionResult OnGetChangePassword(int id)
         {
-            var command = new ChangePassword { Id = id };
+            var command = new ChangePasswordViewModel { Id = id };
             return Partial("ChangePassword", command);
         }
 
-        public JsonResult OnPostChangePassword(ChangePassword command)
+        public JsonResult OnPostChangePassword(ChangePasswordViewModel command)
         {
             var result = _accountApplication.ChangePassword(command);
 

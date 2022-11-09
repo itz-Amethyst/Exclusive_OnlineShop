@@ -31,6 +31,7 @@ AccountManagementBootstrapper.Configure(builder.Services, connectionString);
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddTransient<IAuthHelper , AuthHelper>();
+builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 builder.Services.AddHttpContextAccessor();
 
 
@@ -42,40 +43,59 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.Lax;
 });
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-    {
-        options.LoginPath = new PathString("/Login");
-        options.LogoutPath = new PathString("/Login/Logout");
-        options.AccessDeniedPath = new PathString("/AccessDenied");
-        //!Option not necessary
-        options.ExpireTimeSpan = TimeSpan.FromDays(1);
-    });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+//    {
+//        options.LoginPath = new PathString("/Login");
+//        options.LogoutPath = new PathString("/Login/Logout");
+//        options.AccessDeniedPath = new PathString("/AccessDenied");
+//        //!Option not necessary
+//        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+//    });
 
-builder.Services.AddAuthorization(options =>
+#region Authentication
+
+builder.Services.AddAuthentication(options =>
 {
-    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{Roles.Administrator , Roles.Manager}));
-
-    options.AddPolicy("Shop", policy => policy.RequireRole(new List<string>{Roles.Administrator}));
-
-    options.AddPolicy("Discounts", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
-    
-    options.AddPolicy("Account", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.LoginPath = new PathString("/Login");
+    options.LogoutPath = new PathString("/Logout");
+    options.AccessDeniedPath = new PathString("/AccessDenied");
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(43200); //? Around a Month
 
 });
 
-builder.Services.AddRazorPages()
-    .AddRazorPagesOptions(options =>
-    {
-        options.Conventions.AuthorizeAreaFolder("Administration" , "/" ,  "AdminArea");
+#endregion
 
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{Roles.Administrator , Roles.Manager}));
+
+//    options.AddPolicy("Shop", policy => policy.RequireRole(new List<string>{Roles.Administrator}));
+
+//    options.AddPolicy("Discounts", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
+    
+//    options.AddPolicy("Account", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
+
+//});
+
+//builder.Services.AddRazorPages()
+//    .AddRazorPagesOptions(options =>
+//    {
+//        options.Conventions.AuthorizeAreaFolder("Administration" , "/" ,  "AdminArea");
+
+//        options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
         
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discounts");
+//        options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discounts");
 
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
+//        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
 
-    });
+//    });
 
 var app = builder.Build();
 

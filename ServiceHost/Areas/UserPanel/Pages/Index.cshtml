@@ -1,0 +1,86 @@
+﻿@page
+@model ServiceHost.Areas.UserPanel.Pages.IndexModel
+@{
+    ViewData["Title"] = "پنل کاربری";
+}
+
+<partial name="_JqueryValidator" />
+
+
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h1 class="breadcrumb-content__title">@ViewData["Title"]</h1>
+                        <ul class="breadcrumb-content__page-map">
+                            <li>
+                                <a href="/">صفحه اصلی</a>
+                            </li>
+                            <li>
+                                <a>@ViewData["Title"]</a>
+                            </li>
+                            <li class="active">@Model.Information.Username</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="main_content_area">
+    <div class="container">
+        <div class="account_dashboard">
+            <div class="row">
+                @await Component.InvokeAsync("UserSideBar")
+                <div class="col-sm-12 col-md-9 col-lg-9 userpanel-dashboard-right">
+                    <section class="section-style box-shadow">
+                        <header>
+                            <h4>اطلاعات حساب کاربری</h4>
+                        </header>
+                        <div class="inner">
+                            <form method="" class="form-style">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-user"></i> نام کاربری : @Model.Information.Username
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-phone"></i> شماره تماس : @Model.Information.Mobile
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-envelope"></i> ایمیل : @Model.Information.Email
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                        <div class="input-layer">
+                                            <label>
+                                                <i class="fa fa-calendar"></i> تاریخ عضویت: @Model.Information.RegisterDate
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
