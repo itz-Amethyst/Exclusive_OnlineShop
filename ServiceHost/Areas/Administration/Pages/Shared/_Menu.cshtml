@@ -1,9 +1,10 @@
-﻿@using _0_Framework.Application
+﻿@using AccountManagement.Infrastructure.EFCore.Security
 @using _0_Framework.Infrastructure
-@inject IAuthHelper AuthHelper
+@inject IPermissionChecker _permissionChecker
 
 @{
-    var currentAccount = AuthHelper.CurrentAccountInfo();
+    //var currentAccount = AuthHelper.CurrentAccountInfo();
+    var username = User.Identity.Name;
 }
 
 <div class="left side-menu">
@@ -15,7 +16,7 @@
                 <img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
             </div>
             @*<h5><a href="#">@currentAccount.FullName</a> </h5>*@
-            <p>@currentAccount.Role</p>
+            @*<p>@currentAccount.Role</p>*@
             <ul class="list-inline">
                 <li>
                     <a href="#">
@@ -39,56 +40,99 @@
                 <li>
                     <a asp-page="/Index" class="waves-effect"><i class="fa fa-th"></i> <span> داشبورد </span> </a>
                 </li>
-
-                <li>
-                    <a asp-page="/Comments/Index" class="waves-effect"><i class="fa fa-commenting"></i> <span> کامنت ها </span> </a>
-                </li>
-
-                @if (AuthHelper.CurrentUserRole() == Roles.Administrator)
+                @if (_permissionChecker.CheckPermission(Roles.ManageComment, username))
                 {
-
+                    <li>
+                        <a asp-page="/Comments/Index" class="waves-effect"><i class="fa fa-commenting"></i> <span> کامنت ها </span> </a>
+                    </li>
+                }
+                @*  @if (AuthHelper.CurrentUserRole() == Roles.Administrator)
+                {*@
+                @if (_permissionChecker.CheckPermission(Roles.ManageInventory, username))
+                {
                     <li>
                         <a asp-page="/Inventory/Index" class="waves-effect"><i class="fa fa-archive"></i> <span> انبارداری </span> </a>
                     </li>
+                }
 
-
+                @if (_permissionChecker.CheckPermission(Roles.AccessShop, username))
+                {
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shopping-cart"></i> <span> فروشگاه </span> <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
-                            <li><a asp-page="/Shop/Slides/Index"><i class="fa fa-image"></i>اسلایدر</a></li>
-                            <li><a asp-page="/Shop/ProductCategories/Index"><i class="fa fa-inbox"></i>گروه محصولات</a></li>
-                            <li><a asp-page="/Shop/Products/Index"><i class="fa fa-shopping-basket"></i> محصولات</a></li>
-                            <li><a asp-page="/Shop/ProductPictures/Index"><i class="fa fa-camera-retro"></i>عکس محصولات</a></li>
-                        </ul>
-                    </li>
-
-
-
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-percent"></i> <span>سیستم تخفیفات </span> <span class="menu-arrow"></span></a>
-                        <ul class="list-unstyled">
-                            <li><a asp-page="/Discounts/CustomerDiscounts/Index"><i class="fa fa-user"></i>تخفیف مشتریان</a></li>
-                            <li><a asp-page="/Discounts/ColleagueDiscounts/Index"><i class="fa fa-suitcase"></i>تخفیف همکاران</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> سیستم کاربران </span> <span class="menu-arrow"></span></a>
-                        <ul class="list-unstyled">
-                            <li><a asp-page="/Accounts/User/Index"><i class="fa fa-user"></i>کاربران</a></li>
-                            <li><a asp-page="/Accounts/Role/Index"><i class="fa fa-briefcase"></i>نقش ها</a></li>
+                            @if (_permissionChecker.CheckPermission(Roles.ManageSlider, username))
+                            {
+                                <li><a asp-page="/Shop/Slides/Index"><i class="fa fa-image"></i>اسلایدر</a></li>
+                            }
+                            @if (_permissionChecker.CheckPermission(Roles.ManageProductCategory, username))
+                            {
+                                <li><a asp-page="/Shop/ProductCategories/Index"><i class="fa fa-inbox"></i>گروه محصولات</a></li>
+                            }
+                            @if (_permissionChecker.CheckPermission(Roles.ManageShop, username))
+                            {
+                                <li><a asp-page="/Shop/Products/Index"><i class="fa fa-shopping-basket"></i> محصولات</a></li>
+                            }
+                            @if (_permissionChecker.CheckPermission(Roles.ManageProductPicture, username))
+                            {
+                                <li><a asp-page="/Shop/ProductPictures/Index"><i class="fa fa-camera-retro"></i>عکس محصولات</a></li>
+                            }
                         </ul>
                     </li>
                 }
 
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-coffee"></i> <span>سیستم بلاگینگ </span> <span class="menu-arrow"></span></a>
-                    <ul class="list-unstyled">
-                        <li><a asp-page="/Blog/Articles/Index"><i class="fa fa-pencil"></i>مقالات</a></li>
-                        <li><a asp-page="/Blog/ArticleCategories/Index"><i class="fa fa-database"></i>گروه مقالات</a></li>
-                    </ul>
-                </li>
+                @if (_permissionChecker.CheckPermission(Roles.AccessDiscounts, username))
+                {
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-percent"></i> <span>سیستم تخفیفات </span> <span class="menu-arrow"></span></a>
+                        <ul class="list-unstyled">
+                            @if (_permissionChecker.CheckPermission(Roles.ManageCustomerDiscount, username))
+                            {
+                                <li><a asp-page="/Discounts/CustomerDiscounts/Index"><i class="fa fa-user"></i>تخفیف مشتریان</a></li>
+                            }
 
+                            @if (_permissionChecker.CheckPermission(Roles.ManageColleagueDiscount, username))
+                            {
+                                <li><a asp-page="/Discounts/ColleagueDiscounts/Index"><i class="fa fa-suitcase"></i>تخفیف همکاران</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+                @if (_permissionChecker.CheckPermission(Roles.AccessAccounts, username))
+                {
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> سیستم کاربران </span> <span class="menu-arrow"></span></a>
+                        <ul class="list-unstyled">
+                            @if (_permissionChecker.CheckPermission(Roles.ManageUsers, username))
+                            {
+                                <li><a asp-page="/Accounts/User/Index"><i class="fa fa-user"></i>کاربران</a></li>
+                            }
+
+                            @if (_permissionChecker.CheckPermission(Roles.ManageRoles, username))
+                            {
+                                <li><a asp-page="/Accounts/Role/Index"><i class="fa fa-briefcase"></i>نقش ها</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+                @if (_permissionChecker.CheckPermission(Roles.AccessBlog, username))
+                {
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-coffee"></i> <span>سیستم بلاگینگ </span> <span class="menu-arrow"></span></a>
+                        <ul class="list-unstyled">
+                            @if (_permissionChecker.CheckPermission(Roles.ManageArticle, username))
+                            {
+                                <li><a asp-page="/Blog/Articles/Index"><i class="fa fa-pencil"></i>مقالات</a></li>
+                            }
+
+                            @if (_permissionChecker.CheckPermission(Roles.ManageArticleCategory, username))
+                            {
+                                <li><a asp-page="/Blog/ArticleCategories/Index"><i class="fa fa-database"></i>گروه مقالات</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
 
                 <li>
                     <a asp-page="/Login" asp-page-handler="LogoutFromAdmin" class="waves-effect"><i class="fa fa-sign-out"></i> <span> خروج </span> </a>

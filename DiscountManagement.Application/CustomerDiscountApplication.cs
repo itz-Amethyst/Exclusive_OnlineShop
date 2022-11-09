@@ -69,6 +69,34 @@ namespace DiscountManagement.Application
             return _customerDiscountRepository.GetDetails(id);
         }
 
+        public OperationResult Remove(int id)
+        {
+            var operation = new OperationResult();
+            var customerDiscount = _customerDiscountRepository.GetById(id);
+            if (customerDiscount == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            customerDiscount.Remove();
+            _customerDiscountRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
+        public OperationResult Restore(int id)
+        {
+            var operation = new OperationResult();
+            var customerDiscount = _customerDiscountRepository.GetById(id);
+            if (customerDiscount == null)
+            {
+                operation.Failed(ApplicationMessages.RecordNotFound);
+            }
+
+            customerDiscount.Restore();
+            _customerDiscountRepository.SaveChanges();
+            return operation.Succeeded();
+        }
+
         public List<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel searchModel)
         {
             return _customerDiscountRepository.Search(searchModel);

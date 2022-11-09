@@ -29,7 +29,7 @@ namespace _01_ExclusiveQuery.Query
             var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
             var discounts = _discountContext.CustomerDiscounts
-                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false)
                 .Select(x => new { x.ProductId, x.DiscountRate , x.EndDate }).ToList();
 
             var category = _shopContext.ProductCategories.Include(x => x.Products)
@@ -103,7 +103,7 @@ namespace _01_ExclusiveQuery.Query
             var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
             var discounts = _discountContext.CustomerDiscounts
-                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false)
                 .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
 
             var categories = _shopContext.ProductCategories.Include(x => x.Products)

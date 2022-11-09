@@ -1,14 +1,12 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopManagement.Application.Contracts.Product;
-using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Application.Contracts.Slide;
-using ShopManagement.Domain.ProductAgg;
-using ShopManagement.Domain.SlideAgg;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 {
+    [PermissionChecker(Roles.ManageSlider)]
     public class IndexModel : PageModel
     {
         private readonly ISlideApplication _slideApplication;
@@ -28,6 +26,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
             Slides = _slideApplication.GetList();
         }
 
+        [PermissionChecker(Roles.CreateSlider)]
         public IActionResult OnGetCreate()
         {
             var command = new CreateSlide();
@@ -41,6 +40,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditSlider)]
         public IActionResult OnGetEdit(int id)
         {
             var slide = _slideApplication.GetDetails(id);
@@ -54,6 +54,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DeleteSlider)]
         public IActionResult OnGetRemove(int id)
         {
             var result = _slideApplication.Remove(id);
@@ -62,6 +63,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
             
         }
 
+        [PermissionChecker(Roles.DeleteSlider)]
         public IActionResult OnGetRestore(int id)
         {
             var result = _slideApplication.Restore(id);

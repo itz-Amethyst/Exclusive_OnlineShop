@@ -1,5 +1,6 @@
 ﻿@page
 @using _0_Framework.Application
+@using _0_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Inventory.IndexModel
 @{
     ViewData["Title"] = "مدیریت انبار";
@@ -38,7 +39,7 @@
                             <span>پاک کردن فیلتر</span>
                             <i class="fa fa-remove m-l-15"></i>
                         </a>
-                        <a type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
+                        <a permission="@Roles.AddInventory" type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
                             <span>ایحاد انبار جدید</span>
                             <i class="fa fa-plus m-l-15"></i>
                         </a>
@@ -81,16 +82,16 @@
                             <td>@item.CurrentCount</td>
                             <td>@item.CreationDate</td>
                             <td>
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md "
+                                <a permission="@Roles.EditInventory" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md "
                                href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
 
-                                <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md "
+                                <a permission="@Roles.IncreaseItemInventory" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md "
                                href="#showmodal=@Url.Page("./Index" , "Increase" , new {id = item.Id})"><i class="fa fa-plus">افزایش موجودی</i></a>
 
-                                <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md "
+                                <a permission="@Roles.DecreaseItemInventory" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md "
                                href="#showmodal=@Url.Page("./Index" , "Reduce" , new {id = item.Id})"><i class="fa fa-minus">کاهش موجودی</i></a>
 
-                                <a class="btn btn-trans btn-inverse waves-effect waves-light m-l-15 w-md "
+                                <a permission="@Roles.ShowOperationHistory" class="btn btn-trans btn-inverse waves-effect waves-light m-l-15 w-md "
                                href="#showmodal=@Url.Page("./Index" , "OperationLog" , new {id = item.Id})"
                                onclick="$('.modal-dialog').css('width', '60%')"><i class="fa fa-recycle">مشاهده گردش انبار</i></a>
 

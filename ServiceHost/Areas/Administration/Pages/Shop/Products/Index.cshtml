@@ -1,4 +1,5 @@
 ﻿@page
+@using _0_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Shop.Products.IndexModel
 @{
     ViewData["Title"] = "مدیریت محصولات";
@@ -38,7 +39,7 @@
                             <span>پاک کردن فیلتر</span>
                             <i class="fa fa-remove m-l-15"></i>
                         </a>
-                        <a type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
+                        <a permission="@Roles.CreateProduct" type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
                             <span>ایجاد محصول جدید</span>
                             <i class="fa fa-plus m-l-15"></i>
                         </a>
@@ -81,29 +82,33 @@
                             <td>
                                 <img src="~/UploadedFiles/@item.Picture" style="width: 80px; height: 80px" />
                             </td>
-                            <td>@item.Name</td>
+                            <td>
+                                <a href="https://localhost:7018/Product/@item.Slug">
+                                    @item.Name
+                                </a>
+                            </td>
                             <td>@item.Code</td>
                             <td>@item.CategoryName</td>
                             <td class="text-center">
-                            @if (!item.IsDeleted)
-                            {
-                                <i class="fa fa-check text-success fa-3x"></i>
-                            }
-                            else
-                            {
-                                <i class="fa fa-remove text-danger fa-3x"></i>
-                            }
-                            </td>
-                            <td>@item.CreationDate</td>
-                            <td>
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit m-r-5"></i>ویرایش</a>
                                 @if (!item.IsDeleted)
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>حذف</a>
+                                    <i class="fa fa-check text-success fa-3x"></i>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
+                                    <i class="fa fa-remove text-danger fa-3x"></i>
+                                }
+                            </td>
+                            <td>@item.CreationDate</td>
+                            <td>
+                                <a permission="@Roles.EditProduct" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit m-r-5"></i>ویرایش</a>
+                                @if (!item.IsDeleted)
+                                {
+                                    <a permission="@Roles.DeleteProduct" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>حذف</a>
+                                }
+                                else
+                                {
+                                    <a permission="@Roles.DeleteProduct" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
                                 }
                             </td>
                         </tr>
@@ -119,21 +124,21 @@
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#datatable').DataTable();
         });
 
         // Removing Pagination and SearchBox
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
 
-        //? Sweet Alert 
+        //? Sweet Alert
 
         var url = window.location.href;
         const MainUrl = url.split('?')[0];
 
         function Location() {
             window.location.href = MainUrl;
-           
+
         }
 
         function Clear() {

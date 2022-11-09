@@ -1,4 +1,5 @@
 ﻿@page
+@using _0_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts.IndexModel
 @{
     ViewData["Title"] = "مدیریت تخفیفات مشتریان";
@@ -37,7 +38,7 @@
                             <span>پاک کردن فیلتر</span>
                             <i class="fa fa-remove m-l-15"></i>
                         </a>
-                        <a type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
+                        <a permission="@Roles.CreateCustomerDiscount" type="submit" class="btn btn-primary waves-effect waves-light m-l-15 w-lg btn_left" href="#showmodal=@Url.Page("./Index" , "Create")">
                             <span>تعریف تخفیف مشتری</span>
                             <i class="fa fa-plus m-l-15"></i>
                         </a>
@@ -84,7 +85,15 @@
                             <td>@item.Reason</td>
                             <td>@item.CreationDate</td>
                             <td>
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
+                                <a permission="@Roles.EditCustomerDiscount" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
+                                @if (item.IsDeleted)
+                                {
+                                    <a permission="@Roles.DeleteCustomerDiscount" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"><i class="fa fa-check">فعال سازی</i></a>
+                                }
+                                else
+                                {
+                                    <a permission="@Roles.DeleteCustomerDiscount" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"><i class="fa fa-trash">غیر فعال</i></a>
+                                }
                             </td>
                         </tr>
                     }
@@ -95,6 +104,7 @@
 </div>
 <!-- end row -->
 @section Scripts{
+    <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
@@ -106,6 +116,56 @@
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
 
         //? Sweet Alert 
+        var url = window.location.href;
+        const MainUrl = url.split('?')[0];
+
+        function Location() {
+            window.location.href = MainUrl;
+           
+        }
+
+        function Clear() {
+            setTimeout(Location, 2500);
+        }
 
     </script>
+    
+    @if (ViewBag.Removed == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'غیر فعال سازی با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+    @if (ViewBag.Restored == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'فعال سازی با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+            Clear();
+
+        </script>
+    }
 }

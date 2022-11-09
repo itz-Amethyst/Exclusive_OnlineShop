@@ -1,4 +1,5 @@
 using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using DiscountManagement.Application.Contract.CustomerDiscount;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using ShopManagement.Application.Contracts.Product;
 
 namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
 {
-    [Authorize(Roles = Roles.Administrator)]
+    [PermissionChecker(Roles.ManageCustomerDiscount)]
     public class IndexModel : PageModel
     {
         private readonly IProductApplication _productApplication;
@@ -25,12 +26,15 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             _customerDiscountApplication = customerDiscountApplication;
         }
 
-        public void OnGet(CustomerDiscountSearchModel searchModel)
+        public void OnGet(CustomerDiscountSearchModel searchModel , bool removed = false , bool restored = false)
         {
+            ViewData["Restored"] = restored;
+            ViewData["Removed"] = removed;
             Products = new SelectList(_productApplication.GetProducts(),"Id" , "Name");
             CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.CreateCustomerDiscount)]
         public IActionResult OnGetCreate()
         {
             var command = new DefineCustomerDiscount
@@ -45,7 +49,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             var result = _customerDiscountApplication.Define(command);
             return new JsonResult(result);
         }
-
+        
+        [PermissionChecker(Roles.EditCustomerDiscount)]
         public IActionResult OnGetEdit(int id)
         {
             var customerDiscount  = _customerDiscountApplication.GetDetails(id);
@@ -60,5 +65,20 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.DeleteCustomerDiscount)]
+        public IActionResult OnGetRemove(int id)
+        {
+            var result = _customerDiscountApplication.Remove(id);
+
+            return RedirectToPage("./Index", new { Removed = "True" });
+        }
+
+        [PermissionChecker(Roles.DeleteCustomerDiscount)]
+        public IActionResult OnGetRestore(int id)
+        {
+            var result = _customerDiscountApplication.Restore(id);
+
+            return RedirectToPage("./Index", new { Restored = "True" });
+        }
     }
 }

@@ -1,9 +1,12 @@
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
 {
+    [PermissionChecker(Roles.ManageArticleCategory)]
     public class IndexModel : PageModel
     {
         private readonly IArticleCategoryApplication _articleCategoryApplication;
@@ -21,6 +24,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
             ArticleCategories = _articleCategoryApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.CreateArticleCategory)]
         public IActionResult OnGetCreate()
         {
             return Partial("./Create", new CreateArticleCategory());
@@ -32,6 +36,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditArticleCategory)]
         public IActionResult OnGetEdit(int id)
         {
             var articleCategory = _articleCategoryApplication.GetDetails(id);

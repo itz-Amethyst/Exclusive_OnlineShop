@@ -8,5 +8,14 @@ namespace AccountManagement.Domain.RoleAgg
         EditRole GetDetails(int id);
 
         List<RoleViewModel> List();
+        
+        List<PermissionViewModel> GetAllPermissions();
+        
+        bool AddPermissionsToRole(int roleId, List<int> permissions);
+
+        List<int> SelectedPermissionsRole(int roleId);
+        
+        bool UpdatePermissionsRole(int roleId, List<int> permissions);
+
     }
 }

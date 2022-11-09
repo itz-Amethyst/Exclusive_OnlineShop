@@ -72,30 +72,30 @@ builder.Services.AddAuthentication(options =>
 #endregion
 
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{Roles.Administrator , Roles.Manager}));
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("AdminArea", policy => policy.RequireRole(new List<string>{Roles.Administrator , Roles.Manager}));
 
-    options.AddPolicy("Shop", policy => policy.RequireRole(new List<string>{Roles.Administrator}));
+//    options.AddPolicy("Shop", policy => policy.RequireRole(new List<string>{Roles.Administrator}));
 
-    options.AddPolicy("Discounts", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
+//    options.AddPolicy("Discounts", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
     
-    options.AddPolicy("Account", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
+//    options.AddPolicy("Account", policy => policy.RequireRole(new List<string> { Roles.Administrator }));
 
-});
+//});
 
-builder.Services.AddRazorPages()
-    .AddRazorPagesOptions(options =>
-    {
-        options.Conventions.AuthorizeAreaFolder("Administration" , "/" ,  "AdminArea");
+//builder.Services.AddRazorPages()
+//    .AddRazorPagesOptions(options =>
+//    {
+//        options.Conventions.AuthorizeAreaFolder("Administration" , "/" ,  "AdminArea");
 
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
+//        options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
         
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discounts");
+//        options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discounts");
 
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
+//        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
 
-    });
+//    });
 
 var app = builder.Build();
 

@@ -33,7 +33,7 @@ namespace _01_ExclusiveQuery.Query
             var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
             var discounts = _discountContext.CustomerDiscounts
-                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false)
                 .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
 
             var products = _shopContext.Products
@@ -96,7 +96,7 @@ namespace _01_ExclusiveQuery.Query
             var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
             var discounts = _discountContext.CustomerDiscounts
-                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false)
                 .Select(x => new { x.ProductId, x.DiscountRate, x.EndDate }).ToList();
 
             var query = _shopContext.Products
@@ -165,7 +165,7 @@ namespace _01_ExclusiveQuery.Query
             var date = _shopContext.Products.Select(x => new { x.CreationDateNewLabel, x.Id }).ToList();
 
             var discounts = _discountContext.CustomerDiscounts
-                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false)
                 .Select(x => new { x.ProductId, x.DiscountRate , x.EndDate }).ToList();
 
             var product = _shopContext.Products

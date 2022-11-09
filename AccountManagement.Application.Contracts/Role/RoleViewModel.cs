@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public string CreationDate { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

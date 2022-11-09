@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Authorization;
+using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
 {
-    //[Authorize(Roles = "2 , 4")]
+    [PermissionChecker(Roles.ManageProductCategory)]
     public class IndexModel : PageModel
     {
         private readonly IProductCategoryApplication _productCategoryApplication;
@@ -23,6 +24,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
             ProductCategories = _productCategoryApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.CreateProductCategory)]
         public IActionResult OnGetCreate()
         {
             return Partial("./Create", new CreateProductCategory());
@@ -34,6 +36,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
             return new JsonResult(result);
         }
 
+        [PermissionChecker(Roles.EditProductCategory)]
         public IActionResult OnGetEdit(int id)
         {
             var productCategory = _productCategoryApplication.GetDetails(id);

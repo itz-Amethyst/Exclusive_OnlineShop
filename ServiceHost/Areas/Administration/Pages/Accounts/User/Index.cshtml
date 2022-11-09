@@ -1,4 +1,5 @@
 ﻿@page
+@using _0_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Accounts.User.IndexModel
 @{
     ViewData["Title"] = "مدیریت کاربران";
@@ -102,15 +103,15 @@
                             </td>
                             <td>@item.CreationDate</td>
                             <td>
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit m-r-5"></i>ویرایش</a>
-                                <a class="btn btn-trans btn-primary waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "ChangePassword" , new {id = item.Id})"><i class="fa fa-key m-r-5"></i>تغییر رمز عبور</a>
+                                <a permission="@Roles.EditUser" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit m-r-5"></i>ویرایش</a>
+                                <a permission="@Roles.ChangeUserPassword" class="btn btn-trans btn-primary waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "ChangePassword" , new {id = item.Id})"><i class="fa fa-key m-r-5"></i>تغییر رمز عبور</a>
                                 @if (!item.IsDeleted)
                                 {
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>حذف</a>
+                                    <a permission="@Roles.DeleteUser" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"><i class="fa fa-ban m-r-5"></i>حذف</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
+                                    <a permission="@Roles.DeleteUser" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"><i class="fa fa-check m-r-5"></i>فعال سازی</a>
                                 }
                             </td>
                         </tr>

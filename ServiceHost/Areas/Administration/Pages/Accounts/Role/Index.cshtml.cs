@@ -1,13 +1,11 @@
-using AccountManagement.Application.Contracts.Account.Admin;
 using AccountManagement.Application.Contracts.Role;
-using Microsoft.AspNetCore.Authorization;
+using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
 {
-    [Authorize(Roles = _0_Framework.Infrastructure.Roles.Administrator)]
+    [PermissionChecker(_0_Framework.Infrastructure.Roles.ManageRoles)]
     public class IndexModel : PageModel
     {
         private readonly IRoleApplication _roleApplication;
@@ -22,34 +20,30 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             _roleApplication = roleApplication;
         }
 
-        public void OnGet(AccountSearchModel searchModel , bool removed = false , bool restored = false)
+        public void OnGet(bool created = false, bool edited = false, bool activated = false, bool deactivated = false)
         {
+            ViewData["Created"] = created;
+            ViewData["Edited"] = edited;
+            ViewData["Activated"] = activated;
+            ViewData["DeActivated"] = deactivated;
             Roles = _roleApplication.List();
         }
 
-        public IActionResult OnGetCreate()
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.DeleteRole)]
+        public IActionResult OnGetDeActive(int id)
         {
-            var command = new CreateRole();
-            return Partial("./Create", command);
+            var result = _roleApplication.Remove(id);
+
+            return RedirectToPage("./Index", new { DeActivated = "True" });
+
         }
 
-        public JsonResult OnPostCreate(CreateRole command)
+        [PermissionChecker(_0_Framework.Infrastructure.Roles.DeleteRole)]
+        public IActionResult OnGetActive(int id)
         {
-            var account = _roleApplication.Create(command);
-            return new JsonResult(account);
-        }
+            var result = _roleApplication.Restore(id);
 
-        public IActionResult OnGetEdit(int id)
-        {
-            var role = _roleApplication.GetDetails(id);
-            return Partial("Edit", role);
-        }
-
-        public JsonResult OnPostEdit(EditRole command)
-        {
-            var account = _roleApplication.Edit(command);
-
-            return new JsonResult(account);
+            return RedirectToPage("./Index", new { Activated = "True" });
         }
     }
 }
