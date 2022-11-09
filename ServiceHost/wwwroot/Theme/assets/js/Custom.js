@@ -47,7 +47,7 @@ function updateCart() {
         //totalPrice = parseFloat(p.price.replace(/,/g, '')) * parseInt(p.count);
         let product =
             ` <div class="single-cart-item">
-                    <a href="javascript:void(0)" class="remove-icon">
+                    <a href="javascript:void(0)" class="remove-icon" onclick="removeFromCart('${p.id}')">
                         <i class="ion-android-close"></i>
                     </a>
                     <div class="image">
@@ -73,4 +73,15 @@ function updateCart() {
 
         cartItemsWrapper.append(product);
     });
+}
+
+function removeFromCart(id) {
+    let products = $.cookie(cookieName);
+    products = JSON.parse(products);
+
+    let itemToRemove = products.findIndex(p => p.id === id);
+    products.splice(itemToRemove, 1);
+    $.cookie(cookieName, JSON.stringify(products), { expires: cookieExpireDay, path: "/" });
+
+    updateCart();
 }
