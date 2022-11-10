@@ -203,6 +203,7 @@ namespace _01_ExclusiveQuery.Query
                 
                 var price = productInventory.UnitPrice;
                 product.Price = price.ToMoney();
+                product.PriceWithDouble = price;
                 var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
 
                 var productDate = date.FirstOrDefault(x => x.Id == product.Id);
