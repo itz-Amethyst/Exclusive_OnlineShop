@@ -20,13 +20,13 @@ function addToCart(id, name, price, picture , slug) {
     }
     else {
         const product = {
-            id , name , price , picture , count , slug
+            id , name , unitPrice: price , picture , count , slug
         }
 
         products.push(product);
     }
 
-    $.cookie(cookieName, JSON.stringify(products), { expires: cookieExpireDay, path: "/" });
+    $.cookie(cookieName, JSON.stringify(products), {secure: true, expires: cookieExpireDay, path: "/" });
     updateCart();
 }
 
@@ -64,9 +64,9 @@ function updateCart() {
                             <span>تعداد:‌ ${p.count} </span>
                         </p>
                         <p class="count">
-                            <span>قیمت واحد: ${p.price} </span>
+                            <span>قیمت واحد: ${p.unitPrice} </span>
                         </p>
-                      
+
                     </div>
                 </div>
             `;
@@ -81,7 +81,7 @@ function removeFromCart(id) {
 
     let itemToRemove = products.findIndex(p => p.id === id);
     products.splice(itemToRemove, 1);
-    $.cookie(cookieName, JSON.stringify(products), { expires: cookieExpireDay, path: "/" });
+    $.cookie(cookieName, JSON.stringify(products), { secure: true, expires: cookieExpireDay, path: "/" });
 
     updateCart();
 }
