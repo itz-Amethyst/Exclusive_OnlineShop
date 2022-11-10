@@ -14,7 +14,9 @@ namespace _01_ExclusiveQuery.Contracts.Product
 
         public string Name { get; set; }
 
-        public string? Price { get; set; }
+        public string Price { get; set; }
+
+        public double PriceWithDouble { get; set; }
 
         public string PriceWithDiscount { get; set; }
 
