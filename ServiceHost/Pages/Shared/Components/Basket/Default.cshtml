@@ -1,4 +1,7 @@
-﻿<li>
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<_01_ExclusiveQuery.Contracts.Order.CartQueryModel>
+
+<li>
     <a href="javascript:void(0)" id="search-overlay-trigger">
         <i class="ion-ios-search-strong"></i>
     </a>
@@ -7,33 +10,70 @@
     <div class="header-cart-icon">
         <a href="#" id="minicart-trigger">
             <i class="ion-bag"></i>
-            <span class="counter" id="cart_items_count"></span>
+            <span class="counter" id="cart_items_count">
+
+                @if (Context.Request.Cookies.ContainsKey("cart-items"))
+                {
+                    @Model.Count
+                }
+                
+            </span>
         </a>
         <div class="mini-cart" id="mini-cart">
             <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
+                @if (Context.Request.Cookies.ContainsKey("cart-items"))
+                {
+                    @foreach (var basket in Model)
+                    {
+                        <div class="single-cart-item">
+                            <a class="remove-icon" onclick="removeFromCart('@basket.Id')">
+                                <i class="ion-android-close"></i>
+                            </a>
+                            <div class="image">
+                                <a asp-page="/Product" asp-value="@basket.Slug">
+                                    <img src="/UploadedFiles/@basket.Picture"
+                                         class="img-fluid" alt="">
+                                </a>
+                            </div>
+                            <div class="content">
+                                <p class="product-title">
+                                    <a asp-page="/Product" asp-value="@basket.Slug">محصول: @basket.Name</a>
+                                </p>
+                                <p class="count">
+                                    <span>تعداد:‌ @basket.Count </span>
+                                </p>
+                                <p class="count">
+                                    <span>قیمت واحد: @basket.UnitPrice </span>
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+
+                }
 
             </div>
             @*<div class="cart-calculation">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="text-right">Sub-Total :</td>
-                            <td class="text-left">$220.00</td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">Eco Tax (-2.00) :</td>
-                            <td class="text-left">$6.00</td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">VAT (20%) :</td>
-                            <td class="text-left">$44.00</td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">Total :</td>
-                            <td class="text-left">$270.00</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <table class="table">
+            <tbody>
+            <tr>
+            <td class="text-right">Sub-Total :</td>
+            <td class="text-left">$220.00</td>
+            </tr>
+            <tr>
+            <td class="text-right">Eco Tax (-2.00) :</td>
+            <td class="text-left">$6.00</td>
+            </tr>
+            <tr>
+            <td class="text-right">VAT (20%) :</td>
+            <td class="text-left">$44.00</td>
+            </tr>
+            <tr>
+            <td class="text-right">Total :</td>
+            <td class="text-left">$270.00</td>
+            </tr>
+            </tbody>
+            </table>
             </div>*@
             <div class="cart-buttons">
                 <a asp-page="/Cart">مشاهده سبد خرید</a>
