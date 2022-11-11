@@ -1,3 +1,5 @@
+using _01_ExclusiveQuery.Contracts.Order;
+using _01_ExclusiveQuery.Query;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nancy.Json;
 using ShopManagement.Application.Contracts.Order;
@@ -6,22 +8,24 @@ namespace ServiceHost.Pages
 {
     public class CartModel : PageModel
     {
-        public List<CartItem> CartItems;
+        private readonly IOrderQuery _orderQuery;
+
+        public List<CartQueryModel> CartItems;
+
+        public CartModel(IOrderQuery orderQuery)
+        {
+            _orderQuery = orderQuery;
+        }
 
         public void OnGet()
         {
-            var serializer = new JavaScriptSerializer();
 
-            var value = Request.Cookies["cart-items"];
-            //HttpContext.Response.Cookies.Append("f" , "fa" , new CookieOptions
-            //{
-            //    HttpOnly = true
-            //});
-            CartItems = serializer.Deserialize<List<CartItem>>(value);
-
-            foreach (var item in CartItems)
+            if (Request.Cookies["cart-items"] != null)
             {
-                item.TotalItemPrice = item.UnitPrice * item.Count;
+                var serializer = new JavaScriptSerializer();
+                var value = Request.Cookies["cart-items"];
+                CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+                CartItems = _orderQuery.GetCartItemsBy(CartItems);
             }
 
             //Response.Cookies.Append("test" , serializer , cookieOptions);
