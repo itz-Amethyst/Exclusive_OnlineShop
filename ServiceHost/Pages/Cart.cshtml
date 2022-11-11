@@ -1,4 +1,5 @@
 ﻿@page
+@using _0_Framework.Application
 @model ServiceHost.Pages.CartModel
 @{
     ViewData["Title"] = "سبد خرید";
@@ -57,16 +58,25 @@
                                                 <td class="pro-title">
                                                     <a href="https://localhost:7018/Product/@item.Slug">@item.Name</a>
                                                 </td>
-                                                <td class="pro-price">
-                                                    <span>@item.UnitPrice</span>
-                                                </td>
+                                                @if (item.HasDiscount)
+                                                {
+                                                    <td class="pro-price">
+                                                        <span>@item.PriceWithDiscount.ToMoney()</span>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="pro-price">
+                                                        <span>@item.UnitPrice.ToMoney()</span>
+                                                    </td>
+                                                }
                                                 <td class="pro-quantity">
                                                     <div class="quantity-selection">
                                                         <input type="number" value="@item.Count" min="1">
                                                     </div>
                                                 </td>
                                                 <td class="pro-subtotal">
-                                                    <span>@item.TotalItemPrice</span>
+                                                    <span>@item.TotalItemPrice.ToMoney()</span>
                                                 </td>
                                                 <td class="pro-remove">
                                                     <a href="#">
