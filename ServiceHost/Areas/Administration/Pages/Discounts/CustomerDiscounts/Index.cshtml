@@ -69,6 +69,8 @@
                         <th>تاریخ پایان</th>
                         <th>علت تخفیف</th>
                         <th>تاریخ تولید</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ مصرف</th>
                         <th style="width: 260px">عملیات</th>
                     </tr>
                 </thead>
@@ -84,6 +86,26 @@
                             <td>@item.EndDate</td>
                             <td>@item.Reason</td>
                             <td>@item.CreationDate</td>
+                            <td class="text-center">
+                                @if (!item.IsDeleted)
+                                {
+                                    <i class="fa fa-check text-success fa-3x"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-remove text-danger fa-3x"></i>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (!item.IsOutOfDate)
+                                {
+                                    <i class="fa fa-check text-success fa-3x"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-remove text-danger fa-3x"></i>
+                                }
+                            </td>
                             <td>
                                 <a permission="@Roles.EditCustomerDiscount" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md " href="#showmodal=@Url.Page("./Index" , "Edit" , new {id = item.Id})"><i class="fa fa-edit">ویرایش</i></a>
                                 @if (item.IsDeleted)
