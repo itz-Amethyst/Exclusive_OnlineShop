@@ -2,7 +2,9 @@
 @model _01_ExclusiveQuery.MenuModel.MenuModel
 @inject IAuthHelper AuthHelper
 @{
-
+    bool authenticated = User.Identity.IsAuthenticated;
+    string? userName = User.Identity.Name;
+    bool check = Context.Request.Cookies.ContainsKey("cart-items");
 }
 
 <div class="header-area header-sticky">
@@ -93,7 +95,7 @@
                                                     </li>
                                                 }*@
                                                 
-                                                @if (User.Identity.IsAuthenticated)
+                                                @if (authenticated)
                                                 {
                                                     <li>
 
@@ -101,7 +103,7 @@
                                                     </li>
                                                     
                                                     <li>
-                                                        <a asp-area="UserPanel"> پروفایل من ,@User.Identity.Name</a>
+                                                        <a asp-area="UserPanel"> پروفایل من ,@userName</a>
                                                     </li>
 
                                                 }
@@ -122,12 +124,12 @@
                         </ul>
                     </div>
                 </div>
-
+                @*Mobile Header Area*@
                 <div class="header-mobile-navigation d-block d-lg-none">
                     <div class="row align-items-center">
                         <div class="col-6 col-md-6">
                             <div class="header-logo">
-                                <a href="index.html">
+                                <a href="/">
                                     <img src="~/Theme/assets/img/logo.png" class="img-fluid" alt="">
                                 </a>
                             </div>
@@ -136,13 +138,18 @@
                             <div class="mobile-navigation text-right">
                                 <div class="header-icon-wrapper">
                                     <ul class="icon-list justify-content-end">
-                                        <li>
-                                            <div class="header-cart-icon">
-                                                <a href="cart.html">
-                                                    <i class="ion-bag"></i>
-                                                    <span class="counter">3</span>
-                                                </a>
-                                            </div>
+                                         <li>
+                                             <div class="header-cart-icon">
+                                                 <a asp-page="/Cart">
+                                                     <i class="ion-bag"></i>
+                                                     <span class="counter">
+                                                         @if (check)
+                                                         {
+                                                            @Model.CartQueryModel.Count
+                                                         }
+                                                     </span>
+                                                 </a>
+                                             </div>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0)" class="mobile-menu-icon"
@@ -150,6 +157,7 @@
                                                 <i class="fa fa-bars"></i>
                                             </a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -161,7 +169,7 @@
     </div>
 </div>
 
-@*Mobile Header Area*@
+
 
 <div class="offcanvas-mobile-menu" id="offcanvas-mobile-menu">
     <a href="javascript:void(0)" class="offcanvas-menu-close" id="offcanvas-menu-close-trigger">
@@ -172,8 +180,8 @@
 
         <div class="offcanvas-inner-content">
             <div class="offcanvas-mobile-search-area">
-                <form action="#">
-                    <input type="search" placeholder="جستجو ...">
+                <form method="get" asp-page="/Search">
+                    <input type="search" name="value" id="value" placeholder="دنبال چه محصولی هستید ؟">
                     <button type="submit">
                         <i class="fa fa-search"></i>
                     </button>
@@ -182,7 +190,7 @@
             <nav class="offcanvas-navigation">
                 <ul>
                     <li>
-                        <a asp-page="/Index">صفحه اصلی</a>
+                        <a href="/">صفحه اصلی</a>
                     </li>
                     <li class="menu-item-has-children">
                         <a href="#">محصولات</a>
@@ -220,29 +228,17 @@
                 <nav class="offcanvas-navigation">
                     <ul>
                         <li class="menu-item-has-children">
-                            <a href="#">پروفایل من </a>
+                            <a href="#">اکانت من</a>
                             <ul class="sub-menu">
-                                @* @if (AuthHelper.IsAuthenticated())
+                                @if (authenticated)
                                 {
                                     <li>
-                                        <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
-                                    </li>
 
-                                }
-                                else
-                                {
-                                    <li>
-                                        <a asp-page="/Register">ثبت نام</a>
-                                    </li>
-                                    <li>
-                                        <a asp-page="/Login">ورود</a>
-                                    </li>
-                                }*@
-                                
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <li>
                                         <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                    </li>
+                                                    
+                                    <li>
+                                        <a asp-area="UserPanel"> پروفایل من ,@userName</a>
                                     </li>
 
                                 }
