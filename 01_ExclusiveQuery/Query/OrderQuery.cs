@@ -34,7 +34,7 @@ namespace _01_ExclusiveQuery.Query
             var product = _shopContext.Products.Select(x => new { x.Id, x.Name, x.Picture, x.Slug }).AsNoTracking().ToList();
 
             var discounts = _discountContext.CustomerDiscounts
-                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false)
+                .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false && x.IsOutOfDate == false)
                 .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
 
             //var products = _shopContext.Products
