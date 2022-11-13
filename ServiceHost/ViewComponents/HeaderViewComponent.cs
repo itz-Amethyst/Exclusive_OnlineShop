@@ -1,7 +1,9 @@
 ﻿using _01_ExclusiveQuery.Contracts.ArticleCategory;
+using _01_ExclusiveQuery.Contracts.Order;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
 using _01_ExclusiveQuery.MenuModel;
 using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
 
 namespace ServiceHost.ViewComponents
 {
@@ -23,6 +25,13 @@ namespace ServiceHost.ViewComponents
                 ArticleCategories = _articleCategoryQuery.GetArticleCategories(),
                 ProductCategories = _productCategoryQuery.GetProductCategories()
             };
+
+            if (Request.Cookies["cart-items"] != null)
+            {
+                var serializer = new JavaScriptSerializer();
+                var value = Request.Cookies["cart-items"];
+                result.CartQueryModel = serializer.Deserialize<List<CartQueryModel>>(value);
+            }
 
             return View(result);
         }
