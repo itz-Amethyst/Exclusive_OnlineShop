@@ -9,6 +9,11 @@ namespace ServiceHost.ViewComponents
         private readonly IOrderQuery _orderQuery;
         public List<CartQueryModel> CartItems;
 
+        [TempData] 
+        public string CartMessage { get; set; }
+        
+        public const string CookieName = "cart-items";
+
         public BasketViewComponent(IOrderQuery orderQuery)
         {
             _orderQuery = orderQuery;
@@ -19,8 +24,35 @@ namespace ServiceHost.ViewComponents
             if (Request.Cookies["cart-items"] != null)
             {
                 var serializer = new JavaScriptSerializer();
-                var value = Request.Cookies["cart-items"];
-                CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+                var value = Request.Cookies[CookieName];
+                try
+                {
+                    CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+                }
+                catch (Exception e)
+                {
+                    ////HttpContext.Response.Cookies.Delete(CookieName);
+                    ////var mycookie = HttpContext.Request.Cookies[CookieName];
+
+                    ////Request.Cookies[CookieName] = null;
+                    ////var cookieeee = HttpContext.Request.Cookies["cart-items"];
+
+                    ////cookieeee.ex = DateTime.Now.AddDays(-1);
+
+                    //HttpContext.Request.Cookies cookie = new HttpCookie(key)
+                    //{
+                    //    Expires = DateTime.Now.AddDays(-1) // or any other time in the past
+                    //};
+
+                    ////f.Delete(CookieName);
+
+                    ////Console.WriteLine(e);
+                    CartMessage = "t";
+                    return View(CartItems);
+                }
+
+
+
                 var basket = _orderQuery.GetCartItemsBy(CartItems);
                 return View(basket);
 
