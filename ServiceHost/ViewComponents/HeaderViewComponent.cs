@@ -12,6 +12,8 @@ namespace ServiceHost.ViewComponents
         private readonly IProductCategoryQuery _productCategoryQuery;
         private readonly IArticleCategoryQuery _articleCategoryQuery;
 
+        public const string CookieName = "cart-items";
+
         public HeaderViewComponent(IProductCategoryQuery productCategoryQuery, IArticleCategoryQuery articleCategoryQuery)
         {
             _productCategoryQuery = productCategoryQuery;
@@ -29,8 +31,17 @@ namespace ServiceHost.ViewComponents
             if (Request.Cookies["cart-items"] != null)
             {
                 var serializer = new JavaScriptSerializer();
-                var value = Request.Cookies["cart-items"];
-                result.CartQueryModel = serializer.Deserialize<List<CartQueryModel>>(value);
+                var value = Request.Cookies[CookieName];
+                try
+                {
+                    result.CartQueryModel = serializer.Deserialize<List<CartQueryModel>>(value);
+                }
+                catch (Exception e)
+                {
+                    HttpContext.Response.Cookies.Delete(CookieName);
+                    Console.WriteLine(e);
+                    return View(result);
+                }
             }
 
             return View(result);
