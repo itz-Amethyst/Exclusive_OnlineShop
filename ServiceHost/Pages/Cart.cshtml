@@ -3,6 +3,7 @@
 @model ServiceHost.Pages.CartModel
 @{
     ViewData["Title"] = "سبد خرید";
+    bool check = Request.Cookies.ContainsKey("cart-items");
 }
 
 
@@ -35,71 +36,84 @@
                     <div class="page-content-wrapper">
                         <form action="#">
                             <div class="cart-table table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="pro-thumbnail">عکس</th>
-                                            <th class="pro-title">محصول</th>
-                                            <th class="pro-price">قیمت واحد</th>
-                                            <th class="pro-quantity">تعداد</th>
-                                            <th class="pro-subtotal">قیمت کل</th>
-                                            <th class="pro-remove">حذف</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in @Model.CartItems)
-                                        {
+                                @if (check)
+                                {
+                                    <table class="table">
+                                        <thead>
                                             <tr>
-                                                <td class="pro-thumbnail">
-                                                    <a href="https://localhost:7018/Product/@item.Slug">
-                                                        <img src="~/UploadedFiles/@item.Picture" class="img-fluid" alt="@item.Name">
-                                                    </a>
-                                                </td>
-                                                <td class="pro-title">
-                                                    <a href="https://localhost:7018/Product/@item.Slug">@item.Name</a>
-                                                </td>
-                                                @if (item.HasDiscount)
-                                                {
-                                                    <td class="pro-price">
-                                                        <span>@item.PriceWithDiscount.ToMoney()</span>
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="pro-price">
-                                                        <span>@item.UnitPrice.ToMoney()</span>
-                                                    </td>
-                                                }
-                                                <td class="pro-quantity">
-                                                    <div class="quantity-selection">
-                                                        <input type="number" value="@item.Count" min="1">
-                                                    </div>
-                                                </td>
-                                                <td class="pro-subtotal">
-                                                    <span>@item.TotalItemPrice.ToMoney()</span>
-                                                </td>
-                                                <td class="pro-remove">
-                                                    <a href="#">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
-                                                </td>
+                                                <th class="pro-thumbnail">عکس</th>
+                                                <th class="pro-title">محصول</th>
+                                                <th class="pro-price">قیمت واحد</th>
+                                                <th class="pro-quantity">تعداد</th>
+                                                <th class="pro-subtotal">قیمت کل</th>
+                                                <th class="pro-remove">حذف</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in @Model.CartItems)
+                                            {
+                                                <tr>
+                                                    <td class="pro-thumbnail">
+                                                        <a href="https://localhost:7018/Product/@item.Slug">
+                                                            <img src="~/UploadedFiles/@item.Picture" class="img-fluid" alt="@item.Name">
+                                                        </a>
+                                                    </td>
+                                                    <td class="pro-title">
+                                                        <a href="https://localhost:7018/Product/@item.Slug">@item.Name</a>
+                                                    </td>
+                                                    @if (item.HasDiscount)
+                                                    {
+                                                        <td class="pro-price">
+                                                            <span>@item.PriceWithDiscount.ToMoney()</span>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="pro-price">
+                                                            <span>@item.UnitPrice.ToMoney()</span>
+                                                        </td>
+                                                    }
+                                                    <td class="pro-quantity">
+                                                        <div class="quantity-selection">
+                                                            <input type="number" value="@item.Count" min="1">
+                                                        </div>
+                                                    </td>
+                                                    <td class="pro-subtotal">
+                                                        <span>@item.TotalItemPrice.ToMoney()</span>
+                                                    </td>
+                                                    <td class="pro-remove">
+                                                        <a href="#">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
-                                        }
-                                    </tbody>
-                                </table>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                }
+                                else
+                                {
+
+                                    <div class="alert alert-danger">سبد خرید شما خالی میباشد !‌:‌(</div>
+
+                                }
                             </div>
                         </form>
-
-                        <div class="row">
-                            <div class="col-lg-6 col-12 d-flex">
-                                <div class="cart-summary">
-                                    <div class="cart-summary-button">
-                                        <button class="checkout-btn">تکمیل فرایند خرید</button>
+                        
+                        @if (check)
+                        {
+                            <div class="row">
+                                <div class="col-lg-6 col-12 d-flex">
+                                    <div class="cart-summary">
+                                        <div class="cart-summary-button">
+                                            <button class="checkout-btn">تکمیل فرایند خرید</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
