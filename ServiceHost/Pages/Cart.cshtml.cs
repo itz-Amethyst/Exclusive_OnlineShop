@@ -1,9 +1,7 @@
 using _01_ExclusiveQuery.Contracts.Order;
-using _01_ExclusiveQuery.Query;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nancy.Json;
-using ShopManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
 {
@@ -28,7 +26,17 @@ namespace ServiceHost.Pages
             {
                 var serializer = new JavaScriptSerializer();
                 var value = Request.Cookies[CookieName];
-                CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+                try
+                {
+                    CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+                }
+                catch (Exception e)
+                {
+                    HttpContext.Response.Cookies.Delete(CookieName);
+                    Console.WriteLine(e);
+                    return;
+                }
+                
                 if (CartItems.Count <= 0)
                 {
                     CartMessage = "t";
@@ -55,16 +63,16 @@ namespace ServiceHost.Pages
             var serializer = new JavaScriptSerializer();
             var value = Request.Cookies[CookieName];
             Response.Cookies.Delete(CookieName);
-            CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
-            var itemToRemove = CartItems.FirstOrDefault(x => x.Id == id);
-            CartItems.Remove(itemToRemove);
+            //CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+            //var itemToRemove = CartItems.FirstOrDefault(x => x.Id == id);
+            //CartItems.Remove(itemToRemove);
 
-            var cookieOptions = new CookieOptions
-            {
-                Expires = DateTime.Now.AddDays(2)
-            };
+            //var cookieOptions = new CookieOptions
+            //{
+            //    Expires = DateTime.Now.AddDays(2)
+            //};
 
-            Response.Cookies.Append(CookieName, serializer.Serialize(CartItems), cookieOptions);
+            //Response.Cookies.Append(CookieName, serializer.Serialize(CartItems), cookieOptions);
 
             return RedirectToPage("./Cart");
         }
