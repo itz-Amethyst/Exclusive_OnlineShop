@@ -1,6 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<_01_ExclusiveQuery.Contracts.Order.CartQueryModel>
 
+@{
+    bool check = Context.Request.Cookies.ContainsKey("cart-items");
+}
+
 <li>
     <a href="javascript:void(0)" id="search-overlay-trigger">
         <i class="ion-ios-search-strong"></i>
@@ -12,7 +16,7 @@
             <i class="ion-bag"></i>
             <span class="counter" id="cart_items_count">
 
-                @if (Context.Request.Cookies.ContainsKey("cart-items"))
+                @if (check)
                 {
                     @Model.Count
                 }
@@ -21,7 +25,7 @@
         </a>
         <div class="mini-cart" id="mini-cart">
             <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
-                @if (Context.Request.Cookies.ContainsKey("cart-items"))
+                @if (check)
                 {
                     @foreach (var basket in Model)
                     {
