@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using _0_Framework.Application
 @model List<_01_ExclusiveQuery.Contracts.Order.CartQueryModel>
+@*@model ServiceHost.ViewComponents.BasketViewComponent*@
 
 @{
     bool check = Context.Request.Cookies.ContainsKey("cart-items");
@@ -16,16 +18,16 @@
             <i class="ion-bag"></i>
             <span class="counter" id="cart_items_count">
 
-                @if (check)
+               @* @if (check)
                 {
                     @Model.Count
-                }
+                }*@
                 
             </span>
         </a>
         <div class="mini-cart" id="mini-cart">
             <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
-                @if (check)
+                @if (check && Model != null)
                 {
                     @foreach (var basket in Model)
                     {
@@ -47,7 +49,15 @@
                                     <span>تعداد:‌ @basket.Count </span>
                                 </p>
                                 <p class="count">
-                                    <span>قیمت واحد: @basket.UnitPrice </span>
+                                    @if (basket.HasDiscount)
+                                    {
+                                        <span>قیمت واحد: @basket.PriceWithDiscount.ToMoney() </span>
+
+                                    }
+                                    else
+                                    {
+                                        <span>قیمت واحد: @basket.UnitPrice.ToMoney() </span>
+                                    }
                                 </p>
 
                             </div>
