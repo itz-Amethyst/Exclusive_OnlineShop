@@ -16,13 +16,14 @@ namespace DiscountManagement.Application
         public OperationResult Define(DefineCustomerDiscount command)
         {
             var operation = new OperationResult();
-            if (_customerDiscountRepository.Exists(x => x.ProductId == command.ProductId && x.DiscountRate == command.DiscountRate))
-            {
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
-            }
 
             var startDate = command.StartDate.ToGeorgianDateTime();
             var endDate = command.EndDate.ToGeorgianDateTime();
+            //? need to work
+            if (_customerDiscountRepository.Exists(x => x.ProductId == command.ProductId && x.IsOutOfDate == false))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
 
             if (endDate < startDate)
             {
@@ -49,7 +50,7 @@ namespace DiscountManagement.Application
             {
                 operation.Failed(ApplicationMessages.RecordNotFound);
             }
-            if (_customerDiscountRepository.Exists(x => x.ProductId == command.ProductId && x.DiscountRate == command.DiscountRate && x.Id != command.Id))
+            if (_customerDiscountRepository.Exists(x => x.ProductId == command.ProductId && x.IsOutOfDate == false && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
