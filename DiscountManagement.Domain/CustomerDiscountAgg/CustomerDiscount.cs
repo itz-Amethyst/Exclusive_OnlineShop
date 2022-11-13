@@ -16,6 +16,8 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
 
         public bool IsDeleted { get; private set; }
 
+        public bool IsOutOfDate { get; set; }
+
         public CustomerDiscount(int productId, int discountRate, DateTime startDate, DateTime endDate, string reason)
         {
             ProductId = productId;
@@ -24,6 +26,7 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
             EndDate = endDate;
             Reason = reason;
             IsDeleted = false;
+            IsOutOfDate = false;
         }
 
         public void Edit(int productId, int discountRate, DateTime startDate, DateTime endDate, string reason)
