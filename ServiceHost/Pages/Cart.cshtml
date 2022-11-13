@@ -36,7 +36,7 @@
                     <div class="page-content-wrapper">
                         <form action="#">
                             <div class="cart-table table-responsive">
-                                @if (check)
+                                @if (check && Model.CartItems != null && Model.CartMessage ==null)
                                 {
                                     <table class="table">
                                         <thead>
@@ -82,7 +82,7 @@
                                                         <span>@item.TotalItemPrice.ToMoney()</span>
                                                     </td>
                                                     <td class="pro-remove">
-                                                        <a href="#">
+                                                        <a asp-page-handler="RemoveFromCart" asp-route-id="@item.Id">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>
