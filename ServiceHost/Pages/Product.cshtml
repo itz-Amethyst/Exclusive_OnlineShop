@@ -184,20 +184,11 @@
                                             </div>
 
                                             <div class="product-buttons">
-                                                
-                                                @*moshekl dare vaghti add kard khob badesh age takhfif tamom shode bashe hamon gheymat ghabli baz hast to cart*@
-                                                @if (Model.Product.HasDiscount)
-                                                {
-                                                    <a class="cart-btn" onclick="addToCart('@Model.Product.Id', '@Model.Product.Name', '@Model.Product.PriceWithDiscount', '@Model.Product.Picture', '@Model.Product.Slug')">
-                                                        <i class="ion-bag"></i> افزودن به سبد خرید
-                                                    </a>
-                                                }
-                                                else
-                                                {
-                                                    <a class="cart-btn" onclick="addToCart('@Model.Product.Id')">
-                                                        <i class="ion-bag"></i> افزودن به سبد خرید
-                                                    </a>
-                                                }
+
+                                                <a class="cart-btn" onclick="addToCart('@Model.Product.Id')">
+                                                    <i class="ion-bag"></i> افزودن به سبد خرید
+                                                </a>
+
                                             </div>
 
                                         </div>
