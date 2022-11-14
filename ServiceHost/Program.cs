@@ -1,7 +1,7 @@
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using _0_Framework.Application;
-using _0_Framework.Infrastructure;
+using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
 using _01_ExclusiveQuery.Query;
 using AccountManagement.Infrastructure.Configuration;
@@ -34,7 +34,7 @@ builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddTransient<IAuthHelper , AuthHelper>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
-builder.Services.AddTransient<IOrderQuery, OrderQuery>();
+
 builder.Services.AddHttpContextAccessor();
 
 
