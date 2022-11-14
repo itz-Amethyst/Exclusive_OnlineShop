@@ -5,6 +5,7 @@
     bool authenticated = User.Identity.IsAuthenticated;
     string? userName = User.Identity.Name;
     bool check = Context.Request.Cookies.ContainsKey("cart-items");
+    bool notNull = Model.CartQueryModel != null;
 }
 
 <div class="header-area header-sticky">
@@ -143,7 +144,7 @@
                                                  <a asp-page="/Cart">
                                                      <i class="ion-bag"></i>
                                                      <span class="counter">
-                                                         @if (check && Model.CartQueryModel != null)
+                                                         @if (check && notNull)
                                                          {
                                                             @Model.CartQueryModel.Count
                                                          }
