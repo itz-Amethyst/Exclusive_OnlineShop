@@ -1,5 +1,5 @@
-﻿using _01_ExclusiveQuery.Contracts.ArticleCategory;
-using _01_ExclusiveQuery.Contracts.Order;
+﻿using _0_Framework.Application.Cookie;
+using _01_ExclusiveQuery.Contracts.ArticleCategory;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
 
 namespace _01_ExclusiveQuery.MenuModel
@@ -10,7 +10,7 @@ namespace _01_ExclusiveQuery.MenuModel
 
         public List<ProductCategoryQueryModel> ProductCategories { get; set; }
 
-        public List<CartQueryModel> CartQueryModel { get; set; }
+        public List<CookieCartModel> CartQueryModel { get; set; }
         
     }
 }
