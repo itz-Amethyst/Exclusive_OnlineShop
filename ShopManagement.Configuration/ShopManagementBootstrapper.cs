@@ -1,4 +1,6 @@
-﻿using _01_ExclusiveQuery.Contracts.Product;
+﻿using _0_Framework.Application.Cookie;
+using _01_ExclusiveQuery.Contracts.Order;
+using _01_ExclusiveQuery.Contracts.Product;
 using _01_ExclusiveQuery.Contracts.ProductCategory;
 using _01_ExclusiveQuery.Contracts.Slide;
 using _01_ExclusiveQuery.Query;
@@ -65,6 +67,18 @@ namespace ShopManagement.Infrastructure.Configuration
             #region ProductQuery
 
             services.AddTransient<IProductQuery, ProductQuery>();
+
+            #endregion
+
+            #region OrderQuery
+
+            services.AddTransient<IOrderQuery, OrderQuery>();
+
+            #endregion
+
+            #region SerializeCookie
+
+            services.AddTransient<ISerializeCookie, SerializeCookie>();
 
             #endregion
 
