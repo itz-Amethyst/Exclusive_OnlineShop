@@ -1,22 +1,24 @@
+using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Nancy.Json;
 
 namespace ServiceHost.Pages
 {
     public class CartModel : PageModel
     {
+        private readonly ISerializeCookie _serializeCookie;
         private readonly IOrderQuery _orderQuery;
 
-        [TempData] public string CartMessage { get; set; }
+        [TempData] public bool EmptyBasket { get; set; }
 
-        public List<CartQueryModel> CartItems;
+        public List<CookieCartModel> CartItems;
         public const string CookieName = "cart-items";
 
-        public CartModel(IOrderQuery orderQuery)
+        public CartModel(IOrderQuery orderQuery, ISerializeCookie serializeCookie)
         {
             _orderQuery = orderQuery;
+            _serializeCookie = serializeCookie;
         }
 
         public void OnGet()
@@ -24,27 +26,45 @@ namespace ServiceHost.Pages
 
             if (Request.Cookies["cart-items"] != null)
             {
-                var serializer = new JavaScriptSerializer();
-                var value = Request.Cookies[CookieName];
-                try
+                //var serializer = new JavaScriptSerializer();
+                //var value = Request.Cookies[CookieName];
+                //try
+                //{
+                //    CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+                //}
+                //catch (Exception e)
+                //{
+                //    flag = true;
+                //    Console.WriteLine(e);
+                //}
+
+                //if (flag)
+                //{
+                //    //CartMessage = "t";
+                //    HttpContext.Response.Cookies.Delete(CookieName);
+                //    return;
+                //}
+
+                if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
                 {
-                    CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
-                }
-                catch (Exception e)
-                {
-                    HttpContext.Response.Cookies.Delete(CookieName);
-                    Console.WriteLine(e);
-                    return;
-                }
-                
-                if (CartItems.Count <= 0)
-                {
-                    CartMessage = "t";
-                    Response.Cookies.Delete(CookieName);
+                    //?Just in Case
+                    _serializeCookie.DeleteCookie(HttpContext);
                     return;
                 }
 
+                CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+
+                if (CartItems.Count <= 0)
+                {
+                    EmptyBasket = true;
+                    _serializeCookie.DeleteCookie(HttpContext);
+                    return;
+                }
+
+                EmptyBasket = false;
+
                 CartItems = _orderQuery.GetCartItemsBy(CartItems);
+
             }
 
             //Response.Cookies.Append("test" , serializer , cookieOptions);
@@ -60,21 +80,36 @@ namespace ServiceHost.Pages
 
         public IActionResult OnGetRemoveFromCart(int id)
         {
-            var serializer = new JavaScriptSerializer();
-            var value = Request.Cookies[CookieName];
-            Response.Cookies.Delete(CookieName);
-            //CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
-            //var itemToRemove = CartItems.FirstOrDefault(x => x.Id == id);
-            //CartItems.Remove(itemToRemove);
-
-            //var cookieOptions = new CookieOptions
+            //var serializer = new JavaScriptSerializer();
+            //var value = Request.Cookies[CookieName];
+            //////_serializeCookie.DeleteCookie(HttpContext);
+            //try
             //{
-            //    Expires = DateTime.Now.AddDays(2)
-            //};
+            //    CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
+            //}
+            //catch (Exception e)
+            //{
+            //    flag = true;
+            //    Console.WriteLine(e);
+            //}
 
-            //Response.Cookies.Append(CookieName, serializer.Serialize(CartItems), cookieOptions);
+            //if (flag)
+            //{
+            //    HttpContext.Response.Cookies.Delete(CookieName);
+            //    return RedirectToPage("./Cart");
+            //}
 
-            return RedirectToPage("./Cart");
+            //if (!_serializeCookie.Serialize(CartItems, HttpContext))
+            //{
+            //    //!Just in Case
+            //    _serializeCookie.DeleteCookie(HttpContext);
+            //    return RedirectToPage("./Cart");
+            //}
+
+
+            _serializeCookie.RemoveItemFromCookie(CartItems , id , HttpContext);
+
+            return RedirectToPage("/Cart");
         }
     }
 }
