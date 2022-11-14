@@ -1,11 +1,8 @@
-﻿using _0_Framework.Application;
+﻿using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
-using _01_ExclusiveQuery.Contracts.Product;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.Application.Contracts.Order;
-using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace _01_ExclusiveQuery.Query
@@ -25,9 +22,9 @@ namespace _01_ExclusiveQuery.Query
             _discountContext = discountContext;
         }
 
-        public List<CartQueryModel> GetCartItemsBy(List<CartQueryModel> cartItems)
+        public List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems)
         {
-            List<int> productIds = cartItems.Select(x => x.Id).ToList();
+            //List<int> productIds = cartItems.Select(x => x.Id).ToList();
 
             var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
 
