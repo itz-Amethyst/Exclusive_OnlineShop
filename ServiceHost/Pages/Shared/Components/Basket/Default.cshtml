@@ -1,10 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using _0_Framework.Application
-@model List<_01_ExclusiveQuery.Contracts.Order.CartQueryModel>
+@model List<_0_Framework.Application.Cookie.CookieCartModel>
 @*@model ServiceHost.ViewComponents.BasketViewComponent*@
 
 @{
     bool check = Context.Request.Cookies.ContainsKey("cart-items");
+    bool notNull = Model != null;
 }
 
 <li>
@@ -18,16 +19,16 @@
             <i class="ion-bag"></i>
             <span class="counter" id="cart_items_count">
 
-               @* @if (check)
+                @if (check && notNull)
                 {
                     @Model.Count
-                }*@
+                }
                 
             </span>
         </a>
         <div class="mini-cart" id="mini-cart">
             <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
-                @if (check && Model != null)
+                @if (check && notNull)
                 {
                     @foreach (var basket in Model)
                     {
