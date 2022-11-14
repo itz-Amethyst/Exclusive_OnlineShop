@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = "سبد خرید";
     bool check = Request.Cookies.ContainsKey("cart-items");
+    bool notNull = Model.CartItems != null;
+    bool emptyBasket = Model.EmptyBasket;
 }
 
 
@@ -36,7 +38,7 @@
                     <div class="page-content-wrapper">
                         <form action="#">
                             <div class="cart-table table-responsive">
-                                @if (check && Model.CartItems != null && Model.CartMessage ==null)
+                                @if (check && emptyBasket == false && notNull)
                                 {
                                     <table class="table">
                                         <thead>
@@ -50,7 +52,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var item in @Model.CartItems)
+                                            @foreach (var item in Model.CartItems)
                                             {
                                                 <tr>
                                                     <td class="pro-thumbnail">
@@ -102,7 +104,7 @@
                             </div>
                         </form>
                         
-                        @if (check)
+                        @if (check && notNull && emptyBasket == false)
                         {
                             <div class="row">
                                 <div class="col-lg-6 col-12 d-flex">
