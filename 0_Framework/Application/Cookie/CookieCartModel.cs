@@ -21,6 +21,8 @@
         public int DiscountRate { get; set; }
 
         public double PriceWithDiscount { get; set; }
+
+        public bool IsInStock { get; set; }
         
     }
 }
