@@ -93,6 +93,8 @@
                                                     <td class="pro-subtotal">
                                                         <span id="totalItemPrice-@item.Id">@item.TotalItemPrice.ToMoney()</span>
                                                     </td>
+                                                    @*inja omadam gheymat az model gereftam rikhtam inja ke to javascript unitprice bashe betone total price dar biare agar karbar ino taghir bede hichi nemishe vaghat real time barash kam neshon mide vagarna asli gheymat taghir nemikone kheyli zahmat keshidam ke real time bashe vagarna age mikhay mitone reload kone page*@
+                                                    
                                                     <input type="hidden" id ="UnitPrice-@item.Id" value="@item.UnitPrice"/>
                                                     <td class="pro-remove">
                                                         <a asp-page-handler="RemoveFromCart" asp-route-id="@item.Id">
@@ -114,14 +116,14 @@
                                 }
                             </div>
                         </form>
-
+                        
                         @if (check && notNull && emptyBasket == false)
                         {
                             <div class="row">
                                 <div class="col-lg-6 col-12 d-flex">
                                     <div class="cart-summary">
                                         <div class="cart-summary-button">
-                                            <button class="checkout-btn">تکمیل فرایند خرید</button>
+                                            <button class="checkout-btn" asp-page-handler="GoToCheckOutPage">تکمیل فرایند خرید</button>
                                         </div>
                                     </div>
                                 </div>
