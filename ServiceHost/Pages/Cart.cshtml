@@ -35,12 +35,15 @@
             <div class="col-lg-12">
                 <!--=======  page wrapper  =======-->
                 <div class="page-wrapper">
-                    @foreach(var item in Model.CartItems.Where(x=> !x.IsInStock))
+                    @if (check && emptyBasket == false && notNull)
                     {
-                        <div class="alert alert-warning">
-                            <i class="fa fa-warning"></i>
-                            کالای <strong>@item.Name</strong>در انبار کمتر از تعداد درخواستی موجود است.
-                        </div>
+                        @foreach (var item in Model.CartItems.Where(x => !x.IsInStock))
+                        {
+                            <div class="alert alert-warning">
+                                <i class="fa fa-warning"></i>
+                                کالای <strong>@item.Name</strong>در انبار کمتر از تعداد درخواستی موجود است.
+                            </div>
+                        }
                     }
                     <div class="page-content-wrapper">
                         <form action="#">
@@ -49,55 +52,56 @@
                                 {
                                     <table class="table">
                                         <thead>
-                                        <tr>
-                                            <th class="pro-thumbnail">عکس</th>
-                                            <th class="pro-title">محصول</th>
-                                            <th class="pro-price">قیمت واحد</th>
-                                            <th class="pro-quantity">تعداد</th>
-                                            <th class="pro-subtotal">قیمت کل</th>
-                                            <th class="pro-remove">حذف</th>
-                                        </tr>
+                                            <tr>
+                                                <th class="pro-thumbnail">عکس</th>
+                                                <th class="pro-title">محصول</th>
+                                                <th class="pro-price">قیمت واحد</th>
+                                                <th class="pro-quantity">تعداد</th>
+                                                <th class="pro-subtotal">قیمت کل</th>
+                                                <th class="pro-remove">حذف</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach (var item in Model.CartItems)
-                                        {
-                                            <tr>
-                                                <td class="pro-thumbnail">
-                                                    <a href="https://localhost:7018/Product/@item.Slug">
-                                                        <img src="~/UploadedFiles/@item.Picture" class="img-fluid" alt="@item.Name">
-                                                    </a>
-                                                </td>
-                                                <td class="pro-title">
-                                                    <a href="https://localhost:7018/Product/@item.Slug">@item.Name</a>
-                                                </td>
-                                                @if (item.HasDiscount)
-                                                {
-                                                    <td class="pro-price">
-                                                        <span>@item.PriceWithDiscount.ToMoney()</span>
+                                            @foreach (var item in Model.CartItems)
+                                            {
+                                                <tr>
+                                                    <td class="pro-thumbnail">
+                                                        <a href="https://localhost:7018/Product/@item.Slug">
+                                                            <img src="~/UploadedFiles/@item.Picture" class="img-fluid" alt="@item.Name">
+                                                        </a>
                                                     </td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="pro-price">
-                                                        <span>@item.UnitPrice.ToMoney()</span>
+                                                    <td class="pro-title">
+                                                        <a href="https://localhost:7018/Product/@item.Slug">@item.Name</a>
                                                     </td>
-                                                }
-                                                <td class="pro-quantity">
-                                                    <div class="quantity-selection">
-                                                        <input type="number" value="@item.Count" min="1">
-                                                    </div>
-                                                </td>
-                                                <td class="pro-subtotal">
-                                                    <span>@item.TotalItemPrice.ToMoney()</span>
-                                                </td>
-                                                <td class="pro-remove">
-                                                    <a asp-page-handler="RemoveFromCart" asp-route-id="@item.Id">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                    @if (item.HasDiscount)
+                                                    {
+                                                        <td class="pro-price">
+                                                            <span>@item.PriceWithDiscount.ToMoney()</span>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="pro-price">
+                                                            <span>@item.UnitPrice.ToMoney()</span>
+                                                        </td>
+                                                    }
+                                                    <td class="pro-quantity">
+                                                        <div class="quantity-selection">
+                                                            <input type="number" id="cantAccept0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="@item.Count" min="1" onchange="changeCartItemCount('@item.Id', 'totalItemPrice-@item.Id', this.value , 'UnitPrice-@item.Id')">
+                                                        </div>
+                                                    </td>
+                                                    <td class="pro-subtotal">
+                                                        <span id="totalItemPrice-@item.Id">@item.TotalItemPrice.ToMoney()</span>
+                                                    </td>
+                                                    <input type="hidden" id ="UnitPrice-@item.Id" value="@item.UnitPrice"/>
+                                                    <td class="pro-remove">
+                                                        <a asp-page-handler="RemoveFromCart" asp-route-id="@item.Id">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
-                                        }
+                                            }
                                         </tbody>
                                     </table>
 
