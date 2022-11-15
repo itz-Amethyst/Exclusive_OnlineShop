@@ -32,7 +32,7 @@
                 {
                     @foreach (var basket in Model)
                     {
-                        <div class="single-cart-item">
+                        <div class="single-cart-item" onmouseover="updateBasketCount('BasketCount-@basket.Id' , '@basket.Id')">
                             <a class="remove-icon" onclick="removeFromCart('@basket.Id')">
                                 <i class="ion-android-close"></i>
                             </a>
@@ -47,7 +47,7 @@
                                     <a asp-page="/Product" asp-value="@basket.Slug">محصول: @basket.Name</a>
                                 </p>
                                 <p class="count">
-                                    <span>تعداد:‌ @basket.Count </span>
+                                    <span id="BasketCount-@basket.Id" >تعداد:‌ @basket.Count </span>
                                 </p>
                                 <p class="count">
                                     @if (basket.HasDiscount)
