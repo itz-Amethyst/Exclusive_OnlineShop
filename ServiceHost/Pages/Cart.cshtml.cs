@@ -117,5 +117,40 @@ namespace ServiceHost.Pages
 
             return RedirectToPage("/Cart");
         }
+
+        public IActionResult OnGetGoToCheckOutPage()
+        {
+            //Work on this
+
+            if (Request.Cookies["cart-items"] != null)
+            {
+                if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
+                {
+                    //?Just in Case
+                    _serializeCookie.DeleteCookie(HttpContext);
+                    return RedirectToPage("/Cart");
+                }
+
+                CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+
+                if (CartItems.Count <= 0)
+                {
+                    EmptyBasket = true;
+                    _serializeCookie.DeleteCookie(HttpContext);
+                    return RedirectToPage("/Cart");
+                }
+
+                EmptyBasket = false;
+
+
+                //CartItems = _productQuery.CheckInventoryStatus(CartItems);
+
+                CartItems = _orderQuery.GetCartItemsBy(CartItems);
+
+            }
+
+            return RedirectToPage(CartItems.Any(x => !x.IsInStock) ? "/Cart" : "/Checkout");
+
+        }
     }
 }
