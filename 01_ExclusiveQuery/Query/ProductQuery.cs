@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application;
+using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Comment;
 using _01_ExclusiveQuery.Contracts.Product;
-using BlogManagement.Domain.ArticleAgg;
 using CommentManagement.Infrastructure.EFCore.Context;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
@@ -251,6 +251,23 @@ namespace _01_ExclusiveQuery.Query
             product.Comments = comments;
 
             return product;
+        }
+
+        public List<CookieCartModel> CheckInventoryStatus(List<CookieCartModel> cartItems)
+        {
+            var inventory = _inventoryContext.Inventories.Select(x=> new { CalculateCurrentCount = x.CalculateCurrentCount() , x.ProductId , x.InStock}).ToList();
+
+            foreach (var cartItem in cartItems.Where(cartItem =>
+                         inventory.Any(x => x.ProductId == cartItem.Id && x.InStock)))
+            {
+                var itemInventory = inventory.First(x => x.ProductId == cartItem.Id);
+                if (itemInventory != null)
+                {
+                    cartItem.IsInStock = itemInventory.CalculateCurrentCount >= cartItem.Count;
+                }
+            }
+
+            return cartItems;
         }
 
         //private static List<CommentQueryModel> MapComments(List<Comment> productComments)
