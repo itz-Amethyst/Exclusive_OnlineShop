@@ -4806,19 +4806,28 @@ select {
 	background-color: #e33;
 }
 
-.cart-summary .cart-summary-button button.checkout-btn {
-	font-weight: 400;
-	text-transform: uppercase;
-	color: #fff;
-	border-color: #292929;
-	background-color: #292929;
+.cart-summary .cart-summary-button a.checkout-btn {
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #fff;
+    border-color: #292929;
+    background-color: #292929;
+    text-align: center;
 }
 
-.cart-summary .cart-summary-button button.checkout-btn:hover {
-	border-color: #e33;
-	background-color: #e33;
+.checkout-btn {
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #fff;
+    border-color: #292929;
+    background-color: #292929;
+    text-align: center;
 }
 
+.cart-summary .cart-summary-button a.checkout-btn:hover {
+    border-color: #e33;
+    background-color: #e33;
+}
 /*=====  End of Cart  ======*/
 
 /*=============================================
