@@ -94,7 +94,7 @@ function updateBasketCount(itemId , id) {
     products = JSON.parse(products);;
     const productIndex = products.findIndex(x => x.id == id);
     const count = products[productIndex].count;
-    $(`#${itemId}`).text(`تعداد:${count}`);
+    $(`#${itemId}`).text(`تعداد: ${count}`);
 }
 
 function changeCartItemCount(id, totalId, count , unitPriceId) {
