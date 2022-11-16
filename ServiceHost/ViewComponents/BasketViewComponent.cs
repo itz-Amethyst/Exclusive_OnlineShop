@@ -66,7 +66,7 @@ namespace ServiceHost.ViewComponents
                     return View(CartItems);
                 }
 
-                var basket = _orderQuery.GetCartItemsBy(CartItems);
+                var basket = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
                 return View(basket);
 
             }
