@@ -69,7 +69,7 @@ namespace ServiceHost.Pages
 
                 CartItems = _productQuery.CheckInventoryStatus(CartItems);
 
-                CartItems = _orderQuery.GetCartItemsBy(CartItems);
+                CartItems = _orderQuery.GetCartItemsBy(CartItems , HttpContext);
 
             }
 
@@ -143,9 +143,9 @@ namespace ServiceHost.Pages
                 EmptyBasket = false;
 
 
-                //CartItems = _productQuery.CheckInventoryStatus(CartItems);
+                CartItems = _productQuery.CheckInventoryStatus(CartItems);
 
-                CartItems = _orderQuery.GetCartItemsBy(CartItems);
+                CartItems = _orderQuery.GetCartItemsBy(CartItems , HttpContext);
 
             }
 
