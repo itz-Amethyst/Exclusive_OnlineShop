@@ -1,6 +1,11 @@
 ﻿@page
+@using _0_Framework.Application
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Pages.CheckoutModel
 @{
+    bool check = Request.Cookies.ContainsKey("cart-items");
+    bool notNull = Model.CartItems != null;
+    bool emptyBasket = Model.EmptyBasket;
 }
 
 <div class="breadcrumb-area section-space--half">
@@ -30,69 +35,100 @@
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
                         <form action="#">
-                            <div class="cart-table table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="pro-thumbnail">عکس</th>
-                                            <th class="pro-thumbnail">محصول</th>
-                                            <th class="pro-title">قیمت واحد</th>
-                                            <th class="pro-price">تعداد</th>
-                                            <th class="pro-quantity">مبلغ کل بدون تخفیف</th>
-                                            <th class="pro-subtotal">سود شما</th>
-                                            <th class="pro-remove">مبلغ پس از تخفیف</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="pro-thumbnail">
-                                                <a href="single-product.html">
-                                                    <img src="assets/img/products/big1-1.jpg" class="img-fluid"
-                                                         alt="Product">
-                                                </a>
-                                            </td>
-                                            <td class="pro-title">
-                                                <a href="single-product.html">
-                                                    Cillum dolore tortor nisl
-                                                    fermentum
-                                                </a>
-                                            </td>
-                                            <td class="pro-price">
-                                                <span>$29.00</span>
-                                            </td>
-                                            <td class="pro-price">
-                                                <span>10</span>
-                                            </td>
-                                            <td class="pro-subtotal">
-                                                <span>$29.00</span>
-                                            </td>
-                                            <td class="pro-subtotal">
-                                                <span>$29.00</span>
-                                            </td>
-                                            <td class="pro-subtotal">
-                                                <span>$29.00</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
+                            @if (check && emptyBasket == false && notNull)
+                            {
+                                <div class="cart-table table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="pro-thumbnail">عکس</th>
+                                                <th class="pro-thumbnail">محصول</th>
+                                                <th class="pro-title">قیمت واحد</th>
+                                                <th class="pro-price">تعداد</th>
+                                                <th class="pro-quantity">مبلغ کل بدون تخفیف</th>
+                                                <th class="pro-quantity">درصد تخفیف</th>
+                                                <th class="pro-subtotal">سود شما</th>
+                                                <th class="pro-remove">مبلغ پس از تخفیف</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                        <div class="row">
-                            <div class="col-lg-6 col-12 d-flex">
-                                <div class="cart-summary">
-                                    <div class="cart-summary-wrap">
-                                        <h4>خلاصه وضعیت فاکتور</h4>
-                                        <p>مبلغ نهایی <span>$1250.00</span></p>
-                                        <p>مبلغ تخفیف <span>$00.00</span></p>
-                                        <h2>مبلغ قابل پرداخت <span>$1250.00</span></h2>
-                                    </div>
-                                    <div class="cart-summary-button">
-                                        <button class="checkout-btn">پرداخت</button>
+                                            @foreach (var item in Model.CartItems)
+                                            {
+                                                <tr>
+                                                    <td class="pro-thumbnail">
+                                                        <a asp-page="/Product" asp-route-id="@item.Slug">
+                                                            <img src="~/UploadedFiles/@item.Picture" class="img-fluid" alt="@item.Name">
+                                                        </a>
+                                                    </td>
+                                                    <td class="pro-title">
+                                                        <a asp-page="/Product" asp-route-id="@item.Slug">
+                                                            @item.Name
+                                                        </a>
+                                                    </td>
+                                                    @if (item.HasDiscount)
+                                                    {
+                                                        <td class="pro-price">
+                                                            <del>
+                                                                <span>@item.UnitPrice.ToMoney()</span>
+                                                            </del>
+                                                            <ins>
+                                                                <span>@item.UnitPriceWithDiscount.ToMoney()</span>
+                                                            </ins>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="pro-price">
+                                                            <span>@item.UnitPrice.ToMoney()</span>
+                                                        </td>
+                                                    }
+                                                    <td class="pro-price">
+                                                        <span>@item.Count</span>
+                                                    </td>
+                                                    <td class="pro-subtotal">
+                                                        <span>@item.TotalItemPrice.ToMoney()</span>
+                                                    </td>
+                                                    <td class="pro-subtotal">
+                                                        <span>@item.DiscountRate%</span>
+                                                    </td>
+                                                    <td class="pro-subtotal">
+                                                        <span>@item.DiscountAmount.ToMoney()</span>
+                                                    </td>
+                                                    <td class="pro-subtotal">
+                                                        <span>@item.ItemPayAmount.ToMoney()</span>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning">سبد خرید شما خالی میباشد ! :(</div>
+                            }
+                            
+                        </form>
+                        @if (check && emptyBasket == false && notNull)
+                        {
+                            <div class="row">
+                                <div class="col-lg-6 col-12 d-flex">
+                                    <div class="cart-summary">
+                                        <div class="cart-summary-wrap">
+                                            <h4>خلاصه وضعیت فاکتور</h4>
+                                            <p>مبلغ نهایی <span>@Model.TotalCartSummaryModel.TotalAmount.ToMoney()</span></p>
+                                            <p>مبلغ تخفیف <span>@Model.TotalCartSummaryModel.TotalDiscountAmount.ToMoney()</span></p>
+                                            <h2>مبلغ قابل پرداخت <span>@Model.TotalCartSummaryModel.TotalPayAmount.ToMoney()</span></h2>
+                                        </div>
+                                        <div class="cart-summary-button">
+                                            <button class="checkout-btn">پرداخت</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
