@@ -405,3 +405,17 @@ input[type=number] {
     border: 1px solid #ecf0f4;
     background-color: #fff
 }
+
+del {
+    text-decoration-color: red;
+}
+
+ins {
+    text-decoration: none;
+    font-size: 1em;
+    color: gray;
+    position: absolute;
+    /*transform: rotate(-10deg);*/
+    margin-left: -20px;
+    margin-top: -40px;
+}
