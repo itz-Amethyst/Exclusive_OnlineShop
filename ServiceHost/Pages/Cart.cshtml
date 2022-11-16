@@ -66,17 +66,17 @@
                                             {
                                                 <tr>
                                                     <td class="pro-thumbnail">
-                                                        <a href="https://localhost:7018/Product/@item.Slug">
+                                                        <a asp-page="/Product" asp-route-id="@item.Slug">
                                                             <img src="~/UploadedFiles/@item.Picture" class="img-fluid" alt="@item.Name">
                                                         </a>
                                                     </td>
                                                     <td class="pro-title">
-                                                        <a href="https://localhost:7018/Product/@item.Slug">@item.Name</a>
+                                                        <a asp-page="/Product" asp-route-id="@item.Slug">@item.Name</a>
                                                     </td>
                                                     @if (item.HasDiscount)
                                                     {
                                                         <td class="pro-price">
-                                                            <span>@item.PriceWithDiscount.ToMoney()</span>
+                                                            <span>@item.UnitPriceWithDiscount.ToMoney()</span>
                                                         </td>
                                                     }
                                                     else
