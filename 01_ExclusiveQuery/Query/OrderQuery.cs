@@ -1,7 +1,9 @@
 ﻿using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
+using AccountManagement.Infrastructure.EFCore.Security;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure.EFCore.Context;
 
@@ -15,24 +17,35 @@ namespace _01_ExclusiveQuery.Query
 
         private readonly DiscountContext _discountContext;
 
-        public OrderQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext)
+        private readonly IPermissionChecker _permissionChecker;
+
+        public bool ApplyColleagueDiscount { get; set; }
+
+        public OrderQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, IPermissionChecker permissionChecker)
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
+            _permissionChecker = permissionChecker;
         }
 
-        public List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems)
+        public List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems , HttpContext httpContext)
         {
             //List<int> productIds = cartItems.Select(x => x.Id).ToList();
+            var cartSummary = new List<CookieCartModel>();
 
             var inventory = _inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
 
             var product = _shopContext.Products.Select(x => new { x.Id, x.Name, x.Picture, x.Slug }).AsNoTracking().ToList();
 
-            var discounts = _discountContext.CustomerDiscounts
+            var customerDiscounts = _discountContext.CustomerDiscounts
                 .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now && x.IsDeleted == false && x.IsOutOfDate == false)
                 .Select(x => new { x.ProductId, x.DiscountRate }).ToList();
+
+            var colleagueDiscounts = _discountContext.ColleagueDiscounts
+                .Where(x => !x.IsRemoved)
+                .Select(x => new { x.DiscountRate, x.ProductId })
+                .ToList();
 
             //var products = _shopContext.Products
             //    .Select(product => new CartQueryModel()
@@ -52,6 +65,17 @@ namespace _01_ExclusiveQuery.Query
             //    //Count = cartItems.Count,
             //}).ToList();
 
+            var username = httpContext.User.Identity.Name;
+
+            if (username != null)
+            {
+                if (_permissionChecker.CheckUserHasColleagueRole(username))
+                {
+                    ApplyColleagueDiscount = true;
+                }
+
+                ApplyColleagueDiscount = false;
+            }
 
             cartItems.ForEach(cartItem =>
             {
@@ -81,15 +105,34 @@ namespace _01_ExclusiveQuery.Query
                         //basketItem.Count = basketItem.First(x => x.Id == basketItem.Id).Count;
                     }
 
-                    var discountItem = discounts.FirstOrDefault(x => x.ProductId == cartItem.Id);
-                    if (discountItem != null)
+                    if (ApplyColleagueDiscount)
                     {
-                        basketItem.HasDiscount = true;
-                        basketItem.DiscountRate = discountItem.DiscountRate;
-                        var priceWithDiscount = basketItem.PriceWithDiscount = (basketItem.UnitPrice - (inventoryItem.UnitPrice * discountItem.DiscountRate / 100));
-                        //var price2 = double.Parse(priceWithDiscount);
-                        basketItem.TotalItemPrice = (basketItem.Count * priceWithDiscount);
+                        var colleagueDiscount = colleagueDiscounts.FirstOrDefault(x => x.ProductId == cartItem.Id);
+                        if (colleagueDiscount != null)
+                        {
+                            basketItem.HasDiscount = true;
+                            basketItem.DiscountRate = colleagueDiscount.DiscountRate; 
+                            basketItem.UnitPriceWithDiscount = (basketItem.UnitPrice - (inventoryItem.UnitPrice * colleagueDiscount.DiscountRate / 100));
+                        }
                     }
+                    else
+                    {
+                        var customerDiscount = customerDiscounts.FirstOrDefault(x => x.ProductId == cartItem.Id);
+                        if (customerDiscount != null)
+                        {
+                            basketItem.HasDiscount = true;
+                            basketItem.DiscountRate = customerDiscount.DiscountRate;
+                            basketItem.UnitPriceWithDiscount = (basketItem.UnitPrice - (inventoryItem.UnitPrice * customerDiscount.DiscountRate / 100));
+                            //var price2 = double.Parse(priceWithDiscount);
+                            //basketItem.ItemPayAmount = (basketItem.Count * unitPriceWithDiscount);
+                        }
+                    }
+
+                    basketItem.DiscountAmount = ((basketItem.TotalItemPrice * basketItem.DiscountRate) / 100);
+                    basketItem.ItemPayAmount = basketItem.TotalItemPrice - basketItem.DiscountAmount;
+                    
+                    cartSummary.Add(cartItem);
+
                 }
             });
             //foreach (var item in products)
@@ -119,5 +162,16 @@ namespace _01_ExclusiveQuery.Query
             return cartItems;
         }
 
+        public CartModelWithSummary GetSummary(List<CookieCartModel> cartItems)
+        {
+            var cartSummary = new CartModelWithSummary();
+
+            foreach (var cartItem in cartItems)
+            {
+                cartSummary.Add(cartItem);
+            }
+
+            return cartSummary;
+        }
     }
 }
