@@ -73,8 +73,10 @@ namespace _01_ExclusiveQuery.Query
                 {
                     ApplyColleagueDiscount = true;
                 }
-
-                ApplyColleagueDiscount = false;
+                else
+                {
+                    ApplyColleagueDiscount = false;
+                }
             }
 
             cartItems.ForEach(cartItem =>
