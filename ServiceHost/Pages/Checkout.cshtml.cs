@@ -1,10 +1,12 @@
 using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Pages
 {
+    [Authorize]
     public class CheckoutModel : PageModel
     {
         private readonly ISerializeCookie _serializeCookie;
