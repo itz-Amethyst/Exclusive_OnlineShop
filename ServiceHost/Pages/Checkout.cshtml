@@ -73,30 +73,30 @@
                                                                 <span>@item.UnitPrice.ToMoney()</span>
                                                             </del>
                                                             <ins>
-                                                                <span>@item.UnitPriceWithDiscount.ToMoney()</span>
+                                                                <span>@item.UnitPriceWithDiscount.ToMoney() تومان</span>
                                                             </ins>
                                                         </td>
                                                     }
                                                     else
                                                     {
                                                         <td class="pro-price">
-                                                            <span>@item.UnitPrice.ToMoney()</span>
+                                                            <span>@item.UnitPrice.ToMoney() تومان</span>
                                                         </td>
                                                     }
                                                     <td class="pro-price">
                                                         <span>@item.Count</span>
                                                     </td>
                                                     <td class="pro-subtotal">
-                                                        <span>@item.TotalItemPrice.ToMoney()</span>
+                                                        <span>@item.TotalItemPrice.ToMoney() تومان</span>
                                                     </td>
                                                     <td class="pro-subtotal">
                                                         <span>@item.DiscountRate%</span>
                                                     </td>
                                                     <td class="pro-subtotal">
-                                                        <span>@item.DiscountAmount.ToMoney()</span>
+                                                        <span>@item.DiscountAmount.ToMoney() تومان</span>
                                                     </td>
                                                     <td class="pro-subtotal">
-                                                        <span>@item.ItemPayAmount.ToMoney()</span>
+                                                        <span>@item.ItemPayAmount.ToMoney() تومان</span>
                                                     </td>
                                                 </tr>
 
@@ -118,9 +118,9 @@
                                     <div class="cart-summary">
                                         <div class="cart-summary-wrap">
                                             <h4>خلاصه وضعیت فاکتور</h4>
-                                            <p>مبلغ نهایی <span>@Model.TotalCartSummaryModel.TotalAmount.ToMoney()</span></p>
-                                            <p>مبلغ تخفیف <span>@Model.TotalCartSummaryModel.TotalDiscountAmount.ToMoney()</span></p>
-                                            <h2>مبلغ قابل پرداخت <span>@Model.TotalCartSummaryModel.TotalPayAmount.ToMoney()</span></h2>
+                                            <p>مبلغ نهایی <span>@Model.TotalCartSummaryModel.TotalAmount.ToMoney() تومان</span></p>
+                                            <p>مبلغ تخفیف <span>@Model.TotalCartSummaryModel.TotalDiscountAmount.ToMoney() تومان</span></p>
+                                            <h2>مبلغ قابل پرداخت <span>@Model.TotalCartSummaryModel.TotalPayAmount.ToMoney() تومان</span></h2>
                                         </div>
                                         <div class="cart-summary-button">
                                             <button class="checkout-btn">پرداخت</button>
