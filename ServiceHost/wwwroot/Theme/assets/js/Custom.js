@@ -106,7 +106,7 @@ function changeCartItemCount(id, totalId, count , unitPriceId) {
     if (count < 1) {
         products[productIndex].count = 1;
         count = 1;
-        $('#cantAccept0').val(1);
+        $('#cantAccept0-' + id).val(1);
         $.cookie(cookieName, JSON.stringify(products), { secure: true, expires: cookieExpireDay, path: "/" });
     }
     
@@ -114,7 +114,7 @@ function changeCartItemCount(id, totalId, count , unitPriceId) {
     //const unitPrice = $("#UnitPrice").val();
     const unitPrice = $(`#${unitPriceId}`).val();
     const newPrice = parseInt(unitPrice) * parseInt(count);
-    $(`#${totalId}`).text(newPrice.toLocaleString());
+    $(`#${totalId}`).text(`${newPrice.toLocaleString()} تومان`);
     //products[productIndex].totalPrice = newPrice;
     $.cookie(cookieName, JSON.stringify(products), { secure: true, expires: cookieExpireDay, path: "/" });
     //updateCart();
