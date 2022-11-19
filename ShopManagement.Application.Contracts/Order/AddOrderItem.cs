@@ -1,4 +1,4 @@
-﻿namespace ShopManagement.Domain.OrderAgg;
+﻿namespace ShopManagement.Application.Contracts.Order;
 
 public class AddOrderItem
 {
