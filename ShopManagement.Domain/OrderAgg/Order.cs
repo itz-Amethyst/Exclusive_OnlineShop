@@ -8,7 +8,6 @@ namespace ShopManagement.Domain.OrderAgg
 
         public double TotalAmount { get; private set; }
 
-
         public double DiscountAmount { get; private set; }
 
         public double PayAmount { get; private set; }
