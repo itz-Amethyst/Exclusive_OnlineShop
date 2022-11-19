@@ -16,12 +16,11 @@ public class OrderItem : EntityBase
 
     public Order Order { get; private set; }
 
-    public OrderItem(int productId, int count, double unitPrice, int discountRate, int orderId)
+    public OrderItem(int productId, int count, double unitPrice, int discountRate)
     {
         ProductId = productId;
         Count = count;
         UnitPrice = unitPrice;
         DiscountRate = discountRate;
-        OrderId = orderId;
     }
 }
