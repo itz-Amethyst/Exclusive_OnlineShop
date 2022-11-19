@@ -22,13 +22,12 @@ namespace ShopManagement.Domain.OrderAgg
 
         public List<OrderItem> Items { get; private set; }
 
-        public Order(int accountId, double totalAmount, double discountAmount, double payAmount, string issueTrackingNo)
+        public Order(int accountId, double totalAmount, double discountAmount, double payAmount)
         {
             AccountId = accountId;
             TotalAmount = totalAmount;
             DiscountAmount = discountAmount;
             PayAmount = payAmount;
-            IssueTrackingNo = issueTrackingNo;
             Items = new List<OrderItem>();
             IsPaid = false;
             IsCanceled = false;
