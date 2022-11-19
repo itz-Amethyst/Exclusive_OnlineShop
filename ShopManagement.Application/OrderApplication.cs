@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Cookie;
+using Microsoft.AspNetCore.Http;
 using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.OrderAgg;
 
@@ -13,9 +14,11 @@ namespace ShopManagement.Application
             _orderRepository = orderRepository;
         }
 
-        public int PlaceOrder(CartModelWithSummary cartModelWithSummary)
+        public int PlaceOrder(CartModelWithSummary cartModelWithSummary , HttpContext httpContext)
         {
-            throw new NotImplementedException();
+            int userId = _orderRepository.UserId(httpContext);
+            
+            var order = new CartModelWithSummary();
         }
     }
 }
