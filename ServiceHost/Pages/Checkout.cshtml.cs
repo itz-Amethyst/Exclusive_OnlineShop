@@ -1,5 +1,6 @@
 using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
+using _01_ExclusiveQuery.Contracts.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ namespace ServiceHost.Pages
     {
         private readonly ISerializeCookie _serializeCookie;
         private readonly IOrderQuery _orderQuery;
+        private readonly IProductQuery _productQuery;
 
         [TempData] public bool EmptyBasket { get; set; }
 
@@ -22,10 +24,11 @@ namespace ServiceHost.Pages
         public const string CookieName = "cart-items";
         
 
-        public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery)
+        public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery, IProductQuery productQuery)
         {
             _serializeCookie = serializeCookie;
             _orderQuery = orderQuery;
+            _productQuery = productQuery;
         }
 
         public void OnGet()
@@ -75,6 +78,44 @@ namespace ServiceHost.Pages
                 TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
 
             }
+        }
+
+        public IActionResult OnGetPay()
+        {
+            if (Request.Cookies["cart-items"] != null)
+            {
+                if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
+                {
+                    //?Just in Case
+                    _serializeCookie.DeleteCookie(HttpContext);
+                    return RedirectToPage("/Index");
+                }
+
+                CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+
+                if (CartItems.Count <= 0)
+                {
+                    EmptyBasket = true;
+                    _serializeCookie.DeleteCookie(HttpContext);
+                    return RedirectToPage("/Index");
+                }
+
+                EmptyBasket = false;
+
+
+                CartItems = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
+
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
+
+                var result = _productQuery.CheckInventoryStatus(TotalCartSummaryModel.Items); //CartItems Mishe
+
+                if (result.Any(x => !x.IsInStock))
+                {
+                    return RedirectToPage("/Cart");
+                }
+            }
+
+            return null;
         }
     }
 }
