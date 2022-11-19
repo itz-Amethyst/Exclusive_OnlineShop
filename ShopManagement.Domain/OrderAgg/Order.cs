@@ -8,7 +8,6 @@ namespace ShopManagement.Domain.OrderAgg
 
         public double TotalAmount { get; private set; }
 
-        public int DiscountRate { get; private set; }
 
         public double DiscountAmount { get; private set; }
 
@@ -24,12 +23,11 @@ namespace ShopManagement.Domain.OrderAgg
 
         public List<OrderItem> Items { get; private set; }
 
-        public Order(int accountId, double totalAmount, double discountAmount, double payAmount, string issueTrackingNo , int discountRate)
+        public Order(int accountId, double totalAmount, double discountAmount, double payAmount, string issueTrackingNo)
         {
             AccountId = accountId;
             TotalAmount = totalAmount;
             DiscountAmount = discountAmount;
-            DiscountRate = discountRate;
             PayAmount = payAmount;
             IssueTrackingNo = issueTrackingNo;
             Items = new List<OrderItem>();
@@ -61,10 +59,5 @@ namespace ShopManagement.Domain.OrderAgg
         {
             Items.Add(item);
         }
-    }
-
-    public class OrderItem : EntityBase
-    {
-
     }
 }
