@@ -39,5 +39,20 @@ namespace ShopManagement.Application
 
             return order.Id;
         }
+
+        public void PaymentSucceeded(int orderId , int refId)
+        {
+            var order = _orderRepository.GetById(orderId);
+
+            order.SucceededPayment(refId);
+
+            var symbol = _configuration.GetValue<string>("Symbol");
+            var issueTrackingNo = IssueCodeGenerator.Generate(symbol);
+            
+            order.SetIssueTrackingNo(issueTrackingNo);
+            //Todo : Reduce From Inventory
+            
+            _orderRepository.SaveChanges();
+        }
     }
 }
