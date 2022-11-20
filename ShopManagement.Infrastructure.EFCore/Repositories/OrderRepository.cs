@@ -12,9 +12,9 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
         private readonly ShopContext _context;
         private readonly AccountContext _accountContext;
 
-        public OrderRepository(DbContext context, ShopContext context1, AccountContext accountContext) : base(context)
+        public OrderRepository(ShopContext context, AccountContext accountContext) : base(context)
         {
-            _context = context1;
+            _context = context;
             _accountContext = accountContext;
         }
 
