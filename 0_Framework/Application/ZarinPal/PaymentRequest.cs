@@ -2,6 +2,7 @@
 {
     public class PaymentRequest
     {
+        public string UserName { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string CallbackURL { get; set; }
