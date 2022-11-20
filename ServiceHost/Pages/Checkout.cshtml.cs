@@ -4,6 +4,7 @@ using _01_ExclusiveQuery.Contracts.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShopManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
 {
@@ -13,6 +14,7 @@ namespace ServiceHost.Pages
         private readonly ISerializeCookie _serializeCookie;
         private readonly IOrderQuery _orderQuery;
         private readonly IProductQuery _productQuery;
+        private readonly IOrderApplication _orderApplication;
 
         [TempData] public bool EmptyBasket { get; set; }
 
@@ -24,11 +26,12 @@ namespace ServiceHost.Pages
         public const string CookieName = "cart-items";
         
 
-        public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery, IProductQuery productQuery)
+        public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery, IProductQuery productQuery, IOrderApplication orderApplication)
         {
             _serializeCookie = serializeCookie;
             _orderQuery = orderQuery;
             _productQuery = productQuery;
+            _orderApplication = orderApplication;
         }
 
         public void OnGet()
@@ -113,6 +116,8 @@ namespace ServiceHost.Pages
                 {
                     return RedirectToPage("/Cart");
                 }
+
+                var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel , HttpContext);
             }
 
             return null;
