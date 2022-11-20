@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
+using AccountManagement.Infrastructure.EFCore.Context;
 using AccountManagement.Infrastructure.EFCore.Security;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
@@ -15,18 +16,21 @@ namespace _01_ExclusiveQuery.Query
 
         private readonly InventoryContext _inventoryContext;
 
+        private readonly AccountContext _accountContext;
+
         private readonly DiscountContext _discountContext;
 
         private readonly IPermissionChecker _permissionChecker;
 
         public bool ApplyColleagueDiscount { get; set; }
 
-        public OrderQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, IPermissionChecker permissionChecker)
+        public OrderQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, IPermissionChecker permissionChecker, AccountContext accountContext)
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
             _permissionChecker = permissionChecker;
+            _accountContext = accountContext;
         }
 
         public List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems , HttpContext httpContext)
@@ -77,6 +81,9 @@ namespace _01_ExclusiveQuery.Query
                 {
                     ApplyColleagueDiscount = false;
                 }
+
+                //?Zarin Pal
+                
             }
 
             cartItems.ForEach(cartItem =>
@@ -164,9 +171,17 @@ namespace _01_ExclusiveQuery.Query
             return cartItems;
         }
 
-        public CartModelWithSummary GetSummary(List<CookieCartModel> cartItems)
+        public CartModelWithSummary GetSummary(List<CookieCartModel> cartItems , HttpContext httpContext)
         {
             var cartSummary = new CartModelWithSummary();
+
+            var username = httpContext.User.Identity.Name;
+
+            if (username != null)
+            {
+                cartSummary.UserNameForZarinPal = username;
+                cartSummary.EmailForZarinPal = _accountContext.Accounts.Single(x => x.Username == username).Email;
+            }
 
             foreach (var cartItem in cartItems)
             {
