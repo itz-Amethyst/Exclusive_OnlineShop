@@ -7,6 +7,6 @@ namespace _01_ExclusiveQuery.Contracts.Order
     {
         List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems , HttpContext httpContext);
 
-        CartModelWithSummary GetSummary(List<CookieCartModel> cartItems);
+        CartModelWithSummary GetSummary(List<CookieCartModel> cartItems , HttpContext httpContext);
     }
 }
