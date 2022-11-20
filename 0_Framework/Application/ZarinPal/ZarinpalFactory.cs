@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using RestSharp;
 using RestSharp.Serialization.Json;
 
@@ -19,7 +18,7 @@ namespace _0_Framework.Application.ZarinPal
             MerchantId= _configuration.GetSection("payment")["Merchant"];
         }
 
-        public PaymentResponse CreatePaymentRequest(string amount, string mobile, string email, string description,
+        public PaymentResponse CreatePaymentRequest(string amount, string userName, string email, string description,
              long orderId)
         {
             amount = amount.Replace(",", "");
@@ -31,7 +30,7 @@ namespace _0_Framework.Application.ZarinPal
             request.AddHeader("Content-Type", "application/json");
             var body = new PaymentRequest
             {
-                Mobile = mobile,
+                 UserName = userName,
                 CallbackURL = $"{siteUrl}/Checkout?handler=CallBack&oId={orderId}",
                 Description = description,
                 Email = email,
