@@ -129,6 +129,11 @@ namespace ServiceHost.Pages
                 return Redirect($"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
             }
 
+            return RedirectToPage("/Index");
+        }
+
+        public IActionResult OnGetCallBack([FromQuery] string authority, [FromQuery] string status, [FromQuery] int oId)
+        {
             return null;
         }
     }
