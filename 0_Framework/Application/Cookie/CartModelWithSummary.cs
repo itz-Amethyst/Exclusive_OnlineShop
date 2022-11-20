@@ -9,6 +9,10 @@ public class CartModelWithSummary
     public int PaymentMethod { get; set; }
     public List<CookieCartModel> Items { get; set; }
 
+    public string UserNameForZarinPal { get; set; }
+
+    public string EmailForZarinPal { get; set; }
+
     public CartModelWithSummary()
     {
         Items = new List<CookieCartModel>();
