@@ -1,4 +1,5 @@
 using _0_Framework.Application.Cookie;
+using _0_Framework.Application.ZarinPal;
 using _01_ExclusiveQuery.Contracts.Order;
 using _01_ExclusiveQuery.Contracts.Product;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +16,7 @@ namespace ServiceHost.Pages
         private readonly IOrderQuery _orderQuery;
         private readonly IProductQuery _productQuery;
         private readonly IOrderApplication _orderApplication;
+        private readonly IZarinPalFactory _zarinPalFactory;
 
         [TempData] public bool EmptyBasket { get; set; }
 
@@ -26,12 +28,13 @@ namespace ServiceHost.Pages
         public const string CookieName = "cart-items";
         
 
-        public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery, IProductQuery productQuery, IOrderApplication orderApplication)
+        public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery, IProductQuery productQuery, IOrderApplication orderApplication, IZarinPalFactory zarinPalFactory)
         {
             _serializeCookie = serializeCookie;
             _orderQuery = orderQuery;
             _productQuery = productQuery;
             _orderApplication = orderApplication;
+            _zarinPalFactory = zarinPalFactory;
         }
 
         public void OnGet()
@@ -78,7 +81,7 @@ namespace ServiceHost.Pages
 
                 CartItems = _orderQuery.GetCartItemsBy(CartItems , HttpContext);
 
-                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems , HttpContext);
 
             }
         }
@@ -108,7 +111,7 @@ namespace ServiceHost.Pages
 
                 CartItems = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
 
-                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems , HttpContext);
 
                 var result = _productQuery.CheckInventoryStatus(TotalCartSummaryModel.Items); //CartItems Mishe
 
@@ -118,6 +121,12 @@ namespace ServiceHost.Pages
                 }
 
                 var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel , HttpContext);
+
+                var paymentResponse = _zarinPalFactory.CreatePaymentRequest(
+                    TotalCartSummaryModel.TotalPayAmount.ToString(), TotalCartSummaryModel.UserNameForZarinPal,
+                    TotalCartSummaryModel.EmailForZarinPal, "", orderId);
+
+                return Redirect($"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
             }
 
             return null;
