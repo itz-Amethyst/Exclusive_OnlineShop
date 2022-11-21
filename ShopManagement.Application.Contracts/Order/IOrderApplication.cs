@@ -9,5 +9,7 @@ namespace ShopManagement.Application.Contracts.Order
         int PlaceOrder(CartModelWithSummary cartModelWithSummary , HttpContext httpContext);
 
         void PaymentSucceeded(int orderId , int refId);
+
+        double GetAmountBy(int id);
     }
 }
