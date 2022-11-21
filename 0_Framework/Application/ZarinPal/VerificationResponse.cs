@@ -3,6 +3,6 @@
     public class VerificationResponse
     {
         public int Status { get; set; }
-        public long RefID { get; set; }
+        public int RefID { get; set; }
     }
 }
