@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using _0_Framework.Application.Cookie;
 using _0_Framework.Application.ZarinPal;
 using _01_ExclusiveQuery.Contracts.Order;
@@ -140,10 +140,21 @@ namespace ServiceHost.Pages
 
             var verificationResponse = _zarinPalFactory.CreateVerificationRequest(authority, orderAmount.ToString());
 
+            var result = new PaymentResult();
+            
             if (status == "ok" && verificationResponse.Status == 100)
             {
-                _orderApplication.PaymentSucceeded(oId , verificationResponse.RefID);
+                var issueTrackingNo =_orderApplication.PaymentSucceeded(oId , verificationResponse.RefID);
                 _serializeCookie.DeleteCookie(HttpContext);
+
+                result = result.Succeeded("پرداخت با موفقیت انجام شد", issueTrackingNo);
+
+                return RedirectToPage("/PaymentResult", result);
+            }
+            else
+            {
+                result = result.Failed("پرداخت به مشکل خورد در صورت کسر وجه از حساب مبلغ تا 24 ساعت دیگه به حساب شما بازگردانده خواهد شد");
+                return RedirectToPage("/PaymentResult", result);
             }
         }
     }
