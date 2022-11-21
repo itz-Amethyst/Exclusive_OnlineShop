@@ -23,14 +23,14 @@ namespace _0_Framework.Application.ZarinPal
         {
             amount = amount.Replace(",", "");
             var finalAmount = int.Parse(amount);
-            var siteUrl = _configuration.GetSection("payment")["siteUrl"];
+            var siteUrl = _configuration.GetSection("payment")["SiteUrl"];
 
             var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
             var body = new PaymentRequest
             {
-                 UserName = userName,
+                UserName = userName,
                 CallbackURL = $"{siteUrl}/Checkout?handler=CallBack&oId={orderId}",
                 Description = description,
                 Email = email,
