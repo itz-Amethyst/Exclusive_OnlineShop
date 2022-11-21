@@ -1,3 +1,4 @@
+using System.Globalization;
 using _0_Framework.Application.Cookie;
 using _0_Framework.Application.ZarinPal;
 using _01_ExclusiveQuery.Contracts.Order;
@@ -123,10 +124,11 @@ namespace ServiceHost.Pages
                 var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel , HttpContext);
 
                 var paymentResponse = _zarinPalFactory.CreatePaymentRequest(
-                    TotalCartSummaryModel.TotalPayAmount.ToString(), TotalCartSummaryModel.UserNameForZarinPal,
-                    TotalCartSummaryModel.EmailForZarinPal, "", orderId);
+                    TotalCartSummaryModel.TotalPayAmount.ToString(CultureInfo.InvariantCulture), TotalCartSummaryModel.UserNameForZarinPal,
+                    TotalCartSummaryModel.EmailForZarinPal, "test", orderId);
 
-                return Redirect($"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
+                return Redirect(
+                   $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
             }
 
             return RedirectToPage("/Index");
