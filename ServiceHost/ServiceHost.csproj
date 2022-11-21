@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Administration\Pages\AccessDenied.cshtml" />
+    <Content Remove="Pages\PaymentResult.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,15 +105,21 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Administration\Pages\AccessDenied.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\PaymentResult.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Shared\Components\UserSideBar\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Pages\AccessDenied.cshtml" />
+    <None Include="Pages\PaymentResult.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Shared\Components\UserSideBar\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\PaymentResult.cshtml" />
   </ItemGroup>
 
 </Project>
