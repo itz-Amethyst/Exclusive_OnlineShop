@@ -19,11 +19,11 @@ namespace CommentManagement.Domain.CommentAgg
 
         public int Type { get; private set; }
 
-        public int ParentId { get; private set; }
+        public int? ParentId { get; private set; }
 
         public Comment Parent { get; private set; }
 
-        public Comment(string name, string email, string message, int ownerRecordId, int type , int parentId)
+        public Comment(string name, string email, string message, int ownerRecordId, int type , int? parentId)
         {
             Name = name;
             Email = email;
