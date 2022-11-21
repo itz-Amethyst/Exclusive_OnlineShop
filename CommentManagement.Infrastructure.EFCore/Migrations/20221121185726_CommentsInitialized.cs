@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CommentManagement.Infrastructure.EFCore.Migrations
 {
-    public partial class NewcommentAdded : Migration
+    public partial class CommentsInitialized : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,12 +18,11 @@ namespace CommentManagement.Infrastructure.EFCore.Migrations
                     Name = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Message = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
                     OwnerRecordId = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -33,8 +32,7 @@ namespace CommentManagement.Infrastructure.EFCore.Migrations
                         name: "FK_Comments_Comments_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

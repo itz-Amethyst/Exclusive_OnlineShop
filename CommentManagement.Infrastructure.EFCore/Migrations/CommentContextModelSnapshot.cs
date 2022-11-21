@@ -57,7 +57,7 @@ namespace CommentManagement.Infrastructure.EFCore.Migrations
                     b.Property<int>("OwnerRecordId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -74,9 +74,7 @@ namespace CommentManagement.Infrastructure.EFCore.Migrations
                 {
                     b.HasOne("CommentManagement.Domain.CommentAgg.Comment", "Parent")
                         .WithMany()
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
                 });

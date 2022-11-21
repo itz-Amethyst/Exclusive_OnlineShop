@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CommentManagement.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(CommentContext))]
-    [Migration("20221008202057_NewcommentAdded")]
-    partial class NewcommentAdded
+    [Migration("20221121185726_CommentsInitialized")]
+    partial class CommentsInitialized
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,10 +59,7 @@ namespace CommentManagement.Infrastructure.EFCore.Migrations
                     b.Property<int>("OwnerRecordId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -79,9 +76,7 @@ namespace CommentManagement.Infrastructure.EFCore.Migrations
                 {
                     b.HasOne("CommentManagement.Domain.CommentAgg.Comment", "Parent")
                         .WithMany()
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
                 });
