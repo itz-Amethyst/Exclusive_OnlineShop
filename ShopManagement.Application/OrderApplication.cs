@@ -54,5 +54,10 @@ namespace ShopManagement.Application
             
             _orderRepository.SaveChanges();
         }
+
+        public double GetAmountBy(int id)
+        {
+            return _orderRepository.GetAmountBy(id);
+        }
     }
 }
