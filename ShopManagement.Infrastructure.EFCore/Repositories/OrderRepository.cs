@@ -26,7 +26,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public double GetAmountBy(int id)
         {
-            var order = _context.Orders.Select(x => new { x.PayAmount, x.Id }).FirstOrDefault();
+            var order = _context.Orders.Select(x => new { x.PayAmount, x.Id }).FirstOrDefault(x=> x.Id == id);
 
             if (order != null)
             {
