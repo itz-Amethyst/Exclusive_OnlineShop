@@ -142,7 +142,7 @@ namespace ServiceHost.Pages
 
             var result = new PaymentResult();
             
-            if (status == "ok" && verificationResponse.Status == 100)
+            if (status == "ok" && verificationResponse.Status >= 100)
             {
                 var issueTrackingNo =_orderApplication.PaymentSucceeded(oId , verificationResponse.RefID);
                 _serializeCookie.DeleteCookie(HttpContext);
