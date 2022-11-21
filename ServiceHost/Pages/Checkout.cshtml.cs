@@ -136,7 +136,15 @@ namespace ServiceHost.Pages
 
         public IActionResult OnGetCallBack([FromQuery] string authority, [FromQuery] string status, [FromQuery] int oId)
         {
-            return null;
+            var orderAmount = _orderApplication.GetAmountBy(oId);
+
+            var verificationResponse = _zarinPalFactory.CreateVerificationRequest(authority, orderAmount.ToString());
+
+            if (status == "ok" && verificationResponse.Status == 100)
+            {
+                _orderApplication.PaymentSucceeded(oId , verificationResponse.RefID);
+                _serializeCookie.DeleteCookie(HttpContext);
+            }
         }
     }
 }
