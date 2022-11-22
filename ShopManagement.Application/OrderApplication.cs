@@ -44,11 +44,12 @@ namespace ShopManagement.Application
         {
             var order = _orderRepository.GetById(orderId);
 
+            //var orrrrder = _shop.Orders.Find(orderId);
             order.SucceededPayment(refId);
 
             var symbol = _configuration.GetValue<string>("Symbol");
             var issueTrackingNo = IssueCodeGenerator.Generate(symbol);
-            
+
             order.SetIssueTrackingNo(issueTrackingNo);
             //Todo : Reduce From Inventory
             
