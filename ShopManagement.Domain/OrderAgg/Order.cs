@@ -16,7 +16,8 @@ namespace ShopManagement.Domain.OrderAgg
 
         public bool IsCanceled { get; private set; }
 
-        public string IssueTrackingNo { get; private set; }
+        //? Just need to add this fucking question to make it null and shut the mouth of sql
+        public string? IssueTrackingNo { get; private set; }
 
         public int RefId { get; private set; }
 
@@ -28,10 +29,10 @@ namespace ShopManagement.Domain.OrderAgg
             TotalAmount = totalAmount;
             DiscountAmount = discountAmount;
             PayAmount = payAmount;
-            Items = new List<OrderItem>();
             IsPaid = false;
             IsCanceled = false;
             RefId = 0;
+            Items = new List<OrderItem>();
         }
 
         public void SucceededPayment(int refId)
