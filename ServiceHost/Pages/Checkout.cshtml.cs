@@ -138,11 +138,11 @@ namespace ServiceHost.Pages
         {
             var orderAmount = _orderApplication.GetAmountBy(oId);
 
-            var verificationResponse = _zarinPalFactory.CreateVerificationRequest(authority, orderAmount.ToString());
+            var verificationResponse = _zarinPalFactory.CreateVerificationRequest(authority, orderAmount.ToString(CultureInfo.InvariantCulture));
 
             var result = new PaymentResult();
             
-            if (status == "ok" && verificationResponse.Status >= 100)
+            if (status == "OK" && verificationResponse.Status >= 100)
             {
                 var issueTrackingNo =_orderApplication.PaymentSucceeded(oId , verificationResponse.RefID);
                 _serializeCookie.DeleteCookie(HttpContext);
