@@ -63,9 +63,9 @@ namespace ServiceHost.Pages
                 EmptyBasket = false;
 
 
-                CartItems = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
+                CartItems = _orderQuery.GetCartItemsBy(CartItems);
 
-                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems, HttpContext);
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
 
             }
         }
@@ -93,9 +93,9 @@ namespace ServiceHost.Pages
                 EmptyBasket = false;
 
 
-                CartItems = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
+                CartItems = _orderQuery.GetCartItemsBy(CartItems);
 
-                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems, HttpContext);
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
 
                 TotalCartSummaryModel.SetPaymentMethod(paymentMethod);
 
