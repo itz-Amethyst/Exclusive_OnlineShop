@@ -79,5 +79,12 @@ namespace _0_Framework.Application
 
         //    return result;
         //}
+
+        public int CurrentAccountId()
+        {
+            return IsAuthenticated()
+                ? int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "AccountId")?.Value)
+                : 0;
+        }
     }
 }
