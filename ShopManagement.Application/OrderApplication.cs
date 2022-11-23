@@ -25,7 +25,7 @@ namespace ShopManagement.Application
             //var issueTrackingNo = IssueCodeGenerator.Generate(symbol);
             
 
-            var order = new Order(userId , cartModelWithSummary.TotalAmount ,cartModelWithSummary.TotalDiscountAmount , cartModelWithSummary.TotalPayAmount);
+            var order = new Order(userId , cartModelWithSummary.PaymentMethod , cartModelWithSummary.TotalAmount ,cartModelWithSummary.TotalDiscountAmount , cartModelWithSummary.TotalPayAmount);
 
             foreach (var cartItem in cartModelWithSummary.Items)
             {
