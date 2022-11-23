@@ -21,6 +21,8 @@ namespace ServiceHost.Pages
 
         [TempData] public bool EmptyBasket { get; set; }
 
+        public string OrderDescription { get; set; }
+
         public List<CookieCartModel> CartItems;
 
         public CartModelWithSummary TotalCartSummaryModel;
@@ -42,25 +44,6 @@ namespace ServiceHost.Pages
         {
             if (Request.Cookies["cart-items"] != null)
             {
-                //var serializer = new JavaScriptSerializer();
-                //var value = Request.Cookies[CookieName];
-                //try
-                //{
-                //    CartItems = serializer.Deserialize<List<CartQueryModel>>(value);
-                //}
-                //catch (Exception e)
-                //{
-                //    flag = true;
-                //    Console.WriteLine(e);
-                //}
-
-                //if (flag)
-                //{
-                //    //CartMessage = "t";
-                //    HttpContext.Response.Cookies.Delete(CookieName);
-                //    return;
-                //}
-
                 if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
                 {
                     //?Just in Case
@@ -125,21 +108,39 @@ namespace ServiceHost.Pages
 
                 var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel , HttpContext);
 
+                if (paymentMethod == 1 || paymentMethod == 3)
+                {
+                    OrderDescription = $"پرداخت فاکتور :‌ {orderId}";
+                }
+                else
+                {
+                    OrderDescription = $"فاکتور حضوری : {orderId}‌";
+                }
+
+                var paymentResponse = _zarinPalFactory.CreatePaymentRequest(
+                    TotalCartSummaryModel.TotalPayAmount.ToString(CultureInfo.InvariantCulture), TotalCartSummaryModel.UserNameForZarinPal,
+                    TotalCartSummaryModel.EmailForZarinPal, OrderDescription, orderId);
 
                 if (paymentMethod == 1)
                 {
-                    var paymentResponse = _zarinPalFactory.CreatePaymentRequest(
-                        TotalCartSummaryModel.TotalPayAmount.ToString(CultureInfo.InvariantCulture), TotalCartSummaryModel.UserNameForZarinPal,
-                        TotalCartSummaryModel.EmailForZarinPal, $"پرداخت فاکتور :‌ {orderId}", orderId);
-
                     return Redirect(
                         $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
                 }
                 else if (paymentMethod == 2)
                 {
+                    var orderAmount = _orderApplication.GetAmountBy(orderId);
                     var paymentResult = new PaymentResult();
 
-                    return RedirectToPage("/PaymentResult", paymentResult.Succeeded("سفارش شما با موفقیت ثبت شد و پس از تماس نمیدونم wtf is this"));
+                    var verificationResponse = _zarinPalFactory.CreateVerificationRequest(paymentResponse.Authority, orderAmount.ToString(CultureInfo.InvariantCulture));
+                    if (verificationResponse.Status >= 100)
+                    {
+                        var issueTrackingNo = _orderApplication.PaymentSucceeded(orderId, verificationResponse.RefID);
+                        return RedirectToPage("/PaymentResult", paymentResult.Succeeded("سفارش شما با موفقیت ثبت شد و پس از تماس همکاران و درب منزل پرداخت خواهد شد" , issueTrackingNo));
+                    }
+
+                    paymentResult = paymentResult.Failed("مشکلی پیش امده لطفا بعد از چند دقیقه دوباره تلاش کنید .");
+                    _serializeCookie.DeleteCookie(HttpContext);
+                    return RedirectToPage("/PaymentResult", paymentResult);
                 }
                
             }
