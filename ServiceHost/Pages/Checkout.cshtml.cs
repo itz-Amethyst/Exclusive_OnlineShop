@@ -87,7 +87,7 @@ namespace ServiceHost.Pages
             }
         }
 
-        public IActionResult OnGetPay()
+        public IActionResult OnGetPay(int paymentMethod)
         {
             if (Request.Cookies["cart-items"] != null)
             {
@@ -114,6 +114,8 @@ namespace ServiceHost.Pages
 
                 TotalCartSummaryModel = _orderQuery.GetSummary(CartItems , HttpContext);
 
+                TotalCartSummaryModel.SetPaymentMethod(paymentMethod);
+
                 var result = _productQuery.CheckInventoryStatus(TotalCartSummaryModel.Items); //CartItems Mishe
 
                 if (result.Any(x => !x.IsInStock))
@@ -123,12 +125,23 @@ namespace ServiceHost.Pages
 
                 var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel , HttpContext);
 
-                var paymentResponse = _zarinPalFactory.CreatePaymentRequest(
-                    TotalCartSummaryModel.TotalPayAmount.ToString(CultureInfo.InvariantCulture), TotalCartSummaryModel.UserNameForZarinPal,
-                    TotalCartSummaryModel.EmailForZarinPal, "test", orderId);
 
-                return Redirect(
-                   $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
+                if (paymentMethod == 1)
+                {
+                    var paymentResponse = _zarinPalFactory.CreatePaymentRequest(
+                        TotalCartSummaryModel.TotalPayAmount.ToString(CultureInfo.InvariantCulture), TotalCartSummaryModel.UserNameForZarinPal,
+                        TotalCartSummaryModel.EmailForZarinPal, $"پرداخت فاکتور :‌ {orderId}", orderId);
+
+                    return Redirect(
+                        $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
+                }
+                else if (paymentMethod == 2)
+                {
+                    var paymentResult = new PaymentResult();
+
+                    return RedirectToPage("/PaymentResult", paymentResult.Succeeded("سفارش شما با موفقیت ثبت شد و پس از تماس نمیدونم wtf is this"));
+                }
+               
             }
 
             return RedirectToPage("/Index");
