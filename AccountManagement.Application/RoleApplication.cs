@@ -1,8 +1,6 @@
 ﻿using _0_Framework.Application;
-using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
-using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Application
 {
