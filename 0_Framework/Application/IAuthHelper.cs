@@ -11,5 +11,7 @@
         //string CurrentUserRole();
 
         //AuthViewModel CurrentAccountInfo();
+
+        int CurrentAccountId();
     }
 }
