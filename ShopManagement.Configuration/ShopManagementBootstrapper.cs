@@ -16,9 +16,11 @@ using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
+using ShopManagement.Domain.Services;
 using ShopManagement.Domain.SlideAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 using ShopManagement.Infrastructure.EFCore.Repositories;
+using ShopManagement.Infrastructure.InventoryAcl;
 
 namespace ShopManagement.Infrastructure.Configuration
 {
@@ -88,7 +90,13 @@ namespace ShopManagement.Infrastructure.Configuration
 
             services.AddTransient<IOrderApplication, OrderApplication>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-            
+
+            #endregion
+
+            #region InventoryAcl
+
+            services.AddTransient<IShopInventoryAcl , ShopInventoryAcl>();
+
             #endregion
 
 
