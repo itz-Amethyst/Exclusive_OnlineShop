@@ -118,7 +118,7 @@ namespace ServiceHost.Pages
             return RedirectToPage("/Cart");
         }
 
-        public IActionResult OnGetGoToCheckOutPage()
+        public IActionResult OnPostGoToCheckOutPage()
         {
             //Work on this
 
