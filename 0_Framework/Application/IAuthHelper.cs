@@ -15,5 +15,7 @@
         int CurrentAccountId();
 
         string CurrentAccountUserName();
+
+        string CurrentAccountEmail();
     }
 }
