@@ -5,7 +5,7 @@ namespace ShopManagement.Application.Contracts.Order
 {
     public interface IOrderApplication
     {
-        int PlaceOrder(CartModelWithSummary cartModelWithSummary , HttpContext httpContext);
+        int PlaceOrder(CartModelWithSummary cartModelWithSummary);
 
         string PaymentSucceeded(int orderId , int refId);
 
