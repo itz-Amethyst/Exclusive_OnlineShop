@@ -13,5 +13,7 @@
         //AuthViewModel CurrentAccountInfo();
 
         int CurrentAccountId();
+
+        string CurrentAccountUserName();
     }
 }
