@@ -106,7 +106,7 @@ namespace ServiceHost.Pages
                     return RedirectToPage("/Cart");
                 }
 
-                var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel, HttpContext);
+                var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel);
 
                 if (paymentMethod == 1 || paymentMethod == 3)
                 {
