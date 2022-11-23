@@ -1,10 +1,9 @@
-﻿using _0_Framework.Application.Cookie;
+﻿using _0_Framework.Application;
+using _0_Framework.Application.Cookie;
 using _01_ExclusiveQuery.Contracts.Order;
-using AccountManagement.Infrastructure.EFCore.Context;
 using AccountManagement.Infrastructure.EFCore.Security;
 using DiscountManagement.Infrastructure.EFCore.Context;
 using InventoryManagement.Infrastructure.EFCore.Context;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure.EFCore.Context;
 
@@ -13,27 +12,23 @@ namespace _01_ExclusiveQuery.Query
     public class OrderQuery : IOrderQuery
     {
         private readonly ShopContext _shopContext;
-
         private readonly InventoryContext _inventoryContext;
-
-        private readonly AccountContext _accountContext;
-
         private readonly DiscountContext _discountContext;
-
         private readonly IPermissionChecker _permissionChecker;
+        private readonly IAuthHelper _authHelper;
 
         public bool ApplyColleagueDiscount { get; set; }
 
-        public OrderQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, IPermissionChecker permissionChecker, AccountContext accountContext)
+        public OrderQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, IPermissionChecker permissionChecker, IAuthHelper authHelper)
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
             _permissionChecker = permissionChecker;
-            _accountContext = accountContext;
+            _authHelper = authHelper;
         }
 
-        public List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems , HttpContext httpContext)
+        public List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems)
         {
             //List<int> productIds = cartItems.Select(x => x.Id).ToList();
             var cartSummary = new List<CookieCartModel>();
@@ -69,7 +64,7 @@ namespace _01_ExclusiveQuery.Query
             //    //Count = cartItems.Count,
             //}).ToList();
 
-            var username = httpContext.User.Identity.Name;
+            var username = _authHelper.CurrentAccountUserName();
 
             if (username != null)
             {
@@ -171,16 +166,16 @@ namespace _01_ExclusiveQuery.Query
             return cartItems;
         }
 
-        public CartModelWithSummary GetSummary(List<CookieCartModel> cartItems , HttpContext httpContext)
+        public CartModelWithSummary GetSummary(List<CookieCartModel> cartItems)
         {
             var cartSummary = new CartModelWithSummary();
 
-            var username = httpContext.User.Identity.Name;
+            var username = _authHelper.CurrentAccountUserName();
 
             if (username != null)
             {
                 cartSummary.UserNameForZarinPal = username;
-                cartSummary.EmailForZarinPal = _accountContext.Accounts.Single(x => x.Username == username).Email;
+                cartSummary.EmailForZarinPal = _authHelper.CurrentAccountEmail();
             }
 
             foreach (var cartItem in cartItems)
