@@ -29,7 +29,7 @@ namespace ServiceHost.Pages
 
 
         public const string CookieName = "cart-items";
-        
+
 
         public CheckoutModel(ISerializeCookie serializeCookie, IOrderQuery orderQuery, IProductQuery productQuery, IOrderApplication orderApplication, IZarinPalFactory zarinPalFactory)
         {
@@ -63,14 +63,14 @@ namespace ServiceHost.Pages
                 EmptyBasket = false;
 
 
-                CartItems = _orderQuery.GetCartItemsBy(CartItems , HttpContext);
+                CartItems = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
 
-                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems , HttpContext);
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems, HttpContext);
 
             }
         }
 
-        public IActionResult OnGetPay(int paymentMethod)
+        public IActionResult OnPostPay(int paymentMethod)
         {
             if (Request.Cookies["cart-items"] != null)
             {
@@ -95,7 +95,7 @@ namespace ServiceHost.Pages
 
                 CartItems = _orderQuery.GetCartItemsBy(CartItems, HttpContext);
 
-                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems , HttpContext);
+                TotalCartSummaryModel = _orderQuery.GetSummary(CartItems, HttpContext);
 
                 TotalCartSummaryModel.SetPaymentMethod(paymentMethod);
 
@@ -106,7 +106,7 @@ namespace ServiceHost.Pages
                     return RedirectToPage("/Cart");
                 }
 
-                var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel , HttpContext);
+                var orderId = _orderApplication.PlaceOrder(TotalCartSummaryModel, HttpContext);
 
                 if (paymentMethod == 1 || paymentMethod == 3)
                 {
@@ -121,6 +121,8 @@ namespace ServiceHost.Pages
                     TotalCartSummaryModel.TotalPayAmount.ToString(CultureInfo.InvariantCulture), TotalCartSummaryModel.UserNameForZarinPal,
                     TotalCartSummaryModel.EmailForZarinPal, OrderDescription, orderId);
 
+                var paymentResult = new PaymentResult();
+
                 if (paymentMethod == 1)
                 {
                     return Redirect(
@@ -129,20 +131,16 @@ namespace ServiceHost.Pages
                 else if (paymentMethod == 2)
                 {
                     var orderAmount = _orderApplication.GetAmountBy(orderId);
-                    var paymentResult = new PaymentResult();
 
                     var verificationResponse = _zarinPalFactory.CreateVerificationRequest(paymentResponse.Authority, orderAmount.ToString(CultureInfo.InvariantCulture));
-                    if (verificationResponse.Status >= 100)
-                    {
-                        var issueTrackingNo = _orderApplication.PaymentSucceeded(orderId, verificationResponse.RefID);
-                        return RedirectToPage("/PaymentResult", paymentResult.Succeeded("سفارش شما با موفقیت ثبت شد و پس از تماس همکاران و درب منزل پرداخت خواهد شد" , issueTrackingNo));
-                    }
-
-                    paymentResult = paymentResult.Failed("مشکلی پیش امده لطفا بعد از چند دقیقه دوباره تلاش کنید .");
-                    _serializeCookie.DeleteCookie(HttpContext);
-                    return RedirectToPage("/PaymentResult", paymentResult);
+                    var issueTrackingNo = _orderApplication.PaymentSucceeded(orderId, verificationResponse.RefID);
+                    return RedirectToPage("/PaymentResult", paymentResult.Succeeded("سفارش شما با موفقیت ثبت شد و پس از تماس همکاران و درب منزل پرداخت خواهد شد", issueTrackingNo));
                 }
-               
+
+                paymentResult = paymentResult.Failed("مشکلی پیش امده لطفا بعد از چند دقیقه دوباره تلاش کنید .");
+                _serializeCookie.DeleteCookie(HttpContext);
+                return RedirectToPage("/PaymentResult", paymentResult);
+
             }
 
             return RedirectToPage("/Index");
@@ -155,10 +153,10 @@ namespace ServiceHost.Pages
             var verificationResponse = _zarinPalFactory.CreateVerificationRequest(authority, orderAmount.ToString(CultureInfo.InvariantCulture));
 
             var result = new PaymentResult();
-            
+
             if (status == "OK" && verificationResponse.Status >= 100)
             {
-                var issueTrackingNo =_orderApplication.PaymentSucceeded(oId , verificationResponse.RefID);
+                var issueTrackingNo = _orderApplication.PaymentSucceeded(oId, verificationResponse.RefID);
                 _serializeCookie.DeleteCookie(HttpContext);
 
                 result = result.Succeeded("پرداخت با موفقیت انجام شد", issueTrackingNo);
