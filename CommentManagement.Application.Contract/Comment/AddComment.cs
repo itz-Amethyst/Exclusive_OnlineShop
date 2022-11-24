@@ -8,7 +8,7 @@
 
         public string Message { get; set; }
 
-        public int ProductId { get; set; }
+        //public int ProductId { get; set; }
 
         public int OwnerRecordId { get; set; }
 
