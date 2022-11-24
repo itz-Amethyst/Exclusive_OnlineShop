@@ -133,7 +133,9 @@
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
         $(document).ready(function () {
-            $('#datatable').DataTable();
+            $('#datatable').DataTable({
+                "pageLength": 50
+            });
         });
 
         // Removing Pagination and SearchBox
