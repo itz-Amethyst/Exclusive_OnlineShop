@@ -25,5 +25,7 @@ namespace AccountManagement.Domain.AccountAgg
         EditUserProfile GetProfileDetails(string username);
 
         bool CheckPassword(string databasePassword, string userPassword);
+
+        List<AccountViewModel> GetAccounts();
     }
 }
