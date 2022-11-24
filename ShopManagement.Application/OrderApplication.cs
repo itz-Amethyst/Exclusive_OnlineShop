@@ -33,7 +33,7 @@ namespace ShopManagement.Application
 
             foreach (var cartItem in cartModelWithSummary.Items)
             {
-                var orderItem = new OrderItem(cartItem.Id, cartItem.Count, cartItem.UnitPrice, cartItem.DiscountRate);
+                var orderItem = new OrderItem(cartItem.Id, cartItem.Count, cartItem.UnitPrice, cartItem.DiscountRate, cartItem.TotalItemPrice, cartItem.HasDiscount, cartItem.UnitPriceWithDiscount, cartItem.DiscountAmount, cartItem.ItemPayAmount);
 
                 order.AddItem(orderItem);
             }
@@ -74,6 +74,15 @@ namespace ShopManagement.Application
         public List<OrderViewModel> Search(OrderSearchModel searchModel)
         {
             return _orderRepository.Search(searchModel);
+        }
+
+        public void Cancel(int id)
+        {
+            var order = _orderRepository.GetById(id);
+
+            order.Cancel();
+
+            _orderRepository.SaveChanges();;
         }
     }
 }
