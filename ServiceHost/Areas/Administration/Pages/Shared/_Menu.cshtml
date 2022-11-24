@@ -54,6 +54,13 @@
                         <a asp-page="/Inventory/Index" class="waves-effect"><i class="fa fa-archive"></i> <span> انبارداری </span> </a>
                     </li>
                 }
+                
+                @if (_permissionChecker.CheckPermission(Roles.AccessToOrdersSection, username))
+                {
+                    <li>
+                        <a asp-page="/Orders/Index" class="waves-effect"><i class="fa fa-shopping-basket"></i> <span> سفارشات </span> </a>
+                    </li>
+                }
 
                 @if (_permissionChecker.CheckPermission(Roles.AccessShop, username))
                 {
