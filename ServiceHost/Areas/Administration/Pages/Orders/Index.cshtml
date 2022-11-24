@@ -96,7 +96,7 @@
                                 {
                                     <span class="text-danger">کنسل شده ❌</span>
                                 }
-                                @if (item.IsPaid)
+                                @if (!item.IsCanceled && item.IsPaid)
                                 {
                                     <span class="text-success">پرداخت شده ✅</span>
                                 }
@@ -106,7 +106,7 @@
                                 }
                             </td>
                             <td>
-                                @if (item.IsPaid == false)
+                                @if (!item.IsPaid && !item.IsCanceled)
                                 {
                                     <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page-handler="Confirm" asp-route-id="@item.Id">
                                         <i class="fa fa-check"></i> تایید
@@ -114,7 +114,31 @@
                                     <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page-handler="Cancel" asp-route-id="@item.Id">
                                         <i class="fa fa-close"></i> لغو
                                     </a>
+
                                 }
+
+                                @if (!item.IsPaid && item.IsCanceled)
+                                {
+                                    <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page-handler="Confirm" asp-route-id="@item.Id">
+                                        <i class="fa fa-check"></i> تایید
+                                    </a>
+
+                                }
+
+                                @if (item.IsPaid && !item.IsCanceled)
+                                {
+                                    <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page-handler="Cancel" asp-route-id="@item.Id">
+                                        <i class="fa fa-close"></i> لغو
+                                    </a>
+                                }
+
+                                @if (item.IsPaid && item.IsCanceled)
+                                {
+                                    <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page-handler="Confirm" asp-route-id="@item.Id">
+                                        <i class="fa fa-check"></i> تایید
+                                    </a>
+                                }
+
                                 <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md"
                                    href="#showmodal=@Url.Page("./Index", "Items", new {id = item.Id})">
                                     <i class="fa fa-id-card"></i> آیتم ها
@@ -129,6 +153,7 @@
 </div>
 <!-- end row -->
 @section Scripts{
+    <script src="~/AdminTheme/assets/SweetAlert/SweetAlert.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/plugins/datatables/dataTables.bootstrap.js"></script>
     <script>
@@ -140,5 +165,57 @@
 
         // Removing Pagination and SearchBox
         $('#datatable').DataTable({ searching: false, paging: true, info: true });
+
+        //? Sweet Alert
+        var url = window.location.href;
+        const MainUrl = url.split('?')[0];
+
+        function Location() {
+            window.location.href = MainUrl;
+
+        }
+
+        function Clear() {
+            setTimeout(Location, 2500);
+        }
     </script>
+    
+    @if (ViewBag.Confirmed == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'تایید سفارش با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+
+            Clear();
+        </script>
+    }
+    @if (ViewBag.Canceled == true)
+    {
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                title: 'کنسل سفارش با موفقیت انجام شد',
+                icon: 'success',
+                confirmButtonText: 'خواندم',
+                showCloseButton: false,
+                timer: 2500
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Location();
+                }
+            });
+            Clear();
+
+        </script>
+    }
 }
