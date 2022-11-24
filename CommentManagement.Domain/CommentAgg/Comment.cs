@@ -1,6 +1,9 @@
 ﻿using _0_Framework.Domain;
 using ShopManagement.Domain.ProductAgg;
 
+//? To Fix this GodDamn Error : The INSERT statement conflicted with the FOREIGN KEY SAME TABLE constraint "". The conflict occurred in database "", table "", column 'Id'.
+//! Just do this in table setting database  just go to relationships and set this Enforce Foreign key Constraint to No Just this ez Pz Milad
+
 namespace CommentManagement.Domain.CommentAgg
 {
     public class Comment : EntityBase
@@ -19,11 +22,11 @@ namespace CommentManagement.Domain.CommentAgg
 
         public int Type { get; private set; }
 
-        public int? ParentId { get; private set; }
+        public int ParentId { get; private set; }
 
         public Comment Parent { get; private set; }
 
-        public Comment(string name, string email, string message, int ownerRecordId, int type , int? parentId)
+        public Comment(string name, string email, string message, int ownerRecordId, int type , int parentId)
         {
             Name = name;
             Email = email;
