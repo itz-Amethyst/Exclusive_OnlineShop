@@ -10,5 +10,7 @@ namespace ShopManagement.Application.Contracts.Order
         string PaymentSucceeded(int orderId , int refId);
 
         double GetAmountBy(int id);
+
+        List<OrderViewModel> Search(OrderSearchModel searchModel);
     }
 }
