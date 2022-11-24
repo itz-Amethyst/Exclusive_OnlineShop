@@ -1,6 +1,8 @@
 using _0_Framework.Infrastructure;
+using AccountManagement.Application;
 using AccountManagement.Infrastructure.EFCore.Security;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Areas.Administration.Pages.Orders
@@ -9,17 +11,21 @@ namespace ServiceHost.Areas.Administration.Pages.Orders
     public class IndexModel : PageModel
     {
         private readonly IOrderApplication _orderApplication;
+        private readonly AccountApplication _accountApplication;
 
         public OrderSearchModel SearchModel;
         public List<OrderViewModel> Orders;
+        public SelectList Accounts;
 
-        public IndexModel(IOrderApplication orderApplication)
+        public IndexModel(IOrderApplication orderApplication, AccountApplication accountApplication)
         {
             _orderApplication = orderApplication;
+            _accountApplication = accountApplication;
         }
 
         public void OnGet(OrderSearchModel searchModel)
         {
+            Accounts = new SelectList(_accountApplication.GetAccounts(), "Id", "Username");
             Orders = _orderApplication.Search(searchModel);
         }
 
