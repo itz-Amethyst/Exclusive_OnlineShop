@@ -28,7 +28,7 @@
                             <div class="checkbox checkbox-info" style="display: inline">
                                 <input asp-for="SearchModel.IsCanceled">
                                 <label asp-for="SearchModel.IsCanceled">
-                                    مشاهده ناموجودها
+                                    مشاهده کنسل شده ها
                                 </label>
                             </div>
                         </div>
@@ -86,6 +86,7 @@
                             <td>@item.AccountName</td>
                             <td>@item.TotalAmount.ToMoney()</td>
                             <td>@item.DiscountAmount.ToMoney()</td>
+                            <td>@item.PayAmount.ToMoney()</td>
                             <td>@item.PaymentMethod</td>
                             <td>@item.IssueTrackingNo</td>
                             <td>@item.RefId</td>
@@ -107,14 +108,14 @@
                             <td>
                                 @if (item.IsPaid == false)
                                 {
-                                    <a class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page-handler="Confirm" asp-route-id="@item.Id">
+                                    <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-success waves-effect waves-light m-l-15 w-md" asp-page-handler="Confirm" asp-route-id="@item.Id">
                                         <i class="fa fa-check"></i> تایید
                                     </a>
-                                    <a class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page-handler="Cancel" asp-route-id="@item.Id">
+                                    <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-danger waves-effect waves-light m-l-15 w-md" asp-page-handler="Cancel" asp-route-id="@item.Id">
                                         <i class="fa fa-close"></i> لغو
                                     </a>
                                 }
-                                <a class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md"
+                                <a permission="@Roles.AccessToOrdersOperations" class="btn btn-trans btn-warning waves-effect waves-light m-l-15 w-md"
                                    href="#showmodal=@Url.Page("./Index", "Items", new {id = item.Id})">
                                     <i class="fa fa-id-card"></i> آیتم ها
                                 </a>
