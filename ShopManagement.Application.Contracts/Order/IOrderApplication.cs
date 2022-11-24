@@ -12,5 +12,8 @@ namespace ShopManagement.Application.Contracts.Order
         double GetAmountBy(int id);
 
         List<OrderViewModel> Search(OrderSearchModel searchModel);
+
+        void Cancel(int id);
     }
 }
+ 
