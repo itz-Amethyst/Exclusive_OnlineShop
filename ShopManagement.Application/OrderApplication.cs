@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.OrderAgg;
+using ShopManagement.Domain.Services;
 
 namespace ShopManagement.Application
 {
@@ -11,16 +12,20 @@ namespace ShopManagement.Application
     {
         private readonly IConfiguration _configuration;
         private readonly IOrderRepository _orderRepository;
+        private readonly IShopInventoryAcl _shopInventoryAcl;
+        private readonly IAuthHelper _authHelper;
 
-        public OrderApplication(IOrderRepository orderRepository, IConfiguration configuration)
+        public OrderApplication(IOrderRepository orderRepository, IConfiguration configuration, IShopInventoryAcl shopInventoryAcl, IAuthHelper authHelper)
         {
             _orderRepository = orderRepository;
             _configuration = configuration;
+            _shopInventoryAcl = shopInventoryAcl;
+            _authHelper = authHelper;
         }
 
-        public int PlaceOrder(CartModelWithSummary cartModelWithSummary , HttpContext httpContext)
+        public int PlaceOrder(CartModelWithSummary cartModelWithSummary)
         {
-            int userId = _orderRepository.UserId(httpContext);
+            int userId = _authHelper.CurrentAccountId();
             //var symbol = _configuration.GetValue<string>("Symbol");
             //var issueTrackingNo = IssueCodeGenerator.Generate(symbol);
             
@@ -52,10 +57,14 @@ namespace ShopManagement.Application
 
             order.SetIssueTrackingNo(issueTrackingNo);
             //Todo : Reduce From Inventory
-            
-            _orderRepository.SaveChanges();
 
-            return issueTrackingNo;
+            if (_shopInventoryAcl.ReduceFromInventory(order.Items))
+            {
+                _orderRepository.SaveChanges();
+                return issueTrackingNo;
+            }
+
+            return "";
         }
 
         public double GetAmountBy(int id)
