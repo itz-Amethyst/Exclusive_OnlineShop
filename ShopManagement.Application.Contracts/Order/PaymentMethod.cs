@@ -28,7 +28,7 @@
             };
         }
 
-        public PaymentMethod GetBy(int id)
+        public static PaymentMethod GetBy(int id)
         {
             return GetList().First(x => x.Id == id);
         }
