@@ -1,6 +1,8 @@
-﻿using _0_Framework.Infrastructure;
+﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using AccountManagement.Infrastructure.EFCore.Context;
 using Microsoft.AspNetCore.Http;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 
@@ -17,12 +19,12 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             _accountContext = accountContext;
         }
 
-        public int UserId(HttpContext httpContext)
-        {
-            var username = httpContext.User.Identity.Name;
+        //public int UserId(HttpContext httpContext)
+        //{
+        //    var username = httpContext.User.Identity.Name;
 
-            return _accountContext.Accounts.Single(x => x.Username == username)?.Id ?? 0;
-        }
+        //    return _accountContext.Accounts.Single(x => x.Username == username)?.Id ?? 0;
+        //}
 
         public double GetAmountBy(int id)
         {
@@ -34,6 +36,48 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             }
 
             return 0;
+        }
+
+        public List<OrderViewModel> Search(OrderSearchModel searchModel)
+        {
+            var accounts = _accountContext.Accounts.Select(x => new { x.Username, x.Id }).ToList();
+
+            var query = _context.Orders.Select(x => new OrderViewModel
+            {
+                Id = x.Id,
+                AccountId = x.AccountId,
+                DiscountAmount = x.DiscountAmount,
+                IsCanceled = x.IsCanceled,
+                IssueTrackingNo = x.IssueTrackingNo,
+                IsPaid = x.IsPaid,
+                CreationDate = x.CreationDate.ToFarsi(),
+                PayAmount = x.PayAmount,
+                PaymentMethodId = x.PaymentMethod,
+                TotalAmount = x.TotalAmount,
+                RefId = x.RefId
+            });
+
+            query = query.Where(x => x.IsCanceled == searchModel.IsCanceled);
+
+            if (searchModel.AccountId > 0)
+            {
+                query = query.Where(x => x.AccountId == searchModel.AccountId);
+            }
+
+            if (searchModel.IsCanceled)
+            {
+                query = query.Where(x => !x.IsCanceled);
+            }
+
+            var orders =  query.OrderByDescending(x => x.Id).ToList();
+
+            foreach (var order in orders)
+            {
+                order.AccountName = accounts.FirstOrDefault(x => x.Id == order.AccountId).Username;
+                order.PaymentMethod = PaymentMethod.GetBy(order.PaymentMethodId).Name;
+            }
+
+            return orders;
         }
     }
 }
