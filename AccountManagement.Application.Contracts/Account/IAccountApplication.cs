@@ -41,5 +41,7 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult EditUserProfile(EditUserProfile command);
 
         OperationResult ChangePasswordByUser(ChangePasswordViewModel command);
+
+        List<AccountViewModel> GetAccounts();
     }
 }
