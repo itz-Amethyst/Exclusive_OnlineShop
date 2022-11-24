@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Application.Cookie;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.OrderAgg;
@@ -70,6 +69,11 @@ namespace ShopManagement.Application
         public double GetAmountBy(int id)
         {
             return _orderRepository.GetAmountBy(id);
+        }
+
+        public List<OrderViewModel> Search(OrderSearchModel searchModel)
+        {
+            return _orderRepository.Search(searchModel);
         }
     }
 }
