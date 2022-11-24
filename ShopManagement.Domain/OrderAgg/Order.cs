@@ -41,7 +41,7 @@ namespace ShopManagement.Domain.OrderAgg
         public void SucceededPayment(int refId)
         {
             IsPaid = true;
-            if (RefId != 0)
+            if (refId != 0)
             {
                 RefId = refId;
             }
