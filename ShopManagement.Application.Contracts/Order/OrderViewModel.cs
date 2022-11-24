@@ -2,6 +2,8 @@
 
 public class OrderViewModel
 {
+    public int Id { get; set; }
+
     public int AccountId { get; set; }
 
     public string AccountName { get; set; }
@@ -25,4 +27,5 @@ public class OrderViewModel
 
     public int RefId { get; set; }
 
+    public string CreationDate { get; set; }
 }
