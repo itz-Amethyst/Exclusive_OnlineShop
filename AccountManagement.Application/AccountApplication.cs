@@ -463,5 +463,10 @@ namespace AccountManagement.Application
             _authHelper.SignOut();
             return operation.Succeeded();
         }
+
+        public List<AccountViewModel> GetAccounts()
+        {
+            return _accountRepository.GetAccounts();
+        }
     }
 }
