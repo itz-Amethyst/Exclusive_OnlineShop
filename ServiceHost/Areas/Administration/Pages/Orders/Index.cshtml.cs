@@ -33,18 +33,21 @@ namespace ServiceHost.Areas.Administration.Pages.Orders
             Orders = _orderApplication.Search(searchModel);
         }
 
+        [PermissionChecker(Roles.AccessToOrdersOperations)]
         public IActionResult OnGetConfirm(int id)
         {
             _orderApplication.PaymentSucceeded(id, 0);
             return RedirectToPage("./Index", new { Confirmed = "True" });
         }
 
+        [PermissionChecker(Roles.AccessToOrdersOperations)]
         public IActionResult OnGetCancel(int id)
         {
             _orderApplication.Cancel(id);
             return RedirectToPage("./Index", new { Confirmed = "True" });
         }
 
+        [PermissionChecker(Roles.AccessToOrdersOperations)]
         public IActionResult OnGetItems(int id)
         {
             var items = _orderApplication.GetItems(id);
