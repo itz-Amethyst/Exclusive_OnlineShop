@@ -159,12 +159,15 @@
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable({
-                "pageLength": 50
+                "pageLength": 50,
+                searching: false,
+                paging: true,
+                info: true
             });
         });
 
         // Removing Pagination and SearchBox
-        $('#datatable').DataTable({ searching: false, paging: true, info: true });
+        //$('#datatable').DataTable({ searching: false, paging: true, info: true });
 
         //? Sweet Alert
         var url = window.location.href;
