@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Cookie;
-using Microsoft.AspNetCore.Http;
 
 namespace ShopManagement.Application.Contracts.Order
 {
@@ -14,6 +13,8 @@ namespace ShopManagement.Application.Contracts.Order
         List<OrderViewModel> Search(OrderSearchModel searchModel);
 
         void Cancel(int id);
+
+        List<OrderItemViewModel> GetItems(int orderId);
     }
 }
  
