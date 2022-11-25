@@ -45,6 +45,11 @@ namespace ServiceHost.Areas.Administration.Pages.Orders
             return RedirectToPage("./Index", new { Confirmed = "True" });
         }
 
+        public IActionResult OnGetItems(int id)
+        {
+            var items = _orderApplication.GetItems(id);
+            return Partial("Items", items);
+        }
 
         //[PermissionChecker(Roles.CreateProductCategory)]
         //public IActionResult OnGetCreate()
