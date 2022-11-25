@@ -94,6 +94,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
             var items = order.Items.Select(x => new OrderItemViewModel
             {
+                Id = x.Id,
                 Count = x.Count,
                 UnitPrice = x.UnitPrice,
                 OrderId = x.OrderId,
