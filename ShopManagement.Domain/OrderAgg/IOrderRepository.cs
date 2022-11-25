@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Domain;
-using Microsoft.AspNetCore.Http;
 using ShopManagement.Application.Contracts.Order;
 
 namespace ShopManagement.Domain.OrderAgg
@@ -11,5 +10,7 @@ namespace ShopManagement.Domain.OrderAgg
         double GetAmountBy(int id);
 
         List<OrderViewModel> Search(OrderSearchModel searchModel);
+
+        List<OrderItemViewModel> GetItems(int orderId);
     }
 }
