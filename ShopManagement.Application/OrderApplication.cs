@@ -84,5 +84,10 @@ namespace ShopManagement.Application
 
             _orderRepository.SaveChanges();;
         }
+
+        public List<OrderItemViewModel> GetItems(int orderId)
+        {
+            return _orderRepository.GetItems(orderId);
+        }
     }
 }
