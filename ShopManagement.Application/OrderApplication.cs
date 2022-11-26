@@ -95,5 +95,10 @@ namespace ShopManagement.Application
         {
             return _orderRepository.GetUserOrders(id);
         }
+
+        public List<ShowUserOrderViewModel> GetOrderDetails(int orderId)
+        {
+            return _orderRepository.GetOrderDetails(orderId);
+        }
     }
 }
