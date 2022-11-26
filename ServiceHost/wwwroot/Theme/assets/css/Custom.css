@@ -710,3 +710,80 @@ ins {
 .portlet.blue-madison > .portlet-title > .caption > i {
     margin-left: 20px;
 }
+
+.label.label-sm {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 6px;
+    text-transform: uppercase;
+}
+
+.label-success {
+    background-color: #26a69a;
+}
+
+.label-danger {
+    background-color: mediumvioletred;
+}
+
+.label {
+    text-shadow: none !important;
+    color: #fff;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 53%), 0 1px 2px rgb(0 0 0 / 18%);
+    display: inline;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}
+
+.btn.default {
+    color: #333;
+    background-color: #e5e5e5;
+}
+
+.table .btn-search {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+.btn-search.btn-xs {
+    font-size: 11px;
+    padding: 3px 8px;
+}
+
+.btn-search {
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    border-width: 0;
+    outline: none !important;
+    background-image: none !important;
+    filter: none;
+    text-shadow: none;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 53%), 0 1px 2px rgb(0 0 0 / 18%);
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn-search > i {
+    margin-top: 0;
+    margin-right: 3px;
+    margin-left: 3px;
+}
