@@ -19,5 +19,7 @@ namespace ShopManagement.Domain.OrderAgg
         List<UserOrdersViewModel> GetUserOrders(int id);
 
         List<ShowUserOrderViewModel> GetOrderDetails(int orderId);
+
+        SummaryOrderSectionViewModel GetOrderSummary(int orderId);
     }
 }
