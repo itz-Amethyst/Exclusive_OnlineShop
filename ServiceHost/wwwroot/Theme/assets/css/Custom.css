@@ -487,16 +487,10 @@ ins {
         padding: 11px 0 9px;
     }
 
-    .portlet > .portlet-title > .caption {
-        float: right;
-        display: inline-block;
-        font-size: 20px;
-        line-height: 18px;
-        padding: 10px 0;
-    }
 
     .portlet.box.blue-steel > .portlet-title > .caption > i {
         color: #fff;
+        margin-left: 20px;
     }
 
     .portlet.box > .portlet-body {
@@ -681,7 +675,7 @@ ins {
 .portlet > .portlet-title > .caption {
     float: right;
     display: inline-block;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 18px;
     padding: 10px 0;
 }
@@ -706,4 +700,13 @@ ins {
     -ms-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     border-radius: 0 0 2px 2px;
+}
+
+.portlet.blue-hoki > .portlet-title > .caption > i {
+    margin-left: 20px;
+}
+
+
+.portlet.blue-madison > .portlet-title > .caption > i {
+    margin-left: 20px;
 }
