@@ -17,5 +17,7 @@ namespace ShopManagement.Domain.OrderAgg
         //? UserPanel
 
         List<UserOrdersViewModel> GetUserOrders(int id);
+
+        List<ShowUserOrderViewModel> GetOrderDetails(int orderId);
     }
 }
