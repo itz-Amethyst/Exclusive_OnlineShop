@@ -100,5 +100,10 @@ namespace ShopManagement.Application
         {
             return _orderRepository.GetOrderDetails(orderId);
         }
+
+        public SummaryOrderSectionViewModel GetOrderSummary(int orderId)
+        {
+            return _orderRepository.GetOrderSummary(orderId);
+        }
     }
 }
