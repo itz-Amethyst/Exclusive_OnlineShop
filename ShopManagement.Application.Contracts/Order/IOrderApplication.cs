@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Cookie;
+using ShopManagement.Application.Contracts.Order.UserPanel;
 
 namespace ShopManagement.Application.Contracts.Order
 {
@@ -15,6 +16,8 @@ namespace ShopManagement.Application.Contracts.Order
         void Cancel(int id);
 
         List<OrderItemViewModel> GetItems(int orderId);
+
+        List<UserOrdersViewModel> GetUserOrders(int id);
     }
 }
  
