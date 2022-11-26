@@ -165,5 +165,23 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
             return items;
         }
+
+        public SummaryOrderSectionViewModel GetOrderSummary(int orderId)
+        {
+            var orders = _context.Orders.Select(x => new SummaryOrderSectionViewModel
+            {
+                Id = x.Id,
+                IssueTrackingNo = x.IssueTrackingNo,
+                //?work on this
+                OrderCondition = x.IsPaid,
+                RegisterDate = x.CreationDate.ToFarsi(),
+                TotalPayAmount = x.TotalAmount,
+                FinalPayAmount = x.PayAmount,
+                PaymentMethodId = x.PaymentMethod,
+                TotalDiscountAmount = x.DiscountAmount,
+            }).First(x=>x.Id == orderId);
+
+            return orders;
+        }
     }
 }
