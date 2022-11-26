@@ -1,6 +1,8 @@
-﻿@page
+﻿@page "{orderId}"
+@using _0_Framework.Application
 @model ServiceHost.Areas.UserPanel.Pages.Orders.ShowOrderModel
 @{
+    var summaryModel = Model.SummaryOrder;
 }
 
 
@@ -58,23 +60,33 @@
                                                     شماره سفارش:
                                                 </div>
                                                 <div class="col-md-7 value">
-                                                    <bdi class="engnum">7299-85969-3E37</bdi>
+                                                    <bdi class="engnum">@summaryModel.IssueTrackingNo</bdi>
                                                 </div>
                                             </div>
                                             <div class="row static-info">
                                                 <div class="col-md-5 name">
                                                     تاریخ و زمان سفارش:
                                                 </div>
-                                                <div class="col-md-7 value">21 شهریور 1401 - ساعت 16:40</div>
+                                                <div class="col-md-7 value">@summaryModel.RegisterDate</div>
                                             </div>
                                             <div class="row static-info">
                                                 <div class="col-md-5 name">
                                                     وضعیت سفارش:
                                                 </div>
-                                                <div class="col-md-7 value">
-                                                    <span class="label label-success">
-                                                        تحویل داده شده </span>
-                                                </div>
+                                                @if (summaryModel.OrderCondition)
+                                                {
+                                                    <div class="col-md-7 value">
+                                                        <span class="label label-success">
+                                                            تحویل داده شده </span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7 value">
+                                                        <span class="label label-danger">
+                                                           هزینه پرداخت نشده است </span>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -89,31 +101,49 @@
                                         <div class="portlet-body">
                                             <div class="row static-info">
                                                 <div class="col-md-5 name">
-                                                    مبلغ پرداخت‌شده:
+                                                   مبلغ پرداختی:
                                                 </div>
                                                 <div class="col-md-7 value">
-                                                    52,800 تومان
+                                                   @summaryModel.FinalPayAmount
                                                 </div>
                                             </div>
                                             <div class="row static-info">
                                                 <div class="col-md-5 name">
                                                     تخفیف:
                                                 </div>
-                                                <div class="col-md-7 value">-</div>
+                                                <div class="col-md-7 value">
+                                                    @summaryModel.TotalDiscountAmount
+                                                </div>
                                             </div>
                                             <div class="row static-info">
+                                                <div class="col-md-5 name">
+                                                    مبلغ پرداخت‌شده:
+                                                </div>
+                                                <div class="col-md-7 value">
+                                                    @summaryModel.FinalPayAmount
+                                                </div>
+                                            </div>
+                                           @* <div class="row static-info">
                                                 <div class="col-md-5 name">
                                                     شماره کارت:
                                                 </div>
                                                 <div class="col-md-7 value">
-                                                    <div>603799******5929</div>
+                                                    <div>60379******59</div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="row static-info">
                                                 <div class="col-md-5 name">
                                                     شیوه پرداخت:
                                                 </div>
-                                                <div class="col-md-7 value">کارت بانکی</div>
+                                                @if (summaryModel.PaymentMethodId == 1)
+                                                {
+                                                    <div class="col-md-7 value">کارت بانکی</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7 value">خرید حضوری</div>
+                                                }
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -130,24 +160,39 @@
                                         </div>
                                         <div class="portlet-body">
                                             <div class="table-responsive">
-                                                <table class="table table-hover table-bordered table-striped">
+                                                <table class="table table-bordered table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th>ردیف</th>
-                                                        <th>نام محصول</th>
-                                                        <th>قیمت</th>
-                                                        <th>تعداد</th>
-                                                        <th>جمع</th>
-                                                    </tr>
+                                                    <th>#</th>
+                                                    <th>محصول</th>
+                                                    <th>تعداد</th>
+                                                    <th>قیمت واحد</th>
+                                                    <th>درصد تخفیف</th>
+                                                    <th>مبلغ کل بدون تخفیف</th>
+                                                    <th>مقدار مبلغ تخفیف</th>
+                                                    <th>مبلغ نهایی</th>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td class="engnum">Mann Co. Supply Crate Key</td>
-                                                        <td>52,800</td>
-                                                        <td>1</td>
-                                                        <td>52,800</td>
-                                                    </tr>
+                                                    @foreach (var item in Model.OrderDetail)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Id</td>
+                                                            <td>@item.ProductName</td>
+                                                            <td>@item.Count</td>
+                                                            @if (item.HasDiscount)
+                                                            {
+                                                                <td>@item.UnitPriceWithDiscount.ToMoney() تومان</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@item.UnitPrice.ToMoney() تومان</td>
+                                                            }
+                                                            <td>@item.DiscountRate %</td>
+                                                            <td>@item.TotalItemPrice.ToMoney() تومان</td>
+                                                            <td>@item.DiscountAmount.ToMoney() تومان</td>
+                                                            <td>@item.ItemPayAmount.ToMoney() تومان</td>
+                                                        </tr>
+                                                    }
                                                     </tbody>
                                                 </table>
                                             </div>
