@@ -1,6 +1,7 @@
 ﻿@page
 @model ServiceHost.Areas.UserPanel.Pages.Orders.IndexModel
 @{
+    ViewData["Title"] = "مشاهده سفارش های من";
 }
 
 <div class="breadcrumb-area section-space--half">
@@ -17,7 +18,7 @@
                             <li>
                                 <a>@ViewData["Title"]</a>
                             </li>
-                            <li class="active"></li>
+                            <li class="active">سفارش های من</li>
                         </ul>
                     </div>
                 </div>
@@ -37,9 +38,6 @@
                         {
                         <div class="alert alert-danger">@Model.EditMessage</div>
                         }*@
-                        <div class="panel-heading">
-                            <h4 class="m-t-0 header-title"><b>@ViewData["Title"]</b></h4>
-                        </div>
                         <div class="panel-body">
 
                             <div class="row">
@@ -47,7 +45,7 @@
                                     <div class="portlet blue-madison box">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-shopping-cart"></i>صورتحساب
+                                                <i class="fa fa-shopping-cart"></i>سفارش های من
                                             </div>
                                         </div>
                                         <div class="portlet-body">
@@ -56,11 +54,11 @@
                                                     <thead>
                                                     <tr>
                                                         <th>ردیف</th>
-                                                        <th>نام محصول</th>
-                                                        <th>قیمت</th>
-                                                        <th>تعداد</th>
-                                                        <th>تعداد</th>
-                                                        <th>جمع</th>
+                                                        <th>شماره سفارش</th>
+                                                        <th>تاریخ خرید</th>
+                                                        <th>مبلغ</th>
+                                                        <th>وضعیت</th>
+                                                        <th>جزئیات</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
