@@ -18,6 +18,8 @@ namespace ShopManagement.Application.Contracts.Order
         List<OrderItemViewModel> GetItems(int orderId);
 
         List<UserOrdersViewModel> GetUserOrders(int id);
+
+        List<ShowUserOrderViewModel> GetOrderDetails(int orderId);
     }
 }
  
