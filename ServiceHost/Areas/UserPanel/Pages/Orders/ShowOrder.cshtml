@@ -104,7 +104,7 @@
                                                    مبلغ پرداختی:
                                                 </div>
                                                 <div class="col-md-7 value">
-                                                   @summaryModel.FinalPayAmount
+                                                    @summaryModel.TotalPayAmount.ToMoney() تومان
                                                 </div>
                                             </div>
                                             <div class="row static-info">
@@ -112,7 +112,7 @@
                                                     تخفیف:
                                                 </div>
                                                 <div class="col-md-7 value">
-                                                    @summaryModel.TotalDiscountAmount
+                                                    @summaryModel.TotalDiscountAmount.ToMoney() تومان
                                                 </div>
                                             </div>
                                             <div class="row static-info">
@@ -120,7 +120,7 @@
                                                     مبلغ پرداخت‌شده:
                                                 </div>
                                                 <div class="col-md-7 value">
-                                                    @summaryModel.FinalPayAmount
+                                                    @summaryModel.FinalPayAmount.ToMoney() تومان
                                                 </div>
                                             </div>
                                            @* <div class="row static-info">
