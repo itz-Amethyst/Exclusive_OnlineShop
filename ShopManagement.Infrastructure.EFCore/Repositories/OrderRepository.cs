@@ -1,9 +1,8 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using AccountManagement.Infrastructure.EFCore.Context;
-using Microsoft.AspNetCore.Http;
 using ShopManagement.Application.Contracts.Order;
-using ShopManagement.Application.Contracts.Product;
+using ShopManagement.Application.Contracts.Order.UserPanel;
 using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Infrastructure.EFCore.Context;
 
@@ -113,6 +112,23 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             }
 
             return items;
+        }
+
+        public List<UserOrdersViewModel> GetUserOrders(int id)
+        {
+            var query = _context.Orders.Where(x => x.AccountId == id).Select(x => new UserOrdersViewModel
+            {
+                Id = x.Id,
+                IssueTrackingNo = x.IssueTrackingNo,
+                //?work on this
+                OrderCondition = x.IsPaid,
+                RegisterDate = x.CreationDate.ToFarsi(),
+                TotalPayAmount = x.PayAmount
+            });
+
+            var orders = query.OrderByDescending(x => x.Id).ToList();
+
+            return orders;
         }
     }
 }
