@@ -2,6 +2,7 @@
 using _0_Framework.Application.Cookie;
 using Microsoft.Extensions.Configuration;
 using ShopManagement.Application.Contracts.Order;
+using ShopManagement.Application.Contracts.Order.UserPanel;
 using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Domain.Services;
 
@@ -88,6 +89,11 @@ namespace ShopManagement.Application
         public List<OrderItemViewModel> GetItems(int orderId)
         {
             return _orderRepository.GetItems(orderId);
+        }
+
+        public List<UserOrdersViewModel> GetUserOrders(int id)
+        {
+            return _orderRepository.GetUserOrders(id);
         }
     }
 }
