@@ -130,5 +130,40 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
             return orders;
         }
+
+        public List<ShowUserOrderViewModel> GetOrderDetails(int orderId)
+        {
+            var products = _context.Products.Select(x => new { x.Id, x.Name }).ToList();
+
+            var order = _context.Orders.FirstOrDefault(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                return new List<ShowUserOrderViewModel>();
+            }
+
+            var items = order.Items.Select(x => new ShowUserOrderViewModel()
+            {
+                Id = x.Id,
+                Count = x.Count,
+                UnitPrice = x.UnitPrice,
+                OrderId = x.OrderId,
+                ProductId = x.ProductId,
+                DiscountAmount = x.DiscountAmount,
+                HasDiscount = x.HasDiscount,
+                DiscountRate = x.DiscountRate,
+                ItemPayAmount = x.ItemPayAmount,
+                TotalItemPrice = x.TotalItemPrice,
+                UnitPriceWithDiscount = x.UnitPriceWithDiscount,
+            }).ToList();
+
+
+            foreach (var item in items)
+            {
+                item.ProductName = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name;
+            }
+
+            return items;
+        }
     }
 }
