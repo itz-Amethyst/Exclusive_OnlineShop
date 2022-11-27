@@ -133,7 +133,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
         public List<ShowUserOrderViewModel> GetOrderDetails(int orderId)
         {
-            var products = _context.Products.Select(x => new { x.Id, x.Name }).ToList();
+            var products = _context.Products.Select(x => new { x.Id, x.Name , x.Slug }).ToList();
 
             var order = _context.Orders.FirstOrDefault(x => x.Id == orderId);
 
@@ -161,6 +161,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
             foreach (var item in items)
             {
                 item.ProductName = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name;
+                item.ProductSlug = products.FirstOrDefault(x => x.Id == item.ProductId)?.Slug;
             }
 
             return items;
