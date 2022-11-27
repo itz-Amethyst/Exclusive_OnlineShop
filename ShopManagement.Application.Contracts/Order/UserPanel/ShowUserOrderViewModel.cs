@@ -10,6 +10,8 @@
 
         public string ProductName { get; set; }
 
+        public string ProductSlug { get; set; }
+
         public int Count { get; set; }
 
         public double UnitPrice { get; set; }
