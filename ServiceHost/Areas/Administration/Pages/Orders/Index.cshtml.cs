@@ -8,7 +8,7 @@ using ShopManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Areas.Administration.Pages.Orders
 {
-    [PermissionChecker(Roles.AccessToOrdersSection)]
+    [PermissionChecker(Roles.AccessToOrder)]
     public class IndexModel : PageModel
     {
         private readonly IOrderApplication _orderApplication;
@@ -33,21 +33,21 @@ namespace ServiceHost.Areas.Administration.Pages.Orders
             Orders = _orderApplication.Search(searchModel);
         }
 
-        [PermissionChecker(Roles.AccessToOrdersOperations)]
+        [PermissionChecker(Roles.AccessToOrderOperations)]
         public IActionResult OnGetConfirm(int id)
         {
             _orderApplication.PaymentSucceeded(id, 0);
             return RedirectToPage("./Index", new { Confirmed = "True" });
         }
 
-        [PermissionChecker(Roles.AccessToOrdersOperations)]
+        [PermissionChecker(Roles.AccessToOrderOperations)]
         public IActionResult OnGetCancel(int id)
         {
             _orderApplication.Cancel(id);
             return RedirectToPage("./Index", new { Confirmed = "True" });
         }
 
-        [PermissionChecker(Roles.AccessToOrdersOperations)]
+        [PermissionChecker(Roles.AccessToOrderOperations)]
         public IActionResult OnGetItems(int id)
         {
             var items = _orderApplication.GetItems(id);
