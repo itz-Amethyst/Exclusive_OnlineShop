@@ -51,15 +51,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Administration\Pages\Discounts\CouponDiscount\Create.cshtml">
+    <Content Update="Areas\Administration\Pages\Discounts\CouponDiscounts\Create.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Administration\Pages\Discounts\CouponDiscount\Edit.cshtml">
+    <Content Update="Areas\Administration\Pages\Discounts\CouponDiscounts\Edit.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Administration\Pages\Discounts\CouponDiscount\Index.cshtml">
+    <Content Update="Areas\Administration\Pages\Discounts\CouponDiscounts\Index.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
