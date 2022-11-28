@@ -1,10 +1,8 @@
 ﻿using _0_Framework.Application;
-using _0_Framework.Domain;
 using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contract.CustomerDiscount;
 using DiscountManagement.Domain.CustomerDiscountAgg;
 using DiscountManagement.Infrastructure.EFCore.Context;
-using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure.EFCore.Context;
 
 namespace DiscountManagement.Infrastructure.EFCore.Repository
