@@ -55,7 +55,7 @@
                     </li>
                 }
                 
-                @if (_permissionChecker.CheckPermission(Roles.AccessToOrdersSection, username))
+                @if (_permissionChecker.CheckPermission(Roles.AccessToOrder, username))
                 {
                     <li>
                         <a asp-page="/Orders/Index" class="waves-effect"><i class="fa fa-shopping-basket"></i> <span> سفارشات </span> </a>
