@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application;
-using DiscountManagement.Application.Contract.CustomerDiscount;
 
 namespace DiscountManagement.Application.Contract.CouponDiscount
 {
@@ -13,7 +12,7 @@ namespace DiscountManagement.Application.Contract.CouponDiscount
 
         OperationResult Restore(int id);
 
-        EditCustomerDiscount GetDetails(int id);
+        EditCouponDiscount GetDetails(int id);
 
         List<CouponDiscountViewModel> Search(CouponDiscountSearchModel searchModel);
     }
