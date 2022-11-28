@@ -6,7 +6,7 @@ namespace DiscountManagement.Domain.CouponDiscountAgg
     {
         public string DiscountCode { get; private set; }
 
-        public double DiscountPercent { get; private set; }
+        public int DiscountRate { get; private set; }
 
         public int UsableCount { get; private set; }
 
@@ -16,28 +16,28 @@ namespace DiscountManagement.Domain.CouponDiscountAgg
 
         public bool IsDeleted { get; private set; }
 
-        public bool IsOutOfDate { get; private set; }
+        public bool IsOutOfDate { get; set; }
 
         public string Reason { get; private set; }
 
         public DiscountUsage DisUsage { get; private set; }
 
-        public CouponDiscount(string discountCode, double discountPercent, int usableCount, DateTime startDate, DateTime endDate, bool isDeleted, bool isOutOfDate, string reason)
+        public CouponDiscount(string discountCode, int discountRate, int usableCount, DateTime startDate, DateTime endDate , string reason)
         {
             DiscountCode = discountCode;
-            DiscountPercent = discountPercent;
+            DiscountRate = discountRate;
             UsableCount = usableCount;
             StartDate = startDate;
             EndDate = endDate;
-            IsDeleted = isDeleted;
-            IsOutOfDate = isOutOfDate;
+            IsDeleted = false;
+            IsOutOfDate = false;
             Reason = reason;
         }
 
-        public void Edit(string discountCode , double discountPercent , int usableCount , DateTime startDate , DateTime endDate , string reason)
+        public void Edit(string discountCode , int discountRate , int usableCount , DateTime startDate , DateTime endDate , string reason)
         {
             DiscountCode = discountCode;
-            DiscountPercent = discountPercent;
+            DiscountRate = discountRate;
             UsableCount = usableCount;
             StartDate = startDate;
             EndDate = endDate;
