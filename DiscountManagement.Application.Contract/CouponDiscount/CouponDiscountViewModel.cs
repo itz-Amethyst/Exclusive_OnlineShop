@@ -8,6 +8,8 @@
 
         public int DiscountRate { get; set; }
 
+        public int UsableCount { get; set; }
+
         public string StartDate { get; set; }
 
         public string EndDate { get; set; }
