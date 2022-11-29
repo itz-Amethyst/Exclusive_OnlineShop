@@ -171,57 +171,57 @@ namespace ServiceHost.Pages
             }
         }
 
-        public IActionResult OnPostUseDiscount(int orderId, string couponCode)
-        {
-            //if (Request.Cookies["cart-items"] != null)
-            //{
-            //    if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
-            //    {
-            //        //?Just in Case
-            //        _serializeCookie.DeleteCookie(HttpContext);
-            //        return RedirectToPage("/Index");
-            //    }
+        //public IActionResult OnPostUseDiscount(int orderId, string couponCode)
+        //{
+        //if (Request.Cookies["cart-items"] != null)
+        //{
+        //    if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
+        //    {
+        //        //?Just in Case
+        //        _serializeCookie.DeleteCookie(HttpContext);
+        //        return RedirectToPage("/Index");
+        //    }
 
-            //    CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+        //    CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
 
-            //    if (CartItems.Count <= 0)
-            //    {
-            //        EmptyBasket = true;
-            //        _serializeCookie.DeleteCookie(HttpContext);
-            //        return RedirectToPage("/Index");
-            //    }
+        //    if (CartItems.Count <= 0)
+        //    {
+        //        EmptyBasket = true;
+        //        _serializeCookie.DeleteCookie(HttpContext);
+        //        return RedirectToPage("/Index");
+        //    }
 
-            //    EmptyBasket = false;
+        //    EmptyBasket = false;
 
 
-            //    CartItems = _orderQuery.GetCartItemsBy(CartItems);
+        //    CartItems = _orderQuery.GetCartItemsBy(CartItems);
 
-            //    TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
+        //    TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
 
-            //    DiscountUseType type = _orderQuery.ApplyCouponDiscount(CartItems, couponCode);
+        //    DiscountUseType type = _orderQuery.ApplyCouponDiscount(CartItems, couponCode);
 
-            //    if (type == DiscountUseType.ExpireDate)
-            //    {
+        //    if (type == DiscountUseType.ExpireDate)
+        //    {
 
-            //    }
-            //    else if (type == DiscountUseType.Finished)
-            //    {
+        //    }
+        //    else if (type == DiscountUseType.Finished)
+        //    {
 
-            //    }
-            //    else if (type == DiscountUseType.UserUsed)
-            //    {
+        //    }
+        //    else if (type == DiscountUseType.UserUsed)
+        //    {
 
-            //    }
-            //    else if (type == DiscountUseType.Success)
-            //    {
+        //    }
+        //    else if (type == DiscountUseType.Success)
+        //    {
 
-            //    }
-            //    else if (type == DiscountUseType.NotFound)
-            //    {
+        //    }
+        //    else if (type == DiscountUseType.NotFound)
+        //    {
 
-            //    }
-            //}
+        //    }
+        //}
 
-            //? This worked but it refreshed the page so all things goes wrong 
+        //? This worked but it refreshed the page so all things goes wrong 
     }
 }

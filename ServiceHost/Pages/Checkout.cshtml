@@ -140,6 +140,12 @@
                                                     <p data-method="@method.Id" style="display: @(PaymentMethod.GetList().First().Id == method.Id ? "block" : "none")">@method.Description</p>
                                                 </div>
                                             }
+                                           @* <div class="single-method">
+                                                <label for=""></label>
+                                                <input type="text" name="paymentMethod">
+                                                <input type="hidden" name="orderId" value="@Model."/>
+                                                <p data-method="" style="display: block"></p>
+                                            </div>*@
                                         </div>
                                     </div>
 
