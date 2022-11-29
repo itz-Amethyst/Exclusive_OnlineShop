@@ -8,7 +8,7 @@ namespace DiscountManagement.Domain.CouponDiscountAgg
 
         public int DiscountRate { get; private set; }
 
-        public int UsableCount { get; private set; }
+        public int UsableCount { get; set; }
 
         public DateTime StartDate { get; private set; }
 
