@@ -48,6 +48,7 @@ namespace DiscountManagement.Infrastructure.EFCore.Repository
                 CreationDate = x.CreationDate.ToFarsi(),
                 IsDeleted = x.IsDeleted,
                 IsOutOfDate = x.IsOutOfDate,
+                CouponCode = x.DiscountCode
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.CouponCode))
