@@ -4,19 +4,22 @@ namespace DiscountManagement.Domain.CouponDiscountAgg
 {
     public class DiscountUsage : EntityBase
     {
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
 
-        public int DiscountId { get; private set; }
+        public int DiscountId { get; set; }
 
-        public int OrderId { get; private set; }
+        //public int OrderId { get; set; }
 
         public CouponDiscount CouponDiscount { get; private set; }
 
-        public DiscountUsage(int userId, int discountId, int orderId)
+        public DiscountUsage(int userId, int discountId)
         {
             UserId = userId;
             DiscountId = discountId;
-            OrderId = orderId;
+        }
+
+        public DiscountUsage()
+        {
         }
     }
 }
