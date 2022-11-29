@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using _0_Framework.Application;
 using _0_Framework.Application.Cookie;
 using _0_Framework.Application.ZarinPal;
 using _01_ExclusiveQuery.Contracts.Order;
@@ -169,5 +170,58 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/PaymentResult", result);
             }
         }
+
+        public IActionResult OnPostUseDiscount(int orderId, string couponCode)
+        {
+            //if (Request.Cookies["cart-items"] != null)
+            //{
+            //    if (!_serializeCookie.CheckSerialize(CartItems, HttpContext))
+            //    {
+            //        //?Just in Case
+            //        _serializeCookie.DeleteCookie(HttpContext);
+            //        return RedirectToPage("/Index");
+            //    }
+
+            //    CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+
+            //    if (CartItems.Count <= 0)
+            //    {
+            //        EmptyBasket = true;
+            //        _serializeCookie.DeleteCookie(HttpContext);
+            //        return RedirectToPage("/Index");
+            //    }
+
+            //    EmptyBasket = false;
+
+
+            //    CartItems = _orderQuery.GetCartItemsBy(CartItems);
+
+            //    TotalCartSummaryModel = _orderQuery.GetSummary(CartItems);
+
+            //    DiscountUseType type = _orderQuery.ApplyCouponDiscount(CartItems, couponCode);
+
+            //    if (type == DiscountUseType.ExpireDate)
+            //    {
+
+            //    }
+            //    else if (type == DiscountUseType.Finished)
+            //    {
+
+            //    }
+            //    else if (type == DiscountUseType.UserUsed)
+            //    {
+
+            //    }
+            //    else if (type == DiscountUseType.Success)
+            //    {
+
+            //    }
+            //    else if (type == DiscountUseType.NotFound)
+            //    {
+
+            //    }
+            //}
+
+            //? This worked but it refreshed the page so all things goes wrong 
     }
 }
