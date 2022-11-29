@@ -1,5 +1,5 @@
-﻿using _0_Framework.Application.Cookie;
-using Microsoft.AspNetCore.Http;
+﻿using _0_Framework.Application;
+using _0_Framework.Application.Cookie;
 
 namespace _01_ExclusiveQuery.Contracts.Order
 {
@@ -8,5 +8,7 @@ namespace _01_ExclusiveQuery.Contracts.Order
         List<CookieCartModel> GetCartItemsBy(List<CookieCartModel> cartItems);
 
         CartModelWithSummary GetSummary(List<CookieCartModel> cartItems);
+
+        //DiscountUseType ApplyCouponDiscount(List<CookieCartModel> cartItems, string couponCode);
     }
 }
