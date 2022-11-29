@@ -7,7 +7,9 @@ using BlogManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Configuration;
 using InventoryManagement.Infrastructure.Configuration;
+using InventoryManagement.Presentation.Api;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ServiceHost.Controllers;
 using ServiceHost.Extension;
 using ShopManagement.Infrastructure.Configuration;
 
@@ -99,6 +101,11 @@ builder.Services.AddAuthentication(options =>
 //        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
 
 //    });
+
+builder.Services.AddRazorPages()
+    .AddApplicationPart(typeof(ProductController).Assembly)
+    .AddApplicationPart(typeof(InventoryController).Assembly);
+
 
 var app = builder.Build();
 
