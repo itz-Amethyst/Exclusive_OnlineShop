@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\01_ExclusiveQuery\01_ExclusiveQuery.csproj" />
+    <ProjectReference Include="..\BlogManagement.Infrastructure.Configuration\BlogManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\CommentManagement.Configuration\CommentManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\DiscountManagement.Configuration\DiscountManagement.Configuration.csproj" />
+    <ProjectReference Include="..\InventoryManagement.Infrastructure.Configuration\InventoryManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\ServiceHost\ServiceHost.csproj" />
+    <ProjectReference Include="..\ShopManagement.Configuration\ShopManagement.Infrastructure.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
