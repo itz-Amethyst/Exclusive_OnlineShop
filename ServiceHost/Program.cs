@@ -104,7 +104,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddRazorPages()
     .AddApplicationPart(typeof(ProductController).Assembly)
-    .AddApplicationPart(typeof(InventoryController).Assembly);
+    .AddApplicationPart(typeof(InventoryController).Assembly)
+    .AddNewtonsoftJson();
 
 
 var app = builder.Build();
