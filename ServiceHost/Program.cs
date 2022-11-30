@@ -40,6 +40,19 @@ builder.Services.AddTransient<IZarinPalFactory , ZarinPalFactory>();
 builder.Services.AddHttpContextAccessor();
 
 
+//! CORS = Cross Origin Resource Sharing
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORS-Policy" , builder =>
+    {
+        builder.WithOrigins("https://localhost:7018")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        //builder.AllowAnyOrigin();
+    });
+});
+
+
 //! Cookie Section
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -129,6 +142,8 @@ app.UseCookiePolicy();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseCors("CORS-Policy");
 
 app.MapRazorPages();
 
