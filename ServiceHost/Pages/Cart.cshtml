@@ -37,13 +37,15 @@
                 <div class="page-wrapper">
                     @if (check && emptyBasket == false && notNull)
                     {
-                        @foreach (var item in Model.CartItems.Where(x => !x.IsInStock))
-                        {
-                            <div class="alert alert-warning">
-                                <i class="fa fa-warning"></i>
-                                کالای <strong>@item.Name</strong>در انبار کمتر از تعداد درخواستی موجود است.
-                            </div>
-                        }
+                        <div id="productStockWarnings">
+                            @foreach (var item in Model.CartItems.Where(x => !x.IsInStock))
+                            {
+                                <div class="alert alert-warning" id="@item.Id">
+                                    <i class="fa fa-warning"></i>
+                                    کالای <strong>@item.Name</strong>در انبار کمتر از تعداد درخواستی موجود است.
+                                </div>
+                            }
+                        </div>
                     }
                     <div class="page-content-wrapper">
                         <form action="#">
