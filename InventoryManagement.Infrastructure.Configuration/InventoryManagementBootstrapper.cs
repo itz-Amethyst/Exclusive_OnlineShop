@@ -1,4 +1,6 @@
-﻿using InventoryManagement.Application;
+﻿using _01_ExclusiveQuery.Contracts.Inventory;
+using _01_ExclusiveQuery.Query;
+using InventoryManagement.Application;
 using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using InventoryManagement.Infrastructure.EFCore.Context;
@@ -16,6 +18,12 @@ namespace InventoryManagement.Infrastructure.Configuration
 
             services.AddTransient<IInventoryRepository, InventoryRepository>();
             services.AddTransient<IInventoryApplication, InventoryApplication>();
+
+            #endregion
+
+            #region InventoryQuery
+
+            services.AddTransient<IInventoryQuery , InventoryQuery>();
 
             #endregion
 
