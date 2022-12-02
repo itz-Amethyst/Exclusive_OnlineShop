@@ -18,6 +18,7 @@ using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Domain.Services;
 using ShopManagement.Domain.SlideAgg;
+using ShopManagement.Infrastructure.AccountAcl;
 using ShopManagement.Infrastructure.EFCore.Context;
 using ShopManagement.Infrastructure.EFCore.Repositories;
 using ShopManagement.Infrastructure.InventoryAcl;
@@ -96,6 +97,12 @@ namespace ShopManagement.Infrastructure.Configuration
             #region InventoryAcl
 
             services.AddTransient<IShopInventoryAcl , ShopInventoryAcl>();
+
+            #endregion
+
+            #region ShopAccountAcl
+
+            services.AddTransient<IShopAccountAcl, ShopAccountAcl>();
 
             #endregion
 
