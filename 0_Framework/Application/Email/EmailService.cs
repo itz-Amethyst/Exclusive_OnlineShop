@@ -9,7 +9,7 @@ namespace _0_Framework.Application.Email
         {
             var message = new MimeMessage();
 
-            var from = new MailboxAddress("Atriya", "test@atriya.com");
+            var from = new MailboxAddress("", "");
             message.From.Add(from);
 
             var to = new MailboxAddress("User", destination);
@@ -25,7 +25,7 @@ namespace _0_Framework.Application.Email
 
             var client = new SmtpClient();
             client.Connect("185.88.152.251", 25, false);
-            client.Authenticate("test@atriya.com", "Atriya.123456");
+            client.Authenticate("", "");
             client.Send(message);
             client.Disconnect(true);
             client.Dispose();
