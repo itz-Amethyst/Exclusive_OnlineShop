@@ -29,6 +29,9 @@ namespace _0_Framework.Application.Email
             client.Send(message);
             client.Disconnect(true);
             client.Dispose();
+
+            //? Can Use like this
+            // _emailService.sendEmail(title:"" , MessageBody : "" , destination: "user.email");
         }
     }
 }
