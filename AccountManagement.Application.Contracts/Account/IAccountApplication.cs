@@ -43,5 +43,7 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult ChangePasswordByUser(ChangePasswordViewModel command);
 
         List<AccountViewModel> GetAccounts();
+
+        AccountViewModel GetAccountBy(int id);
     }
 }
