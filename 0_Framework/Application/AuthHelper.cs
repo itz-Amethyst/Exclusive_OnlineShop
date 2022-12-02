@@ -22,7 +22,8 @@ namespace _0_Framework.Application
                 new Claim("AccountId", account.Id.ToString()),
                 //new Claim(ClaimTypes.Role, account.RoleId.ToString()),
                 new Claim(ClaimTypes.Name , account.Username),
-                new Claim(ClaimTypes.Email , account.Email)
+                new Claim(ClaimTypes.Email , account.Email),
+                new Claim(ClaimTypes.MobilePhone , account.Mobile)
                 //new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 //new Claim("permissions", permissions),
                 //new Claim("Mobile", account.)
@@ -99,6 +100,13 @@ namespace _0_Framework.Application
         {
             return IsAuthenticated()
                 ? _contextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Email).Value
+                : null;
+        }
+
+        public string CurrentAccountMobile()
+        {
+            return IsAuthenticated()
+                ? _contextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.MobilePhone).Value
                 : null;
         }
     }
