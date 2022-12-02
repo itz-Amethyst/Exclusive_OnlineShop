@@ -47,7 +47,7 @@ namespace AccountManagement.Application
 
             var account = new Account(command.Username, password, command.Mobile, command.RoleId, picturePath, activeCode, command.Email);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, false);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, false , account.Mobile);
 
             account.ActivatedAccount();
 
@@ -89,7 +89,7 @@ namespace AccountManagement.Application
 
             SendEmail.Send(command.Email, "فعالسازی", body);
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true , account.Mobile);
 
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
@@ -185,7 +185,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.WrongUsernameOrPassword);
             }
 
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, command.RememberMe);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, command.RememberMe , account.Mobile);
 
             _authHelper.SignIn(authViewModel);
 
@@ -250,7 +250,7 @@ namespace AccountManagement.Application
 
             _accountRepository.SaveChanges();
 
-            var user = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true);
+            var user = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true , account.Mobile);
 
             _authHelper.SignIn(user);
 
@@ -467,6 +467,17 @@ namespace AccountManagement.Application
         public List<AccountViewModel> GetAccounts()
         {
             return _accountRepository.GetAccounts();
+        }
+
+        public AccountViewModel GetAccountBy(int id)
+        {
+            var account = _accountRepository.GetById(id);
+
+            return new AccountViewModel
+            {
+                Username = account.Username,
+                Mobile = account.Mobile
+            };
         }
     }
 }
