@@ -12,6 +12,8 @@ public class AuthViewModel
 
     public string Email { get; set; }
 
+    public string Mobile { get; set; }
+
     //public string Picture { get; set; }
 
     //public List<long> Roles { get; set; }
@@ -22,13 +24,14 @@ public class AuthViewModel
     {
     }
 
-    public AuthViewModel(int id, int roleId, string username, string email , bool rememberMe)
+    public AuthViewModel(int id, int roleId, string username, string email , bool rememberMe , string mobile)
     {
         Id = id;
         RoleId = roleId;
         Username = username;
         Email = email;
         RememberMe = rememberMe;
+        Mobile = mobile;
     }
     
 }
