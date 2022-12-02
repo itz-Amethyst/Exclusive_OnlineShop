@@ -17,5 +17,7 @@
         string CurrentAccountUserName();
 
         string CurrentAccountEmail();
+
+        string CurrentAccountMobile();
     }
 }
