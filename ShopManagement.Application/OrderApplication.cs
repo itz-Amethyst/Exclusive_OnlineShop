@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Application.Cookie;
+using _0_Framework.Application.Sms;
 using Microsoft.Extensions.Configuration;
 using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Application.Contracts.Order.UserPanel;
@@ -14,13 +15,17 @@ namespace ShopManagement.Application
         private readonly IOrderRepository _orderRepository;
         private readonly IShopInventoryAcl _shopInventoryAcl;
         private readonly IAuthHelper _authHelper;
+        private readonly ISmsService _smsService;
+        private readonly IShopAccountAcl _shopAccountAcl;
 
-        public OrderApplication(IOrderRepository orderRepository, IConfiguration configuration, IShopInventoryAcl shopInventoryAcl, IAuthHelper authHelper)
+        public OrderApplication(IOrderRepository orderRepository, IConfiguration configuration, IShopInventoryAcl shopInventoryAcl, IAuthHelper authHelper, ISmsService smsService, IShopAccountAcl shopAccountAcl)
         {
             _orderRepository = orderRepository;
             _configuration = configuration;
             _shopInventoryAcl = shopInventoryAcl;
             _authHelper = authHelper;
+            _smsService = smsService;
+            _shopAccountAcl = shopAccountAcl;
         }
 
         public int PlaceOrder(CartModelWithSummary cartModelWithSummary)
@@ -58,13 +63,15 @@ namespace ShopManagement.Application
             order.SetIssueTrackingNo(issueTrackingNo);
             //Todo : Reduce From Inventory
 
-            if (_shopInventoryAcl.ReduceFromInventory(order.Items))
-            {
-                _orderRepository.SaveChanges();
-                return issueTrackingNo;
-            }
+            if (!_shopInventoryAcl.ReduceFromInventory(order.Items)) return "";
 
-            return "";
+            _orderRepository.SaveChanges();
+
+            var accountInfo = _shopAccountAcl.GetAccountBy(order.AccountId);
+
+            _smsService.Send(accountInfo.mobile , $"با موفقیت پرداخت شد {issueTrackingNo} سفارش شما با شماره پیگیری  {accountInfo.name} کاربر گرامی ");
+
+            return issueTrackingNo;
         }
 
         public double GetAmountBy(int id)
