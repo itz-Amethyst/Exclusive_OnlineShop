@@ -67,9 +67,9 @@ namespace ShopManagement.Application
 
             _orderRepository.SaveChanges();
 
-            var accountInfo = _shopAccountAcl.GetAccountBy(order.AccountId);
+            //var accountInfo = _shopAccountAcl.GetAccountBy(order.AccountId);
 
-            _smsService.Send(accountInfo.mobile , $"با موفقیت پرداخت شد {issueTrackingNo} سفارش شما با شماره پیگیری  {accountInfo.name} کاربر گرامی ");
+            //_smsService.Send(accountInfo.mobile , $"با موفقیت پرداخت شد {issueTrackingNo} سفارش شما با شماره پیگیری  {accountInfo.name} کاربر گرامی ");
 
             return issueTrackingNo;
         }
