@@ -441,31 +441,6 @@
 
 @section Scripts
     {
-    <script>
-        const barChart = document.getElementById("barChart");
-
-        const barChartElement = new Chart(barChart,
-            {
-                type: 'bar',
-                data: {
-                    labels: ['df', 'dsf', 'f'],
-                    datasets: [
-                        {
-                            label: ["Bar Chart"],
-                            data: [100, 200, 300],
-                            backgroundColor: "#d00000",
-                            borderColor: "#118ab2"
-                        }
-                    ]
-                },
-                options: {
-                    elements: {
-                        bar: {
-                            borderWidth: 2
-                        }
-                    }
-                }
-
-            });
+    <script src="~/AdminTheme/assets/js/InitializeChartjs.js">
     </script>
 }
