@@ -44,7 +44,7 @@ namespace ServiceHost.Areas.Administration.Pages.Orders
         public IActionResult OnGetCancel(int id)
         {
             _orderApplication.Cancel(id);
-            return RedirectToPage("./Index", new { Confirmed = "True" });
+            return RedirectToPage("./Index", new { Canceled = "True" });
         }
 
         [PermissionChecker(Roles.AccessToOrderOperations)]

@@ -57,8 +57,6 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
                 RefId = x.RefId
             });
 
-            query = query.Where(x => x.IsCanceled == searchModel.IsCanceled);
-
             if (searchModel.AccountId > 0)
             {
                 query = query.Where(x => x.AccountId == searchModel.AccountId);
@@ -66,7 +64,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repositories
 
             if (searchModel.IsCanceled)
             {
-                query = query.Where(x => !x.IsCanceled);
+                query = query.Where(x => x.IsCanceled);
             }
 
             var orders =  query.OrderByDescending(x => x.Id).ToList();
