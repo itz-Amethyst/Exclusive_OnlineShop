@@ -114,7 +114,19 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.RecordNotFound);
             }
 
-            if (_accountRepository.Exists(x => x.Username == command.Username && x.Id != command.Id || x.Mobile == command.Mobile || x.Email == command.Email))
+            //? Needed to be divided 1 by 1
+
+            if (_accountRepository.Exists(x => x.Username == command.Username && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            if (_accountRepository.Exists(x => x.Mobile == command.Mobile && x.Id != command.Id))
+            {
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
+            }
+
+            if (_accountRepository.Exists(x => x.Email == command.Email && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
