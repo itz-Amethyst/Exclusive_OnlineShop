@@ -1,10 +1,16 @@
 ﻿@using AccountManagement.Infrastructure.EFCore.Security
 @using _0_Framework.Infrastructure
+@using AccountManagement.Application.Contracts.Account
+@using AccountManagement.Application.Contracts.Account.Admin
 @inject IPermissionChecker _permissionChecker
+@inject IAccountApplication _accountApplication
 
 @{
-    //var currentAccount = AuthHelper.CurrentAccountInfo();
     var username = User.Identity.Name;
+
+    var Account = new AccountViewModel();
+
+    Account = _accountApplication.GetDataForMenuAdmin(username);
 }
 
 <div class="left side-menu">
@@ -13,10 +19,11 @@
         <!-- User -->
         <div class="user-box">
             <div class="user-img">
-                <img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+                <img src="~/UploadedFiles/@Account.ProfilePhoto" alt="user-img" title="@Account.Username" class="img-circle img-thumbnail img-responsive">
             </div>
-            @*<h5><a href="#">@currentAccount.FullName</a> </h5>*@
-            @*<p>@currentAccount.Role</p>*@
+            <h5><a href="#">@Account.Username</a> </h5>
+            <p>Role: @Account.Role</p>
+            <p>Creation Date : @Account.CreationDate</p>
             <ul class="list-inline">
                 <li>
                     <a href="#">
