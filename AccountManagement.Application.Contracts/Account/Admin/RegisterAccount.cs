@@ -28,7 +28,7 @@ namespace AccountManagement.Application.Contracts.Account.Admin
         public int RoleId { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        [MaxLength(200, ErrorMessage = " {0} نمیتواند بیشتر از {1} کاراکترباشد")]
+        //[MaxLength(200, ErrorMessage = " {0} نمیتواند بیشتر از {1} کاراکترباشد")]
         public IFormFile ProfilePhoto { get; set; }
 
         public List<RoleViewModel> Roles { get; set; }
