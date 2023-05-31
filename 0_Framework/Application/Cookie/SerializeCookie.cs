@@ -8,7 +8,7 @@ namespace _0_Framework.Application.Cookie
         private const string CookieName = "cart-items";
         public List<CookieCartModel> CartItems;
 
-        public List<CookieCartModel> Serialize(List<CookieCartModel> cartItems , HttpContext httpContext)
+        public List<CookieCartModel> DeSerialize(List<CookieCartModel> cartItems , HttpContext httpContext)
         {
             //    var value = serializer.Serialize(model);
             //    var cookieOptions = new CookieOptions
@@ -69,7 +69,7 @@ namespace _0_Framework.Application.Cookie
 
             if (CheckSerialize(cartItems, httpContext))
             {
-                CartItems = Serialize(cartItems, httpContext);
+                CartItems = DeSerialize(cartItems, httpContext);
                 
                 var itemToRemove = CartItems.FirstOrDefault(x => x.Id == id);
                 CartItems.Remove(itemToRemove);
@@ -81,10 +81,10 @@ namespace _0_Framework.Application.Cookie
 
                 httpContext.Response.Cookies.Append(CookieName, serializer.Serialize(CartItems), cookieOptions);
             }
-            else
-            {
-                DeleteCookie(httpContext);
-            }
+            //else
+            //{
+            //    DeleteCookie(httpContext);
+            //}
            
         }
     }

@@ -58,7 +58,7 @@ namespace ServiceHost.ViewComponents
                     return View(CartItems);
                 }
 
-                CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+                CartItems = _serializeCookie.DeSerialize(CartItems, HttpContext);
 
                 if (CartItems.Count <= 0)
                 {

@@ -5,7 +5,7 @@ namespace _0_Framework.Application.Cookie
 {
     public interface ISerializeCookie
     {
-        List<CookieCartModel> Serialize(List<CookieCartModel> cartItems , HttpContext httpContext);
+        List<CookieCartModel> DeSerialize(List<CookieCartModel> cartItems , HttpContext httpContext);
 
         bool CheckSerialize(List<CookieCartModel> cartItems, HttpContext httpContext);
 

@@ -52,7 +52,7 @@ namespace ServiceHost.Pages
                     return;
                 }
 
-                CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+                CartItems = _serializeCookie.DeSerialize(CartItems, HttpContext);
 
                 if (CartItems.Count <= 0)
                 {
@@ -82,7 +82,7 @@ namespace ServiceHost.Pages
                     return RedirectToPage("/Index");
                 }
 
-                CartItems = _serializeCookie.Serialize(CartItems, HttpContext);
+                CartItems = _serializeCookie.DeSerialize(CartItems, HttpContext);
 
                 if (CartItems.Count <= 0)
                 {

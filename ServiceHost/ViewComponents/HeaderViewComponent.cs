@@ -44,7 +44,7 @@ namespace ServiceHost.ViewComponents
                 //    _serializeCookie.DeleteCookie(HttpContext);
                 //    return View(result);
                 //}
-                result.CartQueryModel = _serializeCookie.Serialize(result.CartQueryModel, HttpContext);
+                result.CartQueryModel = _serializeCookie.DeSerialize(result.CartQueryModel, HttpContext);
                 return View(result);
             }
 
