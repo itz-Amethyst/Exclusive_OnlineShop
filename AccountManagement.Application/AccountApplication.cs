@@ -491,5 +491,18 @@ namespace AccountManagement.Application
                 Mobile = account.Mobile
             };
         }
+
+        public AccountViewModel GetDataForMenuAdmin(string username)
+        {
+            var account = _accountRepository.GetByUserName(username);
+
+            return new AccountViewModel
+            {
+                Username = account.Username,
+                ProfilePhoto = account.ProfilePhoto,
+                Role = account.Role.Name,
+                CreationDate = account.CreationDate.ToFarsi()
+            };
+        }
     }
 }

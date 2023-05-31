@@ -45,5 +45,8 @@ namespace AccountManagement.Application.Contracts.Account
         List<AccountViewModel> GetAccounts();
 
         AccountViewModel GetAccountBy(int id);
+
+        AccountViewModel GetDataForMenuAdmin(string username);
+
     }
 }
