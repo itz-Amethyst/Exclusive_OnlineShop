@@ -69,6 +69,10 @@
 ![UserPanel](https://cdn.discordapp.com/attachments/1113510096622862375/1113569009200267304/image.png)
 
 
+## DB Diagram
+
+![DB-Diagram](https://cdn.discordapp.com/attachments/1113510096622862375/1113753730714701905/image.png)
+
 
 
 
