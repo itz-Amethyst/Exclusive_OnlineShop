@@ -44,25 +44,20 @@ An OnlineShop Created With .Net (OnionArchitecture &amp; Rest Api)
 ![Discount-Management](https://cdn.discordapp.com/attachments/1113510096622862375/1113574594259996763/image.png)
 
 
-## 
+## Account Management
 
 #### 1 / 1
-![]()
+![Account-Management](https://cdn.discordapp.com/attachments/1113510096622862375/1113575354066550975/image.png)
 
 #### 1 / 2
-![]()
+![Account-Management](https://cdn.discordapp.com/attachments/1113510096622862375/1113575371766517860/image.png)
 
-## 
+## Blog Management
 
 #### 1 / 1
-![]()
+![Blog-Management](https://cdn.discordapp.com/attachments/1113510096622862375/1113575795248615555/image.png)
 
 #### 1 / 2
-![]()
-
-## 
-
-#### 1 / 1
-![]()
+![Blog-Management](https://cdn.discordapp.com/attachments/1113510096622862375/1113575782770556999/image.png)
 
 
