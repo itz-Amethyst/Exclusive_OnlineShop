@@ -1,6 +1,11 @@
 # Exclusive_OnlineShop
 An OnlineShop Created With .Net (OnionArchitecture &amp; Rest Api)
 
+Make Sure to leave a star if you like it ⭐
+
+## Administration :
+[Admin.md](admin.md)
+
 ### List of Categories :
 - [site](#site)
 - [product page](#product-page)
