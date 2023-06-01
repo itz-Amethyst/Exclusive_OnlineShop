@@ -1,7 +1,15 @@
 # Exclusive_OnlineShop
 An OnlineShop Created With .Net (OnionArchitecture &amp; Rest Api)
 
-## Site
+### List of Categories :
+- [site](#site)
+- [product page](#product-page)
+- [blog page](#blog-page)
+- [checkout page](#checkout-page)
+- [login](#login)
+- [userpanel](#userpanel)
+
+## site
 
 #### 1 / 2
 ![Site](https://cdn.discordapp.com/attachments/1113510096622862375/1113567362776584293/image.png)
@@ -14,7 +22,7 @@ An OnlineShop Created With .Net (OnionArchitecture &amp; Rest Api)
 
 
 
-## Product Page
+## product page
 
 #### 1 / 2
 ![Product-Page](https://media.discordapp.net/attachments/1113510096622862375/1113567410058952764/image.png?width=970&height=469)
@@ -23,12 +31,12 @@ An OnlineShop Created With .Net (OnionArchitecture &amp; Rest Api)
 ![Product-Page](https://cdn.discordapp.com/attachments/1113510096622862375/1113563011391701082/image.png)
 
 
-## Blog Page
+## blog page
 
 #### 1 / 1
 ![Blog-Page](https://cdn.discordapp.com/attachments/1113510096622862375/1113567387300667412/image.png)
 
-## Checkout Page
+## checkout page
 
 #### 1 / 3
 ![Checkout-Page](https://cdn.discordapp.com/attachments/1113510096622862375/1113569101848248330/image.png)
@@ -39,12 +47,12 @@ An OnlineShop Created With .Net (OnionArchitecture &amp; Rest Api)
 #### 3 / 3
 ![Checkout-Page](https://cdn.discordapp.com/attachments/1113510096622862375/1113569058735018034/image.png)
 
-## Login
+## login
 
 #### 1 / 1
 ![Login](https://cdn.discordapp.com/attachments/1113510096622862375/1113569033619505162/image.png)
 
-## UserPanel
+## userpanel
 
 #### 1 / 3
 ![UserPanel](https://cdn.discordapp.com/attachments/1113510096622862375/1113569026975739904/image.png)
