@@ -33,6 +33,11 @@ namespace _0_Framework.Infrastructure
             _context.SaveChanges();
         }
 
+        public void BulkSaveChanges()
+        {
+            _context.BulkSaveChanges();
+        }
+
         public bool Exists(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Any(expression);

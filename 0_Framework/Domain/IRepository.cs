@@ -12,6 +12,8 @@ namespace _0_Framework.Domain
 
         void SaveChanges();
 
+        void BulkSaveChanges();
+
         bool Exists(Expression<Func<T, bool>> expression);
     }
 }
