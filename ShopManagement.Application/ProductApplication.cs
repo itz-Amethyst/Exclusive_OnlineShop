@@ -38,7 +38,7 @@ namespace ShopManagement.Application
                 slug, command.Keywords, command.MetaDescription);
 
             _productRepository.Create(product);
-            _productRepository.SaveChanges();
+            _productRepository.BulkSaveChanges();
 
             return operation.Succeeded();
         }
@@ -68,7 +68,7 @@ namespace ShopManagement.Application
                 command.Description, picturePath, command.PictureAlt, command.PictureTitle, command.CategoryId,
                 slug, command.Keywords, command.MetaDescription);
 
-            _productRepository.SaveChanges();
+            _productRepository.BulkSaveChanges();
 
             return operation.Succeeded();
         }
@@ -85,7 +85,7 @@ namespace ShopManagement.Application
             }
 
             product.Remove();
-            _productRepository.SaveChanges();
+            _productRepository.BulkSaveChanges();
             return operation.Succeeded();
         }
 
@@ -101,7 +101,7 @@ namespace ShopManagement.Application
             }
 
             product.Restore();
-            _productRepository.SaveChanges();
+            _productRepository.BulkSaveChanges();
             return operation.Succeeded();
         }
 

@@ -52,7 +52,7 @@ namespace AccountManagement.Application
             account.ActivatedAccount();
 
             _accountRepository.Create(account);
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
 
             return operation.Succeeded();
         }
@@ -92,7 +92,7 @@ namespace AccountManagement.Application
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true , account.Mobile);
 
             _accountRepository.Create(account);
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
 
             //_authHelper.SignIn(authViewModel);
 
@@ -135,7 +135,7 @@ namespace AccountManagement.Application
             var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
 
             account.Edit(command.Username, command.Mobile, command.RoleId, picturePath, command.Email);
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
             return operation.Succeeded();
         }
 
@@ -164,7 +164,7 @@ namespace AccountManagement.Application
 
             account.ChangePassword(password);
 
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
 
             return operation.Succeeded();
         }
@@ -226,7 +226,7 @@ namespace AccountManagement.Application
             }
 
             account.Remove();
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
             return operation.Succeeded();
         }
 
@@ -242,7 +242,7 @@ namespace AccountManagement.Application
             }
 
             account.Restore();
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
             return operation.Succeeded();
         }
 
@@ -260,7 +260,7 @@ namespace AccountManagement.Application
             //! For 1 time uses
             account.ActiveCode = ActiveCodeGenerator.GenerateActiveCode();
 
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
 
             var user = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Email, true , account.Mobile);
 
@@ -327,7 +327,7 @@ namespace AccountManagement.Application
 
             user.ActiveCode = _accountRepository.GenerateActiveCodeUser();
 
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
 
             return operation.Succeeded();
         }
@@ -429,7 +429,7 @@ namespace AccountManagement.Application
             account.EditUserPanel(command.UserName, command.Mobile, picturePath, command.Email);
 
 
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
 
             if (flag)
             {
@@ -470,7 +470,7 @@ namespace AccountManagement.Application
 
             account.ChangePassword(password);
 
-            _accountRepository.SaveChanges();
+            _accountRepository.BulkSaveChanges();
             
             _authHelper.SignOut();
             return operation.Succeeded();
